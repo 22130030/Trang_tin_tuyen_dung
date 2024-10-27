@@ -1,2 +1,5 @@
-# Trang-tuy-n-d-ng
+# Trang_tin_tuyen_dung
 Nhóm 44
+22130030_Lê Minh Cồng (Nhóm trưởng)
+22130050_Ngô Văn Đức
+22130081_Cao Minh Hiếu
