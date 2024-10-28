@@ -1,0 +1,34 @@
+.aplication{
+    width : 100%;
+}
+.header{
+    width: 100%;
+}
+/* navigation */
+.nav{
+    display: block;
+    width : 100%;
+    height : 60px;
+}
+.nav__container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding : 10px 0;
+}
+.nav-logo__img{
+    width : 100%;
+    height : 40px;  
+}
+.nav__list{
+    display: flex;
+    background-color: var(--black);
+    padding-left: 0;
+    list-style: none;
+    align-items: center;
+}
+.nav__item-link{
+    font-size: 1.6rem;
+    text-decoration: none;
+    color : #0e1225;
+}
