@@ -1,15 +1,15 @@
 :root{
     --white-color : white;
-    --text-color : gray;
+    --text-color : ##0e1225;
     --black-color : black;
-    
+    --border-color : grey;
 }
 
 *{
     box-sizing: border-box;
 }
 
-html{
+html,body{
     font-size : 62.5%;
     font-family: Roboto,sans-serif;
     margin : 0;
