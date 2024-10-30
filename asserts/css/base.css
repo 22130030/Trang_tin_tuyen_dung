@@ -26,4 +26,17 @@ html,body{
     width : 100%;
     margin : 0 -10px;
 }
-
+.slick__action{
+    position: absolute;
+    top: 50%;
+    font-size: 3rem;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    color : rgba(0,0,0,0.3);
+}
+.left__icon{
+    left : 1%;
+}
+.right__icon{
+    right: 1%;
+}
