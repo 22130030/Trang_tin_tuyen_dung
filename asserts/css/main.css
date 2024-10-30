@@ -63,6 +63,9 @@
     position: relative;
     width : 100%;
 }
+.banner:hover .slick__action{
+    color : rgba(255,255,255,0.8);
+}
 .banner__img img{
     width : 100%;
     max-height : 30vw;
