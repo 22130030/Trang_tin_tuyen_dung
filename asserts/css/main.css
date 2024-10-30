@@ -85,13 +85,13 @@
     background-color: var(--white-color);
     flex: 1;
     align-items: center;
-    margin-left: 10px;
+    margin-right: 10px;
     border-radius: 5px;
     overflow: hidden;
 }
 .search__icon{
     font-size: 1.8rem;
-    padding : 0px 5px 0 15px;
+    padding : 0px 15px;
     color : var(--blue-color);
 }
 .banner__search-input{
@@ -99,4 +99,23 @@
     height : 60px;
     outline: none;
     border-color: transparent;
+    font-size: 1.6rem;
+}
+.banner__search-btn{
+    height : 60px;
+    border : none;
+    padding : 0;
+    background-color: var(--blue-color);
+    color: var(--white-color);
+    border-radius: 5px;
+}
+.searcj-btn__icon{
+    font-size: 1.8rem;
+    padding : 0 5px 0 15px;
+    color : var(--white-color);
+}
+.search__label{
+    font-size: 1.6rem;
+    padding : 0 10px 0 0;
+    font-weight: 400;
 }
