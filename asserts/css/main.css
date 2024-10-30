@@ -27,12 +27,11 @@
     list-style: none;
     align-items: center;
 }
-<<<<<<< HEAD
 .nav__item-link{
     font-size: 1.6rem;
     text-decoration: none;
     color : #0e1225;
-=======
+}
 .nav__item{
     margin : 0 10px; 
     font-weight: 200;
