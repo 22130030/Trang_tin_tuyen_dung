@@ -88,6 +88,7 @@
     margin-right: 10px;
     border-radius: 5px;
     overflow: hidden;
+    box-shadow: 0px 2px 5px  rgba(0,0,0,0.5);
 }
 .search__icon{
     font-size: 1.8rem;
@@ -96,13 +97,13 @@
 }
 .banner__search-input{
     flex: 1;
-    height : 60px;
+    height : 50px;
     outline: none;
     border-color: transparent;
     font-size: 1.6rem;
 }
 .banner__search-btn{
-    height : 60px;
+    height : 50px;
     border : none;
     padding : 0;
     background-color: var(--blue-color);
