@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/asserts/css/main.css">
     <link rel="stylesheet" href="/asserts/css/base.css">
+    <link rel="stylesheet" href="/asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
     <title>Kiếm việc làm online</title>
 </head>
 <body>
@@ -20,29 +21,35 @@
                     <ul class="nav__list">
                         <li class="nav__item">
                             <a href="" class="nav__item-link">
+                                <i class="nav-item__icon fa-solid fa-magnifying-glass"></i>
                                 Ngành nghề/Địa điểm
                             </a>
                         </li>
                         <li class="nav__item">
                             <a href="" class="nav__item-link">
+                                <i class="nav-item__icon fa-solid fa-city"></i>
                                 Công ty
                             </a>
                         </li>
                         <li class="nav__item">
                             <a href="" class="nav__item-link">
+                                <i class="nav-item__icon fa-solid fa-book-open"></i>   
                                 Cẩm nang việc làm
                             </a>
                         </li>
-                        <li class="nav__item">
+                        <li class="nav__item nav__item-link--separated">
                             <a href="" class="nav__item-link">
+                                <i class="nav-item__icon fa-regular fa-message"></i>
+                                Chat
                             </a>
                         </li>
-                        <li class="nav__item">
-                            <a href="" class="nav__item-link">
+                        <li class="nav__item nav__item-link--separated">
+                            <a href="" class="nav__item-link ">
+                                <i class="nav-item__icon fa-solid fa-house"></i>
                                 My CareerLink
                             </a>
                         </li>
-                        <li class="nav__item">
+                        <li class="nav__item nav__item-link--separated">
                             <a href="" class="nav__item-link">
                                 Nhà tuyển dụng
 
@@ -54,8 +61,23 @@
 
             <!-- banner -->
             <div class="banner">
+                <div class="banner__img">
+                    <img src="/asserts/img/cong-ty-samsung-1-768x350.jpg" alt="">
+                </div>
                 <div class="grid">
+                    <div class="banner__header">
+                        <div class="banner-search">
+                            <div class="search__info search__city">
+                                <i class="search__icon nav-item__icon fa-solid fa-magnifying-glass"></i>
+                                <input type="text" class="banner__search-input search__city-info" placeholder="Nhập tên vị trí,công ty,từ khóa">
+                            </div>
+                            <div class="search__info search__address">
+                                <i class="search__icon fa-solid fa-location-dot"></i>
+                                <input type="text" class="banner__search-input search__address-info" placeholder="Nhập tỉnh,Thành phố">
+                            </div>
 
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
