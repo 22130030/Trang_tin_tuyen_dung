@@ -1,0 +1,147 @@
+html{
+    margin: 0;
+    padding: 0;
+    font-family: Roboto,sans-serif;
+}
+.container_2{
+    width: 100%;
+    height: 100%;
+}
+.wrap_flex{
+    width: 1110px;
+    height: 56px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+
+}
+.flex_fill{
+    font-weight: bolder ;
+    align-items: center;
+}
+.d_flex{
+    margin-top: 12px;
+    width: 261.6px;
+    height: 56px;
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+}
+.text_search{
+    outline: none;
+   border: none;
+    background-color: #eee;
+}
+
+/* .body{
+
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+.container_2{
+    width: 100%;
+    height: 100%;
+    background-color: aqua;
+}
+.container_2 .item{
+    width: 100%;
+    height: 100px;
+    background-color: gray;
+    display: flex;
+    justify-content: space-around;
+}
+h1{
+    font-size: 40px;
+    margin-left: -30px;
+}
+.container_2 .item .item_1{
+    width: 262px;
+    height: 44px;
+    background-color: aquamarine;
+    margin-top: 25px;
+    border: solid 1px blue;
+    border-radius: 3px;
+    background-color: #eee;
+}
+.container_2 .item .item_1 .form_group_position .textfield{
+    padding-left: 30px;
+    width: 262px;
+    height: 44px; 
+    border-radius: 5px;
+    background-color: #F1F5F9;
+    border: solid 1px blue;
+    border: none;
+}
+.container_2 .item .item_1 .form_group_position .fa-solid{
+    margin-top: 12px;
+    margin-left: 10px
+    
+}
+.container_2 .item .item_1 .form_group_position{
+    width: 262px;
+    height: 44px; 
+    display: flex;
+}
+Item2
+.container_2 .item2{
+    margin-top: -20px;
+    width: 74.2%;
+    height: 50px;
+    margin-left: 180px;
+}
+.container_2 .item2 .item2_text{
+   text-align: right;
+   font-size: 17px;
+   font-weight: 600;
+   font-family: Arial;
+}
+item3 Responsive
+.container_2 .item3{
+    width: 1120px;
+    height: 500px;
+    margin-left: 175px;
+}
+.grid{
+    width: 1200px;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto;
+    background-color: blue;
+    align-items: flex-start;
+}
+.grid_row{
+    flex-wrap: wrap;
+    margin-left: -12px;
+    margin-right: -12px;
+    align-items: flex-start;
+    display: flex;
+    margin-left: 170px;
+
+}
+.grid_column_3{
+   padding-left: 12px;
+   padding-right: 12px;
+   width:25% ;
+}
+.grid_column_9{
+    padding-left: 12px;
+    padding-right: 12px;
+    width:75% ;
+ }
+ .tuade{
+    font-size: 16px;
+    margin-left: 5px;
+ }
+ .category_list {
+    list-style-type: none; Xóa dấu chấm đầu dòng
+ }
+ .category_item {
+    margin-left: -40px;
+ }
+ .category_item label:hover {
+   color: #007bff;
+   cursor: pointer;
+ } */
