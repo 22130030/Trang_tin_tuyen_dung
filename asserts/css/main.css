@@ -64,7 +64,8 @@
     width : 100%;
 }
 .banner:hover .slick__action{
-    color : rgba(255,255,255,0.8);
+    background-color : rgba(255,255,255,0.8);
+    color : var(--black-color);
 }
 .banner__img img{
     width : 100%;
@@ -122,4 +123,22 @@
     font-size: 1.6rem;
     padding : 0 10px 0 0;
     font-weight: 400;
+}
+.banner__dots{
+    position: absolute;
+    display: flex;
+    width : 100%;
+    bottom : 12px;
+    justify-content: center;
+}
+.banner__dot{
+    width : 10px;
+    height : 10px;
+    list-style: none;
+    border-radius: 50%;
+    background-color : var(--text-color);
+
+}
+.banner__dot + .banner__dot{
+    margin-left: 8px;
 }

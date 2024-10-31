@@ -26,17 +26,31 @@ html,body{
     width : 100%;
     margin : 0 -10px;
 }
-.slick__action{
+.slick_action__buttons{
     position: absolute;
     top: 50%;
-    font-size: 3rem;
     transform: translateY(-50%);
+    left : 1%;
+    width : 98%;
+    display: flex;
+    justify-content: space-between;
+}
+.slick__action{
+    width : 40px;
+    height : 40px;
     border-radius: 50%;
-    color : rgba(0,0,0,0.3);
+    border: none;
+    color : var(--text-color); 
+    font-weight: bold;
+    font-size: 2.2rem;
+    
+}
+.slick__action:hover{
+    color: var(--blue-color) !important;
+    border: 1px solid var(--blue-color) ;
 }
 .left__icon{
-    left : 1%;
+
 }
 .right__icon{
-    right: 1%;
 }
