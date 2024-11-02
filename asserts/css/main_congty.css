@@ -20,20 +20,33 @@ html{
     align-items: center;
 }
 .d_flex{
-    margin-top: 12px;
+    /* check */
+    margin-top: 15px;
     width: 261.6px;
-    height: 56px;
-    background-color: #eee;
+    /* check */
+    height: 45px;
+    /* check */
+    background-color: #F1F5F9;
     display: flex;
-    justify-content: center;
+    justify-content:left;
     align-items: center;
     border-radius: 3px;
+    /* check */
+    border: solid 1px #0E1225;
 }
 .text_search{
     outline: none;
-   border: none;
-    background-color: #eee;
+    border: none;
+    /* check */
+    background-color: #F1F5F9;
+    /* check */
+    font-size: 15px;
 }
+.fa-solid{
+    /* check */
+    margin-left: 15px;
+}
+
 
 /* .body{
 
