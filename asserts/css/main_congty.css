@@ -3,6 +3,7 @@ html{
     padding: 0;
     font-family: Roboto,sans-serif;
 }
+/* container 2 */
 .container_2{
     width: 100%;
     height: 100%;
@@ -46,115 +47,101 @@ html{
     /* check */
     margin-left: 15px;
 }
-
-
-/* .body{
-
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-.container_2{
-    width: 100%;
-    height: 100%;
-    background-color: aqua;
-}
-.container_2 .item{
-    width: 100%;
-    height: 100px;
-    background-color: gray;
+/* container 3 */
+.container_3{
     display: flex;
-    justify-content: space-around;
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 20px;
 }
-h1{
-    font-size: 40px;
-    margin-left: -30px;
+/* sidebar_left */
+.sidebar {
+    width: 250px;
+    padding: 20px;
 }
-.container_2 .item .item_1{
-    width: 262px;
-    height: 44px;
-    background-color: aquamarine;
-    margin-top: 25px;
-    border: solid 1px blue;
-    border-radius: 3px;
-    background-color: #eee;
+
+.sidebar h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
 }
-.container_2 .item .item_1 .form_group_position .textfield{
-    padding-left: 30px;
-    width: 262px;
-    height: 44px; 
-    border-radius: 5px;
-    background-color: #F1F5F9;
-    border: solid 1px blue;
-    border: none;
+
+.sidebar ul {
+    list-style: none;
+    margin-bottom: 20px;
 }
-.container_2 .item .item_1 .form_group_position .fa-solid{
-    margin-top: 12px;
-    margin-left: 10px
+
+.sidebar ul li {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #555;
+}
+
+.sidebar ul li a {
+    color: #007bff;
+    text-decoration: none;
+}
+#location-list {
+    max-height: 170px; /* Giới hạn chiều cao */
+    overflow-y: hidden; /* Ban đầu không hiển thị thanh cuộn */
+    transition: max-height 0.3s ease;
+}
+
+#location-list.expanded {
+    max-height: 300px; /* Chiều cao mới khi mở rộng */
+    overflow-y: auto; /* Thêm thanh cuộn khi cần */
     
 }
-.container_2 .item .item_1 .form_group_position{
-    width: 262px;
-    height: 44px; 
-    display: flex;
-}
-Item2
-.container_2 .item2{
-    margin-top: -20px;
-    width: 74.2%;
-    height: 50px;
-    margin-left: 180px;
-}
-.container_2 .item2 .item2_text{
-   text-align: right;
-   font-size: 17px;
-   font-weight: 600;
-   font-family: Arial;
-}
-item3 Responsive
-.container_2 .item3{
-    width: 1120px;
-    height: 500px;
-    margin-left: 175px;
-}
-.grid{
-    width: 1200px;
-    max-width: 100%;
-    max-height: 100%;
-    margin: 0 auto;
-    background-color: blue;
-    align-items: flex-start;
-}
-.grid_row{
-    flex-wrap: wrap;
-    margin-left: -12px;
-    margin-right: -12px;
-    align-items: flex-start;
-    display: flex;
-    margin-left: 170px;
 
+.hidden-location {
+    display: none; 
+    /* Ẩn các tỉnh ban đầu */
 }
-.grid_column_3{
-   padding-left: 12px;
-   padding-right: 12px;
-   width:25% ;
+
+/* sidebar_right */
+/* .company-list {
+    flex-grow: 1;
+    padding-left: 20px;
+    
 }
-.grid_column_9{
-    padding-left: 12px;
-    padding-right: 12px;
-    width:75% ;
- }
- .tuade{
+
+.company-list header {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.company-list header h2 {
+    font-size: 18px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.company-card {
+    background: #f9f9f9;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+}
+
+.company-card img {
+    max-width: 100px;
+    margin-bottom: 10px;
+}
+
+.company-card h3 {
     font-size: 16px;
-    margin-left: 5px;
- }
- .category_list {
-    list-style-type: none; Xóa dấu chấm đầu dòng
- }
- .category_item {
-    margin-left: -40px;
- }
- .category_item label:hover {
-   color: #007bff;
-   cursor: pointer;
- } */
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.company-card p {
+    font-size: 14px;
+    color: #777;
+} */
+
+
