@@ -142,3 +142,46 @@
 .banner__dot + .banner__dot{
     margin-left: 8px;
 }
+
+/* content */
+.content{
+    position: relative;
+}
+.content__title{
+    display: block;
+    margin: 15px 0 20px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color : #00133f;
+}
+
+.content__job-item{
+    display: flex;
+    height  : 125px;
+    padding : 10px;
+    border: 1px solid black;
+}
+.wrapper__logo{
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+}
+.wrapper__img{
+    width : 96px;
+    object-fit: cover;
+}
+.wrapper__info{
+    display: block;
+    flex: 1;
+}
+.job__name{
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem ;
+}
+.job__tag{
+    flex : 1;
+}
+.name__lable{
+    text-decoration: none;
+}
