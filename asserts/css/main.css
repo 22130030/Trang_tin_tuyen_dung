@@ -258,7 +258,7 @@
 
 /* categoty */
 .content-categorys{
-    /* position: relative; */
+    margin-bottom: 30px;
 }
 .category__container{
     position: relative;
@@ -292,12 +292,16 @@
     text-decoration: none;
 }
 .card__title{
-    display: block;
+    display: -webkit-box;
     width : 50%;
+    color : var(--blue-color);
     text-align: center;
     margin-top: 15px;
     font-size: 2.2rem;
-    color : var(--blue-color);
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
 }
 .card__quantity-job{
     display: block;
@@ -305,4 +309,9 @@
     font-size: 1.4rem;
     color : var(--text-color);
     margin-top: 15px;
+}
+
+/* pagination home */
+.home__pagination{
+    margin: 20px 0;
 }
