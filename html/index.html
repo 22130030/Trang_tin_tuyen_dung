@@ -11,7 +11,7 @@
 <body>
     <div class="application">
         <!-- header -->
-        <div class="header">he
+        <div class="header">
             <!-- navigation -->
             <nav class="nav">
                 <div class="grid nav__container">
@@ -100,10 +100,16 @@
                 </ul>
             </div>
         </div>
-        <div class="content">
+        <div class="content-main">
             <div class="grid">
+                <div class="content-head">
                     <h2 class="content__title">Việc làm hấp dẫn</h2>
-                <div class="grid__row">
+                    <a href="" class="content__show-all">
+                        <span class="show-all__lable">Xem tất cả</span>
+                        <span class="show-all__right-icon"> > </span>
+                    </a>
+                </div>
+                <div class="grid__row jobs">
                     <div class="grid__col-4">
                         <div class="content__job-item">
                             <div class="wrapper__logo">
@@ -112,9 +118,9 @@
                             <div class="wrapper__info">
                                 <div class="wrapper__header">
                                     <div class="job__name">
+                                        <span class="name-status">HOT</span>
                                         <div class="job__tag">
 
-                                            <span class="name-status">HOT</span>
                                             <a class="name__lable" href="">Chuyên Viên Kỹ Thuật Hiện Trường (Dân Dụng, Sơn Bả Thạch Cao, Hạ Tầng Ép Cọc)</a>
                                         </div>
 
@@ -123,7 +129,7 @@
                                         </div>
                                     </div>
                                     <div class="job__company">
-                                        <span class="job__company-title"><p class="text-line-clamp-1">
+                                        <span class="job__company-title">
                                             Công Ty Cổ Phần Phát Triển Và Đầu Tư Xây Dựng Vincons - Tập đoàn VinGroup
                                         </span>
                                     </div>
@@ -146,8 +152,41 @@
                             </div>
                         </div>
                     </div>
+                    
+                    
+                    <div class="slick_action__buttons">
+                        <button class="right__icon slick__action"> < </button>
+                        <button class="right__icon slick__action"> > </button>
+                    </div>
                    
                     
+                </div>
+            </div>
+        </div>
+        <div class="content-categorys">
+            <div class="grid ">
+                <div class="content-head">
+                    <h2 class="content__title">Việc làm theo ngành nghề</h2>
+                    <a href="" class="content__show-all">
+                        <span class="show-all__lable">Xem tất cả</span>
+                        <span class="show-all__right-icon"> > </span>
+                    </a>
+                </div>
+                <div class="grid__row jobs">
+                    <div class="grid__col-2">
+                        <a class="category__card">
+                            <div class="card__img">
+                                
+                                <img src="https://static.careerlink.vn/web/images/categories/1.svg" alt="">
+                            </div>
+                            <span class="card__title">Kế toán / Kiểm toán</span>
+                            <span class="card__quantity-job">1513 việc làm</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="slick_action__buttons">
+                    <button class="right__icon slick__action"> < </button>
+                    <button class="right__icon slick__action"> > </button>
                 </div>
             </div>
         </div>
