@@ -144,7 +144,7 @@
 }
 
 /* content */
-.content-main{
+.content__container{
     position: relative;
 }
 .content-head{
@@ -170,9 +170,7 @@
 .show-all__right-icon{
     font-size: 2rem;
 }
-.jobs{
-    /* position: relative; */
-}
+
 .content__job-item{
     display: flex;
     /* position: absolute; */
@@ -260,6 +258,9 @@
 
 /* categoty */
 .content-categorys{
+    /* position: relative; */
+}
+.category__container{
     position: relative;
 }
 .category__card{
@@ -267,12 +268,12 @@
     min-height: 272px;
     max-height: 272px;
     background-color: #edf2fc;
+    padding  :15px 0;
 }
 .card__img {
     width: 132px;
     height: 132px;
     border-radius: 50%;
-    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -281,7 +282,27 @@
 }
 
 .card__img img {
-    width: 50%; 
-    height: 50%; 
+    width: 60%; 
+    height: 60%; 
     object-fit: cover; 
+}
+.card__link{
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+}
+.card__title{
+    display: block;
+    width : 50%;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 2.2rem;
+    color : var(--blue-color);
+}
+.card__quantity-job{
+    display: block;
+    text-align: center;
+    font-size: 1.4rem;
+    color : var(--text-color);
+    margin-top: 15px;
 }
