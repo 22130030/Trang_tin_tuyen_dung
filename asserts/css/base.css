@@ -22,9 +22,15 @@ html,body{
     width : 100%;
     margin : 0 auto;
 }
-.grid-row{
+.grid__row{
+    display: flex;
+    flex-wrap: wrap;
     width : 100%;
     margin : 0 -10px;
+}
+.grid__col-4{
+    width : 33.33%;
+    padding: 0 5px;
 }
 .slick_action__buttons{
     position: absolute;
