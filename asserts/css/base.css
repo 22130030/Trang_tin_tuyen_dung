@@ -3,7 +3,7 @@
     --text-color : rgb(102, 102, 102);
     --black-color : black;
     --border-color : grey;
-    --blue-color : #0069db;
+    --blue-color : rgb(0, 105, 219);
 }
 
 *{
@@ -26,18 +26,23 @@ html,body{
     display: flex;
     flex-wrap: wrap;
     width : 100%;
-    margin : 0 -10px;
+    /* margin : 0 -5px; */
+
 }
 .grid__col-4{
     width : 33.33%;
+    padding: 0 5px;
+}
+.grid__col-2{
+    width : 16.67%;
     padding: 0 5px;
 }
 .slick_action__buttons{
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left : 1%;
-    width : 98%;
+    left : 0.1%;
+    width : 99.9%;
     display: flex;
     justify-content: space-between;
 }
