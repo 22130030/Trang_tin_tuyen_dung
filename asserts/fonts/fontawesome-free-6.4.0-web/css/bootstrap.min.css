@@ -174,7 +174,7 @@ a {
 }
 
 a:hover {
-    color: #c55303;
+    color: #0057b5;
     text-decoration: underline
 }
 
@@ -9293,7 +9293,7 @@ button.bg-dark:hover {
 
 .mt-3,
 .my-3 {
-    margin-top: 1rem !important
+    margin-top: 3rem !important
 }
 
 .mr-3,
@@ -11515,7 +11515,7 @@ button.bg-dark:hover {
 }
 
 .text-primary {
-    color: #fb771a !important
+    color: #0057b5 !important
 }
 
 a.text-primary:focus,
