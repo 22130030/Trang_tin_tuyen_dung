@@ -50,6 +50,67 @@
     border : 1px solid rgba(0,0,0,0.2);
 }
 
+/* nav menu */
+.nav__dropdown-menu{
+
+    position: absolute;
+    min-width: 350px;
+    top : calc(100% + 10px);
+    right: 0;
+    z-index: 1;
+    display: block;
+    background-color: white;
+    padding : 15px 10px 10px;
+    border : 1px solid rgba(0,0,0,0.3);
+    border-radius: 5px;
+}
+.menu__buttons{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.btn{
+    min-width: 152px;
+    height : 40px;
+    border-radius: 20px;
+    border : 1px solid var(--border-color);
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+.menu__register{
+    background-color: var(--blue-color);
+    color : #f5f5f5;
+}
+.menu__login{
+    background-color: var(--white-color);
+    color : var(--blue-color);
+    border: 1px solid var(--blue-color);
+}
+.btn + .btn{
+    margin-left: 20px;
+}
+.menu__list{
+    list-style: none;
+    padding-left: 0px;
+    text-align: center;
+}
+.menu__item{
+    padding : 5px 0;
+
+}
+.menu__link{
+    text-decoration: none;
+    color : var(--text-color);
+}
+.menu__link-icon{
+    font-weight: 550;
+}
+.menu__link-title{
+    font-size: 1.8rem;
+    margin-left: 5px;
+}
+
+
 .nav__item-link{
     font-size: 1.6rem;
     text-decoration: none;
