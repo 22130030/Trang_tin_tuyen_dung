@@ -193,6 +193,10 @@ html,body{
     width : 16.66%;
     padding: 0 5px;
 }
+.grid__col-10{
+    width : 83.34%
+    
+}
 .slick_action__buttons{
     position: absolute;
     top: 50%;
