@@ -170,7 +170,7 @@ html,body{
 
 /* sidebar_right */
 
-/* .company-list {
+.company-list {
     flex-grow: 1;
     padding-left: 20px;
     margin-right: 20px;
@@ -200,7 +200,7 @@ html,body{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-} */
+}
 /* Medium screens (e.g., tablets) */
 @media (max-width: 992px) {
     .grid {
@@ -222,7 +222,7 @@ html,body{
     }
 }
 
-/* .company-card {
+.company-card {
     background: #f9f9f9;
     padding: 15px;
     text-align: center;
@@ -244,6 +244,6 @@ html,body{
 .company-card p {
     font-size: 14px;
     color: #777;
-} */
+}
 
 
