@@ -29,41 +29,41 @@ h1{
 }
 /* CSS cho thanh tìm kiếm */
 
-/* .search-bar {
+.search-bar {
     display: flex;
     align-items: center;
     gap: 5px;
     margin-right: 5px;
-} */
+}
 
 /* Container cho biểu tượng và ô nhập liệu */
-/* .input-container {
+.input-container {
     position: relative;
     display: flex;
     align-items: center;
-} */
+}
 
 /* CSS cho biểu tượng bên trong ô nhập liệu */
-/* .icon-inside {
+.icon-inside {
     position: absolute;
     left: 10px;
     font-size: 14px;
     color: #888;
-} */
+}
 
 /* CSS cho ô nhập liệu tìm kiếm */
-/* .search-input {
-    padding: 10px 10px 10px 30px;  */
+.search-input {
+    padding: 10px 10px 10px 30px; 
     /* Thêm padding bên trái để chừa chỗ cho biểu tượng */
-    /* font-size: 14px;
+    font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
     width: 250px;
-} */
+}
 
 /* CSS cho ô nhập liệu địa điểm */
-/* .location-input {
+.location-input {
     padding: 10px;
     font-size: 14px;
     border: 1px solid #ccc;
@@ -71,10 +71,10 @@ h1{
     width: 200px;
     border-radius: 5px;
     border-left: none;
-} */
+}
 
 /* CSS cho nút Tìm kiếm */
-/* .search-button {
+.search-button {
     padding: 10px 20px;
     font-size: 14px;
     color: white;
@@ -85,12 +85,12 @@ h1{
     display: flex;
     align-items: center;
     gap: 5px;
-} */
+}
 
 /* CSS cho placeholder (gợi ý) trong ô nhập liệu */
-/* .search-input::placeholder, .location-input::placeholder {
+.search-input::placeholder, .location-input::placeholder {
     color: #ccc;
-} */
+}
 
 /* container2 */
 /* .container2 {
