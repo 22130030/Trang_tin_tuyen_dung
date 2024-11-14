@@ -1,5 +1,6 @@
 .header__container{
     position: relative;
+    margin-bottom: 40px;
 }
 .header__banner{
     display: block;
@@ -30,4 +31,128 @@
     color : var(--text-color);
     text-align: center;
     line-height: 2rem;
+}
+.header__nav{
+    padding: 10px;
+}
+.navigation__blog{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.nav__list{
+    list-style: none;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.nav__item{
+    color: var(--text-color);
+}
+.nav__item-link:hover{
+    color : var(--orange-color);
+}
+.nav__item + .nav__item{
+    margin-left: 20px;
+}
+.nav__item-link{
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.6rem;
+    text-align: center;
+    padding : 10px;
+    border: 1px solid rgba(0,0,0,0.5);
+    border-radius: 20px;
+}
+
+/* container */
+.container{
+    margin-bottom: 20px;
+}
+.featured__blog{
+    display: block;
+    margin: 20px 0 30px;
+
+}
+.featured-blog__title{
+    font-size: 3rem;
+    padding-left: 5px;
+    color: #263a4d;
+}
+/* thumbnail */
+.featured-item__thumb{
+    display: flex;
+    max-height : 381px;
+    width: 100%;
+}
+.featured__thumb-link{
+    text-decoration: none;
+    flex: 1;
+}
+.featured__thumb-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-size: contain;
+}
+
+/* featured__detail */
+.featured__content{
+    padding: 20px 20px 30px;
+    background-color: #f4f5f6;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.featured-content__name{
+    font-size: 1.3rem;
+}
+.featured-name__link{
+    display: block;
+    margin-top: 5px;
+    text-decoration: none;
+    color : var(--green-color);
+    font-weight: 540;
+}
+.featured-content__title{
+    font-size: 1.8rem;
+    color : #263a4d;
+    padding: 15px 0;
+}
+.featured-content__title h3{
+    margin: 0;
+}
+.featured-content__created{
+    display: flex; 
+    color: var(--text-color);
+    font-size: 1.2rem;
+    align-items: center;
+}
+.featured-content__created span{
+    margin-right: 5px;
+}  
+.featured-content__dot{
+    display: block;
+    --size : 3px;
+    width: var(--size);
+    height : var(--size);
+    background-color: var(--text-color);
+    border-radius: 50%;
+    margin-right: 5px;
+} 
+.featured-content__description{
+    display: block;
+    margin-top: 20px;
+    font-size: 1.3rem;
+    color : #263a4d;
+    line-height: 2.3rem;
+}
+.featured-content__see-more{
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+}
+.featured-content__see-more a{
+    text-decoration: none;
+    color : var(--green-color);
+    font-size: 1.5rem;
 }

@@ -5,6 +5,7 @@
     --border-color : grey;
     --blue-color : rgb(0, 105, 219);
     --orange-color : #f49532;
+    --green-color : #007a37;
 }
 
 *{
@@ -180,6 +181,10 @@ html,body{
     width : 100%;
     /* margin : 0 -5px; */
 
+}
+.grid__col-6{
+    width : 50%;
+    padding : 0 5px;
 }
 .grid__col-4{
     width : 33.33%;
