@@ -1,0 +1,33 @@
+.header__container{
+    position: relative;
+}
+.header__banner{
+    display: block;
+    width: 100%;
+}
+.header__img{
+    width: 100%;
+    min-height: 380px;
+    background-position-x:  center;
+    background-position: center;
+    background-size: cover;
+}
+.header__title{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.header__lable{
+    text-align: center;
+    font-size: 3rem;
+    color : var(--orange-color);
+    margin-bottom: 10px;
+}
+.header__content{
+    display: block;
+    font-size: 1.6rem;
+    color : var(--text-color);
+    text-align: center;
+    line-height: 2rem;
+}
