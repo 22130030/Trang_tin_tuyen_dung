@@ -13,6 +13,9 @@
     margin: 0;
     border-bottom: 1px solid gray;
 }
+.category--active{
+    color : #f5f5f5;
+}
 .category__list{
     list-style: none;
     padding-left: 0;
@@ -26,5 +29,18 @@
 .content__url{
     margin-top: 20px;
     font-size: 1.6rem;
-    padding : 10px 0;
+    padding : 10px 0 10px 10px;
+}
+
+/* content */
+.works{
+    /* display: flex; */
+    width : 100%;
+}
+.work__heading{
+    display: flex;
+}
+.work__search{
+    flex : 1;
+    margin-right: 50px;
 }

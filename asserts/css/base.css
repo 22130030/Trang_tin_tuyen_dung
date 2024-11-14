@@ -194,8 +194,8 @@ html,body{
     padding: 0 5px;
 }
 .grid__col-10{
-    width : 83.34%
-    
+    width : 83.34%;
+    padding : 0 5px;
 }
 .slick_action__buttons{
     position: absolute;
