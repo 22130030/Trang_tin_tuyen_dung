@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bố cục 2 cột</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .container {
+        display: flex;
+        max-width: 1200px;
+        margin: 20px auto;
+        gap: 20px;
+    }
+    .left-column {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+    }
+    .right-column {
+        flex: 1;
+        display: grid;
+        grid-template-rows: repeat(2, auto);
+        gap: 20px;
+    }
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    .card img {
+        width: 100%;
+        height: auto;
+    }
+    .card-content {
+        padding: 15px;
+        /* flex-grow: 1; */
+    }
+    .card-content h3 {
+        font-size: 18px;
+        margin: 0 0 10px;
+        color: #333;
+    }
+    .card-content p {
+        font-size: 14px;
+        color: #666;
+        margin: 0 0 10px;
+    }
+    .category {
+        color: green;
+        font-size: 12px;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Left Column (Main Article) -->
+    <div class="left-column">
+        <div class="card">
+            <img src="https://via.placeholder.com/800x400" alt="Main Article">
+            <div class="card-content">
+                <p class="category">BÍ KÍP TÌM VIỆC</p>
+                <h3>Tổng hợp 10 việc làm tiếng Anh siêu HOT 2024 cho dân ngoại ngữ</h3>
+                <p>TopCV • 14/11/2024</p>
+                <p>Với xu thế hội nhập như hiện nay, nhu cầu về việc làm cần tiếng Anh của các doanh nghiệp ngày càng cao...</p>
+                <a href="#">Xem thêm →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column (Sub Articles) -->
+    <div class="right-column">
+        <div class="card">
+            <img src="https://via.placeholder.com/400x200" alt="Sub Article">
+            <div class="card-content">
+                <p class="category">KIẾN THỨC CHUYÊN NGÀNH</p>
+                <h3>Các ngành nghề khối A nào dễ xin việc và có lương cao nhất?</h3>
+                <p>TopCV • 14/11/2024</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/400x200" alt="Sub Article">
+            <div class="card-content">
+                <p class="category">KIẾN THỨC CHUYÊN NGÀNH</p>
+                <h3>Telesales là gì? Những công việc Telesales HOT nhất bạn cần biết</h3>
+                <p>TopCV • 14/11/2024</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/400x200" alt="Sub Article">
+            <div class="card-content">
+                <p class="category">KIẾN THỨC CHUYÊN NGÀNH</p>
+                <h3>Tổng quan về công việc ngành Logistics</h3>
+                <p>TopCV • 12/11/2024</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/400x200" alt="Sub Article">
+            <div class="card-content">
+                <p class="category">KIẾN THỨC CHUYÊN NGÀNH</p>
+                <h3>Các bước để trở thành chuyên viên IT giỏi</h3>
+                <p>TopCV • 10/11/2024</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
