@@ -135,3 +135,68 @@ body {
     opacity: 0.9;
     pointer-events: none; }
    
+  .control__indicator:after {
+    font-family: 'icomoon';
+    content: '\e5ca';
+    position: absolute;
+    display: none;
+    font-size: 16px;
+    -webkit-transition: .3s all ease;
+    -o-transition: .3s all ease;
+    transition: .3s all ease; }
+    .control--checkbox input:checked ~ .control__indicator {
+      background-color: #fff; 
+      border: 2px solid  #0057b5;; 
+  }
+  
+  .control--checkbox .control__indicator:after {
+      content: "";
+      position: absolute;
+      display: none;
+      width: 6px;
+      height: 10px;
+      border: solid #333;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+  }
+  
+  .control input:checked ~ .control__indicator:after {
+      display: block;
+  }
+  
+  .control--checkbox input:disabled ~ .control__indicator {
+      background-color: #7e0cf5;
+      opacity: 0.2;
+  }
+  
+  .control--checkbox input:disabled ~ .control__indicator:after {
+      border-color: #7b7b7b;
+  }
+  
+  .btn {
+    text-decoration: none !important; }
+    .btn a {
+      color:#fff
+    }
+
+    .icon-fb,
+    .icon-gg {
+        width: 25px; 
+        height: 25px;
+        margin-right: 10px; 
+    }
+    
+    .btn-facebook {
+        background-color: #173b88;
+        color: #fff;
+    }
+    
+    .btn-google {
+        background-color: #173b88;
+        color: #fff;
+    }
+  
+  
