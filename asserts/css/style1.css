@@ -211,6 +211,12 @@ body {
         color: #0057b5;
         text-decoration: underline;
       }
+      .footer {
+        background-color: #e5e5e5;
+        padding: 20px 0 40px;
+        border-top: 1px solid rgba(0, 0, 0, 0.4);
+        margin-top: 0px;
+    }
     
      
       
