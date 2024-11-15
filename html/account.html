@@ -29,10 +29,10 @@
         <div class="grid nav__container">
             <div class="nav__logo">
                 <a href="/html/home.html" class="nav__logo-link">
-                  <img src="/asserts/img/brand-logo@2x.png" alt="" class="nav-logo__img">
+                    <img src="/asserts/img/brand-logo@2x.png" alt="" class="nav-logo__img">
                 </a>
-              </div>
-        
+            </div>
+
             <ul class="nav__list">
                 <div class="search-bar">
                     <div class="input-container">
@@ -63,9 +63,11 @@
 
                         <div class="nav__dropdown-menu">
                             <div class="menu__buttons">
-                              <button class="btn menu__register" onclick="window.location.href='/html/register.html'">Đăng
-                                ký</button>
-                              <button class="btn menu__login" onclick="window.location.href='/html/login.html'">Đăng nhập</button>
+                                <button class="btn menu__register"
+                                    onclick="window.location.href='/html/register.html'">Đăng
+                                    ký</button>
+                                <button class="btn menu__login" onclick="window.location.href='/html/login.html'">Đăng
+                                    nhập</button>
                             </div>
                             <ul class="menu__list">
                                 <li class="menu__item">
@@ -275,25 +277,57 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const navUser = document.querySelector('.nav__has--form-login');
-            const dropdownMenu = document.querySelector('.nav__dropdown-menu');
+    <!-- footer -->
+    <div class="footer">
+        <div class="grid">
+            <div class="grid__row">
+                <div class="grid__col-4">
+                    <h3 class="footer__heading">Dành cho ứng viên</h3>
+                    <ul class="footer__list">
+                        <li class="footer__item">Việc làm mới nhất</li>
+                        <li class="footer__item">Tất cả việc làm</li>
+                        <li class="footer__item">Việc làm theo ngành nghề</li>
+                    </ul>
+                </div>
+                <div class="grid__col-4">
+                    <h3 class="footer__heading">Dành cho nhà tuyển dụng</h3>
+                    <ul class="footer__list">
+                        <li class="footer__item">Đăng tin tuyển dụng</li>
+                        <li class="footer__item">Đăng ký nhà tuyển dụng</li>
+                        <li class="footer__item">Tìm hồ sơ</li>
+                    </ul>
+                </div>
+                <div class="grid__col-4">
+                    <h3 class="footer__heading">Designer Website</h3>
+                    <ul class="footer__list">
+                        <li class="footer__item">Ngô Văn Đức</li>
+                        <li class="footer__item">Lê Minh Công</li>
+                        <li class="footer__item">Cao Minh Hiếu</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-            // Hiển thị menu khi click vào `.nav__has--form-login`
-            navUser.addEventListener('click', function (event) {
-                event.stopPropagation();
-                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-            });
 
-            // Đóng menu khi click ra ngoài
-            document.addEventListener('click', function (event) {
-                if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                    dropdownMenu.style.display = 'none';
-                }
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const navUser = document.querySelector('.nav__has--form-login');
+                const dropdownMenu = document.querySelector('.nav__dropdown-menu');
+
+                // Hiển thị menu khi click vào `.nav__has--form-login`
+                navUser.addEventListener('click', function (event) {
+                    event.stopPropagation();
+                    dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+                });
+
+                // Đóng menu khi click ra ngoài
+                document.addEventListener('click', function (event) {
+                    if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                        dropdownMenu.style.display = 'none';
+                    }
+                });
             });
-        });
-    </script>
+        </script>
 
 </body>
 
