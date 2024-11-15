@@ -32,7 +32,7 @@
     text-align: center;
     line-height: 2rem;
 }
-.header__nav{
+.header__nav-bottom{
     padding: 10px;
 }
 .navigation__blog{
@@ -40,22 +40,24 @@
     display: flex;
     justify-content: center;
 }
-.nav__list{
+ 
+.nav-bottom__list{
     list-style: none;
     display: flex;
     width: 100%;
     justify-content: center;
 }
-.nav__item{
+.nav-bottom__item{
     color: var(--text-color);
 }
-.nav__item-link:hover{
+.nav-bottom__item-link:hover{
     color : var(--orange-color);
 }
-.nav__item + .nav__item{
+.nav-bottom__item + .nav-bottom__item{
     margin-left: 20px;
 }
-.nav__item-link{
+.nav-bottom__item-link{
+    color : var(--text-color);
     cursor: pointer;
     text-decoration: none;
     font-size: 1.6rem;
@@ -211,6 +213,24 @@
 }
 
 /* carrer handbook */
+.career__hanbook{
+    display: block;
+    margin-top: 80px;
+}
+.career-hanbook__container{
+    position: relative;
+}
+.career__list{
+    display: block;
+    background-color: #f4f5f6;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+.career__list:hover{
+    cursor: pointer;
+    border: 1px solid var(--green-color);
+}
 .career__head{
     display: block;
     margin : 20px 0 30px;
@@ -227,5 +247,37 @@
 }
 .career__content{
     display: block;
-    padding : 10px;
+    padding : 10px 15px;
 }
+.career-content__head{
+    color : var(--green-color);
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 500;
+    margin-top: 10px;
+}
+.career-content__name h4{
+    font-size: 2.5rem;
+    margin: 15px 0;
+    color : #0F172A;
+}
+.career-content__desciption{
+    display: block;
+    font-size: 1.5rem;
+    margin-top: 10px;
+    color : var(--text-color);
+}
+.content__created-at{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+.content__created-at h4,.content__created-at span{
+    color : var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin : 0 10px 0 0 ;
+ }
+ .content__dot{
+    margin-right: 10px;
+ }
