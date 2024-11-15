@@ -150,7 +150,39 @@
                 </div>
             </div>
         </div>
-        
+        <div class="col-lg-9 pl-lg-5">
+            <h1 class="h3 d-none">
+                Tài khoản
+            </h1>
+            <div data-turbolinks-permanent="" id="profile_container">
+                <div class="profile-0-2-1">
+                    <div class="d-flex">
+                        <div class="flex-fill pr-3">
+                            <h1 class="h3">Tài khoản</h1>
+                            <p class="text-secondary mb-0">Hãy cập nhật thông tin mới nhất.</p>
+                            <p class="text-secondary">Thông tin cá nhân dưới đây sẽ tự động điền khi bạn tạo
+                                hồ sơ
+                                mới.</p>
+                        </div>
+                        <form
+                            class="avatar-container row no-gutters align-items-start justify-content-center position-relative">
+                            <input type="file" name="uploadedImage" id="upload" accept="image/*"
+                                style="display: none;"><label for="upload">
+                                <div class="avatar-0-2-18"><img class="rounded-circle border"
+                                        src="/asserts/img/avatar_placeholder.png">
+                                    <div class="align-items-center justify-content-center avatar-upload"
+                                        id="avatar-upload"><i class="fa fa-camera fa-3x text-white"></i>
+                                    </div>
+                                </div>
+                            </label>
+                            <div class="d-none"><button
+                                    class="btn btn-primary ml-auto font-weight-bold d-flex align-items-center mr-2"
+                                    type="submit">Lưu</button><button
+                                    class="btn btn-light font-weight-bold text-primary">Hủy</button></div>
+                            <p class="text-secondary small mt-2 w-100 text-center" style="font-size: 12px;">
+                                (JPEG/PNG/GIF, ≦ 1MB)</p>
+                        </form>
+                    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const navUser = document.querySelector('.nav__has--form-login');
