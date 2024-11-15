@@ -67,7 +67,7 @@
 
 /* container */
 .container{
-    margin-bottom: 400px;
+    margin-bottom: 40px;
 }
 .featured__container{
     display: flex;
@@ -101,12 +101,12 @@
     height: 100%;
     flex: 1;
 }
-.featured__blog{
+.featured__blog-head{
     display: block;
     margin: 20px 0 30px;
 
 }
-.featured-blog__title{
+.featured-blog__title,.career__title{
     font-size: 3rem;
     padding-left: 5px;
     color: #263a4d;
@@ -177,7 +177,7 @@
 .featured-content__created span{
     margin-right: 5px;
 }  
-.featured-content__dot{
+.content__dot{
     display: block;
     --size : 3px;
     width: var(--size);
@@ -208,4 +208,24 @@
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+}
+
+/* carrer handbook */
+.career__head{
+    display: block;
+    margin : 20px 0 30px;
+}
+.career__thumbnail{
+    width: 100%;
+}
+.career__thumbnail-img{
+    width: 100%;
+    max-height: 200px;
+    background-size: contain;
+    background-position: center;
+    object-fit: cover;
+}
+.career__content{
+    display: block;
+    padding : 10px;
 }
