@@ -218,5 +218,9 @@ body {
   .save-button:hover {
     background-color: #c0c0c0;
   }
+  /* container */
+.job-description ul li{
+    font-size: 15px;
+  }
   
   
