@@ -282,6 +282,86 @@ body {
 .info-box p i {
   color: #555;
 }
+
+/* Share Section Styling */
+.share-section {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .share-section span {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  /* Share Icons Container */
+  .share-icons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* Individual Share Icon Styling */
+  .share-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+  }
+  
+  .share-icon:hover {
+    background-color: #f1f1f1;
+    color: #1a73e8;
+  }
+  
+  /* Specific Colors for Social Icons */
+  .share-icon.fb i {
+    color: #3b5998;
+  }
+  
+  .share-icon.linkedin i {
+    color: #0077b5;
+  }
+  
+  .share-icon.twitter i {
+    color: #1da1f2;
+  }
+  
+  .share-icon.link i {
+    color: #333;
+  }
+  /* Sidebar styling */
+.sidebar {
+    flex: 1;
+    padding-left: 20px;
+  }
+  
+  .notify-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+  }
+  
+  .notify-button:hover {
+    background-color: #0056b3;
+  }
+  
   
   
   
