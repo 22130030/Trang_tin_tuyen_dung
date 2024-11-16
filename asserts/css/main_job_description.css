@@ -222,6 +222,18 @@ body {
 .job-description ul li{
     font-size: 15px;
   }
+  .job-description h3{
+    font-size: 16px;
+  }
+  .job-description h4{
+    font-size: 13px;
+  }
+  .job-description p{
+    font-size: 15px;
+  }
+  .job-description .link {
+    font-size: 13px;
+  }
   /* Job Info Section Styling */
 .job-info-section {
     margin-top: 20px;
