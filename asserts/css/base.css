@@ -5,6 +5,7 @@
     --border-color : grey;
     --blue-color : rgb(0, 105, 219);
     --orange-color : #f49532;
+    --green-color : #007a37;
 }
 
 *{
@@ -22,6 +23,7 @@ html,body{
     width: 100%;
 }
 .nav{
+    position: relative;
     display: block;
     width : 100%;
     height : 60px;
@@ -181,6 +183,10 @@ html,body{
     /* margin : 0 -5px; */
 
 }
+.grid__col-6{
+    width : 50%;
+    padding : 0 5px;
+}
 .grid__col-4{
     width : 33.33%;
     padding: 0 5px;
@@ -194,8 +200,8 @@ html,body{
     padding: 0 5px;
 }
 .grid__col-10{
-    width : 83.34%
-    
+    width : 83.34%;
+    padding : 0 5px;
 }
 .slick_action__buttons{
     position: absolute;
@@ -226,6 +232,8 @@ html,body{
 .right__icon{
 }
 
+
+
 /* pagination */
 .pagination{
     display: flex;
@@ -252,4 +260,30 @@ html,body{
 .pagination__link--active{
     background-color: #f49532;
     color: var(--white-color);
+}
+/* footer */
+.footer{
+    background-color: #e5e5e5;
+    padding : 20px 0 40px;
+    border-top: 1px solid rgba(0,0,0,0.4);
+    margin-top: 80px;
+}
+.footer__heading{
+    font-size: 2.2rem;
+    text-align: center;
+}
+.footer__list{
+    padding-left: 0;
+    list-style: none;
+    text-align: center;
+    margin-top: 30px;
+}
+.footer__item{
+    font-size: 1.6rem;
+    color : var(--text-color);
+    margin: 15px 0;
+}
+.footer__item:hover{
+    cursor: pointer;
+    text-decoration: underline;
 }
