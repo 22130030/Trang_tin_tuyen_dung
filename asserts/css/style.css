@@ -30,8 +30,7 @@ body {
     font-size: 30px;
     color: #0057b5;
   }
- 
-  
+   
   .half, .half .container > .row {
     height: 100vh;
     min-height: 700px; }
@@ -89,8 +88,8 @@ body {
     box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.2); }
     @media (max-width: 767.98px) {
       .form-block {
-        padding: 25px; } }  
-
+        padding: 25px; } } 
+    
   .control {
     display: block;
     position: relative;
@@ -135,7 +134,7 @@ body {
     background: #e6e6e6;
     opacity: 0.9;
     pointer-events: none; }
-  
+   
   .control__indicator:after {
     font-family: 'icomoon';
     content: '\e5ca';
