@@ -251,6 +251,51 @@ body {
   gap: 20px;
 }
 
+/* Contact Info Section Styling */
+.contact-info-section {
+    margin-top: 20px;
+  }
+ .contact-info-section p {
+    font-size: 15px;
+} 
+  .contact-info-section h2 {
+    font-size: 18px;
+    color: #1a73e8;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  * Contact Box Styling */
+.contact-box {
+  background-color: #f1f9ff;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #1a73e8;
+}
+
+.contact-box p {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.contact-box p i {
+  color: #ff6b6b;
+  margin-right: 8px;
+}
+
+.contact-box p strong {
+  color: #333;
+  font-weight: bold;
+}
+
+.contact-box p em {
+  color: #555;
+  font-style: italic;
+}
+
+
+
+
 /* Info Box Styling */
 .info-box {
   flex: 1;
