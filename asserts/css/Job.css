@@ -1,0 +1,46 @@
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: #fff;
+}
+
+.container {
+    background: #fff;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 15px;
+    color: black;
+
+}
+
+p {
+    color: #b3b3b3;
+    font-weight: 300;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: "Roboto", sans-serif;
+}
+
+a {
+    -webkit-transition: .3s all ease;
+    -o-transition: .3s all ease;
+    transition: .3s all ease;
+}
+.bg-light {
+    background-color: #55595d !important;
+    padding-bottom: 100% !important;
+}

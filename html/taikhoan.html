@@ -9,10 +9,9 @@
     <link rel="stylesheet" href="/asserts/fonts/fontawesome-free-6.4.0-web/css/bootstrap.min.css">
     <!-- Style -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/asserts/css/account.css">
+    <link rel="stylesheet" href="/asserts/css/taikhoan.css">
     <link rel="stylesheet" href="/asserts/css/main.css">
     <link rel="stylesheet" href="/asserts/css/base.css">
-    <link rel="stylesheet" href="/asserts/css/main_search_occupations_locat.css">
     <link rel="stylesheet" href="/asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
     <!-- js -->
     <script src="/asserts/fonts/fontawesome-free-6.4.0-web/js/bootstrap.min.js"></script>
@@ -24,94 +23,6 @@
 </head>
 
 <body>
-    <!-- header -->
-    <nav class="nav">
-        <div class="grid nav__container">
-            <div class="nav__logo">
-                <a href="/html/home.html" class="nav__logo-link">
-                    <img src="/asserts/img/brand-logo@2x.png" alt="" class="nav-logo__img">
-                </a>
-            </div>
-
-            <ul class="nav__list">
-                <div class="search-bar">
-                    <div class="input-container">
-                        <i class="fa-solid fa-magnifying-glass icon-inside"></i>
-                        <input type="text" placeholder="Nhập tên vị trí, công ty, từ khoá" class="search-input">
-                    </div>
-                    <div class="input-container">
-                        <i class="fa-solid fa-location-dot icon-inside"></i>
-                        <input type="text" placeholder="Nhập tỉnh, thành phố" class="search-input">
-                    </div>
-                    <div class="input-container">
-                        <i class="fa-solid fa-magnifying-glass icon-inside"></i>
-                        <button class="search-button"><span class="icon"></span> Tìm kiếm</button>
-                    </div>
-                </div>
-                <li class="nav__item nav__item-link--separated">
-                    <a href="" class="nav__item-link">
-                        <i class="nav-item__icon fa-regular fa-message"></i>
-                        Chat
-                    </a>
-                </li>
-                <li class="nav__item nav__item-link--separated">
-                    <div class="nav__item-link nav__user nav__has--form-login">
-                        <div class="nav__user-icon">
-                            <i class="fa-regular fa-user"></i>
-                        </div>
-                        Đăng ký
-
-                        <div class="nav__dropdown-menu">
-                            <div class="menu__buttons">
-                                <button class="btn menu__register"
-                                    onclick="window.location.href='/html/register.html'">Đăng
-                                    ký</button>
-                                <button class="btn menu__login" onclick="window.location.href='/html/login.html'">Đăng
-                                    nhập</button>
-                            </div>
-                            <ul class="menu__list">
-                                <li class="menu__item">
-                                    <a href="" class="menu__link">
-                                        <i class="menu__link-icon fa-regular fa-id-badge"></i>
-                                        <span class="menu__link-title">Hồ sơ xin việc</span>
-                                    </a>
-                                </li>
-                                <li class="menu__item">
-                                    <a href="" class="menu__link">
-                                        <i class="menu__link-icon fa-regular fa-heart"></i>
-                                        <span class="menu__link-title">Việc đã lưu</span>
-                                    </a>
-                                </li>
-                                <li class="menu__item">
-                                    <a href="" class="menu__link">
-                                        <i class="menu__link-icon fa-regular fa-paper-plane"></i>
-                                        <span class="menu__link-title">Việc đã ứng tuyển</span>
-                                    </a>
-                                </li>
-                                <li class="menu__item">
-                                    <a href="" class="menu__link">
-                                        <i class="menu__link-icon fa-regular fa-bell"></i>
-                                        <span class="menu__link-title">Thông báo việc làm</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </li>
-                <li class="nav__item nav__item-link--separated">
-                    <a href="" class="nav__item-link">
-                        Nhà tuyển dụng
-
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- content -->
-
-
     <div class="container mt-lg-5 mb-5">
         <div class="row">
             <div class="col-lg-3 px-0 px-lg-3">
@@ -119,7 +30,7 @@
                     <div class="navbar p-0">
                         <ul class="navbar-nav w-100">
                             <li class="nav-item active">
-                                <a class="nav-link py-lg-4" href="/html/account.html">
+                                <a class="nav-link py-lg-4" href="/html/taikhoan.html">
                                     <div class="title font-weight-bold mb-lg-1">
                                         Tài khoản
                                     </div>
@@ -129,7 +40,7 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link py-lg-4" href="/html/change password.html">
+                                <a class="nav-link py-lg-4" href="/html/thaydoimatkhau.html">
                                     <div class="title-1 font-weight-bold mb-lg-1">
                                         Đổi mật khẩu
                                     </div>
@@ -139,7 +50,7 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link py-lg-4" href="/html/email notification.html">
+                                <a class="nav-link py-lg-4" href="/html/thongbaoemail.html">
                                     <div class="title-1 font-weight-bold mb-lg-1">
                                         Thông báo email
                                     </div>
@@ -162,8 +73,7 @@
                             <div class="flex-fill pr-3">
                                 <h1 class="h3">Tài khoản</h1>
                                 <p class="text-secondary mb-0">Hãy cập nhật thông tin mới nhất.</p>
-                                <p class="text-secondary">Thông tin cá nhân dưới đây sẽ tự động điền khi bạn tạo
-                                    hồ sơ
+                                <p class="text-secondary">Thông tin cá nhân dưới đây sẽ tự động điền khi bạn tạo hồ sơ
                                     mới.</p>
                             </div>
                             <form
@@ -173,16 +83,14 @@
                                     <div class="avatar-0-2-18"><img class="rounded-circle border"
                                             src="/asserts/img/avatar_placeholder.png">
                                         <div class="align-items-center justify-content-center avatar-upload"
-                                            id="avatar-upload"><i class="fa fa-camera fa-3x text-white"></i>
-                                        </div>
+                                            id="avatar-upload"><i class="fa fa-camera fa-3x text-white"></i></div>
                                     </div>
                                 </label>
                                 <div class="d-none"><button
                                         class="btn btn-primary ml-auto font-weight-bold d-flex align-items-center mr-2"
                                         type="submit">Lưu</button><button
                                         class="btn btn-light font-weight-bold text-primary">Hủy</button></div>
-                                <p class="text-secondary small mt-2 w-100 text-center" style="font-size: 12px;">
-                                    (JPEG/PNG/GIF, ≦ 1MB)</p>
+                                <p class="text-secondary small mt-2 w-100 text-center" style="font-size: 12px;">(JPEG/PNG/GIF, ≦ 1MB)</p>
                             </form>
                         </div>
                         <ul class="list-group list-group-flush mt-4">
@@ -199,13 +107,12 @@
                             </li>
                             <li class="list-group-item d-flex flex-wrap no-gutters py-3 px-0" data-toggle="modal"
                                 data-target="#changeEmailModal">
-                                <div class="col-12 col-lg-3 mb-2">Địa chỉ email<span class="text-danger">
-                                        *</span></div>
+                                <div class="col-12 col-lg-3 mb-2">Địa chỉ email<span
+                                        class="text-danger"> *</span></div>
                                 <div class="d-flex flex-fill col-lg-9 no-gutters">
                                     <div class="flex-fill col-lg-9">
                                         <div class="email font-weight-bold">caominhhieunq@gmail.com</div>
-                                        <p class="text-secondary mt-2 mb-0">Đây là địa chỉ email để đăng nhập.
-                                            Chúng tôi
+                                        <p class="text-secondary mt-2 mb-0">Đây là địa chỉ email để đăng nhập. Chúng tôi
                                             cũng sẽ gửi thông báo đến địa chỉ này.</p>
                                     </div><span role="button" class="btn-link text-primary ml-auto"><i
                                             class="lni lni-pencil mr-1"></i><span class="d-none d-lg-inline">Chỉnh
@@ -267,9 +174,8 @@
                             <p class="text-center bg-light text-muted font-weight-bolder p-2 mt-2">Ngày đăng ký:
                                 7/11/2024</p><button type="button" data-toggle="modal"
                                 data-target="#delete-account-modal" class="btn btn-light d-flex text-danger shadow-none"
-                                fdprocessedid="vr79fj" style="width:max-content"><i class="fa fa-minus-circle mr-2"
-                                    style="font-size: 25px;"></i><span style="font-size: 18px;"> Xóa tài
-                                    khoản</span></button>
+                                fdprocessedid="vr79fj"><i class="fa fa-minus-circle mr-2"
+                                    style="font-size: 25px;"></i><span style="font-size: 18px;" > Xóa tài khoản</span></button>
                         </ul>
                     </div>
                 </div>
@@ -277,58 +183,5 @@
         </div>
     </div>
 
-    <!-- footer -->
-    <div class="footer">
-        <div class="grid">
-            <div class="grid__row">
-                <div class="grid__col-4">
-                    <h3 class="footer__heading">Dành cho ứng viên</h3>
-                    <ul class="footer__list">
-                        <li class="footer__item">Việc làm mới nhất</li>
-                        <li class="footer__item">Tất cả việc làm</li>
-                        <li class="footer__item">Việc làm theo ngành nghề</li>
-                    </ul>
-                </div>
-                <div class="grid__col-4">
-                    <h3 class="footer__heading">Dành cho nhà tuyển dụng</h3>
-                    <ul class="footer__list">
-                        <li class="footer__item">Đăng tin tuyển dụng</li>
-                        <li class="footer__item">Đăng ký nhà tuyển dụng</li>
-                        <li class="footer__item">Tìm hồ sơ</li>
-                    </ul>
-                </div>
-                <div class="grid__col-4">
-                    <h3 class="footer__heading">Designer Website</h3>
-                    <ul class="footer__list">
-                        <li class="footer__item">Ngô Văn Đức</li>
-                        <li class="footer__item">Lê Minh Công</li>
-                        <li class="footer__item">Cao Minh Hiếu</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const navUser = document.querySelector('.nav__has--form-login');
-                const dropdownMenu = document.querySelector('.nav__dropdown-menu');
-
-                // Hiển thị menu khi click vào `.nav__has--form-login`
-                navUser.addEventListener('click', function (event) {
-                    event.stopPropagation();
-                    dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-                });
-
-                // Đóng menu khi click ra ngoài
-                document.addEventListener('click', function (event) {
-                    if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                        dropdownMenu.style.display = 'none';
-                    }
-                });
-            });
-        </script>
-
-</body>
-
 </html>
+</body>
