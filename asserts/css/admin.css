@@ -25,14 +25,13 @@ body{
     color: #f39c12;
     font-size: 2rem;
 }
-<<<<<<< HEAD
 .category--active{
     color : #f5f5f5;
 }
 .category__list{
     list-style: none;
     padding-left: 0;
-=======
+}
 .sidebar--active{
     background-color: #34495e;
 }
@@ -75,7 +74,6 @@ body{
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
->>>>>>> vanduc
     text-align: center;
 }
 
@@ -87,7 +85,6 @@ body{
 
 .statistical p {
     font-size: 1.6rem;
-<<<<<<< HEAD
     padding : 10px 0 10px 10px;
 }
 
@@ -102,7 +99,6 @@ body{
 .work__search{
     flex : 1;
     margin-right: 50px;
-=======
     color: #7f8c8d;
 }
 
@@ -138,5 +134,4 @@ th {
 
 tr:nth-child(even) {
     background-color: #f9f9f9;
->>>>>>> vanduc
 }
