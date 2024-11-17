@@ -3,31 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/asserts/css/admin/admin__base.css">
     <link rel="stylesheet" href="/asserts/css/base.css">
-    <link rel="stylesheet" href="/asserts/css/admin/admin_employer.css">
+    <link rel="stylesheet" href="/asserts/css/admin/admin__base.css">
     <link rel="stylesheet" href="/asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
-
-
     <title>Admin</title>
-   
-    <script>
-        function addUserForm(){
-            var form = document.getElementById("addUserForm");
-            var table = document.getElementById("table-container");
-            if(form.style.display === '' || form.style.display === 'none'){
-                form.style.display = 'block';
-            }else{
-                form.style.display = 'none';
-            }
-            if(table.style.display === '' || table.style.display === 'block'){
-                table.style.display = 'none';
-            }else{
-                table.style.display = 'block';
-            }
-        }
-    </script>
-
 </head>
 <body>
     <div class="admin">
@@ -108,11 +87,8 @@
 
                 <!-- Table Section -->
             <div id="table-container">
-                    <h3>Quản lý nhà tuyển dụng</h3>
+                    <h3>Quản lý ứng viên</h3>
                     <div class="employer_management">
-                        <h4 class="employer__add-list">Danh sách : 
-                        <a href="javascript:void(0)" onclick="addUserForm()" class="list__add-link">thêm mới</a>
-                    </h4>
                    
                     <table>
                         <thead>
@@ -355,59 +331,8 @@
                     </table>
                 </div>
             </div>
-            <div id="addUserForm" >
-                <h3 class = "form__title">Thêm nhà tuyển dụng</h3>
-                <form class="form__content" action="" method="POST">
-                    <div class="form__item">
-
-                        <label for="name">Email : </label>
-                        <input type="email" id="email" name="email" required placeholder="Email"><br>
-                    </div>
-                    <div class="form__item">
-                        <label for="company_name">Tên công ty :</label>
-                        <input type="text" id="company" name="company" required><br>
-                    </div>
-                    <div class="form__item">
-                        <label for="phone">Số Điện Thoại:</label>
-                        <input type="text" id="phone" name="phone" required><br>
-                    </div>
-
-                    <div class="form__item">
-                        <label for="address">Địa chỉ : </label>
-                        <div class="form__address-city">
-
-                            <select id="province" name="province" required>
-                                <option class="select__head" value=""> Chọn Tỉnh/Thành phố --</option>
-                                <option value="hanoi">Hà Nội</option>
-                                <option value="hochiminh">TP Hồ Chí Minh</option>
-                                <option value="danang">Đà Nẵng</option>
-                            </select>
-                            
-                            <!-- Quận/Huyện -->
-                            <select id="district" name="district" required>
-                                <option class="select__head" value=""> Chọn Quận/Huyện --</option>
-                            </select>
-                            
-                            <!-- Phường/Xã -->
-                            <select id="ward" name="ward" required>
-                                <option class="select__head" value=""> Chọn Phường/Xã --</option>
-                            </select>
-                            
-                        </div>
-                        <div class="form__item">
-
-                            <!-- Địa chỉ chi tiết -->
-                            <label class="address__detail" for="detail">Địa chỉ chi tiết:</label>
-                            <input type="text" id="detail" name="detail" placeholder="Số nhà, tên đường..." required><br><br>
-                        </div>
-                
-                    </div>                    
-
-                    <button class="form__submit" type="submit">Thêm công ty</button>
-                </form>
-            </div>
+           
         </div>
     </div>
- 
 </body>
 </html>
