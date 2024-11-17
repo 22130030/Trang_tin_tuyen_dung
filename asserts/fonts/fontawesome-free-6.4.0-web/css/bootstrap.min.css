@@ -510,7 +510,7 @@ mark {
 }
 
 .img-fluid {
-    max-width: 100%;
+    width: 100%;
     height: auto
 }
 
@@ -5662,8 +5662,8 @@ input[type=submit].btn-block {
 .page-item.active .page-link {
     z-index: 1;
     color: #fff;
-    background-color: #fb771a;
-    border-color: #fb771a
+    background-color: #1E40AF;
+    border-color: #1E40AF
 }
 
 .page-item.disabled .page-link {
@@ -11503,7 +11503,7 @@ button.bg-dark:hover {
 }
 
 .font-weight-bolder {
-    font-weight: bolder !important
+    font-weight: unset !important;
 }
 
 .font-italic {
