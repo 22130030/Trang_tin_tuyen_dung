@@ -3,9 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/asserts/css/admin/admin__base.css">
+    <link rel="stylesheet" href="/asserts/css/base.css">
+    <link rel="stylesheet" href="/asserts/css/admin/admin_employer.css">
+    <link rel="stylesheet" href="/asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
+
+
+    <title>Admin</title>
 </head>
 <body>
-    
+    <div class="admin">
+
+        <header class="header">
+             <nav class="nav">
+                <div class="grid nav__container">
+                    <div class="nav__logo">
+                        <a href="/html/home.html" class="nav__logo-link">
+                            <img src="/asserts/img/brand-logo@2x.png" alt="" class="nav-logo__img">
+                        </a>
+                    </div>
+                    <ul class="nav__list">
+                       
+                        <li class="nav__item ">
+                            <div class="nav__item-link nav__user nav__has--form-login">
+                                <div class="nav__user-icon">
+                                    <i class="fa-regular fa-user"></i>
+                                </div>
+                                Admin
+
+                                <div class="nav__dropdown-menu">
+                                    <div class="menu__buttons">
+                                        <button class="btn menu__register" onclick="window.location.href='/html/register.html'">Đăng ký</button>
+                                        <button class="btn menu__login" onclick="window.location.href='/html/login.html'">Đăng nhập</button>
+                                    </div>
+                                    
+                                    
+                                    <ul class="menu__list">
+                                        <li class="menu__item">
+                                            <a href="" class="menu__link">
+                                                <i class="menu__link-icon fa-regular fa-id-badge"></i>
+                                                <span class="menu__link-title">Hồ sơ xin việc</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu__item">
+                                            <a href="" class="menu__link">
+                                                <i class="menu__link-icon fa-regular fa-heart"></i>
+                                                <span class="menu__link-title">Việc đã lưu</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu__item">
+                                            <a href="" class="menu__link">
+                                                <i class="menu__link-icon fa-regular fa-paper-plane"></i>
+                                                <span class="menu__link-title">Việc đã ứng tuyển</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu__item">
+                                            <a href="" class="menu__link">
+                                                <i class="menu__link-icon fa-regular fa-bell"></i>
+                                                <span class="menu__link-title">Thông báo việc làm</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </li>
+                
+                    </ul>
+                </div>
+            </nav> 
+        </header>
+        <div class="container">
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h3>Trang chủ admin</h3>
+                <a class="sidebar--active" href="#">Thống kê và báo cáo</a>
+                <a href="#">Quản lý nhà tuyển dụng</a>
+                <a href="#">Quản lý ứng viên</a>
+                <a href="#">Quản lý ứng tuyển</a>
+                <a href="#">Quản lý tài khoản</a>
+            </div>
+
+            
+                
+
+                <!-- Table Section -->
+            <div class="table-container">
+                <h3>Quản lý nhà tuyển dụng</h3>
+                <div class="employer_management">
+                    <h4 class="employer__add-list">Danh sách : 
+                        <a href="" class="list__add-link">thêm mới</a>
+                    </h4>
+                   
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên Công ty</th>
+                                <th>Email</th>
+                                <th>Số điện thoại</th>
+                                <th>Trạng thái</th>
+                                <th>Ngày đăng ký</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        
+                        
+                        <tbody>
+                            <tr>
+                                <td>10</td>
+                                <td>Coca Cola</td>
+                                <td>cocacola@gmail.com</td>
+                                <td>0938475</td>
+                                <td>Đang hoạt động</td>
+                                <td>2024-11-17</td>
+                                <td>
+                                    <div class="operations">
+                                        <div class="operation operation__edit">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </div>
+                                        <div class="operation operation__remove">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </div>
+                                </div>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Công ty cổ phần sợi thế kỷ</td>
+                                <td>soitheky@gmail.com</td>
+                                <td>09384757</td>
+                                <td>Đang hoạt động</td>
+                                <td>2024-11-16</td>
+                                <td>2024-11-16</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Công ty cổ phần sợi thế kỷ</td>
+                                <td>soitheky@gmail.com</td>
+                                <td>09384757</td>
+                                <td>Đang hoạt động</td>
+                                <td>2024-11-16</td>
+                                <td>2024-11-16</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Công ty cổ phần sợi thế kỷ</td>
+                                <td>soitheky@gmail.com</td>
+                                <td>09384757</td>
+                                <td>Đang hoạt động</td>
+                                <td>2024-11-16</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Công ty cổ phần sợi thế kỷ</td>
+                                <td>soitheky@gmail.com</td>
+                                <td>09384757</td>
+                                <td>Đang hoạt động</td>
+                                <td>2024-11-16</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>SCG VietNam</td>
+                                <td>SCG@gmail.com</td>
+                                <td>02387475</td>
+                                <td>Đang hoạt động</td>
+                                <td>2024-11-15</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>SCG VietNam</td>
+                                <td>SCG@gmail.com</td>
+                                <td>02387475</td>
+                                <td>Đang hoạt động</td>
+                                <td>2024-11-15</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>SCG VietNam</td>
+                                <td>SCG@gmail.com</td>
+                                <td>02387475</td>
+                                <td>Đang hoạt động</td>
+                                <td>2024-11-15</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>SCG VietNam</td>
+                                <td>SCG@gmail.com</td>
+                                <td>02387475</td>
+                                <td>Đang hoạt động</td>
+                                <td>2024-11-15</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>SCG VietNam</td>
+                                <td>SCG@gmail.com</td>
+                                <td>02387475</td>
+                                <td>Đang hoạt động</td>
+                                <td>2024-11-15</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>SCG VietNam</td>
+                                <td>SCG@gmail.com</td>
+                                <td>02387475</td>
+                                <td>Đang hoạt động</td>
+                                <td>2024-11-15</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>SCG VietNam</td>
+                                <td>SCG@gmail.com</td>
+                                <td>02387475</td>
+                                <td>Đang hoạt động</td>
+                                <td>2024-11-15</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>SCG VietNam</td>
+                                <td>SCG@gmail.com</td>
+                                <td>02387475</td>
+                                <td>Đang hoạt động</td>
+                                <td>2024-11-15</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
