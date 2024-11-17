@@ -230,3 +230,59 @@
 .login-panel a:hover {
     text-decoration: underline;
 }
+.office-panel {
+    width: 100%;
+    max-width: 350px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.office-panel h3 {
+    background-color: #343a40;
+    color: #fff;
+    padding: 15px;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 4px 4px 0 0;
+}
+
+.office-location {
+    padding: 15px;
+    margin-top: -20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.office-location:last-child {
+    border-bottom: none;
+}
+
+.office-location h4 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.office-details p {
+    display: flex;
+    align-items: center;
+    color: #555;
+    font-size: 15px;
+    margin: 5px 0;
+}
+
+.office-details .icon {
+    width: 20px;
+    display: inline-block;
+    color: #555;
+}
+
+.office-details a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.office-details a:hover {
+    text-decoration: underline;
+}
