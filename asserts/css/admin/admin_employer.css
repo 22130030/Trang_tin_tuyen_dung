@@ -1,0 +1,58 @@
+.table-container{
+    width: 100%;
+    background-color: var(--white-color);
+    border-radius: 10px;
+    padding : 10px;
+    font-size: 2rem;
+}
+.employer_management{
+    background-color: #f5f5f5;
+    max-height: calc(100% - 26px - 108px);
+    padding-left: 10px;
+    overflow-y: auto;
+}
+.employer__add-list{
+    font-size: 1.4rem;
+    color : var(--text-color);
+}
+.list__add-link{
+    font-size: 1.3rem;
+    color : var(--blue-color);
+    text-decoration: none;
+}
+.employer_management table{
+    width : 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+th, td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #ecf0f1;
+}
+th {
+    background-color: #3498db;
+    color: white;
+}
+td{
+    border: 1px solid rgba(0,0,0,0.2);
+}
+.operations{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.operation{
+    margin: 0 5px;
+}
+.operation i{
+    padding : 10px;
+    font-size: 1.6rem;
+    color : var(--blue-color);
+    border: 1px solid var(--blue-color);
+    border-radius: 5px;
+}
+.operation:hover{
+    cursor: pointer;
+}
