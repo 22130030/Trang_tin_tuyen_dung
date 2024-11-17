@@ -46,3 +46,102 @@ body {
     transition: .3s all ease; }
     a:hover {
       text-decoration: none !important; }
+      .job-container{
+        width: 100%;
+        height: 100%;
+        background-color: #F1F5F9;
+    }
+    .job-section-title{
+        color: #1E40AF;
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        letter-spacing: 0.16px;
+    
+     }
+    .container-lg{
+        max-width: 1200px !important;
+    }
+    
+    .container-lg {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .align-items-center {
+     
+        align-items: center !important;
+    }
+    .content-wrapper{
+        justify-content: center;
+    }
+    #job-col {
+        flex: 0 0 66%;
+        max-width: 66%;
+    }
+    .job-detail {
+        color: #212529;
+        letter-spacing: 0.16px;
+    }
+    .company-logo{ 
+        margin-left: 15px;
+        width: 104px;
+        height: 104px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
+        margin-top: -40px;
+    }
+    .job-detail .company-logo {
+        width: 104px;
+        height: 104px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
+        margin-top: -40px;
+    }
+    .job-detail .job-title {
+        font-size: 22px;
+        font-weight: bolder;
+    }
+    span{
+        font-size: 16px;
+        color: #212529;
+    }
+    .job-detail .job-nav-desktop .nav {
+        overflow-x: auto;
+        white-space: nowrap;
+        flex-wrap: nowrap;
+    }
+    .nav {
+        display: flex;
+        width: 100%;
+        height: 60px;
+        white-space: normal;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+    .job-logo{
+        width: 120px;
+        height: 120px;
+        overflow: hidden;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
+    }
+    
+    .border-bottom {
+        border-bottom: 1px solid #D7D7DB !important;
+    }
+    
