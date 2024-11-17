@@ -10,6 +10,20 @@
 
 
     <title>Admin</title>
+   
+    <script>
+        function addUserForm(){
+            var form = document.getElementById("addUserForm");
+            var table = document.getElementById("table-container");
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            if(table.style.display === '' || table.style.display === 'block'){
+                table.style.display = 'none';
+            }else{
+                table.style.display = 'block';
+            }
+        }
+    </script>
+
 </head>
 <body>
     <div class="admin">
@@ -81,7 +95,7 @@
                 <a  href="/html/admin/admin_home.html">Thống kê và báo cáo</a>
                 <a class="sidebar--active"  href="#">Quản lý nhà tuyển dụng</a>
                 <a href="#">Quản lý ứng viên</a>
-                <a href="#">Quản lý ứng tuyển</a>
+                <a href="#">Quản lý bài đăng</a>
                 <a href="#">Quản lý tài khoản</a>
             </div>
 
@@ -89,11 +103,11 @@
                 
 
                 <!-- Table Section -->
-            <div class="table-container">
-                <h3>Quản lý nhà tuyển dụng</h3>
-                <div class="employer_management">
-                    <h4 class="employer__add-list">Danh sách : 
-                        <a href="" class="list__add-link">thêm mới</a>
+            <div id="table-container">
+                    <h3>Quản lý nhà tuyển dụng</h3>
+                    <div class="employer_management">
+                        <h4 class="employer__add-list">Danh sách : 
+                        <a href="javascript:void(0)" onclick="addUserForm()" class="list__add-link">thêm mới</a>
                     </h4>
                    
                     <table>
@@ -337,7 +351,29 @@
                     </table>
                 </div>
             </div>
+            <div id="addUserForm" style="display: none;">
+                <h3 class = "form__title">Thêm Người Dùng Mới</h3>
+                <form action="process_add_user.php" method="POST">
+                    <label for="name">Họ và Tên:</label>
+                    <input type="text" id="name" name="name" required><br><br>
+        
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required><br><br>
+        
+                    <label for="phone">Số Điện Thoại:</label>
+                    <input type="text" id="phone" name="phone" required><br><br>
+        
+                    <label for="role">Vai Trò:</label>
+                    <select id="role" name="role">
+                        <option value="admin">Quản Trị Viên</option>
+                        <option value="user">Người Dùng</option>
+                    </select><br><br>
+        
+                    <button type="submit">Thêm Người Dùng</button>
+                </form>
+            </div>
         </div>
     </div>
+ 
 </body>
 </html>
