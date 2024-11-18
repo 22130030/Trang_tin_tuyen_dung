@@ -89,8 +89,26 @@
                 <!-- Table Section -->
             <div id="table-container">
                     <h3>Quản lý ứng viên</h3>
-                    <div class="employer_management">
+                    <div class="candidate__management">
                    
+                        <div class="candidate__search">
+                            <input class="search__input" type="text" name="name" class="search__candidate" placeholder="Nhập tên,email,...">
+                            <div class="search__status-filter">
+
+                                <span>Trạng thái : </span>
+                                <select name="" id="" class="search__filter">
+                                    <option value="">Đang xử lí</option>
+                                    <option value="">Đã phỏng vấn</option>
+                                    <option value="">Đã trúng tuyển</option>
+                                    <option value="">Đã bị từ chối</option>
+                                </select>
+                            </div>
+                            <button class="search__submit">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <span>Tìm kiếm</span>
+                            </button>
+                        </div>
+
                     <table>
                         <thead>
                             <tr>
@@ -112,7 +130,7 @@
                                 <td class="candidate__name">Nguyễn Văn A</td>
                                 <td>nguyenvana@gmail.com</td>
                                 <td>0938475</td>
-                                <td>Viettel</td>
+                                <td class="candidate__company">Viettel</td>
                                 <td>2024-11-17</td>
                                 <td class = "candidate_status">Đang chờ xử lí</td>
                                 <td>
@@ -127,6 +145,7 @@
                             </td>
                             </tr>
                            
+                            
                     
 
                         </tbody>
