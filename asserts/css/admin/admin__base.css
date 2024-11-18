@@ -50,3 +50,38 @@ body{
 .sidebar a:hover {
     background-color: #34495e;
 }
+
+th,td{
+    text-align: left;
+    padding: 10px;
+}
+th{
+    background-color: #3498db;
+    color: white;
+    font-size: 1.8rem;
+    border-bottom: 1px solid #ecf0f1;
+}
+td{
+    font-size: 1.7rem;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+/* operations */
+.operations{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.operation{
+    margin: 0 5px;
+}
+.operation i{
+    padding : 10px;
+    font-size: 1.6rem;
+    color : var(--blue-color);
+    border: 1px solid var(--blue-color);
+    border-radius: 5px;
+}
+.operation:hover{
+    cursor: pointer;
+}

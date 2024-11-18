@@ -26,43 +26,13 @@
     border-collapse: collapse;
     margin-top: 15px;
 }
-th, td {
-    text-align: left;
-    padding: 10px;
-    border-bottom: 1px solid #ecf0f1;
-}
-th {
-    background-color: #3498db;
-    color: white;
-}
-td{
-    border: 1px solid rgba(0,0,0,0.2);
-}
 .company__name{
     color : var(--green-color);
 }
 .company_status{
     color : rgb(222,0,0);
 }
-.operations{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-}
-.operation{
-    margin: 0 5px;
-}
-.operation i{
-    padding : 10px;
-    font-size: 1.6rem;
-    color : var(--blue-color);
-    border: 1px solid var(--blue-color);
-    border-radius: 5px;
-}
-.operation:hover{
-    cursor: pointer;
-}
+
 
 
 /* form add employer */
