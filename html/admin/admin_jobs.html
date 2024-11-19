@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/asserts/css/admin/admin__base.css">;
+    <link rel="stylesheet" href="/asserts/css/admin/admin_jobs.css">
+    <link rel="stylesheet" href="/asserts/css/base.css">
+    <link rel="stylesheet" href="/asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
+    <title>Admin</title>
+</head>
+<body>
+    <div class="admin">
+
+        <header class="header">
+             <nav class="nav">
+                <div class="grid nav__container">
+                    <div class="nav__logo">
+                        <a href="/html/home.html" class="nav__logo-link">
+                            <img src="/asserts/img/brand-logo@2x.png" alt="" class="nav-logo__img">
+                        </a>
+                    </div>
+                    <ul class="nav__list">
+                       
+                        <li class="nav__item ">
+                            <div class="nav__item-link nav__user nav__has--form-login">
+                                <div class="nav__user-icon">
+                                    <i class="fa-regular fa-user"></i>
+                                </div>
+                                Admin
+
+                                <div class="nav__dropdown-menu">
+                                    <div class="menu__buttons">
+                                        <button class="btn menu__register" onclick="window.location.href='/html/register.html'">Đăng ký</button>
+                                        <button class="btn menu__login" onclick="window.location.href='/html/login.html'">Đăng nhập</button>
+                                    </div>
+                                    
+                                    
+                                    <ul class="menu__list">
+                                        <li class="menu__item">
+                                            <a href="" class="menu__link">
+                                                <i class="menu__link-icon fa-regular fa-id-badge"></i>
+                                                <span class="menu__link-title">Hồ sơ xin việc</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu__item">
+                                            <a href="" class="menu__link">
+                                                <i class="menu__link-icon fa-regular fa-heart"></i>
+                                                <span class="menu__link-title">Việc đã lưu</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu__item">
+                                            <a href="" class="menu__link">
+                                                <i class="menu__link-icon fa-regular fa-paper-plane"></i>
+                                                <span class="menu__link-title">Việc đã ứng tuyển</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu__item">
+                                            <a href="" class="menu__link">
+                                                <i class="menu__link-icon fa-regular fa-bell"></i>
+                                                <span class="menu__link-title">Thông báo việc làm</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </li>
+                
+                    </ul>
+                </div>
+            </nav> 
+        </header>
+        <div class="container">
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h3>Trang chủ admin</h3>
+                <a  href="/html/admin/admin_home.html">Thống kê và báo cáo</a>
+                <a class="sidebar--active"  href="#">Quản lý nhà tuyển dụng</a>
+                <a href="/html/admin/candidate.html">Quản lý ứng viên</a>
+                <a href="#">Quản lý bài đăng</a>
+                <a href="#">Quản lý tài khoản</a>
+            </div>
+
+            
+                
+
+           
+        </div>
+    </div>
+</body>
+</html>
