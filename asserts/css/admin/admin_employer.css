@@ -57,19 +57,3 @@
 .address__detail{
     margin-top: 10px;
 }
-.form__submit{
-    margin-top: 20px;
-    min-width: 240px;
-    height : 40px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid rgba(0,0,0,0.5);
-    font-size: 1.6rem;
-    color: var(--text-color);
-    background-color: rgba(244,149,50);;
-}
-.form__submit:hover{
-    cursor: pointer;
-    background-color: rgb(200,149,0);
-    color : var(--white-color);
-}
