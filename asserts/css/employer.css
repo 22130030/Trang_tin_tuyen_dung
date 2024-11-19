@@ -77,6 +77,7 @@ a.btn.btn-primary {
     font-size: 12px;
     font-weight: 500;
 }
+
 #sidebar.sidebar-expanded {
     max-width: 240px;
     width: 240px;
@@ -265,6 +266,7 @@ img.employer-logo {
     width: 100%;
     height: 100%;
 }
+
 .employer-company-banner .employer-company-banner-content>img {
     position: relative;
     width: 100%;
