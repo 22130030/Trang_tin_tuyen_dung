@@ -211,8 +211,9 @@ body {
   }
   
   .save-button {
-    background-color: #e0e0e0;
-    color: #333;
+    color: #2563EB ;
+    border: 1px solid #2563EB ;
+    background-color: white;
   }
   
   .save-button:hover {
@@ -462,6 +463,68 @@ body {
     color: #ff6b6b;
     margin-right: 5px;
   }
+   /* Sticky Footer Bar  */
+   .job-summary{
+    width: 100%;
+    background-color: white;
+    height: 82px;
+    margin-bottom: -80px;
+   }
+   .block{
+    width: 78%;
+    margin-left: 170px;
+    display: flex;
+   }
+   .block img {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    height: 57px;
+    width: 57px;
+    margin-top: 10px;
+   }
+   .summary-content{
+    margin-top: 5px;
+    line-height:8px ;
+   }
+   .summary-content h2 {
+    font-size: 24px;
+    font-weight: bold;
+
+   }
+   .summary-content p {
+     font-size: 16px;
+   }
+   .summary-buttons{
+    margin-left: auto; /* Đẩy các nút sang phải */
+    display: flex;
+    gap: 10px;
+   }
+   .summary-buttons .apply-btn{
+    width:150px ;
+    height: 50px;
+    background-color: #2563EB;
+    color: white;
+    margin-top: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+   }
+   .summary-buttons .save-btn{
+    width:70px ;
+    height: 50px;
+    color: #2563EB ;
+    border: 1px solid #2563EB ;
+    background-color: white;
+    margin-top: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+   }
+   .apply-btn:hover {
+    background-color: #0056b3;
+  }
+  .save-btn:hover {
+    background-color: #c0c0c0;
+  }
+
   
   
   
