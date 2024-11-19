@@ -76,13 +76,63 @@
             <!-- Sidebar -->
             <div class="sidebar">
                 <h3>Trang chủ admin</h3>
-                <a  href="/html/admin/admin_home.html">Thống kê và báo cáo</a>
-                <a class="sidebar--active"  href="#">Quản lý nhà tuyển dụng</a>
+                <a href="/html/admin/admin_home.html">Thống kê và báo cáo</a>
+                <a href="/html/admin/admin_employer.html">Quản lý nhà tuyển dụng</a>
                 <a href="/html/admin/candidate.html">Quản lý ứng viên</a>
-                <a href="#">Quản lý bài đăng</a>
+                <a class="sidebar--active" href="#">Quản lý bài đăng</a>
                 <a href="#">Quản lý tài khoản</a>
             </div>
+            <div class="content">
+                <h3>Quản lý bài đăng</h3>
+                <div class="jobs_management">
+                    <h4 class="employer__add-list">Danh sách bài đăng : 
+                    <a href="javascript:void(0)" onclick="addUserForm()" class="list__add-link">thêm mới</a>
+                </h4>
+                <table>
+                    <thead>
+                        <th>ID</th>
+                        <th>Hình ảnh</th>
+                        <th>Tiêu đề</th>
+                        <th>Tên công ty</th>
+                        <th>Địa chỉ</th>
+                        <th>Lương</th>
+                        <th>Thời gian đăng</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
 
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                        <td>1</td>
+                        <td class="job__column-img">
+                            <div class="job__column-item">
+                                <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
+                            </div>
+                        </td>
+                        <td>Nhân viên phiên dịch tiếng Hàn</td>
+                        <td>Công ty TNHH D&O CM VietNam</td>
+                        <td>Hải Phòng</td>
+                        <td>2 triệu</td>
+                        <td>1/11/2024</td>
+                        <td>Đã duyệt</td>
+                        <td>
+                            <div class="operations">
+                                <div class="operation operation__edit">
+                                    <i class="fa-solid fa-pen"></i>
+                                </div>
+                                <div class="operation operation__remove">
+                                    <i class="fa-solid fa-trash"></i>
+                                </div>
+                        </div>
+                        </td>
+                        </tr>
+                       
+                    </tbody>
+                </table>
+
+                </div>
+            </div>
             
                 
 

@@ -1,0 +1,27 @@
+.content{
+    width: 100%;
+    background-color: var(--white-color);
+    padding: 10px;
+}
+.content h3{
+    font-size: 2.35rem;
+    margin: 22px 0;
+}
+.content table{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+.job__column-item{
+    display: flex;
+    padding: 10px;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 2px;
+}
+.job__column-item img{
+    max-height: 40px;
+    object-fit: cover;
+    background-size: contain;
+}
