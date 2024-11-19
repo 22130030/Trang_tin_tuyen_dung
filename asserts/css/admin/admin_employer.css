@@ -42,28 +42,7 @@
     display: none;
     padding : 10px;
 }
-.form__title{
-    font-size: 2.5rem;
-}
-.form__content{
-    padding: 0 5px;
-}
-.form__item{
-    margin: 8px 0;
-}
-.form__content label{
-    display: block;
-    font-size: 1.8rem;
-    width: 100%;
-    margin-bottom: 10px;
-}
-.form__content input{
-    display: flex;
-    min-height: 32px;
-    width: 100%;
-    outline: none;
-    padding: 10px 0 10px 10px;
-}
+
 .form__address-city{
     display: flex;
 }
