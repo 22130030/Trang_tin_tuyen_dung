@@ -2,10 +2,19 @@
     width: 100%;
     background-color: var(--white-color);
     padding: 10px;
+    display: none;
 }
 .content h3{
     font-size: 2.35rem;
     margin: 22px 0;
+}
+
+/* add job form */
+#addJobsForm{
+    width: 100%;
+    max-width: 900px;
+    /* display: none; */
+    padding : 10px;
 }
 
 /* search */
@@ -50,4 +59,9 @@
     max-height: 40px;
     object-fit: cover;
     background-size: contain;
+}
+
+/* form */
+.form__content .address__input{
+    width: 20%;
 }
