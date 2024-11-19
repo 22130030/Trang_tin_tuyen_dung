@@ -85,3 +85,50 @@ td{
 .operation:hover{
     cursor: pointer;
 }
+
+/* search */
+.search__input{
+    flex: 2;
+    margin-right: 15px;
+}
+.search__input,.search__status-filter select{
+    min-height: 32px;
+    padding: 5px;
+    font-size: 1.6rem;
+    border-radius: 2px;
+    outline: none;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+.search__status-filter{
+    flex : 1;
+    display: flex;
+    align-items: center;
+}
+
+.search__status-filter span{
+    font-size: 1.6rem;
+    margin-right: 5px;
+}
+.search__status-filter select{
+    flex: 1;
+    margin-right: 15px;
+}
+.search__submit{
+    min-width: 120px;
+    height : 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(244,160,50);
+    color : var(--white-color);
+    font-size: 1.4rem;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.search__submit:hover{
+    cursor: pointer;
+    background-color: var(--orange-color);
+}
+.search__submit i{
+    margin : 0 5px;
+}
