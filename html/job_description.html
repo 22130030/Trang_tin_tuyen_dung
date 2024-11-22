@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/asserts/css/base.css">
 </head>
 <body>
+
 
      <!-- header -->
     <nav class="nav">
@@ -104,7 +105,7 @@
                     <p><strong><i class="fa-solid fa-sack-dollar"></i>Lương:</strong> 8 triệu - 30 triệu</p>
                     <p><strong><i class="fa-solid fa-briefcase"></i>Kinh nghiệm:</strong> 2 - 5 năm kinh nghiệm</p>
                     <p><strong><i class="fa-regular fa-calendar-check"></i>Ngày đăng tuyển:</strong> 04-11-2024 | Hết hạn trong: <span class="highlight">5 Ngày tới</span></p>
-                    <button class="apply-button">Nộp đơn ngay</button>
+                    <button id="applyButton" class="apply-button">Nộp đơn ngay</button>
                     <button class="save-button"><i class="fa-regular fa-heart"></i>Lưu</button>
                 </div>
             </div>
@@ -577,18 +578,20 @@
 
     </div>
     <!-- Sticky Footer Bar -->
-    <div class="job-summary" id="job-summary">
-        <div class="block">
-            <img src="https://blob-careerlinkvn.careerlink.vn/company_logos/82c29a21edc8aae52392753e21d1ee36.png" alt="Company Logo" class="company-logo">
-          <div class="summary-content">
-            <h2>Chuyên Viên Tư Vấn Tuyển Sinh</h2>
-            <p>Công Ty Cổ Phần Smartcom Việt Nam</p>
-          </div>
-          <div class="summary-buttons">
-            <button class="apply-btn">Nộp đơn ngay</button>
-            <button class="save-btn">Lưu</button>
-          </div>
-       </div>
+    <div id="stickyFooter">
+        <div class="job-summary" id="job-summary">
+            <div class="block">
+                <img src="https://blob-careerlinkvn.careerlink.vn/company_logos/82c29a21edc8aae52392753e21d1ee36.png" alt="Company Logo" class="company-logo">
+               <div class="summary-content">
+                   <h2>Chuyên Viên Tư Vấn Tuyển Sinh</h2>
+                   <p>Công Ty Cổ Phần Smartcom Việt Nam</p>
+                </div>
+              <div class="summary-buttons">
+                  <button id="footerApplyButton" class="apply-btn">Nộp đơn ngay</button>
+                  <button class="save-btn">Lưu</button>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- footer -->
     <div class="footer">
@@ -621,6 +624,60 @@
             </div>
         </div>
     </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="hidden"></div>
+
+    <!-- poppup -->
+    <div  id="popupForm" class="form-container hidden">
+        <div class="form-content ">
+            <div class="head">
+                <h2>NỘP ĐƠN NHÂN VIÊN QA_GIẢI QUYẾT KHIẾU NẠI</h2>
+                
+            </div>
+            
+            <p class="user-info">03. Lê Minh Công</p>
+            <p class="email">leminhcong8323@gmail.com</p>
+            <div class="form-group">
+                <label for="resume">Hồ sơ xin việc*</label>
+                <div class="file-options">
+                    <p>Chọn hồ sơ</p>
+                    <button class="file-btn active">Từ CareerLink <i class="fa-solid fa-chevron-down"></i></button>
+                    <button class="file-btn">Từ máy tính</button>
+                    <button class="file-btn">Từ VietCV</button>
+                </div>
+                <p class="file-note">File: doc, docx, xls, pdf (tối đa 3MB).</p>
+                <p class="requirement">Nhà tuyển dụng yêu cầu hồ sơ: <span class="highlight">Tiếng Anh</span></p>
+            </div>
     
+            <div class="form-group">
+                <label for="phone">Số điện thoại*</label>
+                <div class="phone-input">
+                    <span class="phone-icon">📞</span>
+                    <input type="text" id="phone" name="phone" placeholder="Nhập số điện thoại của bạn">
+                </div>
+                <p class="contact-note">Nhà tuyển dụng có thể liên hệ với bạn qua số điện thoại này.</p>
+            </div>
+    
+            <div class="form-group">
+                <label for="cover-letter">Thư xin việc <span class="optional">(Không bắt buộc)</span></label>
+                <select id="cover-letter" name="cover-letter">
+                    <option value="none">Không sử dụng</option>
+                </select>
+            </div>
+    
+            <div class="warning-message">
+                <p>⚠️ 17 thg 8, 2023</p>
+                <p>
+Một số kẻ mạo danh nhà tuyển dụng đã bị báo cáo về hành vi lừa đảo người dùng của chúng tôi, họ yêu cầu ứng viên phải trả phí thông qua việc tải về một ứng dụng. Chúng tôi muốn nhấn mạnh rằng các ứng viên không phải chi trả bất kỳ khoản phí nào khi nộp đơn ứng tuyển trên CareerLink.vn. Vui lòng báo cáo với chúng tôi nếu bạn bắt gặp nhà tuyển dụng nào yêu cầu bạn thanh toán phí. Xin cảm ơn.</p>
+            </div>
+        </div>
+    
+        <div class="form-actions">
+            <button id="closePopup" class="save-btn">Hủy</button>
+            <button class="apply-btn">Nộp đơn ngay</button>
+        </div>
+        <p>Cho dù bạn chọn nút "Bảo mật" cho những thông tin hồ sơ trực tuyến mà bạn gởi cho Nhà tuyển dụng, nhưng Nhà tuyển dụng có thể truy cập đến tất cả nội dung thông tin có trong hồ sơ trực tuyến đó.</p>
+    </div>
 </body>
 </html>
