@@ -8,7 +8,24 @@
     <link rel="stylesheet" href="/asserts/css/admin/candidate.css">
     <link rel="stylesheet" href="/asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
     <title>Admin</title>
-    
+    <script>
+        function editCandidateForm(){
+            var candidateForm = document.getElementById("editCandidateForm");
+            var candidateTable = document.getElementById("table-container");
+            if(candidateForm.style.display === '' || candidateForm.style.display === 'none'){
+                candidateForm.style.display = 'block';
+            }else{
+                candidateForm.style.display = 'none';
+            }
+            if(candidateTable.style.display === '' || candidateTable.style.display === 'block'){
+                candidateTable.style.display = 'none';
+            }else{
+                candidateTable.style.display = 'block';
+            }
+        }
+        
+    </script>
+
 </head>
 <body>
     <div class="admin">
@@ -137,11 +154,15 @@
                                 <td>
                                     <div class="operations">
                                         <div class="operation operation__edit">
-                                            <i class="fa-solid fa-pen"></i>
+                                            <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
+
+                                                <i class="fa-solid fa-pen"></i>
+                                            </a>
                                         </div>
                                         <div class="operation operation__remove">
                                             <i class="fa-solid fa-trash"></i>
                                         </div>
+                                </div>
                                 </div>
                             </td>
                             </tr>
@@ -156,7 +177,10 @@
                                 <td>
                                     <div class="operations">
                                         <div class="operation operation__edit">
-                                            <i class="fa-solid fa-pen"></i>
+                                            <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
+
+                                                <i class="fa-solid fa-pen"></i>
+                                            </a>
                                         </div>
                                         <div class="operation operation__remove">
                                             <i class="fa-solid fa-trash"></i>
@@ -174,7 +198,10 @@
                                 <td>
                                     <div class="operations">
                                         <div class="operation operation__edit">
-                                            <i class="fa-solid fa-pen"></i>
+                                            <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
+
+                                                <i class="fa-solid fa-pen"></i>
+                                            </a>
                                         </div>
                                         <div class="operation operation__remove">
                                             <i class="fa-solid fa-trash"></i>
@@ -192,7 +219,10 @@
                                 <td>
                                     <div class="operations">
                                         <div class="operation operation__edit">
-                                            <i class="fa-solid fa-pen"></i>
+                                            <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
+
+                                                <i class="fa-solid fa-pen"></i>
+                                            </a>
                                         </div>
                                         <div class="operation operation__remove">
                                             <i class="fa-solid fa-trash"></i>
@@ -210,7 +240,10 @@
                                 <td>
                                     <div class="operations">
                                         <div class="operation operation__edit">
-                                            <i class="fa-solid fa-pen"></i>
+                                            <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
+
+                                                <i class="fa-solid fa-pen"></i>
+                                            </a>
                                         </div>
                                         <div class="operation operation__remove">
                                             <i class="fa-solid fa-trash"></i>
@@ -228,7 +261,10 @@
                                 <td>
                                     <div class="operations">
                                         <div class="operation operation__edit">
-                                            <i class="fa-solid fa-pen"></i>
+                                            <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
+
+                                                <i class="fa-solid fa-pen"></i>
+                                            </a>
                                         </div>
                                         <div class="operation operation__remove">
                                             <i class="fa-solid fa-trash"></i>
@@ -246,7 +282,10 @@
                                 <td>
                                     <div class="operations">
                                         <div class="operation operation__edit">
-                                            <i class="fa-solid fa-pen"></i>
+                                            <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
+
+                                                <i class="fa-solid fa-pen"></i>
+                                            </a>
                                         </div>
                                         <div class="operation operation__remove">
                                             <i class="fa-solid fa-trash"></i>
@@ -264,7 +303,10 @@
                                 <td>
                                     <div class="operations">
                                         <div class="operation operation__edit">
-                                            <i class="fa-solid fa-pen"></i>
+                                            <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
+
+                                                <i class="fa-solid fa-pen"></i>
+                                            </a>
                                         </div>
                                         <div class="operation operation__remove">
                                             <i class="fa-solid fa-trash"></i>
@@ -282,7 +324,10 @@
                                 <td>
                                     <div class="operations">
                                         <div class="operation operation__edit">
-                                            <i class="fa-solid fa-pen"></i>
+                                            <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
+
+                                                <i class="fa-solid fa-pen"></i>
+                                            </a>
                                         </div>
                                         <div class="operation operation__remove">
                                             <i class="fa-solid fa-trash"></i>
@@ -300,7 +345,10 @@
                                 <td>
                                     <div class="operations">
                                         <div class="operation operation__edit">
-                                            <i class="fa-solid fa-pen"></i>
+                                            <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
+
+                                                <i class="fa-solid fa-pen"></i>
+                                            </a>
                                         </div>
                                         <div class="operation operation__remove">
                                             <i class="fa-solid fa-trash"></i>
@@ -318,7 +366,10 @@
                                 <td>
                                     <div class="operations">
                                         <div class="operation operation__edit">
-                                            <i class="fa-solid fa-pen"></i>
+                                            <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
+
+                                                <i class="fa-solid fa-pen"></i>
+                                            </a>
                                         </div>
                                         <div class="operation operation__remove">
                                             <i class="fa-solid fa-trash"></i>
@@ -364,7 +415,7 @@
                     </div>
                     <div class="form__bottom">
                         <button class="form__submit" type="submit">lưu</button>
-                        <a href="javascript:void(0)" onclick="editEmployerForm()"  class="form__back">
+                        <a href="javascript:void(0)" onclick="editCandidateForm()"  class="form__back">
                             <i class="fa-solid fa-arrow-left"></i>
                             Quay lại
                         </a>
