@@ -11,22 +11,7 @@
 
     <title>Admin</title>
    
-    <script>
-        function addUserForm(){
-            var form = document.getElementById("addUserForm");
-            var table = document.getElementById("table-container");
-            if(form.style.display === '' || form.style.display === 'none'){
-                form.style.display = 'block';
-            }else{
-                form.style.display = 'none';
-            }
-            if(table.style.display === '' || table.style.display === 'block'){
-                table.style.display = 'none';
-            }else{
-                table.style.display = 'block';
-            }
-        }
-    </script>
+  
 
 </head>
 <body>
@@ -100,7 +85,7 @@
                 <a class="sidebar--active"  href="#">Quản lý nhà tuyển dụng</a>
                 <a href="/html/admin/candidate.html">Quản lý ứng viên</a>
                 <a href="/html/admin/admin_jobs.html">Quản lý bài đăng</a>
-                <a href="#">Quản lý tài khoản</a>
+                <a href="/html/admin/user.html">Quản lý tài khoản</a>
             </div>
 
             
@@ -110,8 +95,22 @@
             <div id="table-container">
                     <h3>Quản lý nhà tuyển dụng</h3>
                     <div class="employer_management">
-                        <h4 class="employer__add-list">Danh sách : 
-                        <a href="javascript:void(0)" onclick="addUserForm()" class="list__add-link">thêm mới</a>
+                        <div class="employer__search">
+                            <input class="search__input" type="text" name="name" class="search__candidate" placeholder="Nhập tên,email,...">
+                            <div class="search__status-filter">
+
+                                <span>Trạng thái : </span>
+                                <select name="" id="" class="search__filter">
+                                    <option value="">Đã duyệt</option>
+                                    <option value="">Đang xử lí</option>
+                                    <option value="">Đã bị từ chối</option>
+                                </select>
+                            </div>
+                            <button class="search__submit">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <span>Tìm kiếm</span>
+                            </button>
+                        </div>
                     </h4>
                    
                     <table>
