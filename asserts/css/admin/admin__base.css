@@ -61,6 +61,10 @@ th{
     font-size: 1.8rem;
     border-bottom: 1px solid #ecf0f1;
 }
+th{
+    position: sticky;
+    top : 0;
+}
 td{
     font-size: 1.7rem;
     border: 1px solid rgba(0,0,0,0.2);
