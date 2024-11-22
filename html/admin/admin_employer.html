@@ -11,7 +11,9 @@
 
     <title>Admin</title>
    
-  
+    <script>
+        function 
+    </script>
 
 </head>
 <body>
@@ -92,7 +94,7 @@
                 
 
                 <!-- Table Section -->
-            <div id="table-container">
+            <div id="table-container" style="display: none;">
                     <h3>Quản lý nhà tuyển dụng</h3>
                     <div class="employer_management">
                         <div class="employer__search">
@@ -138,7 +140,10 @@
                                 <td>
                                     <div class="operations">
                                         <div class="operation operation__edit">
-                                            <i class="fa-solid fa-pen"></i>
+                                            <a href="javascipt:void(0)" onclick="editUserForm()" id="section__edit" class="operation__edit-link">
+
+                                                <i class="fa-solid fa-pen"></i>
+                                            </a>
                                         </div>
                                         <div class="operation operation__remove">
                                             <i class="fa-solid fa-trash"></i>
@@ -354,8 +359,8 @@
                     </table>
                 </div>
             </div>
-            <div id="addUserForm" >
-                <h3 class = "form__title">Thêm nhà tuyển dụng</h3>
+            <div id="editUserForm"  style="display: block;">
+                <h3 class = "form__title">Chỉnh sửa thông tin nhà tuyển dụng</h3>
                 <form class="form__content" action="" method="POST">
                     <div class="form__item">
 
@@ -401,8 +406,14 @@
                         </div>
                 
                     </div>                    
-
-                    <button class="form__submit" type="submit">Thêm công ty</button>
+                    <div class="form__item">
+                        <label for="status">Trạng thái</label>
+                        <select class="status" name="status" id="status">
+                            <option value="enable">duyệt</option>
+                            <option value="disable">vô hiệu hóa</option>
+                        </select>
+                    </div>
+                    <button class="form__submit" type="submit">lưu</button>
                 </form>
             </div>
         </div>
