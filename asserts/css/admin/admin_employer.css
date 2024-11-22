@@ -32,7 +32,7 @@
 
 
 /* form add employer */
-#editUserForm{
+#editEmployerForm{
     width: 100%;
     max-width: 900px;
     display: none;
@@ -53,7 +53,7 @@
 .address__detail{
     margin-top: 10px;
 }
-#editUserForm .status{
+#editEmployerForm .status{
     min-width: 150px;
     text-align: center;
     outline: none;
