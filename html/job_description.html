@@ -679,5 +679,41 @@ Một số kẻ mạo danh nhà tuyển dụng đã bị báo cáo về hành vi
         </div>
         <p>Cho dù bạn chọn nút "Bảo mật" cho những thông tin hồ sơ trực tuyến mà bạn gởi cho Nhà tuyển dụng, nhưng Nhà tuyển dụng có thể truy cập đến tất cả nội dung thông tin có trong hồ sơ trực tuyến đó.</p>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const applyButton = document.getElementById('applyButton'); // Nút Nộp đơn trong nội dung chính
+        const footerApplyButton = document.getElementById('footerApplyButton'); // Nút Nộp đơn trong Sticky Footer Bar
+        const popupForm = document.getElementById('popupForm'); // Popup form
+        const overlay = document.getElementById('overlay'); // Overlay
+        const closePopup = document.getElementById('closePopup'); // Nút đóng
+        const cancelButton = document.getElementById('cancelButton'); // Nút Hủy
+    
+        // Hàm mở popup và overlay
+        function openPopup() {
+            popupForm.classList.remove('hidden'); // Hiển thị popup
+            overlay.classList.remove('hidden'); // Hiển thị overlay
+        }
+    
+        // Hàm đóng popup và overlay
+        function closePopupHandler() {
+            popupForm.classList.add('hidden'); // Ẩn popup
+            overlay.classList.add('hidden'); // Ẩn overlay
+        }
+    
+        // Gắn sự kiện cho nút trong nội dung chính và Sticky Footer Bar
+        applyButton.addEventListener('click', openPopup);
+        footerApplyButton.addEventListener('click', openPopup);
+    
+        // Gắn sự kiện đóng popup
+        closePopup.addEventListener('click', closePopupHandler);
+        cancelButton.addEventListener('click', closePopupHandler);
+    
+        // Đóng popup khi nhấn vào overlay
+        overlay.addEventListener('click', closePopupHandler);
+        
+    });
+    
+        </script>
+    
 </body>
 </html>
