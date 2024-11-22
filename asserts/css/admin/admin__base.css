@@ -89,6 +89,11 @@ td{
 .operation:hover{
     cursor: pointer;
 }
+.operation__edit{
+    display: block;
+    text-decoration: none;
+}
+
 
 /* search */
 .search__input{
