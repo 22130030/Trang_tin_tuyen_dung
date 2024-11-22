@@ -60,6 +60,17 @@
     font-weight: 600;
     color : rgb(255, 83, 83);
 }
+.form__bottom{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.form__back{
+    text-decoration: none;
+    display: block;
+    font-size: 1.6rem;
+    color : var(--blue-color);
+}
 .form__submit{
     background-color: var(--blue-color);
     color : var(--white-color);
