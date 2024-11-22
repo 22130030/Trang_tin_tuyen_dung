@@ -9,17 +9,13 @@
 .employer_management{
     background-color: #f5f5f5;
     max-height: calc(100% - 26px - 108px);
-    padding: 0 10px;
+    padding: 10px;
     overflow-y: auto;
+
 }
-.employer__add-list{
-    font-size: 1.4rem;
-    color : var(--text-color);
-}
-.list__add-link{
-    font-size: 1.3rem;
-    color : var(--blue-color);
-    text-decoration: none;
+.employer__search{
+    display: flex;
+    width: 80%;
 }
 .employer_management table{
     width : 100%;
