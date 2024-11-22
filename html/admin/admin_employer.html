@@ -12,7 +12,20 @@
     <title>Admin</title>
    
     <script>
-        function 
+        function editEmployerForm(){
+            var employerForm = document.getElementById("editEmployerForm");
+            var employerTable = document.getElementById("table-container");
+            if(employerForm.style.display === '' || employerForm.style.display === 'none'){
+                employerForm.style.display = 'block';
+            }else{
+                employerForm.style.display = 'none';
+            }
+            if(employerTable.style.display === '' || employerTable.style.display === 'block'){
+                employerTable.style.display = 'none';
+            }else{
+                employerTable.style.display = 'block';
+            }
+        }
     </script>
 
 </head>
@@ -94,7 +107,7 @@
                 
 
                 <!-- Table Section -->
-            <div id="table-container" style="display: none;">
+            <div id="table-container">
                     <h3>Quản lý nhà tuyển dụng</h3>
                     <div class="employer_management">
                         <div class="employer__search">
@@ -140,7 +153,7 @@
                                 <td>
                                     <div class="operations">
                                         <div class="operation operation__edit">
-                                            <a href="javascipt:void(0)" onclick="editUserForm()" id="section__edit" class="operation__edit-link">
+                                            <a href="javascript:void(0)" onclick="editEmployerForm()" id="section__edit" class="operation__edit-link">
 
                                                 <i class="fa-solid fa-pen"></i>
                                             </a>
@@ -359,7 +372,7 @@
                     </table>
                 </div>
             </div>
-            <div id="editUserForm"  style="display: block;">
+            <div id="editEmployerForm">
                 <h3 class = "form__title">Chỉnh sửa thông tin nhà tuyển dụng</h3>
                 <form class="form__content" action="" method="POST">
                     <div class="form__item">
