@@ -26,6 +26,7 @@
                 employerTable.style.display = 'block';
             }
         }
+        
     </script>
 
 </head>
@@ -426,7 +427,13 @@
                             <option value="disable">vô hiệu hóa</option>
                         </select>
                     </div>
-                    <button class="form__submit" type="submit">lưu</button>
+                    <div class="form__bottom">
+                        <button class="form__submit" type="submit">lưu</button>
+                        <a href="javascript:void(0)" onclick="editEmployerForm()"  class="form__back">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Quay lại
+                        </a>
+                    </div>
                 </form>
             </div>
         </div>
