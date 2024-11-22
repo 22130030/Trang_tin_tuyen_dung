@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/asserts/css/admin/candidate.css">
     <link rel="stylesheet" href="/asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
     <title>Admin</title>
+    
 </head>
 <body>
     <div class="admin">
@@ -332,7 +333,44 @@
                     </table>
                 </div>
             </div>
-           
+            <div id="editCandidateForm">
+                <h3 class = "form__title">Chỉnh sửa thông tin ứng viên</h3>
+                <form class="form__content" action="" method="POST">
+                    <div class="form__item">
+                        <label for="candidate_name">Tên ứng viên :</label>
+                        <input type="text" id="candidate" name="candidate" required><br>
+                    </div>
+                    <div class="form__item">
+
+                        <label for="name">Email : </label>
+                        <input type="email" id="email" name="email" required placeholder="Email"><br>
+                    </div>
+                    <div class="form__item">
+                        <label for="phone">Số Điện Thoại:</label>
+                        <input type="text" id="phone" name="phone" required><br>
+                    </div>
+                    <div class="form__item">
+                        <label for="company">Công ty ứng tuyển :</label>
+                        <input type="text" id="company" name="company" required><br>
+                    </div>
+
+                                    
+                    <div class="form__item">
+                        <label for="status">Trạng thái</label>
+                        <select class="status" name="status" id="status">
+                            <option value="enable">duyệt</option>
+                            <option value="disable">vô hiệu hóa</option>
+                        </select>
+                    </div>
+                    <div class="form__bottom">
+                        <button class="form__submit" type="submit">lưu</button>
+                        <a href="javascript:void(0)" onclick="editEmployerForm()"  class="form__back">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Quay lại
+                        </a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </body>
