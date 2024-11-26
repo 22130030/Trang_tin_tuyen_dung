@@ -374,6 +374,74 @@ Chiến thuật quảng bá bản thân giúp bạn “ghi điểm” khi phỏn
               });
             });
           </script>
+            <label for="job-description">Mô tả công việc*</label>
+            <div id="editor-job-description"></div>
+    
+            <label for="job-requirements">Yêu cầu công việc*</label>
+            <div id="editor-job-requirements"></div>
+    
+            <label for="benefits">Phúc lợi*</label>
+            <div id="benefits-container">
+                <!-- Các phúc lợi sẽ được thêm vào đây -->
+              </div>
+              <button type="button" id="add-benefit-btn" class="add-benefit">+ Thêm (tối đa 10)</button>
+    
+       <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+      <script>
+        // Khởi tạo trình chỉnh sửa
+        var editorCompanySummary = new Quill('#editor-company-summary', {
+          theme: 'snow',
+          placeholder: 'Nhập sơ lược công ty...',
+          modules: {
+            toolbar: [
+              ['bold', 'italic', 'underline'],
+              [{ list: 'ordered' }, { list: 'bullet' }],
+              [{ align: [] }],
+              ['clean']
+            ]
+          }
+        });
+    
+        var editorJobDescription = new Quill('#editor-job-description', {
+          theme: 'snow',
+          placeholder: 'Nhập mô tả công việc...',
+          modules: {
+            toolbar: [
+              ['bold', 'italic', 'underline'],
+              [{ list: 'ordered' }, { list: 'bullet' }],
+              [{ align: [] }],
+              ['clean']
+            ]
+          }
+        });
+    
+        var editorJobRequirements = new Quill('#editor-job-requirements', {
+          theme: 'snow',
+          placeholder: 'Nhập yêu cầu công việc...',
+          modules: {
+            toolbar: [
+              ['bold', 'italic', 'underline'],
+              [{ list: 'ordered' }, { list: 'bullet' }],
+              [{ align: [] }],
+              ['clean']
+            ]
+          }
+        });
+    
+        var editorBenefits = new Quill('#editor-benefits', {
+          theme: 'snow',
+          placeholder: 'Nhập phúc lợi...',
+          modules: {
+            toolbar: [
+              ['bold', 'italic', 'underline'],
+              [{ list: 'ordered' }, { list: 'bullet' }],
+              [{ align: [] }],
+              ['clean']
+            ]
+          }
+        });
+      </script>
+          </fieldset>
     </div>
 
   </fieldset>
