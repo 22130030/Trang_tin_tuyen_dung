@@ -237,3 +237,90 @@ img.employer-logo {
   line-height: 16px;
   color: #64748B;
 }
+.my-careerlink-screen {
+  flex: 1;
+  background-color: #F1F5F9;
+}
+.my-careerlink .page-title {
+  font-weight: 800;
+  align-items:center;
+  justify-content: center;
+}
+.my-careerlink .container{
+  display: flex;
+  align-items:center;
+  justify-content: center;
+}
+.page-title {
+  font-size: 30px;
+  line-height: 1.4;
+  color: #084ABC;
+}
+/* form company information */
+.formcontainer {
+  max-height: 550px; /* Đặt chiều cao tối đa cho form */
+  overflow-y: auto; /* Thêm scrollbar dọc khi nội dung vượt quá chiều cao */
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.formcontainer h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+form fieldset {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+form fieldset legend {
+  font-weight: bold;
+  padding: 0 10px;
+  color: #2864DC;
+  font-size: 24px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+textarea {
+  resize: vertical;
+  height: 80px;
+}
+
+.salary-options label {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
