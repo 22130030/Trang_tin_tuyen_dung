@@ -282,7 +282,101 @@ Chiến thuật quảng bá bản thân giúp bạn “ghi điểm” khi phỏn
     <div id="editor-company-summary"></div>
    
   </fieldset>
+  <!-- Job Information Section -->
+  <fieldset>
+    <legend>Thông tin công việc</legend>
+    <label for="job-title">Chức Danh*</label>
+    <input type="text" id="job-title" placeholder="Tên công việc">
+
+    <label for="job-location">Địa điểm làm việc</label>
+    <input type="text" id="job-location" placeholder="Địa điểm">
+
+    <label>Lương*</label>
+    <div class="salary-options">
+        <label>
+            <input type="radio" name="salary-type" value="nhap" checked> Nhập
+          </label>
+          <label>
+            <input type="radio" name="salary-type" value="hon"> Hơn
+          </label>
+          <label>
+            <input type="radio" name="salary-type" value="thuong-luong"> Thương lượng
+              </label>
+              <label>
+                <input type="radio" name="salary-type" value="canh-tranh"> Cạnh tranh
+            </label>
+        </div>
+
+        <div class="salary-inputs">
+            <div class="salary-range">
+                <!-- Trường nhập liệu lương khi chọn "Nhập" -->
+                <div class="input-nhap">
+                  <input type="text" placeholder="VD: 10 hoặc 10.5">
+                  <select>
+                    <option value="trieu">triệu VND</option>
+                    <option value="nghin">nghìn VND</option>
+                  </select>
+                </div>
+        
+                <!-- Trường nhập liệu lương khi chọn "Hơn" -->
+                <div class="input-hon" style="display: none;">
+                  <input type="text" placeholder="VD: 10 hoặc 10.5">
+                  <select>
+                    <option value="trieu">triệu VND</option>
+                    <option value="nghin">nghìn VND</option>
+                  </select>
+                </div>
+              </div>
+        
+              <!-- Thông báo khi chọn "Thương lượng" -->
+              <div class="input-thuong-luong" style="display: none;">
+                <span class="info-text">
+                  ⚠️ Không hiển thị mức lương có thể làm giảm 30% lượng CV ứng tuyển!
+                </span>
+              </div>
+        
+              <!-- Thông báo khi chọn "Cạnh tranh" -->
+              <div class="input-canh-tranh" style="display: none;">
+                <span class="info-text">
+                  ⚠️ Không hiển thị mức lương có thể làm giảm 30% lượng CV ứng tuyển!
+                </span>
+              </div>
+            <div class="salary-warning">
+              <span class="warning-text">Bắt buộc</span>
+            </div>
+          </div>
+
+          <script>
+            document.addEventListener("DOMContentLoaded", function () {
+              const salaryTypeRadios = document.querySelectorAll('input[name="salary-type"]');
+              const inputNhap = document.querySelector(".input-nhap");
+              const inputHon = document.querySelector(".input-hon");
+              const inputThuongLuong = document.querySelector(".input-thuong-luong");
+              const inputCanhTranh = document.querySelector(".input-canh-tranh");
+        
+              salaryTypeRadios.forEach((radio) => {
+                radio.addEventListener("change", function () {
+                  inputNhap.style.display = "none";
+                  inputHon.style.display = "none";
+                  inputThuongLuong.style.display = "none";
+                  inputCanhTranh.style.display = "none";
+        
+                  if (this.value === "nhap") {
+                    inputNhap.style.display = "flex";
+                  } else if (this.value === "hon") {
+                    inputHon.style.display = "flex";
+                  } else if (this.value === "thuong-luong") {
+                    inputThuongLuong.style.display = "block";
+                  } else if (this.value === "canh-tranh") {
+                    inputCanhTranh.style.display = "block";
+                  }
+                });
+              });
+            });
+          </script>
     </div>
+
+  </fieldset>
     <!-- footer -->
     <div class="footer" style="margin: auto;">
       <div class="grid">
