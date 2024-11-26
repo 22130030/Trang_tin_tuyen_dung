@@ -303,7 +303,7 @@ input, select, textarea {
   border-radius: 4px;
   font-size: 14px;
 }
-textarea {
+tgitextarea {
   resize: vertical;
   height: 80px;
 }
@@ -323,4 +323,15 @@ button {
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
+}
+button:hover {
+  background-color: #0056b3;
+}
+div[id^="editor-"] {
+  height: 150px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: #fff;
+  margin-bottom: 20px;
 }

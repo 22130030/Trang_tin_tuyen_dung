@@ -6,6 +6,25 @@
     <link rel="stylesheet" href="/asserts/css/base.css">
     <link rel="stylesheet" href="/asserts/css/main_home_employer.css">
     <link rel="stylesheet" href="/asserts/fonts/fontawesome-free-6.4.0-web/css/all.min.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+         const navUser = document.querySelector('.nav__has--form-login');
+         const dropdownMenu = document.querySelector('.nav__dropdown-menu');
+ 
+     // Hiển thị menu khi click vào `.nav__has--form-login`
+         navUser.addEventListener('click', function (event) {
+         event.stopPropagation();
+         dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+     });
+ 
+     // Đóng menu khi click ra ngoài
+     document.addEventListener('click', function (event) {
+         if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {
+             dropdownMenu.style.display = 'none';
+         }
+     });
+ });
+     </script>
     </head>
     <body>
     <!-- header -->

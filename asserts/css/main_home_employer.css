@@ -1,6 +1,10 @@
 .nav{
     background-color: #0E1225;
 }
+.nav__item-link,.nav__item-link > i{
+    color: var(--white-color);
+
+}
 .nav__user {
     border: solid 1.1px white;
 }
@@ -38,7 +42,7 @@
 }
 .form .services h2 {
     font-size: 24px;
-    margin-left: 30px;
+    margin-left: 15px;
 }
 .form .services ul{
    margin-left: -10px;
@@ -65,7 +69,7 @@
 .form .services img{
     width: 200px;
     height: 150px;
-    margin-left: 100px;
+    margin-left: 80px;
 }
 /* Article */
 .recruitment-guide {
@@ -141,7 +145,7 @@
     height: 60px;
     border-radius: 8px;
     object-fit: cover;
-    margin-left: 90px;
+    margin-left: 80px;
 }
 
 .side-article h5 {
@@ -168,7 +172,7 @@
 .login-panel h3 {
     background-color: #343a40;
     color: #fff;
-    width: 268.8px;
+    width: 320px;
     height: 50px;
     margin-left: -20px;
     margin-right: -20px;
@@ -176,7 +180,9 @@
     margin-top: -20px;
     border-radius: 4px 4px 0 0;
     margin-bottom: 15px;
-    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
     
 }
 
@@ -186,13 +192,14 @@
 }
 .login-panel label {
     margin-left: 30px;
-    margin-top: -15px;
+    margin-top: -17px;
     margin-bottom: 10px;
+    font-size: 10px;
 }
 .login-panel input[type="checkbox"]{
     margin-right: 5px;
     width: 16px;
-    height: 16px;
+    height: 16px;   
 }
 
 .login-panel input[type="email"],
@@ -201,7 +208,7 @@
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 10px;
+    font-size: 14px;
 }
 
 .login-panel button {
@@ -211,7 +218,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 10px;
+    font-size: 14px;
     margin-bottom: 10px;
 }
 
@@ -222,7 +229,7 @@
 .login-panel a {
     text-align: center;
     color: #007bff;
-    font-size: 10px;
+    font-size: 14px;
     text-decoration: none;
     margin-top: 10px;
 }
