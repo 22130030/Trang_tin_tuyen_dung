@@ -335,3 +335,77 @@ div[id^="editor-"] {
   background-color: #fff;
   margin-bottom: 20px;
 }
+/*  */
+.salary-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  }
+  
+  .salary-options {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .salary-options label {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    color: #333;
+  }
+  
+  .salary-options input[type="radio"] {
+    margin-right: 8px;
+  }
+  
+  .salary-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .salary-range {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .salary-range input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 120px;
+  }
+  
+  .salary-range select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .salary-range span {
+    font-weight: bold;
+    color: #333;
+  }
+  
+.salary-inputs.salary-warning {
+    color: #d00000;
+    font-size: 14px;
+  }
+  
+  .warning-text {
+    color: orange;
+    font-size: 14px;
+  }
+  .info-text {
+    color: orange;
+    font-size: 14px;
+    display: block;
+    margin-top: 8px;
+  }
