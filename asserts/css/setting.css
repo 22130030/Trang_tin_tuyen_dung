@@ -1,0 +1,251 @@
+html, body{
+    font-family: "Roboto", sans-serif;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    }
+.container{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.nav_header{
+    background-color: #0E1225;
+    }
+    .nav_user {
+    border: solid 1.1px white;
+    }
+    .nav {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+.row {
+    background-color: #f1f1f1 !important;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+
+#main-screen {
+    margin-top: 10px;
+    background-color: #F1F5F9;
+}
+.justify-content-start {
+    justify-content: flex-start !important;
+}
+.d-flex {
+    display: flex !important
+;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: "Roboto", sans-serif;
+}
+
+a:hover {
+    text-decoration: none !important;
+}
+a.btn.btn-primary {
+    text-align: center;
+    border-radius:2px;
+    color: #f1f1f1;
+    min-width: 70px;
+    height: 25px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+#sidebar.sidebar-expanded {
+ width: 240px;
+}
+#sidebar {
+    white-space: nowrap;
+}
+#sidebar.sidebar-expanded .sidebar__inner {
+    width: 240px !important;
+    height: 700px;
+}
+.bg-white {
+    background-color: #fff !important;
+}
+#sidebar.sidebar-expanded .nav-link {
+    padding: 8px;
+    display: flex
+;
+    align-items: center;
+}
+#sidebar .nav-link {
+    max-height: 36px;
+}
+#sidebar .active {
+    background-color: #DBEAFE;
+}
+.nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+}
+.nav__has--form-login {
+    border: 1px solid white !important;
+    }
+
+#sidebar.sidebar-expanded .nav-link i {
+    margin-right: 11px;
+    margin-left: 1px;
+}
+#sidebar .nav-link i {
+    font-size: 18px;
+}
+#sidebar.sidebar-expanded span.item-label {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    color: #0F172A;
+}
+#sidebar .sub-menu .nav-item:first-child {
+    margin-top: 4px;
+}
+#sidebar.sidebar-expanded .nav-link {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+#sidebar .nav-link {
+    max-height: 36px;
+}
+.my-candidates {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+}
+#sidebar span.navbar-collapse-button {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    width: 100%;
+    margin-top: 16px;
+}
+#sidebar.sidebar-expanded i.cli-angle-down {
+    margin-left: 4px;
+    margin-right: 12px;
+}
+.item-label{
+    display: flex;
+    align-items: center; 
+    gap: 8px;
+}
+
+#sidebar span.navbar-collapse-button .item-label {
+    font-weight: 700 !important;
+    color:#0069DB
+}
+#sidebar .sub-menu .nav-item:first-child {
+    margin-top: 4px;
+}
+
+#sidebar .sidebar-bottom {
+    margin-top: 32px;
+}
+#sidebar.sidebar-expanded .nav-link i {
+    margin-right: 11px;
+    margin-left: 1px;
+}
+#sidebar .setting #sidebar .account {
+    margin-top: 6px;
+}
+.overflow-hidden {
+    overflow: hidden !important;
+}
+
+.mw-100 {
+    max-width: 100% !important;
+}
+.align-items-center {
+    align-items: center !important;
+}
+
+a {
+    color: #0069DB;
+    text-decoration: none;
+    background-color: transparent;
+}
+#sidebar.sidebar-expanded  {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    color: #0F172A;
+}
+
+#sidebar.sidebar-expanded .avatar {
+    margin-left: 2px;
+}
+.rounded-circle {
+    border-radius: 50% !important;
+}
+img.employer-logo {
+    object-fit: contain !important;
+    background-color: #fff;
+}
+.rounded-circle {
+    border-radius: 50% !important;
+}
+.border {
+    border: 1px solid #D7D7DB !important;
+}
+
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#sidebar .account .user-info .email {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #64748B;
+}
+.my-careerlink-screen {
+    flex: 1;
+    background-color: #F1F5F9;
+}
+.my-careerlink .page-title {
+    font-weight: 800;
+}
+.page-title {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.4;
+    color: #084ABC;
+}
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+}
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
