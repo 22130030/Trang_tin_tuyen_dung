@@ -4747,7 +4747,6 @@ input[type=submit].btn-block {
 }
 
 .nav-tabs {
-    border-bottom: 1px solid #dee2e6
 }
 
 .nav-tabs .nav-item {
@@ -4755,7 +4754,6 @@ input[type=submit].btn-block {
 }
 
 .nav-tabs .nav-link {
-    border: 1px solid transparent;
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem
 }
@@ -4773,7 +4771,7 @@ input[type=submit].btn-block {
 
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
-    color: #495057;
+    color: #1D4ED8;;
     background-color: #fff;
     border-color: #dee2e6 #dee2e6 #fff
 }

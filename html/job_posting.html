@@ -282,7 +282,323 @@ Chiến thuật quảng bá bản thân giúp bạn “ghi điểm” khi phỏn
     <div id="editor-company-summary"></div>
    
   </fieldset>
+  <!-- Job Information Section -->
+  <fieldset>
+    <legend>Thông tin công việc</legend>
+    <label for="job-title">Chức Danh*</label>
+    <input type="text" id="job-title" placeholder="Tên công việc">
+
+    <label for="job-location">Địa điểm làm việc</label>
+    <input type="text" id="job-location" placeholder="Địa điểm">
+
+    <label>Lương*</label>
+    <div class="salary-options">
+        <label>
+            <input type="radio" name="salary-type" value="nhap" checked> Nhập
+          </label>
+          <label>
+            <input type="radio" name="salary-type" value="hon"> Hơn
+          </label>
+          <label>
+            <input type="radio" name="salary-type" value="thuong-luong"> Thương lượng
+              </label>
+              <label>
+                <input type="radio" name="salary-type" value="canh-tranh"> Cạnh tranh
+            </label>
+        </div>
+
+        <div class="salary-inputs">
+            <div class="salary-range">
+                <!-- Trường nhập liệu lương khi chọn "Nhập" -->
+                <div class="input-nhap">
+                  <input type="text" placeholder="VD: 10 hoặc 10.5">
+                  <select>
+                    <option value="trieu">triệu VND</option>
+                    <option value="nghin">nghìn VND</option>
+                  </select>
+                </div>
+        
+                <!-- Trường nhập liệu lương khi chọn "Hơn" -->
+                <div class="input-hon" style="display: none;">
+                  <input type="text" placeholder="VD: 10 hoặc 10.5">
+                  <select>
+                    <option value="trieu">triệu VND</option>
+                    <option value="nghin">nghìn VND</option>
+                  </select>
+                </div>
+              </div>
+        
+              <!-- Thông báo khi chọn "Thương lượng" -->
+              <div class="input-thuong-luong" style="display: none;">
+                <span class="info-text">
+                  ⚠️ Không hiển thị mức lương có thể làm giảm 30% lượng CV ứng tuyển!
+                </span>
+              </div>
+        
+              <!-- Thông báo khi chọn "Cạnh tranh" -->
+              <div class="input-canh-tranh" style="display: none;">
+                <span class="info-text">
+                  ⚠️ Không hiển thị mức lương có thể làm giảm 30% lượng CV ứng tuyển!
+                </span>
+              </div>
+            <div class="salary-warning">
+              <span class="warning-text">Bắt buộc</span>
+            </div>
+          </div>
+
+          <script>
+            document.addEventListener("DOMContentLoaded", function () {
+              const salaryTypeRadios = document.querySelectorAll('input[name="salary-type"]');
+              const inputNhap = document.querySelector(".input-nhap");
+              const inputHon = document.querySelector(".input-hon");
+              const inputThuongLuong = document.querySelector(".input-thuong-luong");
+              const inputCanhTranh = document.querySelector(".input-canh-tranh");
+        
+              salaryTypeRadios.forEach((radio) => {
+                radio.addEventListener("change", function () {
+                  inputNhap.style.display = "none";
+                  inputHon.style.display = "none";
+                  inputThuongLuong.style.display = "none";
+                  inputCanhTranh.style.display = "none";
+        
+                  if (this.value === "nhap") {
+                    inputNhap.style.display = "flex";
+                  } else if (this.value === "hon") {
+                    inputHon.style.display = "flex";
+                  } else if (this.value === "thuong-luong") {
+                    inputThuongLuong.style.display = "block";
+                  } else if (this.value === "canh-tranh") {
+                    inputCanhTranh.style.display = "block";
+                  }
+                });
+              });
+            });
+          </script>
+            <label for="job-description">Mô tả công việc*</label>
+            <div id="editor-job-description"></div>
+    
+            <label for="job-requirements">Yêu cầu công việc*</label>
+            <div id="editor-job-requirements"></div>
+    
+            <label for="benefits">Phúc lợi*</label>
+            <div id="benefits-container">
+                <!-- Các phúc lợi sẽ được thêm vào đây -->
+              </div>
+              <button type="button" id="add-benefit-btn" class="add-benefit">+ Thêm (tối đa 10)</button>
+    
+       <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+      <script>
+        // Khởi tạo trình chỉnh sửa
+        var editorCompanySummary = new Quill('#editor-company-summary', {
+          theme: 'snow',
+          placeholder: 'Nhập sơ lược công ty...',
+          modules: {
+            toolbar: [
+              ['bold', 'italic', 'underline'],
+              [{ list: 'ordered' }, { list: 'bullet' }],
+              [{ align: [] }],
+              ['clean']
+            ]
+          }
+        });
+    
+        var editorJobDescription = new Quill('#editor-job-description', {
+          theme: 'snow',
+          placeholder: 'Nhập mô tả công việc...',
+          modules: {
+            toolbar: [
+              ['bold', 'italic', 'underline'],
+              [{ list: 'ordered' }, { list: 'bullet' }],
+              [{ align: [] }],
+              ['clean']
+            ]
+          }
+        });
+    
+        var editorJobRequirements = new Quill('#editor-job-requirements', {
+          theme: 'snow',
+          placeholder: 'Nhập yêu cầu công việc...',
+          modules: {
+            toolbar: [
+              ['bold', 'italic', 'underline'],
+              [{ list: 'ordered' }, { list: 'bullet' }],
+              [{ align: [] }],
+              ['clean']
+            ]
+          }
+        });
+    
+        var editorBenefits = new Quill('#editor-benefits', {
+          theme: 'snow',
+          placeholder: 'Nhập phúc lợi...',
+          modules: {
+            toolbar: [
+              ['bold', 'italic', 'underline'],
+              [{ list: 'ordered' }, { list: 'bullet' }],
+              [{ align: [] }],
+              ['clean']
+            ]
+          }
+        });
+      </script>
+          </fieldset>
+          
+          <fieldset>
+            <legend>Chi tiết công việc</legend>
+            <label for="education-level">Trình độ học vấn *</label>
+            <select id="education-level">
+              <option value="">Vui lòng chọn</option>
+              <option value="highschool">Trung học</option>
+              <option value="bachelor">Cử nhân</option>
+              <option value="master">Thạc sĩ</option>
+              <option value="phd">Tiến sĩ</option>
+            </select>
+        
+            <label for="experience-level">Mức kinh nghiệm *</label>
+            <select id="experience-level">
+                <option value="">Vui lòng chọn</option>
+                <option value="entry">Mới tốt nghiệp</option>
+                <option value="junior">Nhân viên</option>
+                <option value="senior">Trưởng nhóm</option>
+                <option value="manager">Quản lý</option>
+              </select>
+          
+              <label for="job-type">Loại công việc *</label>
+              <select id="job-type">
+                <option value="">Vui lòng chọn</option>
+                <option value="fulltime">Toàn thời gian</option>
+                <option value="parttime">Bán thời gian</option>
+                <option value="freelance">Tự do</option>
+              </select>
+          
+              <label for="gender">Giới tính *</label>
+              <select id="gender">
+                <option value="">Vui lòng chọn</option>
+                <option value="male">Nam</option>
+                <option value="female">Nữ</option>
+                <option value="any">Không yêu cầu</option>
+              </select>
+          
+              <label for="location">Nơi làm việc *</label>
+              <select id="location">
+                <option value="">Vui lòng chọn</option>
+                <option value="hanoi">Hà Nội</option>
+                <option value="hcm">TP. Hồ Chí Minh</option>
+                <option value="danang">Đà Nẵng</option>
+              </select>
+          
+              <label for="industry">Ngành nghề *</label>
+              <div class="industry-input">
+                <select id="industry">
+                  <option value="">Vui lòng chọn</option>
+                  <option value="it">Công nghệ thông tin</option>
+                  <option value="marketing">Marketing</option>
+                  <option value="finance">Tài chính</option>
+                </select>
+                <button type="button" class="add-industry">+ Thêm danh mục</button>
+              </div>
+          
+              <label for="keywords">Từ khóa</label>
+              <input type="text" id="keywords" placeholder="Nhập từ khóa">
+          
+              <label for="age">Tuổi *</label>
+              <select id="age">
+                <option value="">Không yêu cầu</option>
+                <option value="18-25">18-25</option>
+                <option value="26-35">26-35</option>
+                <option value="36-45">36-45</option>
+              </select>
+            </fieldset>
+            <!-- Thông tin liên hệ -->
+      <fieldset>
+        <legend>Thông tin liên hệ</legend>
+        <label for="contact-name">Người liên hệ *</label>
+        <input type="text" id="contact-name" placeholder="Tên người liên hệ">
+    
+        <label for="contact-phone">Điện thoại liên lạc *</label>
+        <input type="text" id="contact-phone" placeholder="Số điện thoại">
+    
+        <label for="contact-email">Email liên hệ *</label>
+        <input type="email" id="contact-email" placeholder="Email liên hệ">
+    
+        <label for="contact-address">Nơi làm việc *</label>
+        <input type="text" id="contact-address" placeholder="Địa điểm liên hệ">
+    
+        <label for="contact-description">Mô tả</label>
+        <div id="wysiwyg-editor"></div>
+        <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var quill = new Quill('#wysiwyg-editor', {
+        theme: 'snow',
+        placeholder: 'Nhập mô tả...',
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline'], 
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            [{ align: [] }],
+            ['clean']
+          ]
+        }
+      });
+
+      document.querySelector("form").addEventListener("submit", function (e) {
+        e.preventDefault(); 
+        var editorContent = quill.root.innerHTML;
+        console.log(editorContent);
+      });
+    });
+  </script>
+      </fieldset>
+
+       <!-- Ngày đăng -->
+       <fieldset>
+        <legend>Ngày đăng</legend>
+        <label for="posting-date">Ngày đăng *</label>
+        <input type="date" id="posting-date" value="2024-11-25">
+    
+        <label for="expiry-date">Ngày hết hạn *</label>
+        <input type="date" id="expiry-date" placeholder="DD/MM/YYYY">
+      </fieldset>
+    
+      <!-- Ngôn ngữ nhận hồ sơ -->
+      <fieldset>
+        <legend>Ngôn ngữ nhận hồ sơ ứng viên</legend>
+        <label for="language">Ngôn ngữ *</label>
+        <select id="language">
+          <option value="">Vui lòng chọn</option>
+          <option value="vietnamese">Tiếng Việt</option>
+          <option value="english">Tiếng Anh</option>
+        </select>
+        <label style="display: inline-flex; gap: 10px;width: 730px;height: 5px;">
+          <input type="checkbox" style="width: 20px;margin-top:-13px;height: 50px;"> Chỉ nhận hồ sơ theo ngôn ngữ đã chọn
+        </label>
+      </fieldset>
+      <div class="formbutton">
+      <button type="submit" class="save">Lưu việc làm</button>
+      <button type="submit" class="post">Đăng công việc</button>
     </div>
+    </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div dir="ltr" class="resize-sensor"
+        style="pointer-events: none; position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden; max-width: 100%;">
+        <div class="resize-sensor-expand"
+            style="pointer-events: none; position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden; max-width: 100%;">
+            <div style="position: absolute; left: 0px; top: 0px; transition: all; width: 1529px; height: 772px;">
+            </div>
+        </div>
+        <div class="resize-sensor-shrink"
+            style="pointer-events: none; position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden; max-width: 100%;">
+            <div style="position: absolute; left: 0px; top: 0px; transition: all; width: 200%; height: 200%;"></div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+  </fieldset>
     <!-- footer -->
     <div class="footer" style="margin: auto;">
       <div class="grid">
