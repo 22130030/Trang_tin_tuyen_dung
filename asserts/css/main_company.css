@@ -139,6 +139,9 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
 }
+.company-card__link{
+    text-decoration: none;
+}
 /* Medium screens (e.g., tablets) */
 @media (max-width: 992px) {
     .grid {

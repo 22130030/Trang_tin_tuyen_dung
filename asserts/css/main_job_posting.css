@@ -23,6 +23,9 @@ html, body{
   margin-right: auto;
   margin-left: auto;
 }
+.nav__item-link{
+  color : var(--white-color);
+}
 .nav_user {
   border: solid 1.1px white;
   }
