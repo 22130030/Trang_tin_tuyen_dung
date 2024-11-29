@@ -193,7 +193,7 @@
                 </div>
                 <div class="sidebar-bottom">
                     <div class="get-helps">
-                        <a class="nav-link bs-tooltip" href="/html/employer.html">
+                        <a class="nav-link bs-tooltip" href="/html/support.html">
                             <i class="cli-get-helps"></i>
                             <span class="item-label">
                                 <img src="/asserts/img/interrogation.png">
@@ -201,7 +201,7 @@
                         </a>
                     </div>
                     <div class="setting">
-                        <a class="nav-link bs-tooltip" title="" href="/html/employer.html"><i class="cli-setting"></i>
+                        <a class="nav-link bs-tooltip" title="" href="/html/setting.html"><i class="cli-setting"></i>
                             <span class="item-label">
                                 <img src="/asserts/img/settings.png">
                                 Cài đặt</span>
@@ -455,19 +455,7 @@
         </div>
     </div>
     </div>
-    <div dir="ltr" class="resize-sensor"
-        style="pointer-events: none; position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden; max-width: 100%;">
-        <div class="resize-sensor-expand"
-            style="pointer-events: none; position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden; max-width: 100%;">
-            <div style="position: absolute; left: 0px; top: 0px; transition: all; width: 1529px; height: 772px;">
-            </div>
-        </div>
-        <div class="resize-sensor-shrink"
-            style="pointer-events: none; position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden; max-width: 100%;">
-            <div style="position: absolute; left: 0px; top: 0px; transition: all; width: 200%; height: 200%;"></div>
-        </div>
-    </div>
-    </div>
+   
     <!-- footer -->
     <div class="footer" style="margin: auto;">
         <div class="grid">
@@ -499,7 +487,25 @@
             </div>
         </div>
     </div>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+         const navUser = document.querySelector('.nav__has--form-login');
+         const dropdownMenu = document.querySelector('.nav__dropdown-menu');
+ 
+     // Hiển thị menu khi click vào `.nav__has--form-login`
+         navUser.addEventListener('click', function (event) {
+         event.stopPropagation();
+         dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+     });
+ 
+     // Đóng menu khi click ra ngoài
+     document.addEventListener('click', function (event) {
+         if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {
+             dropdownMenu.style.display = 'none';
+         }
+     });
+ });
+     </script>
 
 </body>
 
