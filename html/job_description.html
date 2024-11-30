@@ -115,7 +115,7 @@
                     <p><strong><i class="fa-solid fa-briefcase"></i>Kinh nghiệm:</strong> 2 - 5 năm kinh nghiệm</p>
                     <p><strong><i class="fa-regular fa-calendar-check"></i>Ngày đăng tuyển:</strong> 04-11-2024 | Hết hạn trong: <span class="highlight">5 Ngày tới</span></p>
                     <button id="applyButton" class="apply-button">Nộp đơn ngay</button>
-                    <button class="save-button"><i class="fa-regular fa-heart"></i>Lưu</button>
+                    <button id="save__button" class="save-button" ><i class="fa-regular fa-heart"></i>Lưu</button>
                 </div>
             </div>
 
@@ -739,6 +739,27 @@ Một số kẻ mạo danh nhà tuyển dụng đã bị báo cáo về hành vi
         overlay.addEventListener('click', closePopupHandler);
         
     });
+        
+    //  function change status button save job
+        function handleSaveButton(button) {
+        // Kiểm tra trạng thái hiện tại
+        const isSaved = button.classList.contains('isSaved');
+
+        if (!isSaved) {
+            button.classList.add('isSaved');
+            button.textContent = 'Đã lưu';
+            button.innerHTML = '<i class="fa-regular fa-heart"></i>Đã lưu'
+        } else {
+            // Reset về trạng thái ban đầu
+            button.classList.remove('isSaved');
+            button.className = 'save-button';
+            button.innerHTML = '<i class="fa-regular fa-heart"></i>Lưu'
+        }
+    }
+
+    // Lấy nút và thêm sự kiện click
+    const saveButton = document.getElementById('save__button');
+    saveButton.addEventListener('click', () => handleSaveButton(saveButton));
     
         </script>
     

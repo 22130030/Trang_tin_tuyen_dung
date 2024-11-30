@@ -216,10 +216,19 @@ body {
     border: 1px solid #2563EB ;
     background-color: white;
   }
-  
+  .save-button i{
+    margin-right: 5px;
+  }
   .save-button:hover {
     background-color: #c0c0c0;
   }
+
+
+.save-button.isSaved {
+  color : var(--white-color);
+  background-color: rgba(0,123,255,0.8);
+  border: 2px solid var(--blue-color);
+}
   /* container */
 .job-description ul li{
     font-size: 15px;
@@ -403,6 +412,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-bottom: 20px;
+    border: none;
   }
   
   .notify-button:hover {
