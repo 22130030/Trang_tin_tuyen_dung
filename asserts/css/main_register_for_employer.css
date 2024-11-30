@@ -4,6 +4,10 @@
 .nav__user {
     border: solid 1.1px white;
 }
+.nav__item-link,.nav__item-link > i{
+    color: var(--white-color);
+
+}
 /* container */
 .register-container {
     display: flex;

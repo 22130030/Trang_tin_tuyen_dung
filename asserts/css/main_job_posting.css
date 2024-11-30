@@ -23,9 +23,13 @@ html, body{
   margin-right: auto;
   margin-left: auto;
 }
-.nav_user {
-  border: solid 1.1px white;
+.nav__has--form-login {
+  border: 1px solid white !important;
   }
+.nav__item-link,.nav__item-link > i{
+    color: var(--white-color);
+
+}
 .row {
   background-color: #f1f1f1 !important;
   display: flex;
