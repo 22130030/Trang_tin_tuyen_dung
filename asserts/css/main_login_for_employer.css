@@ -1,8 +1,13 @@
 .nav{
     background-color: #0E1225;
 }
+
 .nav__user {
     border: solid 1.1px white;
+}
+.nav__item-link,.nav__item-link > i{
+    color: var(--white-color);
+
 }
 .login-container {
     display: flex;

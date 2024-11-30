@@ -1,0 +1,119 @@
+.container2 {
+    width: 100%;
+    max-width: 1400px;
+    height: 565px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.container2 .header {
+    display: flex;
+    gap: 5px;
+}
+
+.search-bar {
+    width: 30%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.more-options {
+    width: 4%;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid #ccc;
+    color: black;
+}
+.dropdown{
+    width: 100px;
+}
+.dropdown .dropdown-button{
+    color: gray;
+    background-color: white;
+    border: 1px solid #eee;
+}
+.dropdown-menu{
+    width: 200px;
+}
+.dropdown-menu label{
+    margin-top: 20px;
+    width: 150px;
+    display: flex;
+    margin-left: 10px;
+    margin-right: 100px;
+    line-height: -20px;
+}
+.dropdown-menu label span{
+    width: 300px;
+    font-size: 15px;
+    color: gray;
+}
+
+.table {
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+    
+}
+
+.table-header {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+    color: #555;
+    background-color: #eee;
+}
+
+.column {
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+}
+
+.table-body {
+    margin-top: 150px;
+    text-align: center;
+    padding: 20px 0;
+}
+.table-body p{
+    font-size: 15px;
+}
+
+.empty-message {
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.find-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    width: 200px;
+    margin-left: 520px;
+}
+
+.find-button:hover {
+    background-color: #0056b3;
+}
+
+.zalo-icon {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50%;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
