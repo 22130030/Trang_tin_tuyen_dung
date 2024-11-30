@@ -12,11 +12,19 @@ html, body{
     margin-right: auto;
     margin-left: auto;
 }
-.nav{
+.nav_header{
     background-color: #0E1225;
     }
-.nav_user {
+    .nav_user {
     border: solid 1.1px white;
+    }
+    .nav {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
     }
 .row {
     background-color: #f1f1f1 !important;
@@ -25,9 +33,7 @@ html, body{
     margin-right: -15px;
     margin-left: -15px;
 }
-.nav__has--form-login {
-    border: 1px solid white !important;
-    }
+
 
 #main-screen {
     margin-top: 10px;
@@ -39,11 +45,6 @@ html, body{
 .d-flex {
     display: flex !important
 ;
-}
-
-p {
-    color: #b3b3b3;
-    font-weight: 300;
 }
 
 h1,
@@ -75,14 +76,15 @@ a.btn.btn-primary {
 }
 
 #sidebar.sidebar-expanded {
-    width: 240px;
-   }
-   #sidebar {
-       white-space: nowrap;
-   }
-   #sidebar.sidebar-expanded .sidebar__inner {
-       width: 240px !important;
-   }
+ width: 240px;
+}
+#sidebar {
+    white-space: nowrap;
+}
+#sidebar.sidebar-expanded .sidebar__inner {
+    width: 240px !important;
+    height: 700px;
+}
 .bg-white {
     background-color: #fff !important;
 }
@@ -102,7 +104,9 @@ a.btn.btn-primary {
     display: block;
     padding: 0.5rem 1rem;
 }
-
+.nav__has--form-login {
+    border: 1px solid white !important;
+    }
 
 #sidebar.sidebar-expanded .nav-link i {
     margin-right: 11px;
@@ -240,153 +244,103 @@ img.employer-logo {
     margin-right: 0;
     margin-left: 0;
 }
-.employer-info{
-    margin-top: 20px;
-}
-.employer-info-box{
-    border-radius: 0.25rem;
-}
-.employer-company-banner {
-    padding-top: 20%;
-}
-.employer-company-banner .employer-company-banner-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
 
-.employer-company-banner .employer-company-banner-content>img {
-    position: relative;
-    width: 100%;
-    min-height: 100%;
-    object-fit: cover;
-    object-position: center;
-}
 .img-fluid {
     max-width: 100%;
     height: auto;
 }
-.employer-info-content {
+
+.navbarSetting-0-2-69 {
+    padding: 16px;
+    background-color: white;
+}
+.container-0-2-68 {
+    margin: auto;
+    max-width: 640px;
+}
+.labelSetting-0-2-70 {
+    color: #1E40AF;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 28px;
+}
+p.labelSetting-0-2-70 {
+    font-size: 25px;
+    font-weight: bolder;
+    margin-top: -20px;
+    margin-bottom: 1rem;
+}
+p {
+    font-size: 15px;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+.link-0-2-71.active-0-2-72 {
+    font-size: 15px;
+    color: #2563EB;
+}
+.link-0-2-71 {
     position: relative;
-    z-index: 1;
+    text-decoration: none;
 }
-.employer-company-logo {
-    width: 60px;
-    height: 60px;
-    flex: 0 0 60px;
-    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
-    margin-top: -30px;
+.disabledLink-0-2-73 {
+    font-size: 15px;
+    color: #64748B;
 }
-.employer-info .text-small {
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 16px;
-    color: #495057;
-    gap: 3px;
+.link-0-2-71 {
+    position: relative;
+    text-decoration: none;
 }
-
-.employer-company-name {
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-    color: #495057;
+.container-0-2-66 {
+    margin: auto;
+    max-width: 640px;
 }
-
-.text-white {
-    color: #fff !important;
+.section-0-2-74 {
+    margin-bottom: 10px;
+    padding: 15px;
+    background-color: white;
 }
-.employer-info .employer-short-info .short-info {
-    width: calc(33.33% - 16px);
-    max-width: calc(33.33% - 16px);
-    flex: 0 0 calc(33.33% - 16px);
-}
-
-.consumed-quota-credits {
-    color: #F97316;
-    font-weight: 700;
-    font-size: 30px;
-    line-height: 1.4;
-}
-.active-job-count {
-    color: #10B981;
-    font-weight: 700;
-    font-size: 30px;
-    line-height: 1.4;
-}
-.latest-applications-count {
-    color: #2C68D4;
-    font-weight: 700;
-    font-size: 30px;
-    line-height: 1.4;
-}
-.employer-latest-applications {
-    border-radius: 0.25rem;
-}
-#applications-filter {
-    background-color: #D7D7DB;
-    border-radius: 0.5rem;
-    padding: 3px;
-}
-#applications-filter .filter-option.active {
-    background-color: #fff;
-}
-#applications-filter .filter-option {
-    font-size: 12px;
-    border-radius: 0.5rem;
-}
-.cursor-pointer {
-    cursor: pointer;
-}
-.text-line-clamp-1 {
-    visibility: visible;
-    display: -webkit-box;
-    overflow: hidden;
-}
-a.btn.btn-link {
-    text-align: center;
-    color: #0069DB;
-    min-width: 70px;
-    height: 30px;
-    font-size: 12px;
-    font-weight: 500;
-}
-.view-all .btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.label-0-2-75 {
+    color: #64748B;
     width: 100%;
+    margin: 0;
+    font-weight: 700;
 }
-.latest-applications-header span {
+.root-0-2-76 {
     color: #64748B;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 16px;
+    letter-spacing: 0.5px;
 }
-.latest-applications-list {
-    font-size: 15px;
-    max-height: 400px;
-    overflow-y: auto;
+.root-0-2-80 {
+    margin: 8px 0px 16px 0px;
+}
+label {
+    display: block;
+    margin-bottom: 1.5rem;
+}
+.form-control {
+    display: block;
+    width: 90%;
+    height: 4rem;
+    font-size: 2rem;
+    color: #0E1225;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.75rem;
+}
+.submitButton-0-2-88, .submitButton-0-2-78{
+    color: white;
+    border: none;
+    margin: 16px 0px;
+    display: flex;
+    padding: 8px 16px;
+    font-size: 14px;
+    transition: all .3s;
+    align-items: center;
+    font-weight: 600;
+    border-radius: 2px;
+    background-color: #2563EB;
 }
 
-.beauty-scrollbar {
-    scrollbar-color: #f1f1f1 #0069DB;
-    scrollbar-width: thin;
-}
-.text-decoration-none{
-    font-size: 12px;
-    font-weight: 500;
-}
-.labelTitle-0-2-7{
-    color: #64748B;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 16px;
-}
-.text-secondary{
-    font-size: 15px;
-}
-.employer-latest-jobs{
-    margin-top: 20px;
-}
