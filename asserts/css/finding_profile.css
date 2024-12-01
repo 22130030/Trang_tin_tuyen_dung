@@ -1,0 +1,137 @@
+.nav__has--form-login {
+    border: 1px solid white !important;
+    }
+  .nav__item-link,.nav__item-link > i{
+      color: var(--white-color);
+      
+  }
+.container2 {
+    width: 1200px;
+    height: 550px;
+    margin-left: 45px;
+    max-height: 600px; 
+    overflow-y: auto; 
+}
+.content{
+    width: 1200px;
+    height: 50px;
+    display: flex;
+    gap: 20px;
+}
+.search-box {
+    display: flex;
+    align-items: center;
+    border: 2px solid #cce1ff;
+    border-radius: 8px;
+    padding: 5px 10px;
+    background-color: #fff;
+    width: 500px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search-box i {
+    color: #007bff;
+    font-size: 18px;
+    margin-right: 8px;
+  }
+  
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    margin-top: 15px;
+  }
+  
+  .search-input::placeholder {
+    color: #aaa;
+  }
+.content button{
+    width: 200px;
+    height: 50px;
+}
+/* content2 */
+.content2{
+    margin-top: 10px;
+    width: 600px;
+    height: 40px;
+    display: flex;
+}
+.content2 p {
+    font-size: 15px;
+    color: black;
+}
+.content2 label{
+    margin-top: 5px;
+    width: 200px;
+    display: flex;
+    font-size: 15px;
+}
+.content2 label p{
+    margin-top: -5px;
+    width: 200px;
+}
+/* .content3 */
+.content3{
+    width: 100%;
+    max-width: 1200px;
+    height: 1000px;
+    display: flex;
+    background-color: white;
+}
+.content3 .item1{
+    width: 30%;
+    height: 50px;
+}
+.content3 .item1 .abc{
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 320px;
+    height: 500px;
+}
+.finding-wrap__title{
+    display: flex;
+    justify-content: space-between;
+}
+.finding-wrap__title .finding-wrap__filter {
+  font-size: 20px;
+  color: black;
+}
+.finding-wrap__title .finding-wrap__remove-filter{
+  font-size: 18px;
+  color: red    ;
+}
+.form__item-title{
+    font-size: 15px;
+}
+.form__item-section button{
+    background-color: white;
+    color: gray;
+    border: 1px solid gray;
+}
+
+
+.content3 .item2{
+    margin-top: 10px;
+    width: 0.1%;
+    height: 10050px0px;
+    background-color: #9a9595;
+    
+}
+.content3 .item3{
+    width: 69.999%;
+    height: 50px;
+}
+.content3 .item3 img{
+    width: 600px;
+    height: 500px;
+    margin: 50px 100px;
+}
+.content3 .item3 p{
+    font-size: 15px;
+    width: 500px;
+    color: black;
+    margin-left:200px ;
+}
+
