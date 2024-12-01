@@ -28,9 +28,12 @@ html, body{
 .nav__has--form-login {
     border: 1px solid white !important;
     }
-.nav__item-link,.nav__item-link > i{
-          color: var(--white-color);
-      }
+a.nav__item-link,.nav__item-link > i{
+      color: var(--white-color);
+  }
+div.nav__item-link,.nav__item-link > i{
+    color: var(--white-color);
+}
 
 #main-screen {
     margin-top: 10px;
