@@ -855,7 +855,7 @@
 
             </div>
             <div class="slick_action__buttons">
-                <button class="right__icon slick__action">  </button>
+                <button class="right__icon slick__action"> < </button>
                 <button class="right__icon slick__action"> > </button>
             </div>
         </div>
@@ -917,7 +917,7 @@
                 reloadSlider(active);
             }
         // }
-        var refreshSlider = setInterval(() => {next.click()},5000); 
+        var refreshSlider = setInterval(() => {next.click()},4000); 
         function reloadSlider(active){
             let checkLeft = items[active].offsetLeft;
             list.style.left = -checkLeft + 'px';
@@ -926,6 +926,8 @@
             lastAcitveDot.classList.remove('dot__active');
             dots[active].classList.add('dot__active');
             
+            clearInterval(refreshSlider);
+            refreshSlider = setInterval(() => {next.click()},4000);
         }
         dots.forEach((li,key) => {
             li.addEventListener('click',function(){
