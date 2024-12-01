@@ -105,9 +105,24 @@
             <!-- banner -->
             <div class="banner">
                 <div class="banner__slide">
+                    <div class="banner__list">
+
                         <div class="banner__img">
-                            <img src="/asserts/img/image_home/ViecLamHCD.png" alt="">
+                            <img src="/asserts/img/banner_home/ViecLamHCD.png" alt="">
                         </div>
+                        <div class="banner__img">
+                            <img src="/asserts/img/banner_home/OIP.jpg" alt="">
+                        </div>
+                        <div class="banner__img">
+                            <img src="/asserts/img/banner_home/fpt.jpg" alt="">
+                        </div>
+                        <div class="banner__img">
+                            <img src="/asserts/img/banner_home/thuan_duc.jpg" alt="">
+                        </div>
+                        <div class="banner__img">
+                            <img src="/asserts/img/banner_home/tokyolife.jpg" alt="">
+                        </div>
+                    </div>
                 </div>
 
                 
@@ -130,8 +145,8 @@
                     </div>
                 </div>
                 <div class="slick_action__buttons">
-                    <button class="right__icon slick__action"> < </button>
-                    <button class="right__icon slick__action"> > </button>
+                    <button class="left_icon slick__action" id="banner__prev"> < </button>
+                    <button class="right__icon slick__action" id="banner__next"> > </button>
                 </div>
                 <ul class="banner__dots">
                     <li class="dot__active banner__dot"></li>
@@ -880,6 +895,47 @@
         </div>
     </div>
     <script>
+
+        // function moveBanner(){
+            var list = document.querySelector('.banner__slide .banner__list');
+            var items = document.querySelectorAll('.banner__slide .banner__list .banner__img');
+            var dots = document.querySelectorAll('.banner__dots .banner__dot');
+            var prev = document.getElementById('banner__prev');
+            var next = document.getElementById('banner__next');
+
+            var active = 0;
+            var lengthItem = items.length - 1; 
+
+            next.onclick = function(){
+                active = active + 1 > lengthItem ? 0 : active+=1;
+
+                reloadSlider(active);
+            } 
+            prev.onclick = function(){
+                active = active - 1 < 0 ? lengthItem : active-=1;
+
+                reloadSlider(active);
+            }
+        // }
+        var refreshSlider = setInterval(() => {next.click()},5000); 
+        function reloadSlider(active){
+            let checkLeft = items[active].offsetLeft;
+            list.style.left = -checkLeft + 'px';
+
+            let lastAcitveDot = document.querySelector('.banner__dots .dot__active');
+            lastAcitveDot.classList.remove('dot__active');
+            dots[active].classList.add('dot__active');
+            
+        }
+        dots.forEach((li,key) => {
+            li.addEventListener('click',function(){
+                active = key;
+                reloadSlider(active);
+            })
+        });
+
+
+
        document.addEventListener('DOMContentLoaded', function () {
         const navUser = document.querySelector('.nav__has--form-login');
         const dropdownMenu = document.querySelector('.nav__dropdown-menu');
