@@ -1,0 +1,120 @@
+.container2 {
+    padding: 20px;
+  }
+  .nav__has--form-login {
+    border: 1px solid white !important;
+    }
+  .nav__item-link,.nav__item-link > i{
+      color: var(--white-color);
+  }
+  
+  .search-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .search-bar select, .search-bar button {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+.pagination {
+    margin-top:-20px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+.pagination .pagi{
+    display: flex;
+}
+.pagination .nation{
+    display: flex;
+}
+.pagination .nation p{
+    width: 60px;
+    font-size: 15px;
+    color: black;
+    margin-top: 6px;
+    gap:5px
+}
+.pagination select{
+    width: 100px;
+}
+  
+  .page-button {
+    width: 40px;
+    height: 40px;
+    background-color: #e6ebf5;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .page-button:hover {
+    background-color: #d4d9e4; /* Slightly darker hover effect */
+  }
+  
+  .page-number {
+    width: 40px;
+    height: 40px;
+    background-color: #0078ff;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  thead {
+    background-color: #f0f0f0;
+  }
+  
+  th, td {
+    font-size: 15px;
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .status {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #555;
+    color: white;
+    border-radius: 4px;
+  }
+  
+  a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 10px;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }

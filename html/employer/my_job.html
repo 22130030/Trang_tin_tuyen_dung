@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/asserts/css/main_job_posting.css">
     <link rel="stylesheet" href="/asserts/css/base.css">
-    <link rel="stylesheet" href="/asserts//css/main_profile_notification.css">
+    <link rel="stylesheet" href="/asserts//css/main_my_job.css">
     <link rel="stylesheet" href="/asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
     <!-- js -->
     <script src="/asserts/fonts/fontawesome-free-6.4.0-web/js/bootstrap.min.js"></script>
@@ -20,7 +20,7 @@
     <script src="/asserts/fonts/fontawesome-free-6.4.0-web/js/popper.min.js"></script>
     <script src="/asserts/fonts/fontawesome-free-6.4.0-web/js/jquery-3.3.1.min.js"></script>
     <!-- title -->
-    <title>profile_notification</title>
+    <title>my_job</title>
 </head>
 
 <body>
@@ -103,7 +103,7 @@
           <div class="sidebar__inner flex-column justify-content-between d-flex bg-white" style="position: relative;">
               <div class="sidebar-top">
                   <div class="my-careerlink">
-                      <a class="nav-link bs-tooltip active" role="button" title="" href="/html/employer.html" style="background-color:white">
+                      <a class="nav-link bs-tooltip active" role="button" title="" href="/html/employer/employer.html" style="background-color:white">
                           <i class="cli-home"></i>
                           <span class="item-label">
                               <img src="/asserts/img/home.png">
@@ -120,13 +120,13 @@
                           </span>
                           <div class="sub-menu show" id="jobsCollapse">
                               <div class="nav-item">
-                                  <a class="nav-link bs-tooltip" role="button" href="/html/employer.html"><i
+                                  <a class="nav-link bs-tooltip" role="button" href="/html/employer/my_job.html" style="background-color:#cae2fc;"><i
                                           class="cli-suitcase-solid"></i>
                                       <span class="item-label text-truncate">Công việc của tôi</span>
                                   </a>
                               </div>
                               <div class="nav-item">
-                                  <a class="nav-link bs-tooltip" role="button" href="/html/job_posting.html">
+                                  <a class="nav-link bs-tooltip" role="button" href="/html/employer/job_posting.html">
                                       <i class="cli-post-new"></i>
                                       <span class="item-label text-truncate">Đăng Tuyển dụng</span>
                                   </a>
@@ -148,19 +148,19 @@
                                   </a>
                               </div>
                               <div class="nav-item">
-                                  <a class="nav-link bs-tooltip" href="/html/employer.html" >
+                                  <a class="nav-link bs-tooltip" href="/html/employer/application_letter_received.html" >
                                       <i class="cli-cv-received"></i>
                                       <span class="item-label text-truncate">Thư xin việc đã nhận</span>
                                   </a>
                               </div>
                               <div class="nav-item" type>
-                                  <a class="nav-link  bs-tooltip" href="/html/employer.html">
+                                  <a class="nav-link  bs-tooltip" href="/html/employer/save_profile.html">
                                       <i class="cli-bookmark"></i>
                                       <span class="item-label text-truncate">Hồ sơ đã lưu</span>
                                   </a>
                               </div>
                               <div class="nav-item">
-                                  <a class="nav-link bs-tooltip" href="/html/employer.html" style="background-color:#cae2fc;">
+                                  <a class="nav-link bs-tooltip" href="/html/employer/profile_notification.html" >
                                       <i class="cli-bookmark"></i>
                                       <span class="item-label text-truncate">Thông báo hồ sơ</span>
                                   </a>
@@ -195,7 +195,7 @@ Chiến thuật quảng bá bản thân giúp bạn “ghi điểm” khi phỏn
               </div>
               <div class="sidebar-bottom">
                   <div class="get-helps">
-                      <a class="nav-link bs-tooltip" href="/html/employer.html">
+                      <a class="nav-link bs-tooltip" href="/html/employer/support.html">
                           <i class="cli-get-helps"></i>
                           <span class="item-label">
                               <img src="/asserts/img/interrogation.png">
@@ -203,7 +203,7 @@ Chiến thuật quảng bá bản thân giúp bạn “ghi điểm” khi phỏn
                       </a>
                   </div>
                   <div class="setting">
-                      <a class="nav-link bs-tooltip" title="" href="/html/employer.html"><i class="cli-setting"></i>
+                      <a class="nav-link bs-tooltip" title="" href="/html/employer/setting.html"><i class="cli-setting"></i>
                           <span class="item-label">
                               <img src="/asserts/img/settings.png">
                               Cài đặt</span>
@@ -247,19 +247,161 @@ Chiến thuật quảng bá bản thân giúp bạn “ghi điểm” khi phỏn
         <div class="my-careerlink bg-white mb-md-4 mb-0">
             <div class="container px-0 px-lg-3">
                 <h1 class="h4 page-title p-3 px-md-0 m-0">
-                    Hồ sơ thông báo (0)
+                    Công việc của tôi
                 </h1>
             </div>
         </div>
-         <div class="notification-container">
-                <div class="notification-icon">
-                  <i class="bell-icon">🔔</i>
-                </div>
-                <p class="notification-text">Chưa có thông báo hồ sơ nào được thiết lập</p>
-                <button class="create-notification-btn">
-                  <span>+ Tạo thông báo hồ sơ mới</span>
-                </button>
-              </div>
+        <div class="container2">
+            <div class="search-bar">
+              <input type="text" placeholder="Tìm công việc" />
+              <select>
+                <option>Trạng thái</option>
+                <option>Bản tạm</option>
+                <option>Đang chờ</option>
+                <option>Kích hoạt</option>
+                <option>Hết hạn</option>
+                <option>Ẩn</option>
+                
+              </select>
+              <select>
+                <option>Ngành nghề</option>
+                <option>Bảo trì/Sửa chữa</option>
+              </select>
+              <select>
+                <option>Nơi làm việc</option>
+                <option>Hồ Chí Minh</option>
+              </select>
+            </div>
+            <div class="pagination">
+            <div class="pagi">
+                <button class="page-button">&lt;</button>
+                <div class="page-number">1</div>
+                <button class="page-button">&gt;</button>
+            </div>
+            <div class="nation">
+            <p>Hiển thị:</p>
+              <select>
+                <option>25 Hàng</option>
+                <option>50 Hàng</option>
+                <option>75 Hàng</option>
+                <option>100 Hàng</option>
+              </select>
+            </div>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Trạng thái</th>
+                  <th>Công việc</th>
+                  <th>Đơn ứng tuyển</th>
+                  <th>Lượt xem</th>
+                  <th>Cách hiển thị</th>
+                  <th>Làm mới</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="status">BẢN TẠM</span></td>
+                  <td>
+                    <div>(Chưa có tiêu đề)</div>
+                    <div>60 ngày | 25 thg 11 2024 - 25 thg 1 2025</div>
+                  </td>
+                  <td>0 <i class="fa-regular fa-folder-closed"></i></td>
+                  <td>0 <i class="fa-regular fa-eye"></i></td>
+                  <td>Cách hiển thị: Bình thường</td>
+                  <td>-
+
+                  </td>
+                  <td>
+                    <a href="#">
+                        <i class="fa-regular fa-pen-to-square"></i>Sửa</a>
+                    <a href="#">...</a>
+                  </td>
+                </tr>
+                <!-- Repeat rows as needed -->
+                <tr>
+                    <td><span class="status">BẢN TẠM</span></td>
+                    <td>
+                      <div>(Chưa có tiêu đề)</div>
+                      <div>60 ngày | 25 thg 11 2024 - 25 thg 1 2025</div>
+                    </td>
+                    <td>0<i class="fa-regular fa-folder-closed"></i></td>
+                    <td>0<i class="fa-regular fa-eye"></i></td>
+                    <td>Cách hiển thị: Bình thường</td>
+                    <td>-</td>
+                    <td>
+                      <a href="#"><i class="fa-regular fa-pen-to-square"></i>Sửa</a>
+                      <a href="#">...</a>
+                    </td>
+                  </tr>
+                  <tr>
+                  <td><span class="status">BẢN TẠM</span></td>
+                  <td>
+                    <div>(Chưa có tiêu đề)</div>
+                    <div>60 ngày | 25 thg 11 2024 - 25 thg 1 2025</div>
+                  </td>
+                  <td>0<i class="fa-regular fa-folder-closed"></i></td>
+                  <td>0<i class="fa-regular fa-eye"></i></td>
+                  <td>Cách hiển thị: Bình thường</td>
+                  <td>-</td>
+                  <td>
+                    <a href="#"><i class="fa-regular fa-pen-to-square"></i>Sửa</a>
+                    <a href="#">...</a>
+                  </td>
+                </tr>
+                <!-- add -->
+                <tr>
+                    <td><span class="status">BẢN TẠM</span></td>
+                    <td>
+                      <div>(Chưa có tiêu đề)</div>
+                      <div>60 ngày | 25 thg 11 2024 - 25 thg 1 2025</div>
+                    </td>
+                    <td>0<i class="fa-regular fa-folder-closed"></i></td>
+                    <td>0<i class="fa-regular fa-eye"></i></td>
+                    <td>Cách hiển thị: Bình thường</td>
+                    <td>-</td>
+                    <td>
+                      <a href="#"><i class="fa-regular fa-pen-to-square"></i>Sửa</a>
+                      <a href="#">...</a>
+                    </td>
+                  </tr>
+                  <!-- add -->
+                  <tr>
+                    <td><span class="status">BẢN TẠM</span></td>
+                    <td>
+                      <div>(Chưa có tiêu đề)</div>
+                      <div>60 ngày | 25 thg 11 2024 - 25 thg 1 2025</div>
+                    </td>
+                    <td>0<i class="fa-regular fa-folder-closed"></i></td>
+                    <td>0<i class="fa-regular fa-eye"></i></td>
+                    <td>Cách hiển thị: Bình thường</td>
+                    <td>-</td>
+                    <td>
+                      <a href="#"><i class="fa-regular fa-pen-to-square"></i>Sửa</a>
+                      <a href="#">...</a>
+                    </td>
+                  </tr>
+                  <!-- add -->
+                  <tr>
+                    <td><span class="status">BẢN TẠM</span></td>
+                    <td>
+                      <div>(Chưa có tiêu đề)</div>
+                      <div>60 ngày | 25 thg 11 2024 - 25 thg 1 2025</div>
+                    </td>
+                    <td>0<i class="fa-regular fa-folder-closed"></i></td>
+                    <td>0<i class="fa-regular fa-eye"></i></td>
+                    <td>Cách hiển thị: Bình thường</td>
+                    <td>-</td>
+                    <td>
+                      <a href="#"><i class="fa-regular fa-pen-to-square"></i>Sửa</a>
+                      <a href="#">...</a>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+          
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -280,6 +422,39 @@ Chiến thuật quảng bá bản thân giúp bạn “ghi điểm” khi phỏn
      });
  });
      </script>
+</div>
+    
+     <!-- footer -->
+    <div class="footer" style="margin: auto;">
+        <div class="grid">
+            <div class="grid__row">
+                <div class="grid__col-4">
+                    <h3 class="footer__heading">Dành cho ứng viên</h3>
+                    <ul class="footer__list">
+                        <li class="footer__item">Việc làm mới nhất</li>
+                        <li class="footer__item">Tất cả việc làm</li>
+                        <li class="footer__item">Việc làm theo ngành nghề</li>
+                    </ul>
+                </div>
+                <div class="grid__col-4">
+                    <h3 class="footer__heading">Dành cho nhà tuyển dụng</h3>
+                    <ul class="footer__list">
+                        <li class="footer__item">Đăng tin tuyển dụng</li>
+                        <li class="footer__item">Đăng ký nhà tuyển dụng</li>
+                        <li class="footer__item">Tìm hồ sơ</li>
+                    </ul>
+                </div>
+                <div class="grid__col-4">
+                    <h3 class="footer__heading">Designer Website</h3>
+                    <ul class="footer__list">
+                        <li class="footer__item">Ngô Văn Đức</li>
+                        <li class="footer__item">Lê Minh Công</li>
+                        <li class="footer__item">Cao Minh Hiếu</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     
                 
                
