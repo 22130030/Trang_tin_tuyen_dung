@@ -42,7 +42,12 @@ h1{
     display: flex;
     align-items: center;
 }
-
+.input__container-search i{
+    color : var(--white-color);
+}
+.seacrh__lable{
+    padding: 0 5px ;
+}
 /* CSS cho biểu tượng bên trong ô nhập liệu */
 .icon-inside {
     position: absolute;
