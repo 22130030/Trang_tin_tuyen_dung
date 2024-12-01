@@ -28,7 +28,7 @@ html, body{
   }
 .nav__item-link,.nav__item-link > i{
     color: var(--white-color);
-
+    
 }
 .row {
   background-color: #f1f1f1 !important;
