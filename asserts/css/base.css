@@ -222,6 +222,11 @@ html,body{
     width : 83.34%;
     padding : 0 5px;
 }
+.grid__1100{
+    width : 100%;
+    margin: 0 auto;
+    max-width: 1100px;
+}
 .slick_action__buttons{
     position: absolute;
     top: 50%;
