@@ -34,7 +34,7 @@ html,body{
 /* navigation for employer */
 .nav__employer{
     width : 100%;
-    background-color: #5a966c;
+    background: linear-gradient(0deg,rgb(0, 31, 88), rgb(7, 31, 78));
 }
 .nav__employer-container{
     height : 70px;

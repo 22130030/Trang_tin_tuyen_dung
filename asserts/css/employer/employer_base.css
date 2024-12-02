@@ -1,3 +1,51 @@
+/* navigation */
+.nav__employer-user{
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+    color : var(--white-color);
+    padding: 10px;
+    border: 1px solid var(--text-color);
+    border-radius: 20px;
+    position: relative;
+    margin-right: 15px;
+}
+.nav__employer-user i{
+    padding-right: 5px;
+}
+.nav__employer-user::after{
+    content: "";
+    position: absolute;
+    height : 20px;
+    width : 1px;
+    background-color: rgba(255,255,255,0.3);
+    right : -15px;
+}
+.nav__employer-user::before{
+    content: "";
+    position: absolute;
+    height : 20px;
+    width : 1px;
+    background-color: rgba(255,255,255,0.3);
+    left : -10px; 
+}
+.nav__employer-form{
+
+    position: absolute;
+    min-width: 200px;
+    top : calc(100% + 10px);
+    right: -50%;
+    z-index: 1;
+    background-color: white;
+    padding : 15px 10px 10px;
+    border : 1px solid rgba(0,0,0,0.3);
+    border-radius: 5px;
+    display: none;
+}
+
+
+
+
 #sidebar.sidebar-expanded {
     width: 240px;
 }
@@ -106,3 +154,4 @@
 #sidebar .setting #sidebar .account {
     margin-top: 6px;
 }
+
