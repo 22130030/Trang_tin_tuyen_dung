@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/asserts/css/base.css">
-    <link rel="stylesheet" href="/asserts/css/candidate/job_application.css">
+    <link rel="stylesheet" href="/asserts/css/candidate/job_applied.css">
     <link rel="stylesheet" href="/asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
     <link rel="stylesheet" href="/asserts/css/candidate/account_base.css">
-    <title>Hồ sơ xin việc</title>
+    <title>Việc đã đã ứng tuyển</title>
 </head>
+
 <body>
     <div class="application">
         <div class="nav-sticky">
@@ -108,15 +110,15 @@
                 <ul class="nav__menu-list">
                     <li class="nav__menu-item">
                         <a href="/html/candidate/account_Management/account_main.html" class=" nav__menu__link">
-                           
+
                             <i class="fa-solid fa-house"></i>
                             <span class=" nav__menu-title">Tổng quan
                             </span>
                         </a>
                     </li>
                     <li class="nav__menu-item">
-                        <a href="#" class="nav__menu-active nav__menu__link">
-                            <div class="nav-menu__has-separated"></div>
+                        <a href="/html/candidate/account_Management/job_application.html" class=" nav__menu__link">
+
                             <i class="fa-regular fa-address-card"></i>
                             <span class="nav__menu-title">Hồ sơ xin việc(
                                 <span class="nav__menu-toltal">0</span>
@@ -135,8 +137,10 @@
                         </a>
                     </li>
                     <li class="nav__menu-item">
-                        <a href="/html/candidate/account_Management/job_applied.html" class="nav__menu__link">
+                        <a href="#" class="nav__menu__link nav__menu-active">
+                            <div class="nav-menu__has-separated"></div>
                             <i class="fa-regular fa-paper-plane"></i>
+
                             <span class="nav__menu-title">Việc làm đã ứng tuyển(
                                 <span class="nav__menu-toltal">1</span>
                                 )
@@ -148,6 +152,7 @@
 
                             <i class="fa-regular fa-user"></i>
                             <span class="nav__menu-title">Quản lý tài khoản
+                            
                             </span>
                         </a>
                     </li>
@@ -157,35 +162,55 @@
         <div class="container">
             <div class="grid__1100">
 
-                <div class="job__application">
-                    
+                <div class="job__applied">
+
                     <div class="grid__row">
                         <div class="grid__col-9">
-                            <h3 class="job-application__head">Hồ sơ xin việc(
-                                <span class="job__application-toltal">0</span>
-                            )
+                            <h3 class="job-applied__head">Việc làm đã ứng tuyển(
+                                <span class="job__applied-toltal">1</span>
+                                )
                             </h3>
-                            <div class="job__application-content">
-                                <img src="https://www.careerlink.vn/web/images/pages/my_careerlink/resumes-empty.png" alt="">
-                                <span class="ja__content-descripton">Hiện tại bạn chưa có hồ sơ nào, xin hãy chọn nút "Tạo hồ sơ mới" để tạo hồ sơ cho bạn.</span>
-                                <div class="user__profile-submit">
-                                    <button class="user__profile-btn">
-                                        <i class="fa-solid fa-plus"></i>
-                                        Tạo hồ sơ mới
-                                    </button>
+                            <span class="job-applied__saved-at">30 ngày qua</span>
+                            <div class="job__applied-list">
+                                <div class="job__applied-item">
+                                    <a href="/html/job_description.html" class="job__applied-link">
+                                    <div class="job__applied-thumb">
+                                        <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
+                                    </div>
+                                    <div class="job__applied-content">
 
+                                            <a href="/html/job_description.html" class="la__content-lable">Nhân viên tư
+                                                vấn bán hàng</a>
+                                            <a href="/html/Job.html" class="la__content-company">Công ty cổ phần Người
+                                                Bạn Vàng</a>
+
+                                            <span class="la-content__applied-at">Ngày nộp : 
+                                                <span class="la__applied-date">
+                                                    4-11-2024
+                                                </span>
+                                            </span>
+                                            <div class="job__applied-status">
+                                                <span>Đã nộp</span>
+                                            </div>
+                                    </a>
+                                    
+                                </div>
                                 </div>
                             </div>
+
+
                         </div>
+
+
 
                         <div class="grid__col-3">
                             <div class="suggest__container">
-    
-                                
+
+
                                 <h3 class="suggest__head">Gợi ý việc làm</h3>
-                                
+
                                 <div class="suggest-list">
-                                    
+
                                     <div class="suggest-item">
                                         <a href="/html/job_description.html" class="suggest__link">
                                             <div class="suggest-thumb">
@@ -193,21 +218,23 @@
                                                 " alt="">
                                             </div>
                                             <div class="suggest-content">
-                                                
-                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên Tư Vấn Tuyển Sinh</a>
-                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần Smartcom Việt Nam
+
+                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên
+                                                    Tư Vấn Tuyển Sinh</a>
+                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
+                                                    Smartcom Việt Nam
                                                 </a>
                                                 <div class="suggest-info">
-                                                <i class="fa-solid fa-location-dot"></i>
-                                                <span class="suggest-address">Hà nội</span>
-                                                
-                                            </div>
-                                            <div class="suggest-detail">
-                                                <span class="suggest-salary">1,500 USD - 2000 USD</span>
-                                                <div class="suggest-save">
-                                                    <i class="fa-regular fa-heart"></i>
+                                                    <i class="fa-solid fa-location-dot"></i>
+                                                    <span class="suggest-address">Hà nội</span>
+
                                                 </div>
-                                            </div>
+                                                <div class="suggest-detail">
+                                                    <span class="suggest-salary">1,500 USD - 2000 USD</span>
+                                                    <div class="suggest-save">
+                                                        <i class="fa-regular fa-heart"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </a>
                                     </div>
@@ -218,21 +245,23 @@
                                                 " alt="">
                                             </div>
                                             <div class="suggest-content">
-                                                
-                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên Tư Vấn Tuyển Sinh</a>
-                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần Smartcom Việt Nam
+
+                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên
+                                                    Tư Vấn Tuyển Sinh</a>
+                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
+                                                    Smartcom Việt Nam
                                                 </a>
                                                 <div class="suggest-info">
-                                                <i class="fa-solid fa-location-dot"></i>
-                                                <span class="suggest-address">Hà nội</span>
-                                                
-                                            </div>
-                                            <div class="suggest-detail">
-                                                <span class="suggest-salary">1,500 USD - 2000 USD</span>
-                                                <div class="suggest-save">
-                                                    <i class="fa-regular fa-heart"></i>
+                                                    <i class="fa-solid fa-location-dot"></i>
+                                                    <span class="suggest-address">Hà nội</span>
+
                                                 </div>
-                                            </div>
+                                                <div class="suggest-detail">
+                                                    <span class="suggest-salary">1,500 USD - 2000 USD</span>
+                                                    <div class="suggest-save">
+                                                        <i class="fa-regular fa-heart"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </a>
                                     </div>
@@ -243,21 +272,23 @@
                                                 " alt="">
                                             </div>
                                             <div class="suggest-content">
-                                                
-                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên Tư Vấn Tuyển Sinh</a>
-                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần Smartcom Việt Nam
+
+                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên
+                                                    Tư Vấn Tuyển Sinh</a>
+                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
+                                                    Smartcom Việt Nam
                                                 </a>
                                                 <div class="suggest-info">
-                                                <i class="fa-solid fa-location-dot"></i>
-                                                <span class="suggest-address">Hà nội</span>
-                                                
-                                            </div>
-                                            <div class="suggest-detail">
-                                                <span class="suggest-salary">1,500 USD - 2000 USD</span>
-                                                <div class="suggest-save">
-                                                    <i class="fa-regular fa-heart"></i>
+                                                    <i class="fa-solid fa-location-dot"></i>
+                                                    <span class="suggest-address">Hà nội</span>
+
                                                 </div>
-                                            </div>
+                                                <div class="suggest-detail">
+                                                    <span class="suggest-salary">1,500 USD - 2000 USD</span>
+                                                    <div class="suggest-save">
+                                                        <i class="fa-regular fa-heart"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </a>
                                     </div>
@@ -268,21 +299,23 @@
                                                 " alt="">
                                             </div>
                                             <div class="suggest-content">
-                                                
-                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên Tư Vấn Tuyển Sinh</a>
-                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần Smartcom Việt Nam
+
+                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên
+                                                    Tư Vấn Tuyển Sinh</a>
+                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
+                                                    Smartcom Việt Nam
                                                 </a>
                                                 <div class="suggest-info">
-                                                <i class="fa-solid fa-location-dot"></i>
-                                                <span class="suggest-address">Hà nội</span>
-                                                
-                                            </div>
-                                            <div class="suggest-detail">
-                                                <span class="suggest-salary">1,500 USD - 2000 USD</span>
-                                                <div class="suggest-save">
-                                                    <i class="fa-regular fa-heart"></i>
+                                                    <i class="fa-solid fa-location-dot"></i>
+                                                    <span class="suggest-address">Hà nội</span>
+
                                                 </div>
-                                            </div>
+                                                <div class="suggest-detail">
+                                                    <span class="suggest-salary">1,500 USD - 2000 USD</span>
+                                                    <div class="suggest-save">
+                                                        <i class="fa-regular fa-heart"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </a>
                                     </div>
@@ -293,21 +326,23 @@
                                                 " alt="">
                                             </div>
                                             <div class="suggest-content">
-                                                
-                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên Tư Vấn Tuyển Sinh</a>
-                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần Smartcom Việt Nam
+
+                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên
+                                                    Tư Vấn Tuyển Sinh</a>
+                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
+                                                    Smartcom Việt Nam
                                                 </a>
                                                 <div class="suggest-info">
-                                                <i class="fa-solid fa-location-dot"></i>
-                                                <span class="suggest-address">Hà nội</span>
-                                                
-                                            </div>
-                                            <div class="suggest-detail">
-                                                <span class="suggest-salary">1,500 USD - 2000 USD</span>
-                                                <div class="suggest-save">
-                                                    <i class="fa-regular fa-heart"></i>
+                                                    <i class="fa-solid fa-location-dot"></i>
+                                                    <span class="suggest-address">Hà nội</span>
+
                                                 </div>
-                                            </div>
+                                                <div class="suggest-detail">
+                                                    <span class="suggest-salary">1,500 USD - 2000 USD</span>
+                                                    <div class="suggest-save">
+                                                        <i class="fa-regular fa-heart"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </a>
                                     </div>
@@ -318,26 +353,28 @@
                                                 " alt="">
                                             </div>
                                             <div class="suggest-content">
-                                                
-                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên Tư Vấn Tuyển Sinh</a>
-                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần Smartcom Việt Nam
+
+                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên
+                                                    Tư Vấn Tuyển Sinh</a>
+                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
+                                                    Smartcom Việt Nam
                                                 </a>
                                                 <div class="suggest-info">
-                                                <i class="fa-solid fa-location-dot"></i>
-                                                <span class="suggest-address">Hà nội</span>
-                                                
-                                            </div>
-                                            <div class="suggest-detail">
-                                                <span class="suggest-salary">1,500 USD - 2000 USD</span>
-                                                <div class="suggest-save">
-                                                    <i class="fa-regular fa-heart"></i>
+                                                    <i class="fa-solid fa-location-dot"></i>
+                                                    <span class="suggest-address">Hà nội</span>
+
                                                 </div>
-                                            </div>
+                                                <div class="suggest-detail">
+                                                    <span class="suggest-salary">1,500 USD - 2000 USD</span>
+                                                    <div class="suggest-save">
+                                                        <i class="fa-regular fa-heart"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </a>
                                     </div>
-                                    
-    
+
+
                                 </div>
                             </div>
                         </div>
@@ -350,7 +387,7 @@
             <div class="grid">
                 <div class="grid__row">
                     <div class="grid__col-4">
-                        <h3 class = "footer__heading">Dành cho ứng viên</h3>
+                        <h3 class="footer__heading">Dành cho ứng viên</h3>
                         <ul class="footer__list">
                             <li class="footer__item">Việc làm mới nhất</li>
                             <li class="footer__item">Tất cả việc làm</li>
@@ -358,7 +395,7 @@
                         </ul>
                     </div>
                     <div class="grid__col-4">
-                        <h3 class = "footer__heading">Dành cho nhà tuyển dụng</h3>
+                        <h3 class="footer__heading">Dành cho nhà tuyển dụng</h3>
                         <ul class="footer__list">
                             <li class="footer__item">Đăng tin tuyển dụng</li>
                             <li class="footer__item">Đăng ký nhà tuyển dụng</li>
@@ -366,7 +403,7 @@
                         </ul>
                     </div>
                     <div class="grid__col-4">
-                        <h3 class = "footer__heading">Designer Website</h3>
+                        <h3 class="footer__heading">Designer Website</h3>
                         <ul class="footer__list">
                             <li class="footer__item">Ngô Văn Đức</li>
                             <li class="footer__item">Lê Minh Công</li>
@@ -380,4 +417,5 @@
         </div>
     </div>
 </body>
+
 </html>
