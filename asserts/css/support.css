@@ -43,9 +43,7 @@ ul.nav-tabs {
     padding: 0.5rem 1rem;
 }
 
-.nav__has--form-login {
-    border: 1px solid white !important;
-}
+
 a.nav__item-link,.nav__item-link > i{
     color: var(--white-color);
 }

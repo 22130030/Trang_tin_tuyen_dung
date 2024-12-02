@@ -5,9 +5,7 @@ html, body{
     height: 100%;
     font-size: 16px;
     }
-    .nav__has--form-login {
-        border: 1px solid white !important;
-        }
+   
       .nav__item-link,.nav__item-link > i{
           color: var(--white-color);
       }
@@ -116,9 +114,6 @@ a.btn.btn-primary {
     display: block;
     padding: 0.5rem 1rem;
 }
-.nav__has--form-login {
-    border: 1px solid white !important;
-    }
 
 #sidebar.sidebar-expanded .nav-link i {
     margin-right: 11px;
