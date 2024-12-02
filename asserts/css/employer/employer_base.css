@@ -1,0 +1,108 @@
+#sidebar.sidebar-expanded {
+    width: 240px;
+}
+#sidebar {
+    white-space: nowrap;
+}
+#sidebar.sidebar-expanded .sidebar__inner {
+    width: 240px;
+}
+.sidebar__inner{
+    padding: 10px 10px 20px;
+    height: calc(100vh - 70px);
+    background-color: var(--white-color);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#sidebar.sidebar-expanded .nav-link {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+#sidebar .nav-link {
+    max-height: 36px;
+}
+#sidebar .active {
+    background-color: #DBEAFE;
+}
+.nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+}
+
+
+#sidebar.sidebar-expanded .nav-link i {
+    margin-right: 11px;
+    margin-left: 1px;
+}
+#sidebar .nav-link i {
+    font-size: 18px;
+}
+#sidebar.sidebar-expanded span.item-label {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    color: #0F172A;
+}
+#sidebar .sub-menu .nav-item:first-child {
+    margin-top: 4px;
+}
+#sidebar.sidebar-expanded .nav-link {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+#sidebar .nav-link {
+    max-height: 36px;
+}
+.my-candidates {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+}
+.sidebar__item{
+    border-radius: 5px;
+    padding : 5px
+}
+.sidebar__item:hover{
+    background-color: rgb(219, 234, 254,0.5);
+
+}
+#sidebar span.navbar-collapse-button {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    width: 100%;
+    margin-top: 16px;
+}
+#sidebar.sidebar-expanded i.cli-angle-down {
+    margin-left: 4px;
+    margin-right: 12px;
+}
+.item-label{
+    display: flex;
+    align-items: center; 
+    gap: 8px;
+}
+
+#sidebar span.navbar-collapse-button .item-label {
+    font-weight: 700 !important;
+    color:#0069DB
+}
+#sidebar .sub-menu .nav-item:first-child {
+    margin-top: 4px;
+}
+
+#sidebar .sidebar-bottom {
+    margin-top: 32px;
+}
+#sidebar.sidebar-expanded .nav-link i {
+    margin-right: 11px;
+    margin-left: 1px;
+}
+#sidebar .setting #sidebar .account {
+    margin-top: 6px;
+}
