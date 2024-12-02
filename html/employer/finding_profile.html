@@ -1,188 +1,396 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/asserts/css/base.css">
-    <link rel="stylesheet" href="/asserts/css/finding_profile.css">
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="/asserts/fonts/fontawesome-free-6.4.0-web/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
-    <title>Nhà tuyển dụng</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/asserts/fonts/fontawesome-free-6.4.0-web/css/bootstrap.min.css">
+    <!-- Style -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/asserts/css/employer/employer_base.css">
+    <link rel="stylesheet" href="/asserts/css/main_job_posting.css">
+    <link rel="stylesheet" href="/asserts/css/base.css">
+    <link rel="stylesheet" href="/asserts//css/finding_profile.css">
+    <link rel="stylesheet" href="/asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
+    <!-- js -->
+    <script src="/asserts/fonts/fontawesome-free-6.4.0-web/js/bootstrap.min.js"></script>
+    <script src="/asserts/fonts/fontawesome-free-6.4.0-web/js/main.js"></script>
+    <script src="/asserts/fonts/fontawesome-free-6.4.0-web/js/popper.min.js"></script>
+    <script src="/asserts/fonts/fontawesome-free-6.4.0-web/js/jquery-3.3.1.min.js"></script>
+    <!-- title -->
+    <title>finding profile</title>
 </head>
+
 <body>
-    <div class="application">
-        <header class="header"></header>
-
-
-        <div class="content">
-            <div class="container">
-                <!-- dashboard -->
-                <div class="grid__col-2">
-
+    <!-- header -->
+    <div class="header">
+        <!-- navigation -->
+        <nav class="nav">
+            <div class="grid nav__container">
+                <div class="nav__logo">
+                    <a href="/html/home.html" class="nav__logo-link">
+                        <img src="/asserts/img/brand-logo@2x.png" alt="" class="nav-logo__img">
+                    </a>
                 </div>
-                <!-- content -->
-                <div class="grid__col-10">
-                    <div class="finding__profile">
-                        <h3 class="">Tìm hồ sơ</h3>
-                        <div class="finding__profile-content">
-                            <div class="finding__profile-form">
-                                <div class="finding__profile-search">
-                                    <input type="text" class="finding__profile-input" placeholder="Nhập từ khóa">
-                                    <input type="text" class="finding__profile-input" placeholder="Nhập tỉnh,thành phố">
-                                </div>
-                                <button class="finding__profile-submit">Tìm hồ sơ</button>
+                <ul class="nav__list">
+                    <li class="nav__item nav__item-link--separated">
+                        <a href="" class="nav__item-link">
+                            <i class="nav-item__icon fa-regular fa-message"></i>
+                            Chat
+                        </a>
+                    </li>
+                    <li class="nav__item nav__item-link--separated">
+                        <div class="nav__item-link nav__user nav__has--form-login">
+                            <div class="nav__user-icon">
+                                <i class="fa-solid fa-city"></i>
                             </div>
-                            <div class="finding__profile-filter">
-                                <h4 class="finding__profile-title">Tìm kiếm theo</h4>
-                                <div class="finding__profile-filter--all">
-                                    <input type="radio" class="finding__profile-all">
-                                    <span>Tất cả</span>
+                            Công ty 3 thành viên
+                            <i class="fa-solid fa-angle-down"></i>
+                            <div class="nav__dropdown-menu">
+                                <div class="menu__buttons">
+                                    <button class="btn menu__register"
+                                        onclick="window.location.href='/html/register.html'">Đăng ký</button>
+                                    <button class="btn menu__login"
+                                        onclick="window.location.href='/html/login.html'">Đăng nhập</button>
                                 </div>
-                                <div class="finding__profile-filter--title">
-                                    <input type="radio" class="finding__profile-title">
-                                    <span>Tiêu đề hồ sơ</span>
+
+
+                                <ul class="menu__list">
+                                    <li class="menu__item">
+                                        <a href="" class="menu__link">
+                                            <i class="menu__link-icon fa-regular fa-id-badge"></i>
+                                            <span class="menu__link-title">Hồ sơ xin việc</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a href="" class="menu__link">
+                                            <i class="menu__link-icon fa-regular fa-heart"></i>
+                                            <span class="menu__link-title">Việc đã lưu</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a href="" class="menu__link">
+                                            <i class="menu__link-icon fa-regular fa-paper-plane"></i>
+                                            <span class="menu__link-title">Việc đã ứng tuyển</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a href="" class="menu__link">
+                                            <i class="menu__link-icon fa-regular fa-bell"></i>
+                                            <span class="menu__link-title">Thông báo việc làm</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="nav__item nav__item-link--separated">
+                        <a href="" class="nav__item-link">
+                            Cho Người tìm việc
+
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- content -->
+    <div class="d-flex justify-content-start" id="main-screen" style="position: relative;">
+      <div class="d-lg-block d-none sidebar sidebar-expanded" id="sidebar" style="">
+        <div class="sidebar__inner flex-column d-flex">
+            <div class="sidebar-top">
+                <div class="my-careerlink">
+                    <a class="nav-link bs-tooltip active" role="button" title="" href="/html/employer/employer.html">
+                        <i class="fa-solid fa-house"></i>
+                        <span class="item-label">
+                         My CareerLink</span>
+                    </a>
+                </div>
+                <div class="sidebar-content">
+                    <div class="jobs-menu">
+                        <span class="navbar-collapse-button ml-auto" ref="#jobsCollapse">
+                            <span class="item-label">
+                                Công Việc</span>
+                            </span>
+                            <div class="sidebar__item my__job-item">
+                                <a class="nav-link bs-tooltip" role="button" href="/html/employer/my_job.html">
+                                    <span class="item-label text-truncate">Công việc của tôi</span>
+                                </a>
+                            </div>
+                            <div class="sidebar__item my__job-item">
+                                <a class="nav-link bs-tooltip" role="button" href="/html/employer/job_posting.html">
+                                    <span class="item-label text-truncate">Đăng Tuyển dụng</span>
+                                </a>
+                            </div>
+                    </div>
+                    <div class="my-candidates">
+                        <span class="navbar-collapse-button ml-auto" href="#myCandidates">
+                            <span class="item-label">
+                                Ứng viên của tôi</span>
+                        </span>
+                            <div class="sidebar__item my__candidates-item">
+                                <a class="nav-link bs-tooltip" href="/html/employer/finding_profile.html">
+                                    <span class="item-label text-truncate">Tìm Hồ sơ</span>
+                                </a>
+                            </div>
+                            <div class="sidebar__item my__candidates-item">
+                                <a class="nav-link bs-tooltip" href="/html/employer/application_letter_received.html">
+                                    <span class="item-label text-truncate">Thư xin việc đã nhận</span>
+                                </a>
+                            </div>
+                            <div class="sidebar__item my__candidates-item">
+                                <a class="nav-link bs-tooltip" href="/html/employer/save_profile.html">
+                                    <span class="item-label text-truncate">Hồ sơ đã lưu</span>
+                                </a>
+                            </div>
+                          
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="sidebar-bottom">
+                <div class="sidebar__item get-helps">
+                    <a class="nav-link bs-tooltip" href="/html/employer/support.html">
+                        <i class="fa-regular fa-circle-question"></i>
+                        <span class="item-label">
+                            Hỗ trợ</span>
+                    </a>
+                </div>
+                <div class="sidebar__item setting">
+                    <a class="nav-link bs-tooltip" title="" href="/html/employer/setting.html">
+                        <i class="fa-solid fa-gear"></i>
+                        <span class="item-label">
+                            Cài đặt</span>
+                    </a>
+                </div>
+                <div class="account overflow-hidden">
+                    <a class="d-flex align-items-center mw-100" style="min-height: 48px" href="/html/employer/employer.html">
+                        <div class="avatar rounded-circle">
+                            <img alt="avatar" height="32" width="32" class="employer-logo rounded-circle border"
+                                src="https://static.careerlink.vn/web/images/common/no-logo.png">
+                        </div>
+                        <div class="user-info d-flex flex-column item-label ml-2">
+                            <span class="d-inline-block m-0 p-0 item-label text-truncate" style="max-width: 170px">
+                                công ty 3 thành viên
+                            </span>
+                            <div class="email d-inline-block m-0 text-truncate" style="max-width: 170px">
+                                leminhcong8323@gmail.com
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div dir="ltr" class="resize-sensor"
+                style="pointer-events: none; position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden; max-width: 100%;">
+                <div class="resize-sensor-expand"
+                    style="pointer-events: none; position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden; max-width: 100%;">
+                    <div
+                        style="position: absolute; left: 0px; top: 0px; transition: all; width: 250px; height: 686px;">
+                    </div>
+                </div>
+                <div class="resize-sensor-shrink"
+                    style="pointer-events: none; position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden; max-width: 100%;">
+                    <div
+                        style="position: absolute; left: 0px; top: 0px; transition: all; width: 200%; height: 200%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+        <div class="my-careerlink-screen">
+            <div class="my-careerlink bg-white mb-md-4 mb-0">
+                <div class="container px-0 px-lg-3">
+                  <h1 class="h4 page-title p-3 px-md-0 m-0">
+                    Tìm Hồ Sơ
+                  </h1>
+                </div>
+            </div> 
+            <div class="container2">
+                <div class="content">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Nhập từ khóa" class="search-input">
+                      </div>
+                      <div class="search-box">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <input type="text" placeholder="Nhập tỉnh, thành phố" class="search-input">
+                      </div>
+                      <button>Tìm kiếm</button>
+                    </div>
+                    <div class="content2">
+                        <p>Tìm kiếm theo</p>
+                        <label>
+                            <input type="radio">
+                            <p>Tất cả</p>
+                          </label>
+                        <label>
+                            <input type="radio">
+                            <p>Tiêu đề hồ sơ</p>
+                        </label>
+                    </div>
+                    <div class="content3">
+                     <div class="item1">
+                        <div class="abc">
+                            <div class="finding-wrap__title">
+                                <p class="finding-wrap__filter">Lọc theo</p>
+                                <p class="finding-wrap__remove-filter">Xóa lọc</p>
+                            </div>
+                            <div class="form__item">
+                                <span class="form__item-title">Công việc đang tuyển</span>
+                                <div class="form__item-section">
+                                    <button class="form__section-btn">
+                                        <span class="form__section-lable">Công việc đang tuyển</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
                                 </div>
                             </div>
-                            <div class="finding__profile-wrap">
-                                <div class="grid__col-2">
-                                    <div class="finding-wrap__title">
-                                        <span class="finding-wrap__filter">Lọc theo</span>
-                                        <span class="finding-wrap__remove-filter">Xóa lọc</span>
-                                    </div>
-                                    <div class="wrap__content">
-                                        <div class="form__item">
-                                            <span class="form__item-title">Công việc đang tuyển</span>
-                                            <div class="form__item-section">
-                                                <button class="form__section-btn">
-                                                    <span class="form__section-lable">Công việc đang tuyển</span>
-                                                    <i class="fa-solid fa-chevron-down"></i>
-                                                </button>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="form__item">
-                                            <span class="form__item-title">Ngành nghề</span>
-                                            <div class="form__item-section">
-                                                <button class="form__section-btn">
-                                                    <span class="form__section-lable">Ngành nghề</span>
-                                                    <i class="fa-solid fa-chevron-down"></i>
-                                                </button>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="form__item">
-                                            <span class="form__item-title">Kinh nghiệm làm việc</span>
-                                            <div class="form__item-section">
-                                                <button class="form__section-btn">
-                                                    <span class="form__section-lable">Kinh nghiệm làm việc</span>
-                                                    <i class="fa-solid fa-chevron-down"></i>
-                                                </button>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="form__item">
-                                            <span class="form__item-title">Cấp bậc</span>
-                                            <div class="form__item-section">
-                                                <button class="form__section-btn">
-                                                    <span class="form__section-lable">Cấp bậc</span>
-                                                    <i class="fa-solid fa-chevron-down"></i>
-                                                </button>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="form__item">
-                                            <span class="form__item-title">Mức lương</span>
-                                            <div class="form__item-section">
-                                                <button class="form__section-btn">
-                                                    <span class="form__section-lable">Mức lương</span>
-                                                    <i class="fa-solid fa-chevron-down"></i>
-                                                </button>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="form__item">
-                                            <span class="form__item-title">Loại công việc</span>
-                                            <div class="form__item-section">
-                                                <button class="form__section-btn">
-                                                    <span class="form__section-lable">Loại công việc</span>
-                                                    <i class="fa-solid fa-chevron-down"></i>
-                                                </button>
-                                            </div>
-                                            
-                                        </div>
-
-                                        <div class="form__item">
-                                            <span class="form__item-title">Tên trường</span>
-                                            <div class="form__item-section">
-                                                <input type="text" class="form__section-btn" placeholder="Tên trường">
-                                                    <i class="fa-solid fa-chevron-down"></i>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="form__item">
-                                            <span class="form__item-title">Trình độ ngoại ngữ</span>
-                                            <div class="form__item-section">
-                                                <button class="form__section-btn">
-                                                    <span class="form__section-lable">Trình độ ngoại ngữ</span>
-                                                    <i class="fa-solid fa-chevron-down"></i>
-                                                </button>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="form__item">
-                                            <span class="form__item-title">Giới tính</span>
-                                            <div class="form__item-section--sex">
-                                               <button class="section__sex--any">Bất kỳ</button>
-                                               <button class="section__sex-male">Nam</button>
-                                               <button class="section__sex--female">Nữ</button>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="form__item">
-                                            <div class="form__item-show-old">
-                                                <span class="form__item-title">Độ tuổi</span>
-                                                <div>từ
-                                                    <span class="min-old" id = "min-old">15</span>
-                                                    đến
-                                                    <span class="max-old" id = "max-old">70</span>
-                                                    tuổi
-                                                </div>
-                                            </div>
-
-                                            <div class="form__item-range-old">
-                                               <input type="range" class="range-old__min" min="15" max="70" value="15">
-                                               <input type="range" class="range-old__max" min="15" max="70" value="70">
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="form__item">
-                                            <span class="form__item-title">Thời gian đăng hồ sơ</span>
-                                            <div class="form__item-section">
-                                                <button class="form__section-btn">
-                                                    <span class="form__section-lable">Thời gian đăng hồ sơ</span>
-                                                    <i class="fa-solid fa-chevron-down"></i>
-                                                </button>
-                                            </div>
-                                            
-                                        </div>
-                                        <button class="wrap__content-submit">Tìm kiếm hồ sơ</button>
-                                    </div>
+                            <!--  -->
+                            <div class="form__item">
+                                <span class="form__item-title"><i class="fa-solid fa-border-all"></i>Ngành nghề</span>
+                                <div class="form__item-section">
+                                    <button class="form__section-btn">
+                                        <span class="form__section-lable">Ngành nghề</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
                                 </div>
-
-
-                                <div class="grid__col-10">
-
+                            </div>
+                            <!--  -->
+                            <div class="form__item">
+                                <span class="form__item-title"><i class="fa-solid fa-hand-sparkles"></i>Kinh nghiệm làm việc</span>
+                                <div class="form__item-section">
+                                    <button class="form__section-btn">
+                                        <span class="form__section-lable">Kinh nghiệm làm việc</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="form__item">
+                                <span class="form__item-title"><i class="fa-solid fa-signal"></i>Cấp bậc</span>
+                                <div class="form__item-section">
+                                    <button class="form__section-btn">
+                                        <span class="form__section-lable">Cấp bậc</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="form__item">
+                                <span class="form__item-title"><i class="fa-solid fa-sack-dollar"></i>Mức lương</span>
+                                <div class="form__item-section">
+                                    <button class="form__section-btn">
+                                        <span class="form__section-lable">Mức lương</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="form__item">
+                                <span class="form__item-title"><i class="fa-solid fa-briefcase"></i>Loại công việc</span>
+                                <div class="form__item-section">
+                                    <button class="form__section-btn">
+                                        <span class="form__section-lable">Loại công việc</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="form__item">
+                                <span class="form__item-title"><i class="fa-solid fa-graduation-cap"></i>Trình độ học vấn</span>
+                                <div class="form__item-section">
+                                    <button class="form__section-btn">
+                                        <span class="form__section-lable">Học vấn</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="form__item">
+                                <span class="form__item-title"><i class="fa-solid fa-school"></i>Trường</span>
+                                <div class="form__item-section">
+                                    <button class="form__section-btn">
+                                        <span class="form__section-lable">Nhập tên trường</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="form__item">
+                                <span class="form__item-title"><i class="fa-solid fa-certificate"></i>Chuyên môn</span>
+                                <div class="form__item-section">
+                                    <button class="form__section-btn">
+                                        <span class="form__section-lable">Chuyên môn</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="form__item">
+                                <span class="form__item-title"><i class="fa-solid fa-language"></i>Trình độ ngoại ngữ</span>
+                                <div class="form__item-section">
+                                    <button class="form__section-btn">
+                                        <span class="form__section-lable">Ngoại ngữ</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="form__item">
+                                <span class="form__item-title"><i class="fa-solid fa-venus-mars"></i>Giới tính</span>
+                                <div class="form__item-section">
+                                    <button class="form__section-btn">
+                                        <span class="form__section-lable">Bất kì</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="form__item">
+                                <span class="form__item-title"><i class="fa-solid fa-hand-holding-heart"></i>Tình trạng hôn nhân</span>
+                                <div class="form__item-section">
+                                    <button class="form__section-btn">
+                                        <span class="form__section-lable">Bất kì</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="form__item">
+                                <span class="form__item-title"><i class="fa-solid fa-user"></i>Độ tuổi</span>
+                                <div class="form__item-section">
+                                    <button class="form__section-btn">
+                                        <span class="form__section-lable">15 trở lên</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="form__item">
+                                <span class="form__item-title"><i class="fa-solid fa-calendar-days"></i>Hồ sơ đăng trong vòng</span>
+                                <div class="form__item-section">
+                                    <button class="form__section-btn">
+                                        <span class="form__section-lable">Thời gian trong vòng</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
+                        
+                     </div>
+                     <div class="item2"></div>
+                     <div class="item3">
+                        <img src="https://www.careerlink.vn/web/images/search_resume_banner.png" alt="">
+                        <p>Khám phá hàng ngàn CV chất lượng cao với công cụ tìm kiếm thông minh của chúng tôi. Bắt đầu ngay bằng cách nhập từ khóa vào thanh tìm kiếm hoặc sử dụng bộ lọc chi tiết để tìm ứng viên phù hợp nhất.</p>
+                     </div>
                     </div>
                 </div>
 
             </div>
-
         </div>
-
-
-        <footer class="footer"></footer>
-    </div>
-</body>
+    
+    </body>
 </html>

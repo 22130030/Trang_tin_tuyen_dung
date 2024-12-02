@@ -23,9 +23,7 @@ html, body{
   margin-right: auto;
   margin-left: auto;
 }
-.nav__has--form-login {
-  border: 1px solid white !important;
-  }
+
 .nav__item-link,.nav__item-link > i{
     color: var(--white-color);
     
