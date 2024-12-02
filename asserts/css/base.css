@@ -30,6 +30,24 @@ html,body{
     height : 70px;
     align-items: center;
 }
+
+/* navigation for employer */
+.nav__employer{
+    width : 100%;
+    background-color: #5a966c;
+}
+.nav__employer-container{
+    height : 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav__employer-list{
+    display: flex;
+    align-items: center;
+}
+
+
 .search-bar {
     display: flex;
     align-items: center;
