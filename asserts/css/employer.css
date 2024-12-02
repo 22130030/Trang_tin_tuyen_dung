@@ -25,9 +25,7 @@ html, body{
     margin-right: -15px;
     margin-left: -15px;
 }
-.nav__has--form-login {
-    border: 1px solid white !important;
-    }
+
 a.nav__item-link,.nav__item-link > i{
       color: var(--white-color);
   }
