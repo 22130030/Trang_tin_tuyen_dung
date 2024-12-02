@@ -123,12 +123,19 @@ body {
     font-weight: bold;
   }
   
-  .job-details p {
+  .job-details a {
     font-size: 16px;
-    margin: 5px 0;
-    color: #555;
+    margin: 7px 0;
+    color: var(--green-color);
+    text-decoration: none;
   }
-  
+  .job-details a:hover{
+    color : var(--blue-color);
+  }
+  .job-details p{
+    font-size: 1.5rem;
+    color : var(--text-color);
+  }
   .job-details p i {
     margin-right: 8px;
     color: #ff6b6b;
