@@ -26,6 +26,23 @@
                 jobForm.style.display = 'none';
             }
         }
+        document.addEventListener('DOMContentLoaded', function () {
+         const navUser = document.querySelector('.nav__admin');
+         const dropdownMenu = document.querySelector('.nav__form-admin');
+ 
+     // Hiển thị menu khi click vào `.nav__has--form-login`
+         navUser.addEventListener('click', function (event) {
+         event.stopPropagation();
+         dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+     });
+ 
+     // Đóng menu khi click ra ngoài
+     document.addEventListener('click', function (event) {
+         if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {
+             dropdownMenu.style.display = 'none';
+         }
+     });
+ });
     </script>
 
 </head>
@@ -35,65 +52,51 @@
 
         <header class="header">
             <nav class="nav">
-                <div class="grid nav__container">
-                    <div class="nav__logo">
-                        <a href="/html/home.html" class="nav__logo-link">
-                            <img src="/asserts/img/brand-logo@2x.png" alt="" class="nav-logo__img">
-                        </a>
-                    </div>
-                    <ul class="nav__list">
+               <div class="grid nav__container">
+                   <div class="nav__logo">
+                       <a href="/html/admin/admin_home.html" class="nav__logo-link">
+                           <img src="/asserts/img/brand-logo@2x.png" alt="" class="nav-logo__img">
+                       </a>
+                   </div>
+                   <ul class="nav__list">
+                      
+                       <li class="nav__item ">
+                           <div class="nav__item-link nav__admin nav__form-logged-in">
+                               <div class="nav__admin-icon">
+                                   <i class="fa-regular fa-user"></i>
+                               </div>
+                               Admin
 
-                        <li class="nav__item ">
-                            <div class="nav__item-link nav__user nav__has--form-login">
-                                <div class="nav__user-icon">
-                                    <i class="fa-regular fa-user"></i>
-                                </div>
-                                Admin
+                               <div class="nav__form-admin">
+                                   
+                                   
+                                   
+                                   <ul class="form-admin__list">
+                                       <!-- <li class="form-admin__item">
+                                           <a href="" class="form-admin__link">
+                                               <i class="fa-solid fa-gear"></i>
+                                               <span class="form-admin__link-title">Quản lí tài khoản</span>
+                                           </a>
+                                       </li> -->
+                                       
+                                     
+                                       <li class="form-admin__item">
+                                               <a href="/" class="form-admin__item-link">
+                                                   <i class="fa-solid fa-right-from-bracket"></i>
+                                                   <span class="form-admin__link-title">Đăng xuất</span>
 
-                                <div class="nav__dropdown-menu">
-                                    <div class="menu__buttons">
-                                        <button class="btn menu__register"
-                                            onclick="window.location.href='/html/register.html'">Đăng ký</button>
-                                        <button class="btn menu__login"
-                                            onclick="window.location.href='/html/login.html'">Đăng nhập</button>
-                                    </div>
+                                               </a>
+                                       </li>
+                                   </ul>
+                               </div>
 
-
-                                    <ul class="menu__list">
-                                        <li class="menu__item">
-                                            <a href="" class="menu__link">
-                                                <i class="menu__link-icon fa-regular fa-id-badge"></i>
-                                                <span class="menu__link-title">Hồ sơ xin việc</span>
-                                            </a>
-                                        </li>
-                                        <li class="menu__item">
-                                            <a href="" class="menu__link">
-                                                <i class="menu__link-icon fa-regular fa-heart"></i>
-                                                <span class="menu__link-title">Việc đã lưu</span>
-                                            </a>
-                                        </li>
-                                        <li class="menu__item">
-                                            <a href="" class="menu__link">
-                                                <i class="menu__link-icon fa-regular fa-paper-plane"></i>
-                                                <span class="menu__link-title">Việc đã ứng tuyển</span>
-                                            </a>
-                                        </li>
-                                        <li class="menu__item">
-                                            <a href="" class="menu__link">
-                                                <i class="menu__link-icon fa-regular fa-bell"></i>
-                                                <span class="menu__link-title">Thông báo việc làm</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </li>
-
-                    </ul>
-                </div>
-            </nav>
-        </header>
+                           </div>
+                       </li>
+               
+                   </ul>
+               </div>
+           </nav> 
+       </header>
         <div class="container">
 
             <!-- Sidebar -->
