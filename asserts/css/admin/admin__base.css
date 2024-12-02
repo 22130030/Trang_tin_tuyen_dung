@@ -181,3 +181,61 @@ td{
     background-color: rgb(200,149,0);
     color : var(--white-color);
 }
+
+/* form logged in */
+.nav__admin{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 5px 10px;
+    border-radius: 15px;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+.nav__admin-icon{
+    margin-right: 5px;
+}
+.nav__form-admin{
+
+    position: absolute;
+    min-width: 200px;
+    top : calc(100% + 10px);
+    right: -50px;
+    z-index: 1;
+    background-color: white;
+    padding : 15px 10px 10px;
+    border : 1px solid rgba(0,0,0,0.3);
+    border-radius: 5px;
+    display: none;
+}
+.form-admin__list{
+list-style: none;
+padding-left: 0px;
+text-align: center;
+}
+.form-admin__item{
+padding : 5px 0;
+
+}
+.form-admin__item a i{
+color : var(--text-color);
+} 
+
+.menu__link i{
+font-weight: 550;
+}
+.menu__link-title{
+font-size: 1.8rem;
+margin-left: 5px;
+}
+.form-admin__item-link{
+    text-decoration: none;
+    color : var(--text-color);
+}
+.form-admin__item-link:hover span{
+    color : var(--blue-color);
+}
+.form-admin__item-link:hover i{
+    color : var(--blue-color);
+}
