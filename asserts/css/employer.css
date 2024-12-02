@@ -25,9 +25,7 @@ html, body{
     margin-right: -15px;
     margin-left: -15px;
 }
-.nav__has--form-login {
-    border: 1px solid white !important;
-    }
+
 a.nav__item-link,.nav__item-link > i{
       color: var(--white-color);
   }
@@ -80,100 +78,8 @@ a.btn.btn-primary {
     font-weight: 500;
 }
 
-#sidebar.sidebar-expanded {
-    width: 240px;
-   }
-   #sidebar {
-       white-space: nowrap;
-   }
-   #sidebar.sidebar-expanded .sidebar__inner {
-       width: 240px !important;
-   }
-.bg-white {
-    background-color: #fff !important;
-}
-#sidebar.sidebar-expanded .nav-link {
-    padding: 8px;
-    display: flex
-;
-    align-items: center;
-}
-#sidebar .nav-link {
-    max-height: 36px;
-}
-#sidebar .active {
-    background-color: #DBEAFE;
-}
-.nav-link {
-    display: block;
-    padding: 0.5rem 1rem;
-}
 
 
-#sidebar.sidebar-expanded .nav-link i {
-    margin-right: 11px;
-    margin-left: 1px;
-}
-#sidebar .nav-link i {
-    font-size: 18px;
-}
-#sidebar.sidebar-expanded span.item-label {
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 20px;
-    color: #0F172A;
-}
-#sidebar .sub-menu .nav-item:first-child {
-    margin-top: 4px;
-}
-#sidebar.sidebar-expanded .nav-link {
-    padding: 8px;
-    display: flex;
-    align-items: center;
-}
-#sidebar .nav-link {
-    max-height: 36px;
-}
-.my-candidates {
-    padding: 0;
-    list-style: none;
-    margin: 0;
-}
-#sidebar span.navbar-collapse-button {
-    display: flex;
-    align-items: center;
-    padding: 8px;
-    width: 100%;
-    margin-top: 16px;
-}
-#sidebar.sidebar-expanded i.cli-angle-down {
-    margin-left: 4px;
-    margin-right: 12px;
-}
-.item-label{
-    display: flex;
-    align-items: center; 
-    gap: 8px;
-}
-
-#sidebar span.navbar-collapse-button .item-label {
-    font-weight: 700 !important;
-    color:#0069DB
-}
-#sidebar .sub-menu .nav-item:first-child {
-    margin-top: 4px;
-}
-
-#sidebar .sidebar-bottom {
-    margin-top: 32px;
-}
-#sidebar.sidebar-expanded .nav-link i {
-    margin-right: 11px;
-    margin-left: 1px;
-}
-#sidebar .setting #sidebar .account {
-    margin-top: 6px;
-}
 .overflow-hidden {
     overflow: hidden !important;
 }
