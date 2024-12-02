@@ -115,7 +115,9 @@ body {
     width: 20px;
     background: #e6e6e6;
     border-radius: 4px; }
-  
+  .text-uppercase strong{
+    font-weight: bold;
+  }
   .control--radio .control__indicator {
     border-radius: 50%; }
   

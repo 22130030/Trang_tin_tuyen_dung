@@ -29,53 +29,76 @@
 
 <body>
     <!-- header -->
-    <div class="header">
-        <!-- navigation -->
-        <nav class="nav">
-            <div class="grid nav__container">
-                <div class="nav__logo">
-                    <a href="/html/employer/employer.html" class="nav__logo-link">
-                        <img src="/asserts/img/brand-logo@2x.png" alt="" class="nav-logo__img">
-                    </a>
-                </div>
-                <ul class="nav__list">
-                    <li class="nav__item nav__item-link--separated">
-                        <a href="" class="nav__item-link">
-                            <i class="nav-item__icon fa-regular fa-message"></i>
-                            Chat
-                        </a>
-                    </li>
-                    <li class="nav__item nav__item-link--separated">
-                        <div class="nav__item-link nav__user nav__has--form-login">
-                            <div class="nav__user-icon">
-                                <i class="fa-solid fa-city"></i>
-                            </div>
-                            Công ty 3 thành viên
-                            <i class="fa-solid fa-angle-down"></i>
-                            <div class="nav__dropdown-menu">
-                                <div class="menu__buttons">
-                                    <button class="btn menu__register"
-                                        onclick="window.location.href='/html/employer/login_for_employer.html'">Đăng ký</button>
-                                    <button class="btn menu__login"
-                                        onclick="window.location.href='/html/employer/register_for_employer.html'">Đăng nhập</button>
-                                </div>
+    <div class="nav-sticky">
 
+     
+      <div class="header">
+          <!-- navigation -->
+          <nav class="nav__employer">
+          <div class="grid">
+              <div class="nav__employer-container">
 
-                                
-                            </div>
+                      <div class="nav__logo">
+                          <a href="/html/employer/employer.html" class="nav__logo-link">
+                              <img src="/asserts/img/brand-logo@2x.png" alt="" class="nav-logo__img">
+                          </a>
+                      </div>
+                      <div class="nav__employer-list">
+                          <li class="nav__employer-user">
+                              <i class="fa-solid fa-building"></i>
+                              <span>Công ty 3 thành viên</span>
+                          <div class="nav__employer-form">
+                                      <div class="menu__buttons">
+                                          <button class="btn menu__register" onclick="window.location.href='/html/candidate/register.html'">Đăng ký</button>
+                                          <button class="btn menu__login" onclick="window.location.href='/html/candidate/login.html'">Đăng nhập</button>
+                                      </div>
+                          </div> 
 
-                        </div>
-                    </li>
-                    <li class="nav__item nav__item-link--separated">
-                        <a href="/" class="nav__item-link">
-                            Cho Người tìm việc
+                          <div class="nav__employer-logged-in">
+                                  <div class="nav__employer-info-company">
+                                      <div class="ne__info-logo">
+                                          <img src="https://static.careerlink.vn/web/images/common/no-logo.png" alt="">
+                                      </div>
+                                      <div class="ne__info-edit">
+                                          <span class="ne__info-name">Công ty 3 thành viên</span>
+                                          <a href="" class="ne__info-edit-info">Chỉnh sửa thông tin công ty</a>
 
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+                                      </div>
+                                  </div>
+                                      <ul class="ne__info-list">
+                                          <li class="ne__info-item">
+                                              <i class="fa-solid fa-gear"></i>
+                                              <a href="/html/employer/setting.html" class="ne__info-link">
+                                                  Cài đặt tài khoản
+                                              </a>
+                                          </li>
+                                          <li class="ne__info-item ne__info-logout">
+                                              <i class="fa-solid fa-right-from-bracket"></i>
+                                              <a href="/html/employer/home-employer.html" class="ne__info-link">
+                                                  Đăng xuất
+
+                                              </a>
+                                          </li>
+                                      </ul>
+
+                          </div>
+
+                          </li>
+                          <li class="nav__employer-item">
+                              <a href="/index.html" class="nav__item-link">
+                          
+                          <li class="nav__employer-item nav__item-link--separated">
+                              <a href="/" class="nav__item-link">
+                                  Cho người tìm việc
+                                  
+                              </a>
+                          </li>
+                      </div>
+                  </div>
+              </div>
+          </nav>
+      </div>
+  </div>
     <!-- content -->
     <div class="d-flex justify-content-start" id="main-screen" style="position: relative;">
       <div class="d-lg-block d-none sidebar sidebar-expanded" id="sidebar" style="">
@@ -568,6 +591,25 @@
       </div>
   </div>
   
- 
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navUser = document.querySelector('.nav__employer-user');
+        const dropdownMenu = document.querySelector('.nav__employer-logged-in');
+        
+
+    // Hiển thị menu khi click vào `.nav__has--form-login`
+        navUser.addEventListener('click', function (event) {
+        event.stopPropagation();
+        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Đóng menu khi click ra ngoài
+    document.addEventListener('click', function (event) {
+        if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+});
+     </script>
   </body>
 </html>
