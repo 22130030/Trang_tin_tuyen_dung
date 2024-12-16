@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.io.PrintWriter" %><%--
   Created by IntelliJ IDEA.
   User: PHUC
   Date: 12/12/2024
@@ -169,14 +169,14 @@
             <div class="content__container">
                 <div class="grid">
                     <div class="grid__row jobs">
-                        <c:forEach var="aj" items="${allJob}">
+                        <c:forEach var="j" items="${jobs}">
                         <div class="grid__col-4">
                             <div class="content__job-item">
                                 <a href="/html/job_description.html" class="content__job-item-link">
                                     <div class="wrapper__logo">
                                         <a href="/html/Job.html" class="wrapper__logo-link">
 
-                                            <img src="${aj.img}" alt="" class="wrapper__img">
+                                            <img src="${j.img}" alt="" class="wrapper__img">
                                         </a>
                                     </div>
                                     <div class="wrapper__info">
@@ -185,7 +185,7 @@
                                                 <span class="name-status">HOT</span>
                                                 <div class="job__tag">
 
-                                                    <a class="name__lable" href="/html/job_description.html">${aj.title}</a>
+                                                    <a class="name__lable" href="/html/job_description.html">${j.title}</a>
                                                 </div>
 
                                                 <div class="job__icon-like">
@@ -205,12 +205,12 @@
                                         <div class="wrapper__infomation">
                                             <div class="infomation__address">
                                                 <i class="infomation__address-icon fa-solid fa-location-dot"></i>
-                                                <span class="infomation__address-lable">${aj.position}</span>
+                                                <span class="infomation__address-lable">${j.position}</span>
                                             </div>
                                             <div class="infomation__bottom">
                                                 <div class="infomation__salary">
                                                     <i class="salary-icon fa-solid fa-coins"></i>
-                                                    <span class="salary-lable">${aj.salary}</span>
+                                                    <span class="salary-lable">${j.salary}</span>
                                                 </div>
                                                 <div class="infomation__time">
                                                     <span class="infomation__posing-time">Ba ngày trước</span>
@@ -224,26 +224,39 @@
                         </div>
                         </c:forEach>
                     </div>
+
+<%--                    <c:set var="currentPage" value="${param.index != null ? param.index :  1}"/>--%>
+<%--                    <c:set var="startPage" value="${param.index - 3}"/>--%>
+<%--                    <c:set var="endPage" value="${param.index + 4}"/>--%>
+
+<%--                    <c:if test="${startPage < 4}" >--%>
+<%--                        <c:set var="startPage" value="1"/>--%>
+<%--                        <c:set var="endPage" value="8"/>--%>
+<%--                    </c:if>--%>
+<%--                    <c:if test="${endPage > np}" >--%>
+<%--                        <c:set var="endPage" value="${np}"/>--%>
+<%--                    </c:if>--%>
+
+
                     <ul class="pagination home__pagination">
-                        <li class="pagination__item">
-                            <a href="" class="pagination__link--active pagination__item-link">1</a>
-                        </li>
-                        <li class="pagination__item">
-                            <a href="" class="pagination__item-link">2</a>
-                        </li>
-                        <li class="pagination__item">
-                            <a href="" class="pagination__item-link">3</a>
-                        </li>
-                        <li class="pagination__item">
-                            <a href="" class="pagination__item-link">...</a>
-                        </li>
-                        <li class="pagination__item">
-                            <a href="" class="pagination__item-link">6</a>
-                        </li>
+                        <c:forEach begin="1" end="${np}" var="i">
+                            <li class="pagination__item">
+                                <a href="home?index=${i}" class="${param.index==i?"pagination__link--active":""} pagination__item-link">${i}</a>
+                            </li>
+                        </c:forEach>
                     </ul>
                     <div class="slick_action__buttons">
-                        <button class="right__icon slick__action"> < </button>
-                        <button class="right__icon slick__action"> > </button>
+                        <c:if test="${param.index > 0}">
+                            <form action="home" method="get">
+                                <button type="submit" name="index" value="${param.index == 1 ? np : param.index - 1}" class="right__icon slick__action"> < </button>
+                            </form>
+                        </c:if>
+
+                        <c:if test="${param.index <= np}">
+                            <form action="home" method="get">
+                                <button type="submit" name="index" value="${param.index == np ? 1 : param.index + 1}" class="right__icon slick__action"> > </button>
+                            </form>
+                        </c:if>
                     </div>
 
 
