@@ -10,7 +10,7 @@ public class Job implements Serializable {
     private String img;
     private String description;
     private String position;
-    private double salary;
+    private String salary;
     private LocalDateTime created;
     private LocalDateTime updated;
     private String status;
@@ -18,7 +18,7 @@ public class Job implements Serializable {
 
     public Job() {}
 
-    public Job(int id, String title, String img, String description, String position, double salary, String status, String requirement) {
+    public Job(int id, String title, String img, String description, String position, String salary, String status, String requirement) {
         this.id = id;
         this.title = title;
         this.img = img;
@@ -70,11 +70,11 @@ public class Job implements Serializable {
         this.position = position;
     }
 
-    public double getSalary() {
+    public String getSalary() {
         return salary;
     }
 
-    public void setSalary(double salary) {
+    public void setSalary(String salary) {
         this.salary = salary;
     }
 
