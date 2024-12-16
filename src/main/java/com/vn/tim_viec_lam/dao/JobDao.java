@@ -52,7 +52,7 @@ public class JobDao {
             String img = rs.getString("image");
             String position = rs.getString("position");
             String desc = rs.getString("jobDescription");
-            double salary = rs.getDouble("salary");
+            String salary = rs.getString("salary");
 //                LocalDateTime created = rs.getTimestamp("created_at").toLocalDateTime();
 //                LocalDateTime updated = rs.getTimestamp("created_at").toLocalDateTime();
             String status = rs.getString("status");
