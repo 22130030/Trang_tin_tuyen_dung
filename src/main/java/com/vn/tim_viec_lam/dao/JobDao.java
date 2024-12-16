@@ -63,9 +63,43 @@ public class JobDao {
         }
         return jobs;
     }
+    public int getNumberPage(){
+        Connection con = DBconnect.getConnection();
+        String sql = "select count(*) from job_posting";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                int total = rs.getInt(1);
+                int countPage = total % 12 > 0 ? total / 12 + 1 : total / 12;
+                return countPage;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-    public static void main(String[] args) {
+        return 0;
+    }
+    public List<Job> getPaging(int indexPage) {
+        List<Job> jobs = new ArrayList<Job>();
+
+        try {
+            Connection con = DBconnect.getConnection();
+            String sql = "select * from job_posting AS jp" +
+                    " order by jp.created_at desc" +
+                    " LIMIT 12 OFFSET ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, (indexPage-1)*12);
+            ResultSet rs = ps.executeQuery();
+            jobs.addAll(getResultSet(rs));
+            return jobs;
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }    public static void main(String[] args) {
         JobDao jobDao = new JobDao();
-        System.out.println(jobDao.get4NewJob().toString());
+        System.out.println(jobDao.getNumberPage());
     }
 }
