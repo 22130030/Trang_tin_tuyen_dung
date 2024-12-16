@@ -2,6 +2,7 @@ package com.vn.tim_viec_lam.dao.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class Job implements Serializable {
     private int id;
@@ -9,15 +10,15 @@ public class Job implements Serializable {
     private String img;
     private String description;
     private String position;
-    private double salary;
-    private Date created;
-    private Date updated;
-    private int status;
+    private String salary;
+    private LocalDateTime created;
+    private LocalDateTime updated;
+    private String status;
     private String requirement;
 
     public Job() {}
 
-    public Job(int id, String title, String img, String description, String position, double salary, Date created, Date updated, int status, String requirement) {
+    public Job(int id, String title, String img, String description, String position, String salary, String status, String requirement) {
         this.id = id;
         this.title = title;
         this.img = img;
@@ -25,7 +26,6 @@ public class Job implements Serializable {
         this.position = position;
         this.salary = salary;
         this.created = created;
-        this.updated = updated;
         this.status = status;
         this.requirement = requirement;
     }
@@ -70,35 +70,35 @@ public class Job implements Serializable {
         this.position = position;
     }
 
-    public double getSalary() {
+    public String getSalary() {
         return salary;
     }
 
-    public void setSalary(double salary) {
+    public void setSalary(String salary) {
         this.salary = salary;
     }
 
-    public Date getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 
-    public Date getUpdated() {
+    public LocalDateTime getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(LocalDateTime updated) {
         this.updated = updated;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -123,6 +123,6 @@ public class Job implements Serializable {
                 ", updated=" + updated +
                 ", status=" + status +
                 ", requirement='" + requirement + '\'' +
-                '}';
+                '\n';
     }
 }
