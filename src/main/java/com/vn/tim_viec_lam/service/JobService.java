@@ -16,7 +16,13 @@ public class JobService {
     public List<Job> getNewJob(){
         return jobDao.get4NewJob();
     }
+    public int getNumberPage(){
+        return jobDao.getNumberPage();
+    }
+    public List<Job> getJobByPage(int page){
 
+        return jobDao.getPaging(page);
+    }
     public static void main(String[] args) {
         JobService jobService = new JobService();
         System.out.println(jobService.getAllJob());
