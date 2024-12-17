@@ -97,11 +97,9 @@
 <%--                        <div class="new__job-list">--%>
                                 <c:forEach var="nj" items="${newJob}">
                             <div class="grid__col-3">
-                                <di class="content__job-item">
-                                    <a href="/html/job_description.html" class="content__job-item-link">
+                                <div href="" class="content__job-item">
                                         <div class="wrapper__logo">
-                                            <a href="/html/Job.html" class="wrapper__logo-link">
-
+                                            <a href="job-detail?jid=${nj.id}" class="wrapper__logo-link">
                                                 <img src="${nj.img}" alt="" class="wrapper__img">
                                             </a>
                                         </div>
@@ -144,8 +142,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </a>
-                                </di>
+                                </div>
                             </div>
                                 </c:forEach>
 <%--                        </div>--%>
@@ -174,7 +171,7 @@
                             <div class="content__job-item">
                                 <a href="/html/job_description.html" class="content__job-item-link">
                                     <div class="wrapper__logo">
-                                        <a href="/html/Job.html" class="wrapper__logo-link">
+                                        <a href="job-detail?jid=${j.id}" class="wrapper__logo-link">
 
                                             <img src="${j.img}" alt="" class="wrapper__img">
                                         </a>
@@ -225,23 +222,27 @@
                         </c:forEach>
                     </div>
 
-<%--                    <c:set var="currentPage" value="${param.index != null ? param.index :  1}"/>--%>
-<%--                    <c:set var="startPage" value="${param.index - 3}"/>--%>
-<%--                    <c:set var="endPage" value="${param.index + 4}"/>--%>
+                    <c:set var="currentPage" value="${param.index != null ? param.index :  1}"/>
+                    <c:set var="startPage" value="${param.index - 3}"/>
+                    <c:set var="endPage" value="${param.index + 4}"/>
 
-<%--                    <c:if test="${startPage < 4}" >--%>
-<%--                        <c:set var="startPage" value="1"/>--%>
-<%--                        <c:set var="endPage" value="8"/>--%>
-<%--                    </c:if>--%>
-<%--                    <c:if test="${endPage > np}" >--%>
-<%--                        <c:set var="endPage" value="${np}"/>--%>
-<%--                    </c:if>--%>
+                    <c:if test="${startPage < 4}" >
+                        <c:set var="startPage" value="1"/>
+                        <c:set var="endPage" value="8"/>
+                    </c:if>
+                    <c:if test="${endPage > np}" >
+<%--                        <c:set var="startPage" value="${8-(8 -(np - param.index))}"/>--%>
+                        <c:set var="endPage" value="${np}"/>
+                    </c:if>
 
 
                     <ul class="pagination home__pagination">
-                        <c:forEach begin="1" end="${np}" var="i">
+                        <c:if test="${param.index == null}" >
+
+                        </c:if>
+                        <c:forEach begin="${startPage}" end="${endPage}" var="i">
                             <li class="pagination__item">
-                                <a href="home?index=${i}" class="${param.index==i?"pagination__link--active":""} pagination__item-link">${i}</a>
+                                <a href="home?index=${i}" class="${currentPage==i?"pagination__link--active":""} pagination__item-link">${i}</a>
                             </li>
                         </c:forEach>
                     </ul>
