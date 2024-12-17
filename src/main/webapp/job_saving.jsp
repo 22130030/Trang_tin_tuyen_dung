@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="asserts/css/base.css">
     <link rel="stylesheet" href="asserts/css/candidate/job_saving.css">
+    <link rel="stylesheet" href="asserts/css/candidate/account_base.css">
     <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
     <title>Việc đã lưu</title>
 </head>
@@ -47,28 +48,27 @@
                                     <div class="job__saving-content">
                                         <a href="/html/job_description.html" class="job__saving-link">
 
-                                            <a href="/html/job_description.html" class="ls__content-lable">Nhân viên tư vấn bán hàng</a>
+                                            <a href="/html/job_description.html" class="ls__content-lable">${job.title}</a>
                                             <a href="/html/Job.html" class="ls__content-company">Công ty cổ phần Người Bạn Vàng</a>
                                             <div class="ls__content-detail">
-                                                <span class="ls__content-salary">1,500 USD - 2000 USD</span>
+                                                <span class="ls__content-salary">${job.salary}</span>
                                             </div>
                                         </a>
-                                        </a>
-                                        <div class="ls__detail-save">
+                                    </div>
+                                        <a class="ls__detail-save">
                                             <i class="fa-solid fa-heart"></i>
                                             <span>Đã lưu</span>
-                                </div>
-                                        </div>
+                                         </a>
                                     </div>
                                 </c:forEach>
                             </div>
-
-
-                        </div>
-
+                            </div>
 
 
                         <div class="grid__col-3">
+
+
+
                             <div class="suggest__container">
 
 
@@ -231,6 +231,7 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

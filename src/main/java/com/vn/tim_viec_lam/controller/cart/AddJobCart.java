@@ -33,7 +33,7 @@ public class AddJobCart extends HttpServlet {
             cart.addJobCart(job);
             session.setAttribute("addJobCart",cart);
         }
-        response.sendRedirect(request.getContextPath()+"/home");
+//        response.getWriter().write("{\"status\":\"success\"}");
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");

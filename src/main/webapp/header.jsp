@@ -8,12 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="asserts/css/main.css">
-    <link rel="stylesheet" href="asserts/css/base.css">
-    <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
-    <title></title>
+
 </head>
 <body>
     <div class="nav-sticky">
