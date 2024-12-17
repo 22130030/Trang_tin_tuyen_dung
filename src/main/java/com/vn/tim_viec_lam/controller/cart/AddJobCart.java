@@ -25,15 +25,14 @@ public class AddJobCart extends HttpServlet {
             Job job = js.getJobById(id);
             HttpSession session = request.getSession();
 
-            SavingCart cart = (SavingCart) session.getAttribute("addJobCart");
+            SavingCart cart = (SavingCart) session.getAttribute("cart");
 
             if(cart == null){
                 cart = new SavingCart();
             }
             cart.addJobCart(job);
-            session.setAttribute("addJobCart",cart);
+            session.setAttribute("cart",cart);
         }
-//        response.getWriter().write("{\"status\":\"success\"}");
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");

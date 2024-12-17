@@ -13,6 +13,7 @@ public class JobCart implements Serializable {
     }
     public JobCart(int id, String title,String img, String companyName, String salary) {
         this.id = id;
+        this.img = img;
         this.title = title;
         this.companyName = companyName;
         this.salary = salary;
