@@ -112,9 +112,9 @@
                                                         <a class="name__lable" href="/html/job_description.html">${nj.title}</a>
                                                     </div>
 
-                                                    <div class="job__icon-like">
+                                                    <a href="addJob?jid=${nj.id}" class="job__icon-like">
                                                         <i class="fa-regular fa-heart"></i>
-                                                    </div>
+                                                    </a>
                                                 </div>
                                                 <div class="job__company">
                                                             <span class="job__company-title">
@@ -237,9 +237,6 @@
 
 
                     <ul class="pagination home__pagination">
-                        <c:if test="${param.index == null}" >
-
-                        </c:if>
                         <c:forEach begin="${startPage}" end="${endPage}" var="i">
                             <li class="pagination__item">
                                 <a href="home?index=${i}" class="${currentPage==i?"pagination__link--active":""} pagination__item-link">${i}</a>
@@ -247,15 +244,15 @@
                         </c:forEach>
                     </ul>
                     <div class="slick_action__buttons">
-                        <c:if test="${param.index > 0}">
+                        <c:if test="${currentPage > 0}">
                             <form action="home" method="get">
-                                <button type="submit" name="index" value="${param.index == 1 ? np : param.index - 1}" class="right__icon slick__action"> < </button>
+                                <button type="submit" name="index" value="${currentPage == 1 ? np : currentPage - 1}" class="right__icon slick__action"> < </button>
                             </form>
                         </c:if>
 
-                        <c:if test="${param.index <= np}">
+                        <c:if test="${currentPage <= np}">
                             <form action="home" method="get">
-                                <button type="submit" name="index" value="${param.index == np ? 1 : param.index + 1}" class="right__icon slick__action"> > </button>
+                                <button type="submit" name="index" value="${currentPage == np ? 1 : currentPage + 1}" class="right__icon slick__action"> > </button>
                             </form>
                         </c:if>
                     </div>
