@@ -24,6 +24,9 @@ public class SavingCart {
     public int getSize() {
         return cartList.size();
     }
+    public boolean removeJobCart(int id) {
+        return cartList.remove(id) != null;
+    }
     public JobCart convert(Job job) {
         JobCart jobCart = new JobCart();
         jobCart.setId(job.getId());

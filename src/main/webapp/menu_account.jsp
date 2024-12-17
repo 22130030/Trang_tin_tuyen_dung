@@ -40,7 +40,7 @@
                     <div class="nav-menu__has-separated"></div>
                     <i class="fa-regular fa-heart"></i>
                     <span class="nav__menu-title">Việc làm đã lưu(
-                                <span class="nav__menu-toltal">${sessionScope.addJobCart.size}</span>
+                                <span class="job__saving-toltal nav__menu-toltal">${sessionScope.cart.size}</span>
                                 )
                             </span>
                 </a>
