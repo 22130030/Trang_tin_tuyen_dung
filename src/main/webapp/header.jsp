@@ -20,7 +20,7 @@
     <nav class="nav">
         <div class="grid nav__container">
             <div class="nav__logo">
-                <a href="#" class="nav__logo-link">
+                <a href="home" class="nav__logo-link">
                     <img src="asserts/img/brand-logo@2x.png" alt="" class="nav-logo__img">
                 </a>
             </div>
@@ -72,7 +72,7 @@
                                     </a>
                                 </li>
                                 <li class="menu__item">
-                                    <a href="/html/candidate/account_Management/job_saving.html" class="menu__link">
+                                    <a href="job_saving.jsp" class="menu__link">
                                         <i class="menu__link-icon fa-regular fa-heart"></i>
                                         <span class="menu__link-title">Việc đã lưu</span>
                                     </a>
