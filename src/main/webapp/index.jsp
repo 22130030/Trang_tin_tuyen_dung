@@ -14,8 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="asserts/css/main.css">
     <link rel="stylesheet" href="asserts/css/finding_profile.css">
-    <link rel="stylesheet" href="asserts/css/base.css">
     <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
+    <link rel="stylesheet" href="asserts/css/base.css">
     <title>Kiếm việc làm online</title>
 </head>
 <body>
@@ -112,9 +112,12 @@
                                                         <a class="name__lable" href="/html/job_description.html">${nj.title}</a>
                                                     </div>
 
-                                                    <div class="job__icon-like">
+                                                    <a href="#" onclick="return addJobToCartAjax(event, ${nj.id});" class="job__icon-like">
                                                         <i class="fa-regular fa-heart"></i>
-                                                    </div>
+                                                    </a>
+
+
+
                                                 </div>
                                                 <div class="job__company">
                                                             <span class="job__company-title">
@@ -185,9 +188,9 @@
                                                     <a class="name__lable" href="/html/job_description.html">${j.title}</a>
                                                 </div>
 
-                                                <div class="job__icon-like">
+                                                <a  href="#" onclick="return addJobToCartAjax(event,${j.id})" class="job__icon-like">
                                                     <i class="fa-regular fa-heart"></i>
-                                                </div>
+                                                </a>
                                             </div>
                                             <div class="job__company">
                                                     <span class="job__company-title">
@@ -237,9 +240,6 @@
 
 
                     <ul class="pagination home__pagination">
-                        <c:if test="${param.index == null}" >
-
-                        </c:if>
                         <c:forEach begin="${startPage}" end="${endPage}" var="i">
                             <li class="pagination__item">
                                 <a href="home?index=${i}" class="${currentPage==i?"pagination__link--active":""} pagination__item-link">${i}</a>
@@ -247,15 +247,15 @@
                         </c:forEach>
                     </ul>
                     <div class="slick_action__buttons">
-                        <c:if test="${param.index > 0}">
+                        <c:if test="${currentPage > 0}">
                             <form action="home" method="get">
-                                <button type="submit" name="index" value="${param.index == 1 ? np : param.index - 1}" class="right__icon slick__action"> < </button>
+                                <button type="submit" name="index" value="${currentPage == 1 ? np : currentPage - 1}" class="right__icon slick__action"> < </button>
                             </form>
                         </c:if>
 
-                        <c:if test="${param.index <= np}">
+                        <c:if test="${currentPage <= np}">
                             <form action="home" method="get">
-                                <button type="submit" name="index" value="${param.index == np ? 1 : param.index + 1}" class="right__icon slick__action"> > </button>
+                                <button type="submit" name="index" value="${currentPage == np ? 1 : currentPage + 1}" class="right__icon slick__action"> > </button>
                             </form>
                         </c:if>
                     </div>
@@ -365,5 +365,38 @@
 
 
     </div>
+    <%
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+    %>
+    <script>
+    function addJobToCartAjax(event, jobId) {
+    event.preventDefault();
+
+        fetch(`addJob?jid=` + jobId, {
+        method: 'GET'
+        })
+        .then(response => {
+        if (response.ok) {
+
+        // Thay đổi biểu tượng trái tim sau khi lưu
+        const heartIcon = event.target.closest('a').querySelector('i');
+        heartIcon.classList.remove('fa-regular');
+        heartIcon.classList.add('fa-solid');
+
+        }
+        else {
+        alert('Có lỗi xảy ra!');
+        }
+        })
+        .catch(error => {
+        console.error('Error:', error);
+        alert('Có lỗi xảy ra!');
+        });
+
+        return false; // Ngừng hành động mặc định (tránh thay đổi trang)
+        }
+    </script>
 </body>
 </html>
