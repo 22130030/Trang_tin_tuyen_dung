@@ -10,9 +10,7 @@
 <%@ taglib prefix = "f" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <link rel="stylesheet" href="asserts/css/base.css">
-    <link rel="stylesheet" href="asserts/css/candidate/account_base.css">
-    <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
+
 </head>
 <body>
     <div class="application">
