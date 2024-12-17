@@ -66,6 +66,9 @@
     top : 50%;
     transform: translateY(-50%);
     right: 10px;
+    text-decoration: none;
 }
-.ls__detail-save i{
+.ls__detail-save:hover{
+    color : var(--text-color);
 }
+

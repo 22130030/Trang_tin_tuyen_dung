@@ -397,6 +397,34 @@
 
         return false; // Ngừng hành động mặc định (tránh thay đổi trang)
         }
+
+//      phân trang dùng AJAX
+    // function getAllJob(event, index) {
+    //     event.preventDefault();
+    //
+    //     fetch(`home?index=` + index, {
+    //         method: 'GET'
+    //     })
+    //         .then(response => {
+    //             if (response.ok) {
+    //
+    //                 // Thay đổi biểu tượng trái tim sau khi lưu
+    //                 const heartIcon = event.target.closest('a').querySelector('i');
+    //                 heartIcon.classList.remove('fa-regular');
+    //                 heartIcon.classList.add('fa-solid');
+    //
+    //             }
+    //             else {
+    //                 alert('Có lỗi xảy ra!');
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error('Error:', error);
+    //             alert('Có lỗi xảy ra!');
+    //         });
+    //
+    //     return false; // Ngừng hành động mặc định (tránh thay đổi trang)
+    // }
     </script>
 </body>
 </html>
