@@ -16,7 +16,6 @@ public class JobController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=utf-8");
         JobService jsv = new JobService();
-        List<Job> allJob = jsv.getAllJob();
         List<Job> newJob = jsv.getNewJob();
 
 //        paging
@@ -32,7 +31,6 @@ public class JobController extends HttpServlet {
 
 
         request.setAttribute("jobs", jobs);
-        request.setAttribute("allJob", allJob);
         request.setAttribute("newJob", newJob);
         request.setAttribute("np", numberPage);
         request.getRequestDispatcher("index.jsp").forward(request, response);

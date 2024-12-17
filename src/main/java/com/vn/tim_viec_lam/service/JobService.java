@@ -16,6 +16,9 @@ public class JobService {
     public List<Job> getNewJob(){
         return jobDao.get4NewJob();
     }
+    public Job getJobById(int id){
+        return jobDao.findById(id);
+    }
     public int getNumberPage(){
         return jobDao.getNumberPage();
     }
@@ -25,6 +28,6 @@ public class JobService {
     }
     public static void main(String[] args) {
         JobService jobService = new JobService();
-        System.out.println(jobService.getAllJob());
+        System.out.println(jobService.getJobById(1));
     }
 }

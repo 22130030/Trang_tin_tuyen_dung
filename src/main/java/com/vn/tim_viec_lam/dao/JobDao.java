@@ -17,17 +17,20 @@ public class JobDao {
             String sql = "select * from job_posting";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            jobs.addAll(getResultSet(rs));
-//            jobs = getResultSet(rs);
+            while (rs.next()) {
+                Job job = getResultSet(rs);
+                jobs.add(job);
+            }
 
             return jobs;
-        }catch (Exception e) {
+        } catch (Exception e) {
 
         }
         return null;
     }
 
-    public List<Job> get4NewJob() {List<Job> jobs = new ArrayList<Job>();
+    public List<Job> get4NewJob() {
+        List<Job> jobs = new ArrayList<Job>();
 
         try {
             Connection con = DBconnect.getConnection();
@@ -37,39 +40,60 @@ public class JobDao {
 
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            jobs.addAll(getResultSet(rs));
+            while (rs.next()) {
+                Job job = getResultSet(rs);
+                jobs.add(job);
+            }
             return jobs;
-        }catch (Exception e) {
+        } catch (Exception e) {
 
         }
         return null;
+
     }
-    public List<Job> getResultSet(ResultSet rs) throws SQLException {
-        List<Job> jobs = new ArrayList<>();
-        while (rs.next()) {
-            int id = rs.getInt("jobPostID");
-            String title = rs.getString("titleJob");
-            String img = rs.getString("image");
-            String position = rs.getString("position");
-            String desc = rs.getString("jobDescription");
-            String salary = rs.getString("salary");
+
+    public Job findById(int id) {
+        Job job = new Job();
+        Connection con = DBconnect.getConnection();
+        String sql = "select * from job_posting" +
+                " where jobPostID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                job = getResultSet(rs);
+            }
+            return job;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Job getResultSet(ResultSet rs) throws SQLException {
+        Job job = new Job();
+        int id = rs.getInt("jobPostID");
+        String title = rs.getString("titleJob");
+        String img = rs.getString("image");
+        String position = rs.getString("position");
+        String desc = rs.getString("jobDescription");
+        String salary = rs.getString("salary");
 //                LocalDateTime created = rs.getTimestamp("created_at").toLocalDateTime();
 //                LocalDateTime updated = rs.getTimestamp("created_at").toLocalDateTime();
-            String status = rs.getString("status");
-            String requirement = rs.getString("requirement");
+        String status = rs.getString("status");
+        String requirement = rs.getString("requirement");
 //
-            Job job = new Job(id,title,img,desc,position,salary,status,requirement);
-            jobs.add(job);
-        }
-        return jobs;
+        job = new Job(id, title, img, desc, position, salary, status, requirement);
+        return job;
     }
-    public int getNumberPage(){
+
+    public int getNumberPage() {
         Connection con = DBconnect.getConnection();
         String sql = "select count(*) from job_posting";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 int total = rs.getInt(1);
                 int countPage = total % 12 > 0 ? total / 12 + 1 : total / 12;
                 return countPage;
@@ -80,6 +104,7 @@ public class JobDao {
 
         return 0;
     }
+
     public List<Job> getPaging(int indexPage) {
         List<Job> jobs = new ArrayList<Job>();
 
@@ -90,16 +115,21 @@ public class JobDao {
                     " LIMIT 12 OFFSET ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, (indexPage-1)*12);
+            ps.setInt(1, (indexPage - 1) * 12);
             ResultSet rs = ps.executeQuery();
-            jobs.addAll(getResultSet(rs));
+            while (rs.next()) {
+                Job job = getResultSet(rs);
+                jobs.add(job);
+            }
             return jobs;
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
-    }    public static void main(String[] args) {
+    }
+
+    public static void main(String[] args) {
         JobDao jobDao = new JobDao();
-        System.out.println(jobDao.getNumberPage());
+        System.out.println(jobDao.getPaging(1));
     }
 }
