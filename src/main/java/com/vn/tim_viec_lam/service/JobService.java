@@ -19,6 +19,9 @@ public class JobService {
     public Job getJobById(int id){
         return jobDao.findById(id);
     }
+    public List<Job> getJobByCompanyId(int companyId){
+        return jobDao.getJobsByCompanyId(companyId);
+    }
     public int getNumberPage(){
         return jobDao.getNumberPage();
     }

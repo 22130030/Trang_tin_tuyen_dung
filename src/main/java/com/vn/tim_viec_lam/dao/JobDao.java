@@ -14,7 +14,8 @@ public class JobDao {
 
         try {
             Connection con = DBconnect.getConnection();
-            String sql = "select * from job_posting";
+            String sql = "select jp.*,c.companyName from job_posting as jp" +
+                    " join companies as c on c.companyID = jp.companyID";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -34,7 +35,8 @@ public class JobDao {
 
         try {
             Connection con = DBconnect.getConnection();
-            String sql = "select * from job_posting AS jp" +
+            String sql = "select jp.*,c.companyName from job_posting as jp" +
+                    " join companies as c on c.companyID = jp.companyID"+
                     " order by jp.created_at desc" +
                     " limit 4";
 
@@ -55,7 +57,8 @@ public class JobDao {
     public Job findById(int id) {
         Job job = new Job();
         Connection con = DBconnect.getConnection();
-        String sql = "select * from job_posting" +
+        String sql = "select jp.*,c.companyName from job_posting as jp" +
+                " join companies as c on c.companyID = jp.companyID"+
                 " where jobPostID = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -70,9 +73,32 @@ public class JobDao {
         }
     }
 
+    public List<Job> getJobsByCompanyId(int companyID) {
+        List<Job> jobs = new ArrayList<>();
+        Connection con = DBconnect.getConnection();
+        String sql = "select jp.*,c.companyName from job_posting as jp" +
+                " join companies as c on c.companyID = jp.companyID"+
+                " where jp.companyID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, companyID);
+            ResultSet rs = ps.executeQuery();
+            Job job = new Job();
+            while (rs.next()) {
+                job = getResultSet(rs);
+                jobs.add(job);
+            }
+            return jobs;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
     public Job getResultSet(ResultSet rs) throws SQLException {
         Job job = new Job();
         int id = rs.getInt("jobPostID");
+        int companyId = rs.getInt("companyID");
+        String companyName = rs.getString("companyName");
         String title = rs.getString("titleJob");
         String img = rs.getString("image");
         String position = rs.getString("position");
@@ -83,7 +109,7 @@ public class JobDao {
         String status = rs.getString("status");
         String requirement = rs.getString("requirement");
 //
-        job = new Job(id, title, img, desc, position, salary, status, requirement);
+        job = new Job(id,companyId,companyName, title, img, desc, position, salary, status, requirement);
         return job;
     }
 
@@ -110,8 +136,8 @@ public class JobDao {
 
         try {
             Connection con = DBconnect.getConnection();
-            String sql = "select * from job_posting AS jp" +
-                    " order by jp.created_at desc" +
+            String sql = "select jp.*,c.companyName from job_posting as jp" +
+                    " join companies as c on c.companyID = jp.companyID"+
                     " LIMIT 12 OFFSET ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
@@ -127,9 +153,22 @@ public class JobDao {
         }
         return null;
     }
+    public int findCompanyIDByJobID(int jobID) {
+        Connection con = DBconnect.getConnection();
+        String sql = "select companyID from job_posting where jobPostID = ?";
 
+        try {
+        PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, jobID);
+            ResultSet rs = ps.executeQuery();
+            return rs.next() ? rs.getInt(1) : -1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static void main(String[] args) {
         JobDao jobDao = new JobDao();
-        System.out.println(jobDao.getPaging(1));
+        System.out.println(jobDao.getJobsByCompanyId(1).toString());
     }
+
 }
