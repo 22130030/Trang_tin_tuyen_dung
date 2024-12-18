@@ -99,7 +99,7 @@
                             <div class="grid__col-3">
                                 <div href="" class="content__job-item">
                                         <div class="wrapper__logo">
-                                            <a href="job-detail?jid=${nj.id}" class="wrapper__logo-link">
+                                            <a href="company-detail?jid=${nj.id}" class="wrapper__logo-link">
                                                 <img src="${nj.img}" alt="" class="wrapper__img">
                                             </a>
                                         </div>
@@ -121,11 +121,7 @@
                                                 </div>
                                                 <div class="job__company">
                                                             <span class="job__company-title">
-                                                                <a href="/html/Job.html" class="job__company-link">
-
-
-                                                                    Công Ty Cổ Phần Bán Lẻ Kĩ Thuật Số FPT
-                                                                </a>
+                                                                <a href="/html/Job.html" class="job__company-link">${nj.companyName}</a>
                                                             </span>
                                                 </div>
                                             </div>
@@ -174,7 +170,7 @@
                             <div class="content__job-item">
                                 <a href="/html/job_description.html" class="content__job-item-link">
                                     <div class="wrapper__logo">
-                                        <a href="job-detail?jid=${j.id}" class="wrapper__logo-link">
+                                        <a href="company-detail?jid=${j.id}" class="wrapper__logo-link">
 
                                             <img src="${j.img}" alt="" class="wrapper__img">
                                         </a>
@@ -194,11 +190,7 @@
                                             </div>
                                             <div class="job__company">
                                                     <span class="job__company-title">
-                                                        <a href="/html/Job.html" class="job__company-link">
-
-
-                                                            CÔNG TY UNI-PRESIDENT VIỆT NAM
-                                                        </a>
+                                                        <a href="/html/Job.html" class="job__company-link">${j.companyName}</a>
                                                     </span>
                                             </div>
                                         </div>
