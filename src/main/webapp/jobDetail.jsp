@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "f" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -29,6 +31,9 @@
 </head>
 <body>
     <div class="application">
+
+      <%@include file="header.jsp"%>
+
       <div class="bg-light py-lg-3">
         <div class="container px-0">
           <div class="company-header rounded-sm bg-white">
@@ -43,14 +48,14 @@
               <div class="company-logo position-relative d-flex flex-center bg-white overflow-hidden shadow"
                    id="company-logo-container">
                 <img class="mw-100"
-                     src="${job.img}"
+                     src="${c.img}"
                      alt="7f1e8d88bba6dc19f8a4dc14a80872d1">
               </div>
               <div class="company-information flex-fill pl-lg-3 pt-3 pt-lg-0">
                 <div class="d-flex">
                   <h5 class="company-name d-flex align-items-center" itemprop="name"
                       style="font-size: 25px;">
-                    FPT Telecom
+                    ${c.companyName}
                   </h5>
                 </div>
                 <div class="row no-gutters mt-2 mt-lg-0">
@@ -60,9 +65,7 @@
                         <i class="cli-map-pin-line d-flex mr-2"></i>
                         <span>
                                                 <img src="asserts/img/marker.png" style="width: 20px">
-                                                Lô L29B-31B-33B đường Tân Thuận, KCX Tân Thuận, phường Tân Thuận Đông,
-                                                Quận
-                                                7, Hồ Chí Minh
+                                                ${c.address}
                                             </span>
                       </div>
                     </div>
@@ -91,39 +94,8 @@
                 </div>
                 <div class="text-collapse">
                   <div class="text-collapse--content company-profile mb-0" itemprop="description">
-                    <p><strong>Được thành lập ngày 31/01/1997, Công ty Cổ phần Viễn thông FPT (FPT
-                      Telecom)
-                      khởi đầu từ Trung tâm Dịch vụ Trực tuyến với 4 thành viên sáng lập cùng sản
-                      phẩm
-                      mạng Intranet đầu tiên của Việt Nam mang tên “Trí tuệ Việt Nam – TTVN”. Sau
-                      21
-                      năm hoạt động, FPT Telecom đã trở thành một trong những nhà cung cấp dịch vụ
-                      viễn thông và Internet hàng đầu khu vực với gần 14 000 nhân viên, 2 công ty
-                      thành viên, 59 chi nhánh trong và ngoài nước. Hiện nay, FPT Telecom đang
-                      cung
-                      cấp các sản phẩm, dịch vụ chính bao gồm:</strong></p>
-                    <p><strong>- Dịch vụ Internet</strong><br><strong>- Kênh thuê riêng, Tên miền,
-                      Email,
-                      Lưu trữ web, Trung tâm dữ liệu</strong><br><strong>- Các dịch vụ giá trị gia
-                      tăng trên Internet: Truyền hình internet (FPT play HD), Điện thoại cố định
-                      (VoIP), Giám sát từ xa(IP Camera), Chứng thực chữ ký số (CA), Điện toán đám
-                      mây
-                      (Cloud computing),...</strong><br><strong>Với phương châm “Mọi dịch vụ trên
-                      một
-                      kết nối”, FPT Telecom luôn không ngừng nghiên cứu và triển khai tích hợp
-                      ngày
-                      càng nhiều các dịch vụ giá trị gia tăng trên cùng một đường truyền Internet
-                      nhằm
-                      đem lại lợi ích tối đa cho khách hàng sử dụng. Đồng thời, việc đẩy mạnh hợp
-                      tác
-                      với các đối tác viễn thông lớn trên thế giới, xây dựng các tuyến cáp quang
-                      quốc
-                      tế là những hướng đi được triển khai mạnh mẽ để đưa các dịch vụ tiếp cận với
-                      thị
-                      trường toàn cầu, nâng cao hơn nữa vị thế của FPT Telecom nói riêng và các
-                      nhà
-                      cung cấp dịch vụ viễn thông Việt Nam nói chung.</strong></p>
-                    <p><strong>Thông tin chi tiết tham khảo tại website: www.fpt.vn!</strong></p>
+                    <p><strong>${c.description}</strong></p>
+                    <p><strong>Thông tin chi tiết tham khảo tại website: ${c.website}</strong></p>
                   </div>
                 </div>
               </div>
@@ -162,13 +134,14 @@
                     </div>
                   </div>
                 </div>
-                <li class="list-group mt-4">
+                <ul class="list-group mt-4">
+                      <c:forEach var="j" items="${jobs}">
                   <li class="list-group-item job-item p-0 rounded-lg mb-2 position-relative overflow-hidden  tlp-job">
                     <div class="media p-3 p-lg-4 align-items-lg-center">
                       <div
                               class="job-logo d-flex align-items-center justify-content-center mr-3 rounded-lg bg-white border">
                         <img alt="FPT Telecom" class="rounded-lg"
-                             src="https://static.careerlink.vn/image/7f1e8d88bba6dc19f8a4dc14a80872d1">
+                             src="${j.img}">
                       </div>
                       <div class="media-body overflow-hidden">
                         <button
@@ -184,10 +157,10 @@
                            title="Nhân Viên Kỹ Thuật Viễn Thông - Bình Dương"
                            href="/html/job_description.html">
                           <h5 class="job-name text-line-clamp-2 mb-1 font-weight-bolder red">
-                            Nhân Viên Kỹ Thuật Viễn Thông - Bình Dương
+                            ${j.title}
                           </h5>
                         </a><a class="text-dark job-company mb-1 d-inline-block line-clamp-1"
-                               title="FPT Telecom" href="/html/job_description.html">FPT Telecom</a>
+                               title="FPT Telecom" href="">${j.companyName}</a>
                         <div class="d-flex justify-content-between mb-1">
                           <div
                                   class="job-location text-secondary text-truncate d-flex align-items-center">
@@ -195,8 +168,7 @@
                                     class="fa fa-map-marker-alt d-inline-block d-lg-none mr-1 text-center"></i>
                             <div class="list-with-comma mobile-disabled-link">
                               <a title="Bình Dương" class="text-reset"
-                                 href="/html/job_description.html">Bình
-                                Dương</a>
+                                 href="">${j.position}</a>
                             </div>
                           </div>
                           <span class="job-update-time d-none d-lg-block text-secondary">
@@ -211,7 +183,7 @@
                                                             <i
                                                                     class="fa fa-dollar-sign d-inline-block mr-1 text-center"></i>
                                                         </span>
-                                                        10 triệu - 15 triệu
+                                                        ${j.salary}
                                                     </span>
                             <span class="text-muted px-2 d-none d-lg-block">|</span>
                             <a class="job-position text-secondary d-none d-lg-block"
@@ -229,6 +201,7 @@
                       </div>
                     </div>
                   </li>
+                    </c:forEach>
                 </ul>
                 <nav>
                   <ul class="pagination">
@@ -707,6 +680,8 @@
           </div>
         </div>
       </div>
+
+    <%@include file="footer.jsp"%>
     </div>
 </body>
 </html>

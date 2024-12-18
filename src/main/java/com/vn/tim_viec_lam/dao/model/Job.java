@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 public class Job implements Serializable {
     private int id;
     private String title;
+    private int companyId;
+    private String companyName;
     private String img;
     private String description;
     private String position;
@@ -18,8 +20,10 @@ public class Job implements Serializable {
 
     public Job() {}
 
-    public Job(int id, String title, String img, String description, String position, String salary, String status, String requirement) {
+    public Job(int id,int companyId,String companyName, String title, String img, String description, String position, String salary, String status, String requirement) {
         this.id = id;
+        this.companyId = companyId;
+        this.companyName = companyName;
         this.title = title;
         this.img = img;
         this.description = description;
@@ -36,6 +40,22 @@ public class Job implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getTitle() {
@@ -114,6 +134,8 @@ public class Job implements Serializable {
     public String toString() {
         return "Job{" +
                 "id=" + id +
+                ",companyId=" + companyId +
+                ",companyName='" + companyName + '\'' +
                 ", title='" + title + '\'' +
                 ", img='" + img + '\'' +
                 ", description='" + description + '\'' +
