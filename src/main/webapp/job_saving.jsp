@@ -50,8 +50,7 @@
 
                                             <a href="/html/job_description.html"
                                                class="ls__content-lable">${job.title}</a>
-                                            <a href="/html/Job.html" class="ls__content-company">Công ty cổ phần Người
-                                                Bạn Vàng</a>
+                                            <a href="/html/Job.html" class="ls__content-company">${job.companyName}</a>
                                             <div class="ls__content-detail">
                                                 <span class="ls__content-salary">${job.salary}</span>
                                             </div>
