@@ -282,7 +282,7 @@ body {
     font-weight: bold;
     margin-bottom: 15px;
   }
-  * Contact Box Styling */
+  /** Contact Box Styling *!*/
 .contact-box {
   background-color: #f1f9ff;
   padding: 15px;
@@ -567,9 +567,10 @@ label {
 }
 
 .file-options {
-  height: 193px;
+  max-height: 150px;
   background-color: #0069DB14;
   border-radius: 8px;
+    padding : 5px 0;
 }
 .file-options p {
   margin-left: 135px;
@@ -704,7 +705,8 @@ select {
 .form-container p {
   font-size: 12px;
   color: gray;
-  width: 100%;
+    text-align: center;
+    margin: 5px 0;
 }
 
 .form-container {

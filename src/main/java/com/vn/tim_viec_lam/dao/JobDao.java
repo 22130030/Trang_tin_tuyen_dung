@@ -104,12 +104,12 @@ public class JobDao {
         String position = rs.getString("position");
         String desc = rs.getString("jobDescription");
         String salary = rs.getString("salary");
-//                LocalDateTime created = rs.getTimestamp("created_at").toLocalDateTime();
-//                LocalDateTime updated = rs.getTimestamp("created_at").toLocalDateTime();
+        LocalDateTime created = rs.getTimestamp("created_at").toLocalDateTime();
+//                LocalDateTime updated = rs.getTimestamp("updated_at").toLocalDateTime();
         String status = rs.getString("status");
         String requirement = rs.getString("requirement");
 //
-        job = new Job(id,companyId,companyName, title, img, desc, position, salary, status, requirement);
+        job = new Job(id,companyId,companyName, title, img, desc, position, salary,created, status, requirement);
         return job;
     }
 
