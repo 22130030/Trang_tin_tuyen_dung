@@ -1,6 +1,6 @@
-package com.vn.tim_viec_lam.controller.cart;
+package com.vn.tim_viec_lam.controller.savingcart;
 
-import com.vn.tim_viec_lam.dao.model.savingcart.SavingCart;
+import com.vn.tim_viec_lam.dao.model.cart.SavingCart;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

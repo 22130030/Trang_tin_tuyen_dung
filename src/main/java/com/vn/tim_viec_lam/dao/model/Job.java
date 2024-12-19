@@ -2,7 +2,9 @@ package com.vn.tim_viec_lam.dao.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class Job implements Serializable {
     private int id;
@@ -20,7 +22,7 @@ public class Job implements Serializable {
 
     public Job() {}
 
-    public Job(int id,int companyId,String companyName, String title, String img, String description, String position, String salary, String status, String requirement) {
+    public Job(int id,int companyId,String companyName, String title, String img, String description, String position, String salary,LocalDateTime created, String status, String requirement) {
         this.id = id;
         this.companyId = companyId;
         this.companyName = companyName;
@@ -105,7 +107,21 @@ public class Job implements Serializable {
     public void setCreated(LocalDateTime created) {
         this.created = created;
     }
+    public String getConvertCreated() {
+        LocalDateTime now = LocalDateTime.now();
+        long day  = ChronoUnit.DAYS.between(created, now);
+        String res = "";
 
+        if(day == 0){
+            res = ChronoUnit.HOURS.between(created,now)+" giờ trước";
+        }else if(day > 0 && day < 31){
+            res = day + " ngày trước";
+        }
+        else{
+            res = ChronoUnit.MONTHS.between(created,now) + " tháng trước";
+        }
+        return  res;
+    }
     public LocalDateTime getUpdated() {
         return updated;
     }
@@ -147,4 +163,5 @@ public class Job implements Serializable {
                 ", requirement='" + requirement + '\'' +
                 '\n';
     }
+
 }
