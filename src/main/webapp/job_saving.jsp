@@ -31,7 +31,7 @@
                 <div class="grid__row">
                     <div class="grid__col-9">
                         <h3 class="job-saving__head">Việc làm đã lưu(
-                            <span class="job__saving-toltal">${sessionScope.cart.size==0?0:sessionScope.cart.size}</span>
+                            <span class="job__saving-toltal">${sessionScope.cart == null?0:sessionScope.cart.size}</span>
                             )
                         </h3>
                         <span class="job-saving__saved-at">Tháng 11</span>
@@ -43,10 +43,12 @@
 
 
                                     <div class="job__saving-thumb">
-                                        <img src="${job.img}" alt="">
+                                        <a class="job__saving-thumb-link" href="company-detail?jid=${job.companyId}">
+                                            <img src="${job.img}" alt="">
+                                        </a>
                                     </div>
                                     <div class="job__saving-content">
-                                        <a href="/html/job_description.html" class="job__saving-link">
+                                        <div href="/html/job_description.html" class="job__saving-link">
 
                                             <a href="/html/job_description.html"
                                                class="ls__content-lable">${job.title}</a>
@@ -54,7 +56,7 @@
                                             <div class="ls__content-detail">
                                                 <span class="ls__content-salary">${job.salary}</span>
                                             </div>
-                                        </a>
+                                        </div>
                                     </div>
                                     <a href="#" onclick="return removeJobCart(event, ${job.id})" class="ls__detail-save">
                                         <i class="fa-solid fa-heart"></i>

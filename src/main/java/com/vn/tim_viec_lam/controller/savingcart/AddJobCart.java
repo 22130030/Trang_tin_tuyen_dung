@@ -1,7 +1,7 @@
-package com.vn.tim_viec_lam.controller.cart;
+package com.vn.tim_viec_lam.controller.savingcart;
 
 import com.vn.tim_viec_lam.dao.model.Job;
-import com.vn.tim_viec_lam.dao.model.savingcart.SavingCart;
+import com.vn.tim_viec_lam.dao.model.cart.SavingCart;
 import com.vn.tim_viec_lam.service.JobService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet(name = "addJob",value = "/addJob")
 public class AddJobCart extends HttpServlet {

@@ -11,22 +11,34 @@
 <html>
 <head>
 
+
+    <title></title>
 </head>
 <body>
+<%
+    String fullPath = request.getRequestURI();
+    String contextPath = request.getContextPath();
+    String relativePath = fullPath.substring(contextPath.length());
+%>
+<c:set var="relativePath" value="<%= relativePath %>" />
     <div class="application">
         <div class="nav__menu">
     <div class="grid__1100">
         <ul class="nav__menu-list">
             <li class="nav__menu-item">
-                <a href="/html/candidate/account_Management/account_main.html" class=" nav__menu__link">
-
+                <a href="home_account.jsp" class="nav__menu__link ${relativePath eq '/home_account.jsp' ? 'nav__menu-active' : ''}">
+                    <c:if test="${relativePath eq '/home_account.jsp'}">
+                        <div class="nav-menu__has-separated"></div>
+                    </c:if>
                     <i class="fa-solid fa-house"></i>
-                    <span class=" nav__menu-title">Tổng quan
-                            </span>
+                    <span class="nav__menu-title">Tổng quan</span>
                 </a>
             </li>
             <li class="nav__menu-item">
-                <a href="/html/candidate/account_Management/job_application.html" class=" nav__menu__link">
+                <a href="#" class="nav__menu__link ${relativePath eq '/#.jsp' ? 'nav__menu-active' : ''}">
+                    <c:if test="${relativePath eq '/#.jsp'}">
+                        <div class="nav-menu__has-separated"></div>
+                    </c:if>
 
                     <i class="fa-regular fa-address-card"></i>
                     <span class="nav__menu-title">Hồ sơ xin việc(
@@ -36,11 +48,15 @@
                 </a>
             </li>
             <li class="nav__menu-item">
-                <a href="#" class="nav__menu-active nav__menu__link">
-                    <div class="nav-menu__has-separated"></div>
+                <a href="job_saving.jsp" class="nav__menu__link ${relativePath eq '/job_saving.jsp' ? 'nav__menu-active' : ''}">
+                    <c:if test="${relativePath eq '/job_saving.jsp'}">
+                        <div class="nav-menu__has-separated"></div>
+                    </c:if>
+
+
                     <i class="fa-regular fa-heart"></i>
                     <span class="nav__menu-title">Việc làm đã lưu(
-                                <span class="job__saving-toltal nav__menu-toltal">${sessionScope.cart.size}</span>
+                                <span class="job__saving-toltal nav__menu-toltal">${sessionScope.cart == null ? 0 : sessionScope.cart.size}</span>
                                 )
                             </span>
                 </a>
