@@ -30,6 +30,7 @@ public class CompanyDetail extends HttpServlet {
         request.setAttribute("jobs",jobs);
 
         request.getRequestDispatcher("companyDetail.jsp").forward(request,response);
+
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
