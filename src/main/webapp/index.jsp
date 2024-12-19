@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="asserts/css/finding_profile.css">
     <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
     <link rel="stylesheet" href="asserts/css/base.css">
+    <script type="text/javascript" src="js/save.js"></script>
     <title>Kiếm việc làm online</title>
 </head>
 <body>
@@ -99,7 +100,7 @@
                             <div class="grid__col-3">
                                 <div href="" class="content__job-item">
                                         <div class="wrapper__logo">
-                                            <a href="company-detail?jid=${nj.id}" class="wrapper__logo-link">
+                                            <a href="company-detail?jid=${nj.companyId}" class="wrapper__logo-link">
                                                 <img src="${nj.img}" alt="" class="wrapper__img">
                                             </a>
                                         </div>
@@ -109,7 +110,7 @@
                                                     <span class="name-status">NEW</span>
                                                     <div class="job__tag">
 
-                                                        <a class="name__lable" href="/html/job_description.html">${nj.title}</a>
+                                                        <a class="name__lable" href="job-detail?jid=${nj.id}">${nj.title}</a>
                                                     </div>
 
                                                     <a href="#" onclick="return addJobToCartAjax(event, ${nj.id});" class="job__icon-like">
@@ -136,7 +137,7 @@
                                                         <span class="salary-lable">${nj.salary}</span>
                                                     </div>
                                                     <div class="infomation__time">
-                                                        <span class="infomation__posing-time">Một ngày trước</span>
+                                                        <span class="infomation__posing-time">${nj.convertCreated}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -170,7 +171,7 @@
                             <div class="content__job-item">
                                 <a href="/html/job_description.html" class="content__job-item-link">
                                     <div class="wrapper__logo">
-                                        <a href="company-detail?jid=${j.id}" class="wrapper__logo-link">
+                                        <a href="company-detail?jid=${j.companyId}" class="wrapper__logo-link">
 
                                             <img src="${j.img}" alt="" class="wrapper__img">
                                         </a>
@@ -205,7 +206,7 @@
                                                     <span class="salary-lable">${j.salary}</span>
                                                 </div>
                                                 <div class="infomation__time">
-                                                    <span class="infomation__posing-time">Ba ngày trước</span>
+                                                    <span class="infomation__posing-time">${j.convertCreated}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -374,6 +375,7 @@
 
         // Thay đổi biểu tượng trái tim sau khi lưu
         const heartIcon = event.target.closest('a').querySelector('i');
+        if()
         heartIcon.classList.remove('fa-regular');
         heartIcon.classList.add('fa-solid');
 
