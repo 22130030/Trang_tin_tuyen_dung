@@ -1,4 +1,4 @@
-package com.vn.tim_viec_lam.dao.model.savingcart;
+package com.vn.tim_viec_lam.dao.model.cart;
 
 import com.vn.tim_viec_lam.dao.model.Job;
 
