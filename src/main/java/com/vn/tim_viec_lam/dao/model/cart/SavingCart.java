@@ -30,7 +30,9 @@ public class SavingCart {
     public JobCart convert(Job job) {
         JobCart jobCart = new JobCart();
         jobCart.setId(job.getId());
+        jobCart.setCompanyId(job.getCompanyId());
         jobCart.setTitle(job.getTitle());
+        jobCart.setCompanyName(job.getCompanyName());
         jobCart.setImg(job.getImg());
         jobCart.setSalary(job.getSalary());
         return jobCart;

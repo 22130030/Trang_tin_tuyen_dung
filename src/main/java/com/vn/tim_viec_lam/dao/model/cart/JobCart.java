@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class JobCart implements Serializable {
     private int id;
+    private int companyId;
     private String title;
     private String img;
     private String companyName;
@@ -25,6 +26,14 @@ public class JobCart implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
     }
 
     public String getTitle() {
