@@ -101,9 +101,9 @@
                         <h3 class="recomended__job-head">Gợi ý việc làm</h3>
                         <span class="recomended__job-description">Gợi ý việc làm
                                 Dựa trên việc làm đã xem.
-                                <span class="recomended__job-remove">
+                                <a href="remove-saveCart" class="recomended__job-remove">
                                     Xóa lịch sử việc làm đã xem
-                                </span>
+                                </a>
                                 để nhận gợi ý mới
                             </span>
                         <div class="recomended__job-list">
@@ -111,29 +111,26 @@
 
                             <div class="grid__row">
 
-
+                                <c:forEach var="hsj" items="${sessionScope.hsCart.list}">
                                 <div class="grid__col-6">
                                     <div class="recomended__job-item">
 
                                         <a href="/html/job_description.html" class="suggest__link">
                                             <div class="suggest-thumb">
-                                                <img src="	https://blob-careerlinkvn.careerlink.vn/company_logos/82c29a21edc8aae52392753e21d1ee36.png
+                                                <img src="${hsj.img}
                                                     " alt="">
                                             </div>
                                             <div class="suggest-content">
 
-                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên
-                                                    Viên Tư Vấn Tuyển Sinh</a>
-                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
-                                                    Smartcom Việt Nam
-                                                </a>
+                                                <a href="/html/job_description.html" class="suggest-lable">${hsj.title}</a>
+                                                <a href="/html/Job.html" class=" suggest-company">${hsj.companyName}</a>
                                                 <div class="suggest-info">
                                                     <i class="fa-solid fa-location-dot"></i>
                                                     <span class="suggest-address">Hà nội</span>
 
                                                 </div>
                                                 <div class="suggest-detail">
-                                                    <span class="suggest-salary">1,500 USD - 2000 USD</span>
+                                                    <span class="suggest-salary">${hsj.salary}</span>
                                                     <div class="suggest-save">
                                                         <i class="fa-regular fa-heart"></i>
                                                     </div>
@@ -142,156 +139,7 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="grid__col-6">
-                                    <div class="recomended__job-item">
-
-                                        <a href="/html/job_description.html" class="suggest__link">
-                                            <div class="suggest-thumb">
-                                                <img src="	https://blob-careerlinkvn.careerlink.vn/company_logos/82c29a21edc8aae52392753e21d1ee36.png
-                                                " alt="">
-                                            </div>
-                                            <div class="suggest-content">
-
-                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên
-                                                    Viên Tư Vấn Tuyển Sinh</a>
-                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
-                                                    Smartcom Việt Nam
-                                                </a>
-                                                <div class="suggest-info">
-                                                    <i class="fa-solid fa-location-dot"></i>
-                                                    <span class="suggest-address">Hà nội</span>
-
-                                                </div>
-                                                <div class="suggest-detail">
-                                                    <span class="suggest-salary">1,500 USD - 2000 USD</span>
-                                                    <div class="suggest-save">
-                                                        <i class="fa-regular fa-heart"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="grid__col-6">
-                                    <div class="recomended__job-item">
-
-                                        <a href="/html/job_description.html" class="suggest__link">
-                                            <div class="suggest-thumb">
-                                                <img src="	https://blob-careerlinkvn.careerlink.vn/company_logos/82c29a21edc8aae52392753e21d1ee36.png
-                                            " alt="">
-                                            </div>
-                                            <div class="suggest-content">
-
-                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên
-                                                    Viên Tư Vấn Tuyển Sinh</a>
-                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
-                                                    Smartcom Việt Nam
-                                                </a>
-                                                <div class="suggest-info">
-                                                    <i class="fa-solid fa-location-dot"></i>
-                                                    <span class="suggest-address">Hà nội</span>
-
-                                                </div>
-                                                <div class="suggest-detail">
-                                                    <span class="suggest-salary">1,500 USD - 2000 USD</span>
-                                                    <div class="suggest-save">
-                                                        <i class="fa-regular fa-heart"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="grid__col-6">
-                                    <div class="recomended__job-item">
-
-                                        <a href="/html/job_description.html" class="suggest__link">
-                                            <div class="suggest-thumb">
-                                                <img src="	https://blob-careerlinkvn.careerlink.vn/company_logos/82c29a21edc8aae52392753e21d1ee36.png
-                                        " alt="">
-                                            </div>
-                                            <div class="suggest-content">
-
-                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên
-                                                    Viên Tư Vấn Tuyển Sinh</a>
-                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
-                                                    Smartcom Việt Nam
-                                                </a>
-                                                <div class="suggest-info">
-                                                    <i class="fa-solid fa-location-dot"></i>
-                                                    <span class="suggest-address">Hà nội</span>
-
-                                                </div>
-                                                <div class="suggest-detail">
-                                                    <span class="suggest-salary">1,500 USD - 2000 USD</span>
-                                                    <div class="suggest-save">
-                                                        <i class="fa-regular fa-heart"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="grid__col-6">
-                                    <div class="recomended__job-item">
-
-                                        <a href="/html/job_description.html" class="suggest__link">
-                                            <div class="suggest-thumb">
-                                                <img src="	https://blob-careerlinkvn.careerlink.vn/company_logos/82c29a21edc8aae52392753e21d1ee36.png
-                                        " alt="">
-                                            </div>
-                                            <div class="suggest-content">
-
-                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên
-                                                    Viên Tư Vấn Tuyển Sinh</a>
-                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
-                                                    Smartcom Việt Nam
-                                                </a>
-                                                <div class="suggest-info">
-                                                    <i class="fa-solid fa-location-dot"></i>
-                                                    <span class="suggest-address">Hà nội</span>
-
-                                                </div>
-                                                <div class="suggest-detail">
-                                                    <span class="suggest-salary">1,500 USD - 2000 USD</span>
-                                                    <div class="suggest-save">
-                                                        <i class="fa-regular fa-heart"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="grid__col-6">
-                                    <div class="recomended__job-item">
-
-                                        <a href="/html/job_description.html" class="suggest__link">
-                                            <div class="suggest-thumb">
-                                                <img src="	https://blob-careerlinkvn.careerlink.vn/company_logos/82c29a21edc8aae52392753e21d1ee36.png
-                                        " alt="">
-                                            </div>
-                                            <div class="suggest-content">
-
-                                                <a href="/html/job_description.html" class="suggest-lable">Chuyên
-                                                    Viên Tư Vấn Tuyển Sinh</a>
-                                                <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
-                                                    Smartcom Việt Nam
-                                                </a>
-                                                <div class="suggest-info">
-                                                    <i class="fa-solid fa-location-dot"></i>
-                                                    <span class="suggest-address">Hà nội</span>
-
-                                                </div>
-                                                <div class="suggest-detail">
-                                                    <span class="suggest-salary">1,500 USD - 2000 USD</span>
-                                                    <div class="suggest-save">
-                                                        <i class="fa-regular fa-heart"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
