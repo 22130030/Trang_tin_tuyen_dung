@@ -159,6 +159,7 @@
 }
 .recomended__job-remove{
     color : var(--blue-color);
+    text-decoration: none;
 }
 
 .recomended__job-list{
@@ -171,4 +172,11 @@
     border: 1px solid rgba(0,0,0,0.2);
     border-radius: 5px;
     margin-top: 10px;
+    min-height: 130px;
+}
+.recomended__job-item .suggest-company{
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }

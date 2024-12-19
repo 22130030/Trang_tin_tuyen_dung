@@ -182,7 +182,7 @@
                                                 <span class="name-status">HOT</span>
                                                 <div class="job__tag">
 
-                                                    <a class="name__lable" href="/html/job_description.html">${j.title}</a>
+                                                    <a class="name__lable" href="job-detail?jid=${j.id}">${j.title}</a>
                                                 </div>
 
                                                 <a  href="#" onclick="return addJobToCartAjax(event,${j.id})" class="job__icon-like">
@@ -375,7 +375,6 @@
 
         // Thay đổi biểu tượng trái tim sau khi lưu
         const heartIcon = event.target.closest('a').querySelector('i');
-        if()
         heartIcon.classList.remove('fa-regular');
         heartIcon.classList.add('fa-solid');
 
