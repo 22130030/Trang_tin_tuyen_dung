@@ -29,6 +29,9 @@ public class JobService {
 
         return jobDao.getPaging(page);
     }
+    public List<Job> getListSearchByName(String name){
+        return jobDao.searchEqualsByName(name);
+    }
     public static void main(String[] args) {
         JobService jobService = new JobService();
         System.out.println(jobService.getJobById(1));
