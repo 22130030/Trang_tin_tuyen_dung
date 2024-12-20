@@ -166,9 +166,32 @@ public class JobDao {
             throw new RuntimeException(e);
         }
     }
+    public List<Job> searchEqualsByName(String name) {
+        List<Job> jobs = new ArrayList<Job>();
+        Connection con = DBconnect.getConnection();
+        String sql = "select jp.*,c.companyName from job_posting as jp" +
+                " join companies as c on c.companyID = jp.companyID"+
+                " where titleJob like ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + name + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Job job = getResultSet(rs);
+                jobs.add(job);
+            }
+            return jobs;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
     public static void main(String[] args) {
         JobDao jobDao = new JobDao();
-        System.out.println(jobDao.getJobsByCompanyId(1).toString());
+        System.out.println(jobDao.searchEqualsByName("Nhan Vien").toString());
     }
 
 }
