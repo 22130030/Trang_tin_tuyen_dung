@@ -19,6 +19,7 @@ public class Job implements Serializable {
     private LocalDateTime updated;
     private String status;
     private String requirement;
+    private String scale;
 
     public Job() {}
 
@@ -34,6 +35,7 @@ public class Job implements Serializable {
         this.created = created;
         this.status = status;
         this.requirement = requirement;
+        this.scale = scale;
     }
 
     public int getId() {
@@ -146,6 +148,14 @@ public class Job implements Serializable {
         this.requirement = requirement;
     }
 
+    public String getscale() {
+        return scale;
+    }
+
+    public void setscale(String scale) {
+        this.scale = scale;
+    }
+
     @Override
     public String toString() {
         return "Job{" +
@@ -161,7 +171,10 @@ public class Job implements Serializable {
                 ", updated=" + updated +
                 ", status=" + status +
                 ", requirement='" + requirement + '\'' +
+                ", scale='" + scale + '\'' +
                 '\n';
     }
 
-}
+
+    }
+
