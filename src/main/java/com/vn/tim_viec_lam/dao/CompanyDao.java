@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Collections;
 public class CompanyDao {
     public List<Company> getAll() {
         List<Company> companies = new ArrayList<Company>();
@@ -60,9 +60,12 @@ public class CompanyDao {
             throw new RuntimeException(e);
         }
 
-    }
+        }
+
 
     public static void main(String[] args) {
         System.out.println(new CompanyDao().getCompanyById(1).toString());
     }
+
+
 }

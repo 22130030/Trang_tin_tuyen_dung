@@ -52,22 +52,22 @@
 
 
                 <div class="grid">
-                    <div class="banner__header">
+                    <form action="search-job" method="post" class="banner__header">
                         <div class="banner-search">
                             <div class="search__info search__city">
                                 <i class="search__icon nav-item__icon fa-solid fa-magnifying-glass"></i>
-                                <input type="text" class="banner__search-input search__city-info" placeholder="Nhập tên vị trí,công ty,từ khóa">
+                                <input type="text" name="searchName" class="banner__search-input search__city-info" placeholder="Nhập tên vị trí,công ty,từ khóa">
                             </div>
                             <div class="search__info search__address">
                                 <i class="search__icon fa-solid fa-location-dot"></i>
-                                <input type="text" class="banner__search-input search__address-info" placeholder="Nhập tỉnh,Thành phố">
+                                <input type="text" name="searchAddress" class="banner__search-input search__address-info" placeholder="Nhập tỉnh,Thành phố">
                             </div>
                             <button class="banner__search-btn">
                                 <i class="search-btn__icon fa-solid fa-magnifying-glass"></i>
                                 <span class="search__label">Tìm kiếm</span>
                             </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="slick_action__buttons">
                     <button class="left_icon slick__action" id="banner__prev"> < </button>
@@ -182,7 +182,7 @@
                                                 <span class="name-status">HOT</span>
                                                 <div class="job__tag">
 
-                                                    <a class="name__lable" href="/html/job_description.html">${j.title}</a>
+                                                    <a class="name__lable" href="job-detail?jid=${j.id}">${j.title}</a>
                                                 </div>
 
                                                 <a  href="#" onclick="return addJobToCartAjax(event,${j.id})" class="job__icon-like">
@@ -375,7 +375,6 @@
 
         // Thay đổi biểu tượng trái tim sau khi lưu
         const heartIcon = event.target.closest('a').querySelector('i');
-        if()
         heartIcon.classList.remove('fa-regular');
         heartIcon.classList.add('fa-solid');
 

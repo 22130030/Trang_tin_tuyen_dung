@@ -36,7 +36,7 @@ public class JobDao {
         try {
             Connection con = DBconnect.getConnection();
             String sql = "select jp.*,c.companyName from job_posting as jp" +
-                    " join companies as c on c.companyID = jp.companyID"+
+                    " join companies as c on c.companyID = jp.companyID" +
                     " order by jp.created_at desc" +
                     " limit 4";
 
@@ -58,7 +58,7 @@ public class JobDao {
         Job job = new Job();
         Connection con = DBconnect.getConnection();
         String sql = "select jp.*,c.companyName from job_posting as jp" +
-                " join companies as c on c.companyID = jp.companyID"+
+                " join companies as c on c.companyID = jp.companyID" +
                 " where jobPostID = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -77,7 +77,7 @@ public class JobDao {
         List<Job> jobs = new ArrayList<>();
         Connection con = DBconnect.getConnection();
         String sql = "select jp.*,c.companyName from job_posting as jp" +
-                " join companies as c on c.companyID = jp.companyID"+
+                " join companies as c on c.companyID = jp.companyID" +
                 " where jp.companyID = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -94,6 +94,7 @@ public class JobDao {
         }
 
     }
+
     public Job getResultSet(ResultSet rs) throws SQLException {
         Job job = new Job();
         int id = rs.getInt("jobPostID");
@@ -109,7 +110,7 @@ public class JobDao {
         String status = rs.getString("status");
         String requirement = rs.getString("requirement");
 //
-        job = new Job(id,companyId,companyName, title, img, desc, position, salary,created, status, requirement);
+        job = new Job(id, companyId, companyName, title, img, desc, position, salary, created, status, requirement);
         return job;
     }
 
@@ -137,7 +138,7 @@ public class JobDao {
         try {
             Connection con = DBconnect.getConnection();
             String sql = "select jp.*,c.companyName from job_posting as jp" +
-                    " join companies as c on c.companyID = jp.companyID"+
+                    " join companies as c on c.companyID = jp.companyID" +
                     " LIMIT 12 OFFSET ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
@@ -153,12 +154,13 @@ public class JobDao {
         }
         return null;
     }
+
     public int findCompanyIDByJobID(int jobID) {
         Connection con = DBconnect.getConnection();
         String sql = "select companyID from job_posting where jobPostID = ?";
 
         try {
-        PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, jobID);
             ResultSet rs = ps.executeQuery();
             return rs.next() ? rs.getInt(1) : -1;
@@ -166,9 +168,70 @@ public class JobDao {
             throw new RuntimeException(e);
         }
     }
-    public static void main(String[] args) {
-        JobDao jobDao = new JobDao();
-        System.out.println(jobDao.getJobsByCompanyId(1).toString());
+
+    public List<Job> searchEqualsByName(String name) {
+        List<Job> jobs = new ArrayList<Job>();
+        Connection con = DBconnect.getConnection();
+        String sql = "select jp.*,c.companyName from job_posting as jp" +
+                " join companies as c on c.companyID = jp.companyID" +
+                " where titleJob like ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + name + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Job job = getResultSet(rs);
+                jobs.add(job);
+            }
+            return jobs;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+    public List<Job> filterJobs(String locationID, String position, String status) {
+        List<Job> jobs = new ArrayList<>();
+        String query = "SELECT jp.*, c.companyName FROM job_posting jp JOIN companies c ON jp.companyID = c.companyID WHERE 1=1";
+
+        if (locationID != null && !locationID.isEmpty()) {
+            query += " AND jp.locationID = ?";
+        }
+        if (position != null && !position.isEmpty()) {
+            query += " AND jp.position LIKE ?";
+        }
+        if (status != null && !status.isEmpty()) {
+            query += " AND jp.status = ?";
+        }
+
+        try (Connection connection = DBconnect.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            int index = 1;
+            if (locationID != null && !locationID.isEmpty()) {
+                statement.setInt(index++, Integer.parseInt(locationID));
+            }
+            if (position != null && !position.isEmpty()) {
+                statement.setString(index++, "%" + position + "%");
+            }
+            if (status != null && !status.isEmpty()) {
+                statement.setString(index++, status);
+            }
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Job job = getResultSet(resultSet);
+                jobs.add(job);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return jobs;
     }
 
+    public static void main(String[] args) {
+        JobDao jobDao = new JobDao();
+        System.out.println(jobDao.searchEqualsByName("Nhan Vien").toString());
+    }
 }

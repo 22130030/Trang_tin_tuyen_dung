@@ -19,9 +19,10 @@ public class JobService {
     public Job getJobById(int id){
         return jobDao.findById(id);
     }
-    public List<Job> getJobByCompanyId(int companyId){
+    public List<Job> getJobByCompanyId(int companyId) {
         return jobDao.getJobsByCompanyId(companyId);
     }
+
     public int getNumberPage(){
         return jobDao.getNumberPage();
     }
@@ -29,8 +30,14 @@ public class JobService {
 
         return jobDao.getPaging(page);
     }
+    public List<Job> getListSearchByName(String name){
+        return jobDao.searchEqualsByName(name);
+    }
+    public List<Job> getListSearchByAddress(String address){
+        return jobDao.searchEqualsByAddrress(address);
+    }
     public static void main(String[] args) {
         JobService jobService = new JobService();
-        System.out.println(jobService.getJobById(1));
+        System.out.println(jobService.getListSearchByAddress("Ho Chi Minh"));
     }
 }
