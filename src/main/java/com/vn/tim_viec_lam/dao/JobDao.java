@@ -232,6 +232,6 @@ public class JobDao {
 
     public static void main(String[] args) {
         JobDao jobDao = new JobDao();
-        System.out.println(jobDao.searchEqualsByName("ạbadfasd").toString());
+        System.out.println(jobDao.getAll());
     }
 }

@@ -16,6 +16,11 @@ import java.util.List;
 public class FindCompany extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html;charset=utf-8");
+        CompanyService csv = new CompanyService();
+        List<Company> companyList = csv.getALLCompany();
+        req.setAttribute("companyList", companyList);
+        req.getRequestDispatcher("company.jsp").forward(req, resp);
         req.getRequestDispatcher("company.jsp").forward(req, resp);
     }
     @Override
