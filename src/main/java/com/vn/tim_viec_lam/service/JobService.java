@@ -33,11 +33,8 @@ public class JobService {
     public List<Job> getListSearchByName(String name){
         return jobDao.searchEqualsByName(name);
     }
-    public List<Job> getListSearchByAddress(String address){
-        return jobDao.searchEqualsByAddrress(address);
-    }
     public static void main(String[] args) {
         JobService jobService = new JobService();
-        System.out.println(jobService.getListSearchByAddress("Ho Chi Minh"));
+
     }
 }
