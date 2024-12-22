@@ -191,7 +191,44 @@ public class JobDao {
 
 
     }
+    public List<Job> filterJobs(String locationID, String position, String status) {
+        List<Job> jobs = new ArrayList<>();
+        String query = "SELECT jp.*, c.companyName FROM job_posting jp JOIN companies c ON jp.companyID = c.companyID WHERE 1=1";
 
+        if (locationID != null && !locationID.isEmpty()) {
+            query += " AND jp.locationID = ?";
+        }
+        if (position != null && !position.isEmpty()) {
+            query += " AND jp.position LIKE ?";
+        }
+        if (status != null && !status.isEmpty()) {
+            query += " AND jp.status = ?";
+        }
+
+        try (Connection connection = DBconnect.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            int index = 1;
+            if (locationID != null && !locationID.isEmpty()) {
+                statement.setInt(index++, Integer.parseInt(locationID));
+            }
+            if (position != null && !position.isEmpty()) {
+                statement.setString(index++, "%" + position + "%");
+            }
+            if (status != null && !status.isEmpty()) {
+                statement.setString(index++, status);
+            }
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Job job = getResultSet(resultSet);
+                jobs.add(job);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return jobs;
+    }
 
     public static void main(String[] args) {
         JobDao jobDao = new JobDao();
