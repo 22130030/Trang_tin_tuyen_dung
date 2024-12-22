@@ -2,7 +2,7 @@ package com.vn.tim_viec_lam.dao.model;
 
 import java.io.Serializable;
 
-public class Company implements Serializable {
+public class Company  implements Serializable {
     private int id;
     private String companyName;
     private String img;
