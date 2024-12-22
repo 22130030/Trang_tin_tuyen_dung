@@ -1,5 +1,6 @@
 package com.vn.tim_viec_lam.dao;
 
+import com.vn.tim_viec_lam.dao.model.Company;
 import com.vn.tim_viec_lam.dao.model.Job;
 import com.vn.tim_viec_lam.database.DBconnect;
 
@@ -188,9 +189,8 @@ public class JobDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
     }
+
     public List<Job> filterJobs(String locationID, String position, String status) {
         List<Job> jobs = new ArrayList<>();
         String query = "SELECT jp.*, c.companyName FROM job_posting jp JOIN companies c ON jp.companyID = c.companyID WHERE 1=1";
@@ -232,6 +232,6 @@ public class JobDao {
 
     public static void main(String[] args) {
         JobDao jobDao = new JobDao();
-        System.out.println(jobDao.searchEqualsByName("Nhan Vien").toString());
+        System.out.println(jobDao.searchEqualsByName("ạbadfasd").toString());
     }
 }
