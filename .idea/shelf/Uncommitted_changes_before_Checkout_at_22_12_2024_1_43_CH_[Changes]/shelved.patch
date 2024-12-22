@@ -1,0 +1,246 @@
+Index: src/main/java/com/vn/tim_viec_lam/dao/JobDao.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.vn.tim_viec_lam.dao;\r\n\r\nimport com.vn.tim_viec_lam.dao.model.Job;\r\nimport com.vn.tim_viec_lam.database.DBconnect;\r\n\r\nimport java.sql.*;\r\nimport java.time.LocalDateTime;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class JobDao {\r\n    public List<Job> getAll() {\r\n        List<Job> jobs = new ArrayList<Job>();\r\n\r\n        try {\r\n            Connection con = DBconnect.getConnection();\r\n            String sql = \"select jp.*,c.companyName from job_posting as jp\" +\r\n                    \" join companies as c on c.companyID = jp.companyID\";\r\n            PreparedStatement ps = con.prepareStatement(sql);\r\n            ResultSet rs = ps.executeQuery();\r\n            while (rs.next()) {\r\n                Job job = getResultSet(rs);\r\n                jobs.add(job);\r\n            }\r\n\r\n            return jobs;\r\n        } catch (Exception e) {\r\n\r\n        }\r\n        return null;\r\n    }\r\n\r\n    public List<Job> get4NewJob() {\r\n        List<Job> jobs = new ArrayList<Job>();\r\n\r\n        try {\r\n            Connection con = DBconnect.getConnection();\r\n            String sql = \"select jp.*,c.companyName from job_posting as jp\" +\r\n                    \" join companies as c on c.companyID = jp.companyID\"+\r\n                    \" order by jp.created_at desc\" +\r\n                    \" limit 4\";\r\n\r\n            PreparedStatement ps = con.prepareStatement(sql);\r\n            ResultSet rs = ps.executeQuery();\r\n            while (rs.next()) {\r\n                Job job = getResultSet(rs);\r\n                jobs.add(job);\r\n            }\r\n            return jobs;\r\n        } catch (Exception e) {\r\n\r\n        }\r\n        return null;\r\n\r\n    }\r\n\r\n    public Job findById(int id) {\r\n        Job job = new Job();\r\n        Connection con = DBconnect.getConnection();\r\n        String sql = \"select jp.*,c.companyName from job_posting as jp\" +\r\n                \" join companies as c on c.companyID = jp.companyID\"+\r\n                \" where jobPostID = ?\";\r\n        try {\r\n            PreparedStatement ps = con.prepareStatement(sql);\r\n            ps.setInt(1, id);\r\n            ResultSet rs = ps.executeQuery();\r\n            while (rs.next()) {\r\n                job = getResultSet(rs);\r\n            }\r\n            return job;\r\n        } catch (SQLException e) {\r\n            throw new RuntimeException(e);\r\n        }\r\n    }\r\n\r\n    public List<Job> getJobsByCompanyId(int companyID) {\r\n        List<Job> jobs = new ArrayList<>();\r\n        Connection con = DBconnect.getConnection();\r\n        String sql = \"select jp.*,c.companyName from job_posting as jp\" +\r\n                \" join companies as c on c.companyID = jp.companyID\"+\r\n                \" where jp.companyID = ?\";\r\n        try {\r\n            PreparedStatement ps = con.prepareStatement(sql);\r\n            ps.setInt(1, companyID);\r\n            ResultSet rs = ps.executeQuery();\r\n            Job job = new Job();\r\n            while (rs.next()) {\r\n                job = getResultSet(rs);\r\n                jobs.add(job);\r\n            }\r\n            return jobs;\r\n        } catch (SQLException e) {\r\n            throw new RuntimeException(e);\r\n        }\r\n\r\n    }\r\n    public Job getResultSet(ResultSet rs) throws SQLException {\r\n        Job job = new Job();\r\n        int id = rs.getInt(\"jobPostID\");\r\n        int companyId = rs.getInt(\"companyID\");\r\n        String companyName = rs.getString(\"companyName\");\r\n        String title = rs.getString(\"titleJob\");\r\n        String img = rs.getString(\"image\");\r\n        String position = rs.getString(\"position\");\r\n        String desc = rs.getString(\"jobDescription\");\r\n        String salary = rs.getString(\"salary\");\r\n        LocalDateTime created = rs.getTimestamp(\"created_at\").toLocalDateTime();\r\n//                LocalDateTime updated = rs.getTimestamp(\"updated_at\").toLocalDateTime();\r\n        String status = rs.getString(\"status\");\r\n        String requirement = rs.getString(\"requirement\");\r\n//\r\n        job = new Job(id,companyId,companyName, title, img, desc, position, salary,created, status, requirement);\r\n        return job;\r\n    }\r\n\r\n    public int getNumberPage() {\r\n        Connection con = DBconnect.getConnection();\r\n        String sql = \"select count(*) from job_posting\";\r\n        try {\r\n            PreparedStatement ps = con.prepareStatement(sql);\r\n            ResultSet rs = ps.executeQuery();\r\n            if (rs.next()) {\r\n                int total = rs.getInt(1);\r\n                int countPage = total % 12 > 0 ? total / 12 + 1 : total / 12;\r\n                return countPage;\r\n            }\r\n        } catch (SQLException e) {\r\n            throw new RuntimeException(e);\r\n        }\r\n\r\n        return 0;\r\n    }\r\n\r\n    public List<Job> getPaging(int indexPage) {\r\n        List<Job> jobs = new ArrayList<Job>();\r\n\r\n        try {\r\n            Connection con = DBconnect.getConnection();\r\n            String sql = \"select jp.*,c.companyName from job_posting as jp\" +\r\n                    \" join companies as c on c.companyID = jp.companyID\"+\r\n                    \" LIMIT 12 OFFSET ?\";\r\n\r\n            PreparedStatement ps = con.prepareStatement(sql);\r\n            ps.setInt(1, (indexPage - 1) * 12);\r\n            ResultSet rs = ps.executeQuery();\r\n            while (rs.next()) {\r\n                Job job = getResultSet(rs);\r\n                jobs.add(job);\r\n            }\r\n            return jobs;\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n        return null;\r\n    }\r\n    public int findCompanyIDByJobID(int jobID) {\r\n        Connection con = DBconnect.getConnection();\r\n        String sql = \"select companyID from job_posting where jobPostID = ?\";\r\n\r\n        try {\r\n        PreparedStatement ps = con.prepareStatement(sql);\r\n            ps.setInt(1, jobID);\r\n            ResultSet rs = ps.executeQuery();\r\n            return rs.next() ? rs.getInt(1) : -1;\r\n        } catch (SQLException e) {\r\n            throw new RuntimeException(e);\r\n        }\r\n    }\r\n    public List<Job> searchEqualsByName(String name) {\r\n        List<Job> jobs = new ArrayList<Job>();\r\n        Connection con = DBconnect.getConnection();\r\n        String sql = \"select jp.*,c.companyName from job_posting as jp\" +\r\n                \" join companies as c on c.companyID = jp.companyID\"+\r\n                \" where titleJob like ?\";\r\n\r\n        try {\r\n            PreparedStatement ps = con.prepareStatement(sql);\r\n            ps.setString(1, \"%\" + name + \"%\");\r\n            ResultSet rs = ps.executeQuery();\r\n            while (rs.next()) {\r\n                Job job = getResultSet(rs);\r\n                jobs.add(job);\r\n            }\r\n            return jobs;\r\n        } catch (SQLException e) {\r\n            throw new RuntimeException(e);\r\n        }\r\n\r\n\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n        JobDao jobDao = new JobDao();\r\n        System.out.println(jobDao.searchEqualsByName(\"Nhan Vien\").toString());\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/vn/tim_viec_lam/dao/JobDao.java b/src/main/java/com/vn/tim_viec_lam/dao/JobDao.java
+--- a/src/main/java/com/vn/tim_viec_lam/dao/JobDao.java	(revision 3f6a9053541e0706e265ed71511374b0413cda13)
++++ b/src/main/java/com/vn/tim_viec_lam/dao/JobDao.java	(date 1734849714016)
+@@ -36,7 +36,7 @@
+         try {
+             Connection con = DBconnect.getConnection();
+             String sql = "select jp.*,c.companyName from job_posting as jp" +
+-                    " join companies as c on c.companyID = jp.companyID"+
++                    " join companies as c on c.companyID = jp.companyID" +
+                     " order by jp.created_at desc" +
+                     " limit 4";
+ 
+@@ -58,7 +58,7 @@
+         Job job = new Job();
+         Connection con = DBconnect.getConnection();
+         String sql = "select jp.*,c.companyName from job_posting as jp" +
+-                " join companies as c on c.companyID = jp.companyID"+
++                " join companies as c on c.companyID = jp.companyID" +
+                 " where jobPostID = ?";
+         try {
+             PreparedStatement ps = con.prepareStatement(sql);
+@@ -77,7 +77,7 @@
+         List<Job> jobs = new ArrayList<>();
+         Connection con = DBconnect.getConnection();
+         String sql = "select jp.*,c.companyName from job_posting as jp" +
+-                " join companies as c on c.companyID = jp.companyID"+
++                " join companies as c on c.companyID = jp.companyID" +
+                 " where jp.companyID = ?";
+         try {
+             PreparedStatement ps = con.prepareStatement(sql);
+@@ -94,6 +94,7 @@
+         }
+ 
+     }
++
+     public Job getResultSet(ResultSet rs) throws SQLException {
+         Job job = new Job();
+         int id = rs.getInt("jobPostID");
+@@ -109,7 +110,7 @@
+         String status = rs.getString("status");
+         String requirement = rs.getString("requirement");
+ //
+-        job = new Job(id,companyId,companyName, title, img, desc, position, salary,created, status, requirement);
++        job = new Job(id, companyId, companyName, title, img, desc, position, salary, created, status, requirement);
+         return job;
+     }
+ 
+@@ -137,7 +138,7 @@
+         try {
+             Connection con = DBconnect.getConnection();
+             String sql = "select jp.*,c.companyName from job_posting as jp" +
+-                    " join companies as c on c.companyID = jp.companyID"+
++                    " join companies as c on c.companyID = jp.companyID" +
+                     " LIMIT 12 OFFSET ?";
+ 
+             PreparedStatement ps = con.prepareStatement(sql);
+@@ -153,12 +154,13 @@
+         }
+         return null;
+     }
++
+     public int findCompanyIDByJobID(int jobID) {
+         Connection con = DBconnect.getConnection();
+         String sql = "select companyID from job_posting where jobPostID = ?";
+ 
+         try {
+-        PreparedStatement ps = con.prepareStatement(sql);
++            PreparedStatement ps = con.prepareStatement(sql);
+             ps.setInt(1, jobID);
+             ResultSet rs = ps.executeQuery();
+             return rs.next() ? rs.getInt(1) : -1;
+@@ -166,11 +168,12 @@
+             throw new RuntimeException(e);
+         }
+     }
++
+     public List<Job> searchEqualsByName(String name) {
+         List<Job> jobs = new ArrayList<Job>();
+         Connection con = DBconnect.getConnection();
+         String sql = "select jp.*,c.companyName from job_posting as jp" +
+-                " join companies as c on c.companyID = jp.companyID"+
++                " join companies as c on c.companyID = jp.companyID" +
+                 " where titleJob like ?";
+ 
+         try {
+@@ -189,9 +192,9 @@
+ 
+     }
+ 
++
+     public static void main(String[] args) {
+         JobDao jobDao = new JobDao();
+         System.out.println(jobDao.searchEqualsByName("Nhan Vien").toString());
+     }
+-
+ }
+Index: src/main/java/com/vn/tim_viec_lam/dao/CompanyDao.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.vn.tim_viec_lam.dao;\r\n\r\nimport com.vn.tim_viec_lam.dao.model.Company;\r\nimport com.vn.tim_viec_lam.database.DBconnect;\r\n\r\nimport java.sql.Connection;\r\nimport java.sql.PreparedStatement;\r\nimport java.sql.ResultSet;\r\nimport java.sql.SQLException;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class CompanyDao {\r\n    public List<Company> getAll() {\r\n        List<Company> companies = new ArrayList<Company>();\r\n\r\n        Connection con = DBconnect.getConnection();\r\n        String sql = \"select * from companies\";\r\n        try {\r\n            PreparedStatement ps = con.prepareStatement(sql);\r\n\r\n            ResultSet rs = ps.executeQuery();\r\n\r\n            while(rs.next()) {\r\n                Company company = excuteResultSet(rs);\r\n                companies.add(company);\r\n            }\r\n            return companies;\r\n        } catch (SQLException e) {\r\n            throw new RuntimeException(e);\r\n        }\r\n\r\n\r\n    }\r\n    public Company getCompanyById(int id) {\r\n        Connection con = DBconnect.getConnection();\r\n        String sql = \"select * from companies where companyID = ?\";\r\n\r\n        try {\r\n            PreparedStatement ps = con.prepareStatement(sql);\r\n            ps.setInt(1, id);\r\n            ResultSet rs = ps.executeQuery();\r\n            return rs.next() ? excuteResultSet(rs) : null;\r\n        } catch (SQLException e) {\r\n            throw new RuntimeException(e);\r\n        }\r\n    }\r\n    public Company excuteResultSet(ResultSet rs) {\r\n        try {\r\n            int id = rs.getInt(\"companyID\");\r\n            String companyName = rs.getString(\"companyName\");\r\n            String logo = rs.getString(\"logo\");\r\n            String address = rs.getString(\"address\");\r\n            String website = rs.getString(\"website\");\r\n            String description = rs.getString(\"description\");\r\n            Company com = new Company(id, companyName, logo, address, website, description);\r\n\r\n            return com;\r\n        } catch (SQLException e) {\r\n            throw new RuntimeException(e);\r\n        }\r\n\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n        System.out.println(new CompanyDao().getCompanyById(1).toString());\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/vn/tim_viec_lam/dao/CompanyDao.java b/src/main/java/com/vn/tim_viec_lam/dao/CompanyDao.java
+--- a/src/main/java/com/vn/tim_viec_lam/dao/CompanyDao.java	(revision 3f6a9053541e0706e265ed71511374b0413cda13)
++++ b/src/main/java/com/vn/tim_viec_lam/dao/CompanyDao.java	(date 1734849714030)
+@@ -9,7 +9,7 @@
+ import java.sql.SQLException;
+ import java.util.ArrayList;
+ import java.util.List;
+-
++import java.util.Collections;
+ public class CompanyDao {
+     public List<Company> getAll() {
+         List<Company> companies = new ArrayList<Company>();
+@@ -62,7 +62,11 @@
+ 
+     }
+ 
++
++
+     public static void main(String[] args) {
+         System.out.println(new CompanyDao().getCompanyById(1).toString());
+     }
++
++
+ }
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><project xmlns=\"http://maven.apache.org/POM/4.0.0\"\r\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n    <modelVersion>4.0.0</modelVersion>\r\n    <groupId>com.example</groupId>\r\n    <artifactId>trang-tin-tuyen-dung</artifactId>\r\n    <version>1.0-SNAPSHOT</version>\r\n    <packaging>war</packaging>\r\n\r\n    <properties>\r\n        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\r\n        <maven.compiler.target>1.8</maven.compiler.target>\r\n        <maven.compiler.source>1.8</maven.compiler.source>\r\n        <junit.version>5.8.2</junit.version>\r\n    </properties>\r\n\r\n    <dependencies>\r\n        <!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->\r\n        <dependency>\r\n            <groupId>jakarta.servlet</groupId>\r\n            <artifactId>jakarta.servlet-api</artifactId>\r\n            <version>5.0.0</version>\r\n            <scope>provided</scope>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.junit.jupiter</groupId>\r\n            <artifactId>junit-jupiter-api</artifactId>\r\n            <version>${junit.version}</version>\r\n            <scope>test</scope>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.junit.jupiter</groupId>\r\n            <artifactId>junit-jupiter-engine</artifactId>\r\n            <version>${junit.version}</version>\r\n            <scope>test</scope>\r\n        </dependency>\r\n        <!-- https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->\r\n        <dependency>\r\n            <groupId>jakarta.servlet.jsp.jstl</groupId>\r\n            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>\r\n            <version>3.0.1</version>\r\n        </dependency>\r\n        <!-- https://mvnrepository.com/artifact/org.glassfish.web/jakarta.servlet.jsp.jstl -->\r\n        <dependency>\r\n            <groupId>org.glassfish.web</groupId>\r\n            <artifactId>jakarta.servlet.jsp.jstl</artifactId>\r\n            <version>3.0.1</version>\r\n        </dependency>\r\n\r\n        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->\r\n        <dependency>\r\n            <groupId>mysql</groupId>\r\n            <artifactId>mysql-connector-java</artifactId>\r\n            <version>8.0.28</version>\r\n        </dependency>\r\n\r\n    </dependencies>\r\n\r\n    <build>\r\n        <plugins>\r\n            <!-- Plugin để build file WAR -->\r\n            <plugin>\r\n                <groupId>org.apache.maven.plugins</groupId>\r\n                <artifactId>maven-war-plugin</artifactId>\r\n                <version>3.3.1</version>\r\n                <configuration>\r\n                    <warSourceDirectory>src/main/webapp</warSourceDirectory>\r\n                </configuration>\r\n            </plugin>\r\n        </plugins>\r\n    </build>\r\n</project>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision 3f6a9053541e0706e265ed71511374b0413cda13)
++++ b/pom.xml	(date 1734849714044)
+@@ -6,7 +6,6 @@
+     <artifactId>trang-tin-tuyen-dung</artifactId>
+     <version>1.0-SNAPSHOT</version>
+     <packaging>war</packaging>
+-
+     <properties>
+         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+         <maven.compiler.target>1.8</maven.compiler.target>
+@@ -28,6 +27,7 @@
+             <version>${junit.version}</version>
+             <scope>test</scope>
+         </dependency>
++
+         <dependency>
+             <groupId>org.junit.jupiter</groupId>
+             <artifactId>junit-jupiter-engine</artifactId>
+@@ -56,7 +56,7 @@
+ 
+     </dependencies>
+ 
+-    <build>
++      <build>
+         <plugins>
+             <!-- Plugin để build file WAR -->
+             <plugin>
+@@ -69,4 +69,4 @@
+             </plugin>
+         </plugins>
+     </build>
+-</project>
++</project>
+\ No newline at end of file
+Index: src/main/java/com/vn/tim_viec_lam/service/JobService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.vn.tim_viec_lam.service;\r\n\r\nimport com.vn.tim_viec_lam.dao.JobDao;\r\nimport com.vn.tim_viec_lam.dao.model.Job;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class JobService {\r\n    JobDao jobDao = new JobDao();\r\n    public JobService() {}\r\n\r\n    public List<Job> getAllJob(){\r\n        return jobDao.getAll();\r\n    }\r\n    public List<Job> getNewJob(){\r\n        return jobDao.get4NewJob();\r\n    }\r\n    public Job getJobById(int id){\r\n        return jobDao.findById(id);\r\n    }\r\n    public List<Job> getJobByCompanyId(int companyId){\r\n        return jobDao.getJobsByCompanyId(companyId);\r\n    }\r\n    public int getNumberPage(){\r\n        return jobDao.getNumberPage();\r\n    }\r\n    public List<Job> getJobByPage(int page){\r\n\r\n        return jobDao.getPaging(page);\r\n    }\r\n    public List<Job> getListSearchByName(String name){\r\n        return jobDao.searchEqualsByName(name);\r\n    }\r\n    public static void main(String[] args) {\r\n        JobService jobService = new JobService();\r\n        System.out.println(jobService.getJobById(1));\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/vn/tim_viec_lam/service/JobService.java b/src/main/java/com/vn/tim_viec_lam/service/JobService.java
+--- a/src/main/java/com/vn/tim_viec_lam/service/JobService.java	(revision 3f6a9053541e0706e265ed71511374b0413cda13)
++++ b/src/main/java/com/vn/tim_viec_lam/service/JobService.java	(date 1734849714055)
+@@ -36,4 +36,4 @@
+         JobService jobService = new JobService();
+         System.out.println(jobService.getJobById(1));
+     }
+-}
++}
+\ No newline at end of file
+Index: src/main/java/com/vn/tim_viec_lam/dao/model/Job.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.vn.tim_viec_lam.dao.model;\r\n\r\nimport java.io.Serializable;\r\nimport java.sql.Date;\r\nimport java.sql.Time;\r\nimport java.time.LocalDateTime;\r\nimport java.time.temporal.ChronoUnit;\r\n\r\npublic class Job implements Serializable {\r\n    private int id;\r\n    private String title;\r\n    private int companyId;\r\n    private String companyName;\r\n    private String img;\r\n    private String description;\r\n    private String position;\r\n    private String salary;\r\n    private LocalDateTime created;\r\n    private LocalDateTime updated;\r\n    private String status;\r\n    private String requirement;\r\n\r\n    public Job() {}\r\n\r\n    public Job(int id,int companyId,String companyName, String title, String img, String description, String position, String salary,LocalDateTime created, String status, String requirement) {\r\n        this.id = id;\r\n        this.companyId = companyId;\r\n        this.companyName = companyName;\r\n        this.title = title;\r\n        this.img = img;\r\n        this.description = description;\r\n        this.position = position;\r\n        this.salary = salary;\r\n        this.created = created;\r\n        this.status = status;\r\n        this.requirement = requirement;\r\n    }\r\n\r\n    public int getId() {\r\n        return id;\r\n    }\r\n\r\n    public void setId(int id) {\r\n        this.id = id;\r\n    }\r\n\r\n    public int getCompanyId() {\r\n        return companyId;\r\n    }\r\n\r\n    public void setCompanyId(int companyId) {\r\n        this.companyId = companyId;\r\n    }\r\n\r\n    public String getCompanyName() {\r\n        return companyName;\r\n    }\r\n\r\n    public void setCompanyName(String companyName) {\r\n        this.companyName = companyName;\r\n    }\r\n\r\n    public String getTitle() {\r\n        return title;\r\n    }\r\n\r\n    public void setTitle(String title) {\r\n        this.title = title;\r\n    }\r\n\r\n    public String getImg() {\r\n        return img;\r\n    }\r\n\r\n    public void setImg(String img) {\r\n        this.img = img;\r\n    }\r\n\r\n    public String getDescription() {\r\n        return description;\r\n    }\r\n\r\n    public void setDescription(String description) {\r\n        this.description = description;\r\n    }\r\n\r\n    public String getPosition() {\r\n        return position;\r\n    }\r\n\r\n    public void setPosition(String position) {\r\n        this.position = position;\r\n    }\r\n\r\n    public String getSalary() {\r\n        return salary;\r\n    }\r\n\r\n    public void setSalary(String salary) {\r\n        this.salary = salary;\r\n    }\r\n\r\n    public LocalDateTime getCreated() {\r\n        return created;\r\n    }\r\n\r\n    public void setCreated(LocalDateTime created) {\r\n        this.created = created;\r\n    }\r\n    public String getConvertCreated() {\r\n        LocalDateTime now = LocalDateTime.now();\r\n        long day  = ChronoUnit.DAYS.between(created, now);\r\n        String res = \"\";\r\n\r\n        if(day == 0){\r\n            res = ChronoUnit.HOURS.between(created,now)+\" giờ trước\";\r\n        }else if(day > 0 && day < 31){\r\n            res = day + \" ngày trước\";\r\n        }\r\n        else{\r\n            res = ChronoUnit.MONTHS.between(created,now) + \" tháng trước\";\r\n        }\r\n        return  res;\r\n    }\r\n    public LocalDateTime getUpdated() {\r\n        return updated;\r\n    }\r\n\r\n    public void setUpdated(LocalDateTime updated) {\r\n        this.updated = updated;\r\n    }\r\n\r\n    public String getStatus() {\r\n        return status;\r\n    }\r\n\r\n    public void setStatus(String status) {\r\n        this.status = status;\r\n    }\r\n\r\n    public String getRequirement() {\r\n        return requirement;\r\n    }\r\n\r\n    public void setRequirement(String requirement) {\r\n        this.requirement = requirement;\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"Job{\" +\r\n                \"id=\" + id +\r\n                \",companyId=\" + companyId +\r\n                \",companyName='\" + companyName + '\\'' +\r\n                \", title='\" + title + '\\'' +\r\n                \", img='\" + img + '\\'' +\r\n                \", description='\" + description + '\\'' +\r\n                \", position='\" + position + '\\'' +\r\n                \", salary=\" + salary +\r\n                \", created=\" + created +\r\n                \", updated=\" + updated +\r\n                \", status=\" + status +\r\n                \", requirement='\" + requirement + '\\'' +\r\n                '\\n';\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/vn/tim_viec_lam/dao/model/Job.java b/src/main/java/com/vn/tim_viec_lam/dao/model/Job.java
+--- a/src/main/java/com/vn/tim_viec_lam/dao/model/Job.java	(revision 3f6a9053541e0706e265ed71511374b0413cda13)
++++ b/src/main/java/com/vn/tim_viec_lam/dao/model/Job.java	(date 1734849714068)
+@@ -19,6 +19,7 @@
+     private LocalDateTime updated;
+     private String status;
+     private String requirement;
++    private String scale;
+ 
+     public Job() {}
+ 
+@@ -34,6 +35,7 @@
+         this.created = created;
+         this.status = status;
+         this.requirement = requirement;
++        this.scale = scale;
+     }
+ 
+     public int getId() {
+@@ -146,6 +148,14 @@
+         this.requirement = requirement;
+     }
+ 
++    public String getscale() {
++        return scale;
++    }
++
++    public void setscale(String scale) {
++        this.scale = scale;
++    }
++
+     @Override
+     public String toString() {
+         return "Job{" +
+@@ -161,7 +171,10 @@
+                 ", updated=" + updated +
+                 ", status=" + status +
+                 ", requirement='" + requirement + '\'' +
++                ", scale='" + scale + '\'' +
+                 '\n';
+     }
+ 
+-}
++
++    }
++

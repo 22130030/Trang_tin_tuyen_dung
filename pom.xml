@@ -6,7 +6,6 @@
     <artifactId>trang-tin-tuyen-dung</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -28,6 +27,7 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -56,7 +56,7 @@
 
     </dependencies>
 
-    <build>
+      <build>
         <plugins>
             <!-- Plugin để build file WAR -->
             <plugin>
