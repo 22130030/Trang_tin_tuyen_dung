@@ -1,5 +1,6 @@
 package com.vn.tim_viec_lam.dao;
 
+import com.vn.tim_viec_lam.dao.model.Company;
 import com.vn.tim_viec_lam.dao.model.Job;
 import com.vn.tim_viec_lam.database.DBconnect;
 
@@ -194,8 +195,6 @@ public class JobDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
     }
     public List<Job> searchJobByAddress(String address) {
         List<Job> jobs = new ArrayList<Job>();
