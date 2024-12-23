@@ -80,8 +80,9 @@ public class JobDao {
     public List<Job> getJobsByCompanyId(int companyID) {
         List<Job> jobs = new ArrayList<>();
         Connection con = DBconnect.getConnection();
-        String sql = "select jp.*,c.companyName from job_posting as jp" +
+        String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
                 " join companies as c on c.companyID = jp.companyID" +
+                " join job_locations as jl on jl.locationID = jp.locationID" +
                 " where jp.companyID = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
