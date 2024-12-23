@@ -1,5 +1,6 @@
 package com.vn.tim_viec_lam.service;
 
+import com.vn.tim_viec_lam.controller.CompanyController;
 import com.vn.tim_viec_lam.dao.CompanyDao;
 import com.vn.tim_viec_lam.dao.model.Company;
 
@@ -16,9 +17,14 @@ public class CompanyService {
         return companyDao.getCompanyById(id);
 
     }
-
+    public List<Company> getAllCompany() {
+        return companyDao.getAll();
+    }
+    public List<Company> getCompanyByName(String name) {
+        return companyDao.findByName(name);
+    }
     public static void main(String[] args) {
         CompanyService companyService = new CompanyService();
-        System.out.println(companyService.findCompanyById(1));
+        System.out.println(companyService.getCompanyByName("cồ phần"));
     }
 }
