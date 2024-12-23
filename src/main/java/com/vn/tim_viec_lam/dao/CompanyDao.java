@@ -32,6 +32,24 @@ public class CompanyDao {
 
 
     }
+    public List<Company> findByName(String name) {
+        List<Company> companies = new ArrayList<>();
+        Connection con = DBconnect.getConnection();
+        String sql = "select * from companies where companyName like ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, "%"+name+"%");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                Company company = excuteResultSet(rs);
+                companies.add(company);
+            }
+            return companies;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public Company getCompanyById(int id) {
         Connection con = DBconnect.getConnection();
         String sql = "select * from companies where companyID = ?";
@@ -64,7 +82,7 @@ public class CompanyDao {
 
 
     public static void main(String[] args) {
-        System.out.println(new CompanyDao().getCompanyById(1).toString());
+        System.out.println(new CompanyDao().getAll().toString());
     }
 
 
