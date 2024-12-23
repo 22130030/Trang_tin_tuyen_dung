@@ -76,6 +76,10 @@
     background-color: var(--blue-color);
     color: var(--white-color);
     border-radius: 5px;
+
+}
+.banner__search-btn:hover{
+    cursor: pointer;
 }
 .search-btn__icon{
     font-size: 1.8rem;

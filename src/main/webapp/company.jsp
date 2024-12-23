@@ -24,10 +24,10 @@
         <div class="wrap_flex">
             <h1 class="flex_fill">Nhà tuyển dụng hàng đầu</h1>
             <div class="d_flex" id="employ_search_container">
-                <form action="search-company" method="post" id="employ_search_form">
+                <form action="company" method="post" id="employ_search_form">
                     <div class="form-group">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <input name="searchCompany" class="text_search" placeholder="Tìm công ty" type="text">
+                        <input class="text_search" name="txtName" placeholder="Tìm công ty" type="text">
                     </div>
                 </form>
             </div>
@@ -177,24 +177,28 @@
         </aside>
 
 
-        <main class="company-list">
+        <div class="grid__col-10">
+        <div class="company-list">
             <header>
-                <h2>50 công ty được tìm thấy</h2>
+                <h2>${size} công ty được tìm thấy</h2>
             </header>
+                     <div class="grid__company">
+                    <c:forEach var="c" items="${companies}">
+                        <div class="company-card">
+                            <a href="/html/job.html" class="company-card__link">
+                                <img src="${c.img}" class="picture" alt="NEXTDOOR Logo">
+                                <h3>${c.companyName}</h3>
+                                <p>0 việc đang tuyển</p>
+                                <p> An Giang</p>
+                            </a>
+                        </div>
 
-            <div class="grid__company">
-                <c:forEach var="c" items="${companyList}">
-                <div class="company-card">
-                    <a href="/html/job.html" class="company-card__link">
-                        <img src="${c.img}" class="picture" alt="NEXTDOOR Logo">
-                        <h3>${c.companyName}</h3>
-                        <p>0 việc đang tuyển</p>
-                        <p>Hồ Chí Minh</p>
-                    </a>
+
+                    </c:forEach>
                 </div>
-                </c:forEach>
+
             </div>
-        </main>
+        </div>
     </div>
     <!-- footer -->
     <%@include file="footer.jsp" %>

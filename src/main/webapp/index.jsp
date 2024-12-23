@@ -129,7 +129,7 @@
                                             <div class="wrapper__infomation">
                                                 <div class="infomation__address">
                                                     <i class="infomation__address-icon fa-solid fa-location-dot"></i>
-                                                    <span class="infomation__address-lable">${nj.position}</span>
+                                                    <span class="infomation__address-lable">${nj.city}</span>
                                                 </div>
                                                 <div class="infomation__bottom">
                                                     <div class="infomation__salary">
@@ -191,14 +191,14 @@
                                             </div>
                                             <div class="job__company">
                                                     <span class="job__company-title">
-                                                        <a href="/html/Job.html" class="job__company-link">${j.companyName}</a>
+                                                        <a href="company-detail?jid=${j.id}" class="job__company-link">${j.companyName}</a>
                                                     </span>
                                             </div>
                                         </div>
                                         <div class="wrapper__infomation">
                                             <div class="infomation__address">
                                                 <i class="infomation__address-icon fa-solid fa-location-dot"></i>
-                                                <span class="infomation__address-lable">${j.position}</span>
+                                                <span class="infomation__address-lable">${j.city}</span>
                                             </div>
                                             <div class="infomation__bottom">
                                                 <div class="infomation__salary">

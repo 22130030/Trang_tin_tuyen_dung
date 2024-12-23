@@ -31,7 +31,7 @@
                 <div class="grid__col-9">
                     <h3 class="container_head">Tất cả việc làm mới nhất trong 7 ngày qua</h3>
                     <div class="container__filter">
-                            <span class="filter__total-jobs">31
+                            <span class="filter__total-jobs">${size}
                                 <span>Việc làm</span>
                             </span>
 
@@ -49,8 +49,8 @@
                                     <a href="/html/job_description.html" class="lj__content-lable">${j.title}</a href="#">
                                     <a href="/html/Job.html" class="lj__content-company">${j.companyName}</a>
                                     <div class="lj__content-info">
-                                        <span class="lj__content-address">Hồ Chí Minh</span>
-                                        <span>Hết hạn :
+                                        <span class="lj__content-address">${j.city}</span>
+                                        <span>Ngày đăng :
                                                     <span class="lj__content-time">${j.convertCreated}</span>
                                                 </span>
                                     </div>
