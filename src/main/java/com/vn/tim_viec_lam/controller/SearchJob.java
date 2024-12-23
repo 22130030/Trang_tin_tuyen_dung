@@ -18,9 +18,16 @@ public class SearchJob extends HttpServlet {
    }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
         String txtSearch = request.getParameter("searchName");
+        String txtAddress = request.getParameter("searchAddress");
+
         JobService jobService = new JobService();
-        List<Job> jobs = jobService.getListSearchByName(txtSearch);
+        List<Job> jobs = jobService.getListSearchJob(txtSearch,txtAddress);
+
+        int size = jobs.size();
+
+        request.setAttribute("size",size);
         request.setAttribute("jobs", jobs);
         request.getRequestDispatcher("search_job.jsp").forward(request, response);
 
