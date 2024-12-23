@@ -16,6 +16,12 @@ public class CompanyService {
         return companyDao.getCompanyById(id);
 
     }
+    public List<Company> getListCompany (String namecompany) {
+        return  companyDao.searchCompany(namecompany);
+    }
+    public List<Company> getALLCompany () {
+        return  companyDao.showListCompany();
+    }
 
     public static void main(String[] args) {
         CompanyService companyService = new CompanyService();

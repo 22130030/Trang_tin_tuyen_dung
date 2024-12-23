@@ -6,7 +6,7 @@ import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-public class Job implements Serializable {
+public class Job extends Company implements Serializable {
     private int id;
     private String title;
     private int companyId;
