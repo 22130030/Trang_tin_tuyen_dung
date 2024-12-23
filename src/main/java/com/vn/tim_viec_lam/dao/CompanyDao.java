@@ -63,7 +63,28 @@ public class CompanyDao {
             throw new RuntimeException(e);
         }
     }
+    public List<Company> filterByCity(List<String> cityList) {
+        List<Company> companies = new ArrayList<>();
+        Connection con = DBconnect.getConnection();
+        String sql = "select * from companies where city in (" +
+                String.join(",",Collections.nCopies(cityList.size(),"?")) + ")" ;
 
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            for(int i = 1;i<=cityList.size();i++) {
+                ps.setString(i, cityList.get(i-1));
+            }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Company company = excuteResultSet(rs);
+                companies.add(company);
+            }
+            return companies;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
     public Company excuteResultSet(ResultSet rs) {
         try {
             int id = rs.getInt("companyID");
@@ -72,7 +93,8 @@ public class CompanyDao {
             String address = rs.getString("address");
             String website = rs.getString("website");
             String description = rs.getString("description");
-            Company com = new Company(id, companyName, logo, address, website, description);
+            String city = rs.getString("city");
+            Company com = new Company(id, companyName, logo, address,city, website, description);
 
             return com;
         } catch (SQLException e) {
@@ -83,6 +105,9 @@ public class CompanyDao {
 
 
     public static void main(String[] args) {
+        CompanyDao dao = new CompanyDao();
+        List<String> test = new ArrayList<>();
+        System.out.println(dao.filterByCity(test));
     }
 
 

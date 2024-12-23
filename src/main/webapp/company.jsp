@@ -6,8 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "f" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,132 +37,31 @@
         <aside class="sidebar">
             <h3>Nơi làm việc</h3>
             <ul id="location-list">
-                <li><input type="checkbox"> An Giang</li>
-                <li><input type="checkbox"> Bình Dương</li>
-                <li><input type="checkbox"> Bình Định</li>
-                <li><input type="checkbox"> Bắc Giang</li>
-                <li><input type="checkbox"> Bắc Cạn</li>
-                <li class="hidden-location"><input type="checkbox"> Bạc Liêu</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Bắc Ninh</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Bình Phước</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Bà Rịa - Vũng Tàu</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Bình Thuận</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Bến Tre</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Cao Bằng</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Cà Mau</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Cần Thơ</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Điện Biên</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Đắk Lắk</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Đà Nẵng</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Đăk Nông</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Đồng Nai</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Đồng Tháp</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Gia Lai</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Hòa Bình</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Hồ Chí Minh</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Hải Dương</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Hà Giang</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Hậu Giang</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Hà Nội</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Hà Nam</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Hải Phòng</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Hà Tĩnh</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Hưng Yên</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Kiên Giang</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Khánh Hòa</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Kon Tum</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Long An</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Lâm Đồng</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Lạng Sơn</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Nghệ An</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Ninh Bình</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Nam Định</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Ninh Thuận</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Phú Thọ</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Phú Yên</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Quảng Bình</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Quảng Nam</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Quảng Ninh</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Quảng Ngãi</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Quảng Trị</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Sơn La</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Sóc Trăng</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Thái Bình</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Tiền Giang</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Thanh Hóa</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Tây Ninh</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Thái Nguyên</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Lai Châu</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Lào Cai</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Tuyên Quang</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Thừa Thiên - Huế</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Trà Vinh</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Vĩnh Long</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Vĩnh Phúc</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Yên Bái</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Khác</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Nước Ngoài</li>
-                <li class="hidden-location"><input type="checkbox">
-                    Nhật Bản</li>
+                <li><input type="checkbox" name="location" value="An Giang"> An Giang</li>
+                <li><input type="checkbox" name="location" value="Bình Dương"> Bình Dương</li>
+                <li><input type="checkbox" name="location" value="Bình Định"> Bình Định</li>
+                <li><input type="checkbox" name="location" value="Bắc Giang"> Bắc Giang</li>
+                <li><input type="checkbox" name="location" value="Bắc Cạn"> Bắc Cạn</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Bạc Liêu"> Bạc Liêu</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Bắc Ninh"> Bắc Ninh</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Bình Phước"> Bình Phước</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Bà Rịa - Vũng Tàu"> Bà Rịa - Vũng Tàu</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Bình Thuận"> Bình Thuận</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Cà Mau"> Cà Mau</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Cần Thơ"> Cần Thơ</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Đà Nẵng"> Đà Nẵng</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Đắk Lắk"> Đắk Lắk</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Điện Biên"> Điện Biên</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Đồng Nai"> Đồng Nai</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Đồng Tháp"> Đồng Tháp</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Hà Nội"> Hà Nội</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Hồ Chí Minh"> Hồ Chí Minh</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Khánh Hòa"> Khánh Hòa</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Lâm Đồng"> Lâm Đồng</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Nghệ An"> Nghệ An</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Quảng Bình"> Quảng Bình</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Thanh Hóa"> Thanh Hóa</li>
+                <li class="hidden-location"><input type="checkbox" name="location" value="Thừa Thiên - Huế"> Thừa Thiên - Huế</li>
                 <li><a href="#" id="show-all">Tất cả</a></li>
             </ul>
             <h3>Quy mô</h3>
@@ -202,50 +101,61 @@
     </div>
     <!-- footer -->
     <%@include file="footer.jsp" %>
-<script>
 
-    document.getElementById("show-all").addEventListener("click", function (e) {
-        e.preventDefault();
 
-        // Toggle class để mở rộng danh sách
-        const locationList = document.getElementById("location-list");
-        locationList.classList.toggle("expanded");
+<%--        <script type="text/javascript" src="js/filter.js"></script>--%>
+        <script>
+            document.getElementById('show-all').addEventListener('click', function (e) {
+                e.preventDefault();
+                const hiddenLocations = document.querySelectorAll('.hidden-location');
+                hiddenLocations.forEach(location => location.style.display = 'list-item');
+            });
 
-        // Hiển thị các tỉnh bị ẩn
-        const hiddenLocations = document.querySelectorAll(".hidden-location");
-        hiddenLocations.forEach(location => {
-            if (location.style.display === "none" || location.style.display === "") {
-                location.style.display = "list-item";
-            } else {
-                location.style.display = "none";
-            }
-        });
+            // Lắng nghe sự kiện change trên tất cả checkbox
+            const checkboxes = document.querySelectorAll('input[name="location"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function () {
+                    const selectedLocations = Array.from(checkboxes)
+                        .filter(cb => cb.checked)
+                        .map(cb => cb.value);
 
-        // Thay đổi nội dung của "Tất cả" thành "Thu gọn" khi danh sách mở rộng
-        if (locationList.classList.contains("expanded")) {
-            this.textContent = "Thu gọn";
-        } else {
-            this.textContent = "Tất cả";
-        }
-    });
+                    // Gửi AJAX request
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'filter-company', true);
+                    xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const navUser = document.querySelector('.nav__has--form-login');
-        const dropdownMenu = document.querySelector('.nav__dropdown-menu');
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            const response = JSON.parse(xhr.responseText);
+                            const companyListDiv = document.querySelector('.grid__company');
+                            companyListDiv.innerHTML = '';  // Xóa kết quả hiện tại
 
-        // Hiển thị menu khi click vào `.nav__has--form-login`
-        navUser.addEventListener('click', function (event) {
-            event.stopPropagation();
-            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-        });
+                            // Cập nhật danh sách công ty
+                            response.forEach(company => {
+                                console.log(company.img)
+                                const companyCardHTML = `
+        <div class="company-card">
+            <a href="/html/job.html" class="company-card__link">
+                <img src="`company.img`" class="picture" alt="Company Logo">
+                <h3>`company.companyName`</h3>
+                <p>0 việc đang tuyển</p>
+                <p>`company.city`</p>
+            </a>
+        </div>
+    `;
 
-        // Đóng menu khi click ra ngoài
-        document.addEventListener('click', function (event) {
-            if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                dropdownMenu.style.display = 'none';
-            }
-        });
-    });
-</script>
+                                // Append the HTML to the container
+                                const companyListDiv = document.querySelector('.grid__company');
+                                companyListDiv.innerHTML += companyCardHTML;  // Cộng thêm HTML mới vào
+                            });
+                        }
+                    };
+
+                    // Gửi dữ liệu (danh sách địa điểm đã chọn)
+                    xhr.send(JSON.stringify({ locations: selectedLocations }));
+                });
+            });
+        </script>
+    <script type="text/javascript" src="js/filter.js"></script>
 </body>
 </html>
