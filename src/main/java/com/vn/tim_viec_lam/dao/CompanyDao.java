@@ -1,6 +1,7 @@
 package com.vn.tim_viec_lam.dao;
 
 import com.vn.tim_viec_lam.dao.model.Company;
+import com.vn.tim_viec_lam.dao.model.Job;
 import com.vn.tim_viec_lam.database.DBconnect;
 
 import java.sql.Connection;
@@ -32,24 +33,6 @@ public class CompanyDao {
 
 
     }
-    public List<Company> findByName(String name) {
-        List<Company> companies = new ArrayList<>();
-        Connection con = DBconnect.getConnection();
-        String sql = "select * from companies where companyName like ?";
-
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, "%"+name+"%");
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
-                Company company = excuteResultSet(rs);
-                companies.add(company);
-            }
-            return companies;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
     public Company getCompanyById(int id) {
         Connection con = DBconnect.getConnection();
         String sql = "select * from companies where companyID = ?";
@@ -63,6 +46,24 @@ public class CompanyDao {
             throw new RuntimeException(e);
         }
     }
+    public List<Company> findByName(String nameCompany) {
+        List<Company> companies = new ArrayList<Company>();
+        Connection con = DBconnect.getConnection();
+        String sql = "select * from companies where companyName like ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + nameCompany + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Company company = excuteResultSet(rs);
+                companies.add(company);
+            }
+            return companies;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Company excuteResultSet(ResultSet rs) {
         try {
             int id = rs.getInt("companyID");
@@ -78,11 +79,10 @@ public class CompanyDao {
             throw new RuntimeException(e);
         }
 
-        }
+    }
 
 
     public static void main(String[] args) {
-        System.out.println(new CompanyDao().getAll().toString());
     }
 
 
