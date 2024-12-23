@@ -7,6 +7,7 @@ import com.vn.tim_viec_lam.database.DBconnect;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class JobDao {
@@ -285,6 +286,9 @@ public class JobDao {
 
     public static void main(String[] args) {
         JobDao jobDao = new JobDao();
-        System.out.println(jobDao.searchJobByAddress("hồ chí minh").toString());
+//        System.out.println(jobDao.searchJobByAddress("hồ chí minh").toString());
+
+        String test = "hhh";
+        System.out.println(String.join(",", Collections.nCopies(test.length(),"?")));
     }
 }
