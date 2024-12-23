@@ -1,0 +1,88 @@
+.app__container{
+    max-width: 1100px;
+    margin: 0 auto;
+    background-color: var(--white-color);
+}
+
+
+.container_head{
+    font-size: 1.8rem;
+    margin: 20px 0;
+}
+.filter__total-jobs{
+    font-size: 1.2rem;
+    color : var(--orange-color);
+}
+.filter__total-jobs span{
+    color : var(--text-color);
+    font-weight: 530;
+}
+.latest__jobs-list{
+    margin-top: 30px;
+    padding-left: 5px;
+}
+
+.latest__jobs-item{
+    margin-top: 15px;
+    display: flex;
+    width: 100%;
+    height : 150px;
+    align-items: center;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    border: 2px solid rgba(0,0,0,0.2);
+}
+.latest__job-link{
+    display: block;
+    text-decoration: none;
+}
+.latest__job-thumb{
+    padding: 25px 15px 25px 25px;
+}
+.latest__job-thumb img{
+    border-radius: 5px;
+    max-width: 120px;
+    height : 100%;
+    object-fit: contain;
+    border: 1px solid rgba(0,0,0,0.1);
+    
+}
+.latest__jobs-content{
+    flex: 1;
+    padding: 0 10px;
+}
+.lj__content-lable{
+    text-decoration: none;
+    display: block;
+    font-size: 2rem;
+    color : var(--black-color);
+}
+.lj__content-company{
+    display: block;
+    text-decoration: none;
+    font-size: 1.6rem;
+    margin-top: 5px;
+    color : var(--green-color);
+}
+.lj__content-info{
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.3rem;
+    color : var(--text-color);
+}
+.lj__content-address{
+}
+.lj__content-info span,.lj__content-time{
+
+}
+.lj__content-detail{
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    color : var(--blue-color);
+    font-size: 1.3rem;
+}
+
+

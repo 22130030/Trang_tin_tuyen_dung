@@ -30,14 +30,23 @@ public class JobService {
 
         return jobDao.getPaging(page);
     }
-    public List<Job> getListSearchByName(String name){
-        return jobDao.searchEqualsByName(name);
+    public List<Job> getListSearchJob(String txtName,String txtAddress){
+        if((txtName.isBlank() || txtName == null) && (!txtAddress.isBlank() || txtAddress != null) ){
+            return jobDao.searchJobByAddress(txtAddress);
+
+        }else if((txtAddress.isBlank() || txtAddress == null) && (!txtName.isBlank() || txtName != null) ){
+            return jobDao.searchEqualsByName(txtName);
+
+        }else if((!txtAddress.isBlank() || txtAddress != null) && (!txtName.isBlank() || txtName != null)){
+            return jobDao.searchJobByNameAndAddress(txtName, txtAddress);
+        }
+        return null;
     }
-    public List<Job> getListSearchByAddress(String address){
-        return jobDao.searchEqualsByAddrress(address);
-    }
+//    public List<Job> getListSearchByAddress(String address){
+//        return jobDao.searchEqualsByAddrress(address);
+//    }
     public static void main(String[] args) {
         JobService jobService = new JobService();
-        System.out.println(jobService.getListSearchByAddress("Ho Chi Minh"));
+        System.out.println(jobService.getListSearchJob("nhan vien","Ho Chi Minh"));
     }
 }
