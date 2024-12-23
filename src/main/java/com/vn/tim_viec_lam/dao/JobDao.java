@@ -1,5 +1,6 @@
 package com.vn.tim_viec_lam.dao;
 
+import com.vn.tim_viec_lam.dao.model.Company;
 import com.vn.tim_viec_lam.dao.model.Job;
 import com.vn.tim_viec_lam.database.DBconnect;
 
@@ -14,8 +15,9 @@ public class JobDao {
 
         try {
             Connection con = DBconnect.getConnection();
-            String sql = "select jp.*,c.companyName from job_posting as jp" +
-                    " join companies as c on c.companyID = jp.companyID";
+            String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
+                    " join companies as c on c.companyID = jp.companyID"+
+                    " join job_locations as jl on jl.locationID = jp.locationID";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -35,8 +37,9 @@ public class JobDao {
 
         try {
             Connection con = DBconnect.getConnection();
-            String sql = "select jp.*,c.companyName from job_posting as jp" +
+            String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
                     " join companies as c on c.companyID = jp.companyID" +
+                    " join job_locations as jl on jl.locationID = jp.locationID"+
                     " order by jp.created_at desc" +
                     " limit 4";
 
@@ -57,8 +60,9 @@ public class JobDao {
     public Job findById(int id) {
         Job job = new Job();
         Connection con = DBconnect.getConnection();
-        String sql = "select jp.*,c.companyName from job_posting as jp" +
+        String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
                 " join companies as c on c.companyID = jp.companyID" +
+                " join job_locations as jl on jl.locationID = jp.locationID" +
                 " where jobPostID = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -76,8 +80,9 @@ public class JobDao {
     public List<Job> getJobsByCompanyId(int companyID) {
         List<Job> jobs = new ArrayList<>();
         Connection con = DBconnect.getConnection();
-        String sql = "select jp.*,c.companyName from job_posting as jp" +
+        String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
                 " join companies as c on c.companyID = jp.companyID" +
+                " join job_locations as jl on jl.locationID = jp.locationID" +
                 " where jp.companyID = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -109,8 +114,9 @@ public class JobDao {
 //                LocalDateTime updated = rs.getTimestamp("updated_at").toLocalDateTime();
         String status = rs.getString("status");
         String requirement = rs.getString("requirement");
+        String city = rs.getString("city");
 //
-        job = new Job(id, companyId, companyName, title, img, desc, position, salary, created, status, requirement);
+        job = new Job(id, companyId, companyName, title, img, desc, position, salary, created, status, requirement,city);
         return job;
     }
 
@@ -137,8 +143,9 @@ public class JobDao {
 
         try {
             Connection con = DBconnect.getConnection();
-            String sql = "select jp.*,c.companyName from job_posting as jp" +
+            String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
                     " join companies as c on c.companyID = jp.companyID" +
+                    " join job_locations as jl on jl.locationID = jp.locationID"+
                     " LIMIT 12 OFFSET ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
@@ -172,13 +179,59 @@ public class JobDao {
     public List<Job> searchEqualsByName(String name) {
         List<Job> jobs = new ArrayList<Job>();
         Connection con = DBconnect.getConnection();
-        String sql = "select jp.*,c.companyName from job_posting as jp" +
+        String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
                 " join companies as c on c.companyID = jp.companyID" +
+                " join job_locations as jl on jl.locationID = jp.locationID"+
                 " where titleJob like ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, "%" + name + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Job job = getResultSet(rs);
+                jobs.add(job);
+            }
+            return jobs;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public List<Job> searchJobByAddress(String address) {
+        List<Job> jobs = new ArrayList<Job>();
+        Connection con = DBconnect.getConnection();
+        String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
+                " join companies as c on c.companyID = jp.companyID" +
+                " join job_locations as jl on jl.locationID = jp.locationID " +
+                " where jl.city like ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + address + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Job job = getResultSet(rs);
+                jobs.add(job);
+            }
+            return jobs;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+    public List<Job> searchJobByNameAndAddress(String name,String address) {
+        List<Job> jobs = new ArrayList<Job>();
+        Connection con = DBconnect.getConnection();
+        String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
+                " join companies as c on c.companyID = jp.companyID" +
+                " join job_locations as jl on jl.locationID = jp.locationID " +
+                " where jl.city like ? and jp.titleJob like ?";
+
+        try {
+              PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + address + "%");
+            ps.setString(2, "%" + name + "%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Job job = getResultSet(rs);
@@ -232,6 +285,6 @@ public class JobDao {
 
     public static void main(String[] args) {
         JobDao jobDao = new JobDao();
-        System.out.println(jobDao.searchEqualsByName("Nhan Vien").toString());
+        System.out.println(jobDao.searchJobByAddress("hồ chí minh").toString());
     }
 }
