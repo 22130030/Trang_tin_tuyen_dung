@@ -20,7 +20,6 @@
 <body>
 <div class="application">
     <%@include file="header.jsp" %>
-
     <div class="container_2">
         <div class="wrap_flex">
             <h1 class="flex_fill">Nhà tuyển dụng hàng đầu</h1>
@@ -35,7 +34,6 @@
         </div>
     </div>
     <div class="container_3">
-
         <aside class="sidebar">
             <h3>Nơi làm việc</h3>
             <ul id="location-list">
@@ -178,14 +176,13 @@
             </ul>
         </aside>
 
+
         <div class="grid__col-10">
-            <div class="company-list">
-                <header>
-                    <h2>${size} công ty được tìm thấy</h2>
-                </header>
-
-                <div class="grid__company">
-
+        <div class="company-list">
+            <header>
+                <h2>${size} công ty được tìm thấy</h2>
+            </header>
+                     <div class="grid__company">
                     <c:forEach var="c" items="${companies}">
                         <div class="company-card">
                             <a href="/html/job.html" class="company-card__link">
@@ -195,14 +192,13 @@
                                 <p> An Giang</p>
                             </a>
                         </div>
+
+
                     </c:forEach>
                 </div>
+
             </div>
-
         </div>
-
-
-
     </div>
     <!-- footer -->
     <%@include file="footer.jsp" %>
