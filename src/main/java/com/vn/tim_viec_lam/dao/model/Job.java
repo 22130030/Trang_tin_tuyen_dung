@@ -20,10 +20,11 @@ public class Job implements Serializable {
     private String status;
     private String requirement;
     private String scale;
-
+    private String city;
     public Job() {}
 
-    public Job(int id,int companyId,String companyName, String title, String img, String description, String position, String salary,LocalDateTime created, String status, String requirement) {
+    public Job(int id,int companyId,String companyName, String title, String img, String description, String position, String salary,LocalDateTime created,
+               String status, String requirement,String city) {
         this.id = id;
         this.companyId = companyId;
         this.companyName = companyName;
@@ -36,6 +37,7 @@ public class Job implements Serializable {
         this.status = status;
         this.requirement = requirement;
         this.scale = scale;
+        this.city = city;
     }
 
     public int getId() {
@@ -156,6 +158,14 @@ public class Job implements Serializable {
         this.scale = scale;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     @Override
     public String toString() {
         return "Job{" +
@@ -172,6 +182,7 @@ public class Job implements Serializable {
                 ", status=" + status +
                 ", requirement='" + requirement + '\'' +
                 ", scale='" + scale + '\'' +
+                ",city='" + city + '\'' +
                 '\n';
     }
 
