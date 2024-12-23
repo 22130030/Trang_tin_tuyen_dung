@@ -46,7 +46,7 @@ public class CompanyDao {
             throw new RuntimeException(e);
         }
     }
-    public List<Company> searchCompany(String nameCompany) {
+    public List<Company> findByName(String nameCompany) {
         List<Company> companies = new ArrayList<Company>();
         Connection con = DBconnect.getConnection();
         String sql = "select * from companies where companyName like ?";
@@ -63,22 +63,7 @@ public class CompanyDao {
             throw new RuntimeException(e);
         }
     }
-    public List<Company> showListCompany() {
-        List<Company> companies = new ArrayList<Company>();
-        Connection con = DBconnect.getConnection();
-        String sql = "select * from companies";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Company company = excuteResultSet(rs);
-                companies.add(company);
-            }
-            return companies;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
     public Company excuteResultSet(ResultSet rs) {
         try {
             int id = rs.getInt("companyID");
@@ -94,11 +79,10 @@ public class CompanyDao {
             throw new RuntimeException(e);
         }
 
-        }
+    }
 
 
     public static void main(String[] args) {
-        System.out.println(new CompanyDao().showListCompany().toString());
     }
 
 
