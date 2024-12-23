@@ -6,7 +6,7 @@ import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-public class Job extends Company implements Serializable {
+public class Job implements Serializable {
     private int id;
     private String title;
     private int companyId;
@@ -20,11 +20,10 @@ public class Job extends Company implements Serializable {
     private String status;
     private String requirement;
     private String scale;
-    private String city;
+
     public Job() {}
 
-    public Job(int id,int companyId,String companyName, String title, String img, String description, String position, String salary,LocalDateTime created,
-               String status, String requirement,String city) {
+    public Job(int id,int companyId,String companyName, String title, String img, String description, String position, String salary,LocalDateTime created, String status, String requirement) {
         this.id = id;
         this.companyId = companyId;
         this.companyName = companyName;
@@ -37,7 +36,6 @@ public class Job extends Company implements Serializable {
         this.status = status;
         this.requirement = requirement;
         this.scale = scale;
-        this.city = city;
     }
 
     public int getId() {
@@ -158,14 +156,6 @@ public class Job extends Company implements Serializable {
         this.scale = scale;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     @Override
     public String toString() {
         return "Job{" +
@@ -182,7 +172,6 @@ public class Job extends Company implements Serializable {
                 ", status=" + status +
                 ", requirement='" + requirement + '\'' +
                 ", scale='" + scale + '\'' +
-                ",city='" + city + '\'' +
                 '\n';
     }
 

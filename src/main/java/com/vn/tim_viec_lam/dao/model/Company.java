@@ -2,20 +2,22 @@ package com.vn.tim_viec_lam.dao.model;
 
 import java.io.Serializable;
 
-public class Company  implements Serializable {
+public class Company implements Serializable {
     private int id;
     private String companyName;
     private String img;
     private String address;
+    private String city;
     private String website;
     private String description;
 
     public Company() {}
-    public Company(int id, String companyName, String img, String address, String website, String description) {
+    public Company(int id, String companyName, String img, String address,String city, String website, String description) {
         this.id = id;
         this.companyName = companyName;
         this.img = img;
         this.address = address;
+        this.city = city;
         this.website = website;
         this.description = description;
     }
@@ -52,6 +54,14 @@ public class Company  implements Serializable {
         this.address = address;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public String getWebsite() {
         return website;
     }
@@ -77,6 +87,7 @@ public class Company  implements Serializable {
                 ", address='" + address + '\'' +
                 ", website='" + website + '\'' +
                 ", description='" + description + '\'' +
+                ", city='" + city + '\'' +
                 '\n';
     }
 }

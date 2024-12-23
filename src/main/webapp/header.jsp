@@ -27,7 +27,7 @@
                     </a>
                 </li>
                 <li class="nav__item">
-                    <a href="company" class="nav__item-link">
+                    <a href="html/company.html" class="nav__item-link">
                         <i class="nav-item__icon fa-solid fa-city"></i>
                         Công ty
                     </a>
