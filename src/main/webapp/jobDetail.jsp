@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.min.css">
     <link rel="stylesheet" href="asserts/css/base.css">
     <script type="text/javascript" src="js/save.js"></script>
+    <script src="ckeditor/ckeditor.js"></script>
     <title>Thông Tin Tuyển Dụng</title>
 </head>
 <body>
@@ -550,7 +551,46 @@
             <div class="file-options">
                 <p>Chọn hồ sơ</p>
                 <button class="file-btn active">Từ tài khoản <i class="fa-solid fa-chevron-down"></i></button>
-                <button class="file-btn">Từ máy tính</button>
+                <input style="display: none" accept=".docx" type="file" id="file-input" />
+                <button id="upload-btn" class="file-btn">Từ máy tính</button>
+                <script>
+                    const fileInput = document.getElementById("file-input");
+                    const uploadBtn = document.getElementById("upload-btn");
+
+                    // Trigger the file input when button is clicked
+                    uploadBtn.addEventListener("click", () => {
+                        fileInput.click();
+                    });
+
+                    // Handle file selection and send to servlet
+                    fileInput.addEventListener("change", async (event) => {
+                        const file = event.target.files[0];
+                        if (file) {
+                            console.log(`Selected file: ${file.name}`);
+
+                            // Prepare FormData
+                            const formData = new FormData();
+                            formData.append("file", file);
+
+                            try {
+                                // Send file to servlet
+                                const response = await fetch("upload-file", {
+                                    method: "POST",
+                                    body: formData,
+                                });
+
+                                if (response.ok) {
+                                    const result = await response.text();
+                                    console.log("File uploaded successfully:", result);
+                                } else {
+                                    console.error("File upload failed:", response.statusText);
+                                }
+                            } catch (error) {
+                                console.error("Error uploading file:", error);
+                            }
+                        }
+                    });
+                </script>
             </div>
             <p class="file-note">File: doc, docx, xls, pdf (tối đa 3MB).</p>
             <p class="requirement">Nhà tuyển dụng yêu cầu hồ sơ: <span class="highlight">Tiếng Anh</span></p>
@@ -594,6 +634,7 @@
         const popupForm = document.getElementById('popupForm'); // Popup form
         const overlay = document.getElementById('overlay'); // Overlay
         const applyButton = document.getElementById('applyButton'); // Nút mở popup
+        const footerApplyButton = document.getElementById('footerApplyButton');
         const closePopup = document.getElementById('closePopup'); // Nút đóng popup
 
         // Hàm mở popup và overlay
@@ -610,6 +651,7 @@
         //
         // // Gắn sự kiện mở popup
         applyButton.addEventListener('click', openPopup);
+        footerApplyButton.addEventListener('click', openPopup);
         //
         // // Gắn sự kiện đóng popup
         closePopup.addEventListener('click', closePopupHandler);

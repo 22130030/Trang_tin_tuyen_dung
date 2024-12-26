@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.min.css">
     <link rel="stylesheet" href="asserts/css/base.css">
 </head>
+
 <body>
 <div class="application">
     <%@include file="header.jsp" %>
@@ -103,12 +104,31 @@
     <%@include file="footer.jsp" %>
 
 
-<%--        <script type="text/javascript" src="js/filter.js"></script>--%>
         <script>
-            document.getElementById('show-all').addEventListener('click', function (e) {
+
+            document.getElementById("show-all").addEventListener("click", function (e) {
                 e.preventDefault();
-                const hiddenLocations = document.querySelectorAll('.hidden-location');
-                hiddenLocations.forEach(location => location.style.display = 'list-item');
+
+                // Toggle class để mở rộng danh sách
+                const locationList = document.getElementById("location-list");
+                locationList.classList.toggle("expanded");
+
+                // Hiển thị các tỉnh bị ẩn
+                const hiddenLocations = document.querySelectorAll(".hidden-location");
+                hiddenLocations.forEach(location => {
+                    if (location.style.display === "none" || location.style.display === "") {
+                        location.style.display = "list-item";
+                    } else {
+                        location.style.display = "none";
+                    }
+                });
+
+                // Thay đổi nội dung của "Tất cả" thành "Thu gọn" khi danh sách mở rộng
+                if (locationList.classList.contains("expanded")) {
+                    this.textContent = "Thu gọn";
+                } else {
+                    this.textContent = "Tất cả";
+                }
             });
 
             // Lắng nghe sự kiện change trên tất cả checkbox
@@ -132,20 +152,18 @@
 
                             // Cập nhật danh sách công ty
                             response.forEach(company => {
-                                console.log(company.img)
                                 const companyCardHTML = `
-        <div class="company-card">
-            <a href="/html/job.html" class="company-card__link">
-                <img src="`company.img`" class="picture" alt="Company Logo">
-                <h3>`company.companyName`</h3>
-                <p>0 việc đang tuyển</p>
-                <p>`company.city`</p>
-            </a>
-        </div>
-    `;
+                        <div class="company-card">
+                            <a href="/html/job.html" class="company-card__link">
+                                <img src="`+company.img+`" class="picture" alt="Company Logo">
+                                <h3>`+company.companyName+`</h3>
+                                <p>0 việc đang tuyển</p>
+                                <p>`+company.city+`</p>
+                            </a>
+                        </div>
+                    `;
 
                                 // Append the HTML to the container
-                                const companyListDiv = document.querySelector('.grid__company');
                                 companyListDiv.innerHTML += companyCardHTML;  // Cộng thêm HTML mới vào
                             });
                         }
@@ -155,7 +173,7 @@
                     xhr.send(JSON.stringify({ locations: selectedLocations }));
                 });
             });
+
         </script>
-    <script type="text/javascript" src="js/filter.js"></script>
 </body>
 </html>
