@@ -58,8 +58,6 @@ public class FilterCompany extends HttpServlet {
             companyObj.put("img", company.getImg());
             result.put(companyObj);
         }
-        System.out.println(result.toString());
-
         // Gửi JSON về phía client
         PrintWriter out = response.getWriter();
         out.print(result.toString());
