@@ -25,6 +25,7 @@ public class UploadFile extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         File uploadDir = new File(UPLOAD_DIR);
@@ -54,10 +55,9 @@ public class UploadFile extends HttpServlet {
 
         response.getWriter().write(String.format(
                 "{\"fileName\": \"%s\", \"fileSize\": %.2f}",
-                fileName,size/1024.0
-                ));
+                fileName, size / 1024.0
+        ));
 
 
     }
-public class UploadFile {
 }
