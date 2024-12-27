@@ -100,6 +100,29 @@ public class JobDao {
         }
 
     }
+    public List<Job> getJobsByCategoryId(int categoryID) {
+        List<Job> jobs = new ArrayList<>();
+        Connection con = DBconnect.getConnection();
+        String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
+                " join companies as c on c.companyID = jp.companyID" +
+                " join job_locations as jl on jl.locationID = jp.locationID" +
+                " join job_post_categories jpc on jpc.jobPostID = jp.jobPostID" +
+                " where jpc.jobPostCategoryID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, categoryID);
+            ResultSet rs = ps.executeQuery();
+            Job job = new Job();
+            while (rs.next()) {
+                job = getResultSet(rs);
+                jobs.add(job);
+            }
+            return jobs;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
     public Job getResultSet(ResultSet rs) throws SQLException {
         Job job = new Job();
@@ -286,9 +309,7 @@ public class JobDao {
 
     public static void main(String[] args) {
         JobDao jobDao = new JobDao();
-//        System.out.println(jobDao.searchJobByAddress("hồ chí minh").toString());
+        System.out.println(jobDao.getJobsByCategoryId(1));
 
-        String test = "hhh";
-        System.out.println(String.join(",", Collections.nCopies(test.length(),"?")));
     }
 }

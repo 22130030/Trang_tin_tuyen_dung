@@ -14,7 +14,19 @@ import java.util.List;
 @WebServlet(name = "search-job",value = "/search-job")
 public class SearchJob extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
 
+        if(request.getParameter("cid")!=null){
+            int id = Integer.parseInt(request.getParameter("cid"));
+            JobService jobService = new JobService();
+            List<Job> jobList = jobService.getJobByCategoryId(id);
+            int size   = jobList.size();
+            request.setAttribute("jobs",jobList);
+            request.setAttribute("size",size);
+
+        }
+        request.getRequestDispatcher("search_job.jsp").forward(request,response);
    }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
