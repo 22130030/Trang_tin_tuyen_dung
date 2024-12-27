@@ -122,7 +122,7 @@
                                                 </div>
                                                 <div class="job__company">
                                                             <span class="job__company-title">
-                                                                <a href="/html/Job.html" class="job__company-link">${nj.companyName}</a>
+                                                                <a href="company-detail?jid=${nj.companyId}" class="job__company-link">${nj.companyName}</a>
                                                             </span>
                                                 </div>
                                             </div>
@@ -191,7 +191,7 @@
                                             </div>
                                             <div class="job__company">
                                                     <span class="job__company-title">
-                                                        <a href="company-detail?jid=${j.id}" class="job__company-link">${j.companyName}</a>
+                                                        <a href="company-detail?jid=${j.companyId}" class="job__company-link">${j.companyName}</a>
                                                     </span>
                                             </div>
                                         </div>
