@@ -567,10 +567,10 @@ label {
 }
 
 .file-options {
-  max-height: 150px;
+  min-height: 150px;
   background-color: #0069DB14;
   border-radius: 8px;
-    padding : 5px 0;
+    padding : 10px;
 }
 .file-options p {
   margin-left: 135px;
@@ -602,7 +602,33 @@ label {
 .file-btn.active {
     background-color: #007bff;
     color: #fff;
+
 }
+
+
+.form--has-file{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#remove-file{
+    display: flex;
+    justify-content: end;
+    color : crimson;
+    font-size: 1.3rem;
+    padding-right: 10px;
+    border: none;
+    background: none;
+    margin-left : auto;
+}
+#remove-file:hover{
+    cursor: pointer;
+}
+.remove-file__title{
+    padding-left: 5px;
+}
+
+
 
 .file-note, .contact-note {
     font-size: 12px;
@@ -757,7 +783,7 @@ select {
     background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><polygon points="8,14 14,6 2,6" fill="gray"/></svg>') center no-repeat;
 }
 .hidden {
-  display: none;
+  display: none !important;
 }
 #overlay {
   position: fixed;
@@ -773,6 +799,58 @@ select {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+}
+
+#popup__form-successful{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.3);
+    border-radius: 5px;
+}
+#popup__form-successful .icon {
+    font-size: 50px;
+    color: #4caf50;
+    margin-bottom: 10px;
+}
+
+#popup__form-successful .title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4caf50;
+    margin-bottom: 10px;
+}
+
+#popup__form-successful .message {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#popup__form-successful .message a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#popup__form-successful .message a:hover {
+    text-decoration: underline;
+}
+
+#popup__form-successful .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#popup__form-successful .close-btn:hover {
+    color: #ff0000;
 }
 
   
