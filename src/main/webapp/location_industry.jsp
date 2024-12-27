@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "f" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -120,146 +122,24 @@
     </div>
     <div class="container2">
         <div class="main-content">
-            <div class=
-                         "job">
+            <div class="job">
                 <div class="job-categories">
+
                     <h2>Tìm kiếm việc làm nhanh theo ngành nghề</h2>
-                    <div class="category">
-                        <h3>Bộ Phận Hỗ Trợ</h3>
-                        <ul class="list_unstyled">
-                            <li class="border_bottom">
-                                <a class="text_body">Biên phiên dịch / Thông dịch viên </a>
-                                <span>(2009)</span>
-                            </li>
-                            <li class="border_bottom">
-                                <a class="text_body">Biên phiên dịch (tiếng Nhật)</a>
-                                <span>(342)</span>
-                            </li>
-                            <li class="border_bottom">
-                                <a class="text_body" >Nhân sự</a>
-                                <span>(646)</span>
-                            </li>
-                            <li class="border_bottom">
-                                <a class="text_body"> Pháp lý / Luật</a>
-                                <span>(202)</span>
-                            </li>
-                            <li class="border_bottom">
-                                <a>Thư ký / Hành chánh</a>
-                                <span>(1474)</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>Hỗ Trợ Sản Xuất</h3>
-                        <ul>
-                            <li>Quản lý chất lượng (QA / QC) <span>(812)</span></li>
-                            <li>Vận chuyển / Giao thông / Kho bãi <span>(743)</span></li>
-                            <li>Vật tư / Thu mua <span>(393)</span></li>
-                            <li>Xuất nhập khẩu / Ngoại thương <span>(346)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>Sản Xuất</h3>
-                        <ul>
-                            <li>An Toàn Lao Động <span>(145)</span></li>
-                            <li>Dầu khí / Khoáng sản <span>(36)</span></li>
-                            <li>Dệt may / Da giày <span>(371)</span></li>
-                            <li>Đồ Gỗ <span>(68)</span></li>
-                            <li>Hóa chất / Sinh hóa / Thực phẩm <span>(725)</span></li>
-                            <li>Nông nghiệp / Lâm nghiệp <span>(1222)</span></li>
-                            <li>Ô tô <span>(254)</span></li>
-                            <li>Sản xuất / Vận hành sản xuất <span>(1549)</span></li>
-                            <li>Thủy Hải Sản <span>(70)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>IT - Công nghệ thông tin</h3>
-                        <ul>
-                            <li>CNTT - Phần cứng / Mạng  <span>(387)</span></li>
-                            <li>CNTT - Phần mềm  <span>(728)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>Dịch vụ</h3>
-                        <ul>
-                            <li>An Ninh / Bảo Vệ  <span>(113)</span></li>
-                            <li>Bán lẻ / Bán sỉ  <span>(2367)</span></li>
-                            <li>Chăm sóc sức khỏe / Y tế  <span>(1904)</span></li>
-                            <li>Dịch vụ khách hàng <span>(5049)</span></li>
-                            <li>Giáo dục / Đào tạo / Thư viện  <span>(2584)</span></li>
-                            <li>Phi chính phủ / Phi lợi nhuận  <span>(2)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>Khách sạn / Du lịch</h3>
-                        <ul>
-                            <li>Du lịch <span>(157)</span></li>
-                            <li>Khách sạn  <span>(1290)</span></li>
-                            <li>Nhà hàng / Dịch vụ ăn uống  <span>(1079)</span></li>
-                        </ul>
-                    </div>
+                    <c:forEach var="entry" items="${categories}">
 
                     <div class="category">
-                        <h3>Xây Dựng / Bất động sản</h3>
-                        <ul>
-                            <li>Bất động sản <span>(292)</span></li>
-                            <li>Kiến trúc  <span>(271)</span></li>
-                            <li>Nội thất / Ngoại thất <span>(307)</span></li>
-                            <li>Xây dựng <span>(794)</span></li>
-                        </ul>
+                        <h3>${entry.key}</h3>
+                        <c:forEach var="value" items="${entry.value}">
+                            <ul class="list_unstyled">
+                                <li class="border_bottom">
+                                    <a href="search-job?cid=${value.id}" class="text_body">${value.name} </a>
+                                    <span>(2009)</span>
+                                </li>
+                            </ul>
+                        </c:forEach>
                     </div>
-                    <div class="category">
-                        <h3>Dịch vụ tài chính</h3>
-                        <ul>
-                            <li>Bảo hiểm <span>(1556)</span></li>
-                            <li>Kế toán / Kiểm toán  <span>(1567)</span></li>
-                            <li>Ngân hàng / Chứng khoán <span>(1949)</span></li>
-                            <li>Tài chính / Đầu tư <span>(2666)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>Truyền thông</h3>
-                        <ul>
-                            <li>Báo chí / Biên tập viên / Xuất bản  <span>(585)</span></li>
-                            <li>Nghệ thuật / Thiết kế / Giải trí   <span>(601)</span></li>
-                            <li>Viễn Thông  <span>(164)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>Kỹ Thuật</h3>
-                        <ul>
-                            <li>Bảo hiểm <span>(1556)</span></li>
-                            <li>Kế toán / Kiểm toán  <span>(1567)</span></li>
-                            <li>Ngân hàng / Chứng khoán <span>(1949)</span></li>
-                            <li>Tài chính / Đầu tư <span>(2666)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>Giao Dịch Khách Hàng</h3>
-                        <ul>
-                            <li>Bán hàng / Kinh doanh  <span>(15066)</span></li>
-                            <li>Hàng gia dụng   <span>(86)</span></li>
-                            <li>Quảng cáo / Khuyến mãi / Đối ngoại  <span>(1291)</span></li>
-                            <li>Thời trang <span>(439)</span></li>
-                            <li>Tiếp thị  <span>(5868)</span></li>
-                            <li>Tư vấn  <span>(7758)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>Theo Đối Tượng</h3>
-                        <ul>
-                            <li>Lao động phổ thông <span>(356)</span></li>
-                            <li>Mới tốt nghiệp / Thực tập   <span>(1833)</span></li>
-                            <li>Người nước ngoài <span>(6)</span></li>
-                            <li>Quản lý điều hành  <span>(375)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>Khác</h3>
-                        <ul>
-                            <li>Khác  <span>(83)</span></li>
-                        </ul>
-                    </div>
+                    </c:forEach>
                 </div>
                 <div class="job-categories">
                     <h2>Tìm kiếm việc làm nhanh theo địa điểm</h2>

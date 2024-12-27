@@ -45,6 +45,9 @@ public class JobService {
 //    public List<Job> getListSearchByAddress(String address){
 //        return jobDao.searchEqualsByAddrress(address);
 //    }
+    public List<Job> getJobByCategoryId(int categoryId){
+        return jobDao.getJobsByCategoryId(categoryId);
+    }
     public static void main(String[] args) {
         JobService jobService = new JobService();
         System.out.println(jobService.getListSearchJob("nhan vien","Ho Chi Minh"));

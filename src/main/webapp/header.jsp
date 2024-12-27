@@ -21,7 +21,7 @@
             </div>
             <ul class="nav__list">
                 <li class="nav__item">
-                    <a href="html/search_occupations_locat.html" class="nav__item-link">
+                    <a href="location-industry" class="nav__item-link">
                         <i class="nav-item__icon fa-solid fa-magnifying-glass"></i>
                         Ngành nghề/Địa điểm
                     </a>
