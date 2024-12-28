@@ -16,16 +16,35 @@ public class SearchJob extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
-
+        List<Job> jobList = null;
+        int size = 0;
+        String title = "";
         if(request.getParameter("cid")!=null){
             int id = Integer.parseInt(request.getParameter("cid"));
+            String name = request.getParameter("name");
             JobService jobService = new JobService();
-            List<Job> jobList = jobService.getJobByCategoryId(id);
-            int size   = jobList.size();
-            request.setAttribute("jobs",jobList);
-            request.setAttribute("size",size);
-
+            title = " cho "+name;
+            jobList = jobService.getJobByCategoryId(id);
+            size   = jobList.size();
+        }else if(request.getParameter("location")!=null){
+            String location = request.getParameter("location");
+            JobService js = new JobService();
+            title = " tại "+location;
+            jobList = js.getJobsByAddress(location);
+            size   = jobList.size();
+        }else if(request.getParameter("show-all") != null){
+            JobService js = new JobService();
+            jobList = js.getAllJob();
+            size   = jobList.size();
+        } else if (request.getParameter("all-newJob") != null) {
+            JobService js = new JobService();
+            title = " mới nhất";
+            jobList = js.getAllNewJob();
+            size   = jobList.size();
         }
+        request.setAttribute("jobs",jobList);
+        request.setAttribute("title",title);
+        request.setAttribute("size",size);
         request.getRequestDispatcher("search_job.jsp").forward(request,response);
    }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,8 +57,11 @@ public class SearchJob extends HttpServlet {
         List<Job> jobs = jobService.getListSearchJob(txtSearch,txtAddress);
 
         int size = jobs.size();
+        String title = " cho kết quả tìm kiếm";
+
 
         request.setAttribute("size",size);
+        request.setAttribute("title",title);
         request.setAttribute("jobs", jobs);
         request.getRequestDispatcher("search_job.jsp").forward(request, response);
 

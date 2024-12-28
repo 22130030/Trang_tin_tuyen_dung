@@ -18,7 +18,7 @@
 .job__applied-item{
     display: flex;
     width: 100%;
-    height : 80x;
+    min-height : 80px;
     align-items: center;
     background-color: var(--white-color);
     border-radius: 5px;
@@ -41,7 +41,8 @@
 
 }
 .job__applied-link{
-    text-decoration: none;
+    display: flex;
+    align-items: center;
 }
 .la__content-lable{
     display: block;
