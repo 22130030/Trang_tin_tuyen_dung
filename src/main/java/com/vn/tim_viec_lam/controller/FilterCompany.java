@@ -30,12 +30,10 @@ public class FilterCompany extends HttpServlet {
         while ((line = reader.readLine()) != null) {
             sb.append(line);
         }
-        // Chuyển chuỗi JSON thành đối tượng Java
         String json = sb.toString();
         JSONObject jsonObject = new JSONObject(json);
         JSONArray locationsArray = jsonObject.getJSONArray("locations");
 
-        // Lấy danh sách các location đã chọn
         List<String> selectedLocations = new ArrayList<>();
         for (int i = 0; i < locationsArray.length(); i++) {
             selectedLocations.add(locationsArray.getString(i));
@@ -43,10 +41,8 @@ public class FilterCompany extends HttpServlet {
         CompanyService cs = new CompanyService();
         List<Company> companies = new ArrayList<>();
         if (selectedLocations != null && selectedLocations.size() > 0) {
-            // Lọc công ty theo các địa điểm đã chọn
             companies = cs.filterByCity(selectedLocations);
         } else {
-            // Trả lại tất cả công ty nếu không có địa điểm nào được chọn
             companies = cs.getAllCompany();
         }
         // Tạo JSON response chứa kết quả công ty

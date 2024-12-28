@@ -62,8 +62,12 @@
                 </a>
             </li>
             <li class="nav__menu-item">
-                <a href="/html/candidate/account_Management/job_applied.html" class="nav__menu__link">
+                <a href="job_applied.jsp" class="nav__menu__link ${relativePath eq '/job_applied.jsp' ? 'nav__menu-active' : ''}">
+                    <c:if test="${relativePath eq '/job_applied.jsp'}">
+                        <div class="nav-menu__has-separated"></div>
+                    </c:if>
                     <i class="fa-regular fa-paper-plane"></i>
+
                     <span class="nav__menu-title">Việc làm đã ứng tuyển(
                                 <span class="nav__menu-toltal">1</span>
                                 )

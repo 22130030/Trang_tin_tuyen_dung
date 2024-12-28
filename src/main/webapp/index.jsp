@@ -86,7 +86,7 @@
             <div class="grid">
                 <div class="content-head">
                     <h2 class="content__title">Việc làm mới nhất</h2>
-                    <a href="/html/lastest_jobs.html" class="content__show-all">
+                    <a href="search-job?all-newJob" class="content__show-all">
                         <span class="show-all__lable">Xem tất cả</span>
                         <span class="show-all__right-icon"> > </span>
                     </a>
@@ -157,7 +157,7 @@
             <div class="grid">
                 <div class="content-head">
                     <h2 class="content__title">Việc làm hấp dẫn</h2>
-                    <a href="" class="content__show-all">
+                    <a href="search-job?show-all" class="content__show-all">
                         <span class="show-all__lable">Xem tất cả</span>
                         <span class="show-all__right-icon"> > </span>
                     </a>

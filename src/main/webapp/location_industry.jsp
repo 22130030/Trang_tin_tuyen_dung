@@ -133,7 +133,7 @@
                         <c:forEach var="value" items="${entry.value}">
                             <ul class="list_unstyled">
                                 <li class="border_bottom">
-                                    <a href="search-job?cid=${value.id}" class="text_body">${value.name} </a>
+                                    <a href="search-job?cid=${value.id}&name=${value.name}" class="text_body">${value.name} </a>
                                     <span>(2009)</span>
                                 </li>
                             </ul>
@@ -143,152 +143,22 @@
                 </div>
                 <div class="job-categories">
                     <h2>Tìm kiếm việc làm nhanh theo địa điểm</h2>
+                    <c:forEach var="l" items="${locations}">
+
                     <div class="category">
-                        <h3>A</h3>
+                        <h3>${l.key}</h3>
                         <ul class="list_unstyled">
+                            <c:forEach var="value" items="${l.value}">
+
                             <li class="border_bottom">
-                                <a class="text_body">
-                                    An Giang </a>
+                                <a href="search-job?location=${value}" class="text_body">
+                                    ${value} </a>
                                 <span>(281)</span>
                             </li>
+                            </c:forEach>
                         </ul>
                     </div>
-                    <div class="category">
-                        <h3>B</h3>
-                        <ul>
-                            <li>Bà Rịa - Vũng Tàu  <span>(536)</span></li>
-                            <li>Bắc Cạn  <span>(140)</span></li>
-                            <li>Bắc Giang <span>(398)</span></li>
-                            <li>Bạc Liêu  <span>(215)</span></li>
-                            <li>Bắc Ninh <span>(906)</span></li>
-                            <li>Bến Tre  <span>(259)</span></li>
-                            <li>Bình Dương <span>(1229)</span></li>
-                            <li>Bình Phước  <span>(314)</span></li>
-                            <li>Bình Thuận  <span>(252)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>C</h3>
-                        <ul>
-                            <li>Cà Mau <span>(224)</span></li>
-                            <li>Cần Thơ  <span>(661)</span></li>
-                            <li>Cao Bằng  <span>(128)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>Đ</h3>
-                        <ul>
-                            <li>Đà Nẵng   <span>(1633)</span></li>
-                            <li>Đắk Lắk   <span>(312)</span></li>
-                            <li>Đăk Nông   <span>(178)</span></li>
-                            <li>Điện Biên   <span>(131)</span></li>
-                            <li>Đồng Nai   <span>(1115)</span></li>
-                            <li>Đồng Tháp  <span>(291)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>G</h3>
-                        <ul>
-                            <li>Gia Lai <span>(260)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>H</h3>
-                        <ul>
-                            <li>Hồ Chí Minh <span>(6067)</span></li>
-                            <li>Hà Nội  <span>(5516)</span></li>
-                            <li>Hà Giang   <span>(140)</span></li>
-                            <li>Hà Nam <span>(552)</span></li>
-                            <li>Hà Tĩnh  <span>(208)</span></li>
-                            <li>Hải Dương   <span>(415)</span></li>
-                            <li>Hải Phòng <span>(887)</span></li>
-                            <li>Hòa Bình  <span>(173)</span></li>
-                            <li>Hưng Yên   <span>(685)</span></li>
-                        </ul>
-                    </div>
-
-                    <div class="category">
-                        <h3>K</h3>
-                        <ul>
-                            <li>Kiên Giang <span>(737)</span></li>
-                            <li>Khánh Hòa  <span>(455)</span></li>
-                            <li>Kon Tum <span>(160)</span></li>
-                            <li>Khác <span>(1)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>L</h3>
-                        <ul>
-                            <li>Lai Châu <span>(137)</span></li>
-                            <li>Lâm Đồng   <span>(413)</span></li>
-                            <li>Lạng Sơn  <span>(167)</span></li>
-                            <li>Lào Cai   <span>(188)</span></li>
-                            <li>Long An <span>(592)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>N</h3>
-                        <ul>
-                            <li>Nam Định   <span>(333)</span></li>
-                            <li>Nghệ An    <span>(438)</span></li>
-                            <li>Ninh Bình   <span>(290)</span></li>
-                            <li>Ninh Thuận   <span>(163)</span></li>
-                            <li>Nước Ngoài    <span>(23)</span></li>
-                            <li>Nhật Bản  <span>(30)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>P</h3>
-                        <ul>
-                            <li>Phú Thọ <span>(276)</span></li>
-                            <li>Phú Yên   <span>(164)</span></li>
-
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>Q</h3>
-                        <ul>
-                            <li>Quảng Bình <span>(213)</span></li>
-                            <li>Quảng Nam  <span>(430)</span></li>
-                            <li>Quảng Ngãi   <span>(237)</span></li>
-                            <li>Quảng Ninh  <span>(510)</span></li>
-                            <li>Quảng Trị   <span>(168)</span></li>
-
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>S</h3>
-                        <ul>
-                            <li>Sóc Trăng  <span>(218)</span></li>
-                            <li>Sơn La    <span>(138)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>T</h3>
-                        <ul>
-                            <li>Tây Ninh  <span>(259)</span></li>
-                            <li>Thái Bình  <span>(230)</span></li>
-                            <li>Thái Nguyên  <span>(311)</span></li>
-                            <li>Thanh Hóa  <span>(561)</span></li>
-                            <li>Thừa Thiên - Huế  <span>(264)</span></li>
-                            <li>Tiền Giang  <span>(278)</span></li>
-                            <li>Trà Vinh  <span>(197)</span></li>
-                            <li>Tuyên Quang  <span>(134)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>V</h3>
-                        <ul>
-                            <li>Vĩnh Long  <span>(242)</span></li>
-                            <li>Vĩnh Phúc    <span>(438)</span></li>
-                        </ul>
-                    </div>
-                    <div class="category">
-                        <h3>Y</h3>
-                        <ul>
-                            <li>Yên Bái   <span>(139)</span></li>
-                        </ul>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
 
