@@ -1,6 +1,7 @@
 package com.vn.tim_viec_lam.controller;
 
 import com.vn.tim_viec_lam.dao.model.Category;
+import com.vn.tim_viec_lam.dao.model.JobPostCategory;
 import com.vn.tim_viec_lam.service.CategoryService;
 import com.vn.tim_viec_lam.service.JobService;
 import jakarta.servlet.ServletException;
@@ -20,7 +21,7 @@ public class LocationIndustryController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         CategoryService cs = new CategoryService();
-        Map<String, List<Category>> categories = cs.getCategories();
+        Map<JobPostCategory, List<Category>> categories = cs.getCategories();
 
         JobService js = new JobService();
         Map<Character,List<String>> locations = js.getFristLetterLocation();
