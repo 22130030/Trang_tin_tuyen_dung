@@ -272,84 +272,39 @@
             <div class="category__container">
                 <div class="grid">
                     <div class="grid__row jobs">
+
+                            <c:forEach var="c" items="${categories}">
                         <div class="grid__col-2">
+
+
                             <div class="category__card">
                                 <div class="card__img">
 
-                                    <img src="https://static.careerlink.vn/web/images/categories/1.svg" alt="">
+                                    <img src="${c.img}" alt="">
                                 </div>
-                                <a href="" class="card__link">
-                                    <span class="card__title">Kế toán / Kiểm toán</span>
+                                <a href="search-job?jcid=${c.id}&jcname=${c.name}" class="card__link">
+                                    <span class="card__title">${c.name}</span>
                                 </a>
                                 <span class="card__quantity-job">1513 việc làm</span>
                             </div>
                         </div>
-                        <div class="grid__col-2">
-                            <div class="category__card">
-                                <div class="card__img">
-
-                                    <img src="	https://static.careerlink.vn/web/images/categories/2.svg" alt="">
-                                </div>
-                                <a href="" class="card__link">
-                                    <span class="card__title">Quảng cáo / Khuyến mãi / Đối ngoại</span>
-                                </a>
-                                <span class="card__quantity-job">1513 việc làm</span>
-                            </div>
-                        </div>
-                        <div class="grid__col-2">
-                            <div class="category__card">
-                                <div class="card__img">
-
-                                    <img src="	https://static.careerlink.vn/web/images/categories/3.svg" alt="">
-                                </div>
-                                <a href="" class="card__link">
-                                    <span class="card__title">Nông nghiệp / Lâm Nghiệp</span>
-                                </a>
-                                <span class="card__quantity-job">1513 việc làm</span>
-                            </div>
-                        </div>
-                        <div class="grid__col-2">
-                            <div class="category__card">
-                                <div class="card__img">
-
-                                    <img src="	https://static.careerlink.vn/web/images/categories/4.svg" alt="">
-                                </div>
-                                <a href="" class="card__link">
-                                    <span class="card__title">Nghệ thuật / Thiết kê giải trí</span>
-                                </a>
-                                <span class="card__quantity-job">1513 việc làm</span>
-                            </div>
-                        </div>
-                        <div class="grid__col-2">
-                            <div class="category__card">
-                                <div class="card__img">
-
-                                    <img src="https://static.careerlink.vn/web/images/categories/5.svg" alt="">
-                                </div>
-                                <a href="" class="card__link">
-                                    <span class="card__title">Ngân hàng / Chứng khoán</span>
-                                </a>
-                                <span class="card__quantity-job">1513 việc làm</span>
-                            </div>
-                        </div>
-                        <div class="grid__col-2">
-                            <div class="category__card">
-                                <div class="card__img">
-
-                                    <img src="https://static.careerlink.vn/web/images/categories/6.svg" alt="">
-                                </div>
-                                <a href="" class="card__link">
-                                    <span class="card__title">Thư ký / Hành chánh</span>
-                                </a>
-                                <span class="card__quantity-job">1513 việc làm</span>
-                            </div>
-                        </div>
+                            </c:forEach>
                     </div>
 
                 </div>
+
                 <div class="slick_action__buttons">
-                    <button class="right__icon slick__action"> < </button>
-                    <button class="right__icon slick__action"> > </button>
+                    <c:if test="${currentPage > 0}">
+                        <form action="home" method="get">
+                            <button type="submit" name="i" value="${param.i == 1 ? 2 : param.i - 1}" class="right__icon slick__action"> < </button>
+                        </form>
+                    </c:if>
+
+                    <c:if test="${currentPage <= np}">
+                        <form action="home" method="get">
+                            <button type="submit" name="i" value="${param.i == 2 ? 1 : param.i + 1}" class="right__icon slick__action"> > </button>
+                        </form>
+                    </c:if>
                 </div>
             </div>
         </div>
