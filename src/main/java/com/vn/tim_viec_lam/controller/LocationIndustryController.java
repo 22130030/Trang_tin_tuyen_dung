@@ -2,6 +2,7 @@ package com.vn.tim_viec_lam.controller;
 
 import com.vn.tim_viec_lam.dao.model.Category;
 import com.vn.tim_viec_lam.service.CategoryService;
+import com.vn.tim_viec_lam.service.JobService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,7 +22,11 @@ public class LocationIndustryController extends HttpServlet {
         CategoryService cs = new CategoryService();
         Map<String, List<Category>> categories = cs.getCategories();
 
+        JobService js = new JobService();
+        Map<Character,List<String>> locations = js.getFristLetterLocation();
+
         request.setAttribute("categories", categories);
+        request.setAttribute("locations", locations);
         request.getRequestDispatcher("location_industry.jsp").forward(request, response);
 
     }
