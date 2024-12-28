@@ -24,7 +24,7 @@ public class SearchJob extends HttpServlet {
             String name = request.getParameter("name");
             JobService jobService = new JobService();
             title = " cho "+name;
-            jobList = jobService.getJobByCategoryId(id);
+            jobList = jobService.getJobByJobPostCategoryId(id);
             size   = jobList.size();
         }else if(request.getParameter("location")!=null){
             String location = request.getParameter("location");
@@ -41,8 +41,15 @@ public class SearchJob extends HttpServlet {
             title = " mới nhất";
             jobList = js.getAllNewJob();
             size   = jobList.size();
+        } else if (request.getParameter("jcid") != null) {
+            int id = Integer.parseInt(request.getParameter("jcid"));
+            String name = request.getParameter("jcname");
+            title = " cho ngành " + name;
+            JobService jobService = new JobService();
+            jobList = jobService.getJobByCategoryId(id);
+            size   = jobList.size();
         }
-        request.setAttribute("jobs",jobList);
+       request.setAttribute("jobs",jobList);
         request.setAttribute("title",title);
         request.setAttribute("size",size);
         request.getRequestDispatcher("search_job.jsp").forward(request,response);

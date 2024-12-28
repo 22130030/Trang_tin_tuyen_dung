@@ -129,7 +129,7 @@
                     <c:forEach var="entry" items="${categories}">
 
                     <div class="category">
-                        <h3>${entry.key}</h3>
+                        <h3>${entry.key.name}</h3>
                         <c:forEach var="value" items="${entry.value}">
                             <ul class="list_unstyled">
                                 <li class="border_bottom">
