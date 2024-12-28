@@ -228,6 +228,9 @@ h2 {
 .category ul li span {
     color: #666;
 }
+.category ul li a {
+    text-decoration: none;
+}
 
 .location {
     background-color: #f0f4f7;

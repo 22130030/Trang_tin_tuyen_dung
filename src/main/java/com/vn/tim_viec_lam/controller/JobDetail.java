@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
+
 @WebServlet(name = "jobDetail",value = "/job-detail")
 public class JobDetail extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -20,6 +22,10 @@ public class JobDetail extends HttpServlet {
             JobService js = new JobService();
             Job job = js.getJobById(id);
 
+            String city = job.getCity();
+            List<Job> jobs = js.getJobsByAddress(city);
+
+            request.setAttribute("jobs",jobs);
             request.setAttribute("job",job);
 
         }
