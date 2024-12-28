@@ -1,22 +1,16 @@
 package com.vn.tim_viec_lam.dao.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-public class Category implements Serializable {
+public class JobPostCategory {
     private int id;
     private String name;
     private String img;
-    private List<Job> jobs;
-    public Category() {}
-    public Category(int id, String name) {
+
+    public JobPostCategory() {
+    }
+    public JobPostCategory(int id,String name, String img) {
         this.id = id;
         this.name = name;
         this.img = img;
-        jobs = new ArrayList<Job>();
     }
 
     public int getId() {
@@ -35,23 +29,20 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public List<Job> getJobs() {
-        return jobs;
+    public String getImg() {
+        return img;
     }
 
-    public void setJobs(List<Job> jobs) {
-        this.jobs = jobs;
+    public void setImg(String img) {
+        this.img = img;
     }
-    public int getSize(){
-        return jobs.size();
-    }
-
 
     @Override
     public String toString() {
-        return "Category{" +
+        return "JobPostCategory{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", img='" + img + '\'' +
                 '\n';
     }
 }

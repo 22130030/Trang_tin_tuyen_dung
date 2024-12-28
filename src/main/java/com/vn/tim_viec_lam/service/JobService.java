@@ -50,6 +50,9 @@ public class JobService {
     public List<Job> getJobsByAddress(String address){
         return jobDao.searchJobByAddress(address);
     }
+    public List<Job> getJobByJobPostCategoryId(int categoryId){
+        return jobDao.getJobsByJobPostCategoryId(categoryId);
+    }
     public List<Job> getJobByCategoryId(int categoryId){
         return jobDao.getJobsByCategoryId(categoryId);
     }
