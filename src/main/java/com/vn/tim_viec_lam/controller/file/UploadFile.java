@@ -50,5 +50,4 @@ public class UploadFile extends HttpServlet {
         }
 
     }
-public class UploadFile {
 }

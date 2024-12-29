@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
@@ -63,6 +64,28 @@ public class CompanyDao {
             throw new RuntimeException(e);
         }
     }
+    public List<Company> findByEmail(String nameCompany) {
+        List<Company> companies = new ArrayList<Company>();
+        Connection con = DBconnect.getConnection();
+        String sql = "SELECT *" +
+                "FROM company_users cu\n" +
+                "JOIN companies c ON cu.companyID = c.companyID\n" +
+                "JOIN users u ON cu.userID = u.userID\n" +
+                "WHERE u.email like ?; -- Thay 'email@example.com' bằng email cần tìm\n";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + nameCompany + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Company company = excuteResultSet(rs);
+                companies.add(company);
+            }
+            return companies;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public List<Company> filterByCity(List<String> cityList) {
         List<Company> companies = new ArrayList<>();
         Connection con = DBconnect.getConnection();
@@ -89,6 +112,10 @@ public class CompanyDao {
         try {
             int id = rs.getInt("companyID");
             String companyName = rs.getString("companyName");
+            String email = rs.getString("email");
+            String phone = rs.getString("phone");
+            String status = rs.getString("status");
+            LocalDateTime createDate = rs.getTimestamp("createDate").toLocalDateTime();
             String logo = rs.getString("logo");
             String address = rs.getString("address");
             String website = rs.getString("website");
@@ -107,7 +134,7 @@ public class CompanyDao {
     public static void main(String[] args) {
         CompanyDao dao = new CompanyDao();
         List<String> test = new ArrayList<>();
-        System.out.println(dao.filterByCity(test));
+        System.out.println(dao.findByEmail("user1"));
     }
 
 

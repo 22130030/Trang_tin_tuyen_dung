@@ -1,10 +1,15 @@
 package com.vn.tim_viec_lam.dao.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class Company  implements Serializable {
     private int id;
     private String companyName;
+    private String email;
+    private String phone_number;
+    private String status;
+    private LocalDateTime createDate;
     private String img;
     private String address;
     private String city;
