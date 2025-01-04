@@ -21,7 +21,7 @@
             </div>
             <ul class="nav__list">
                 <li class="nav__item">
-                    <a href="html/search_occupations_locat.html" class="nav__item-link">
+                    <a href="location-industry" class="nav__item-link">
                         <i class="nav-item__icon fa-solid fa-magnifying-glass"></i>
                         Ngành nghề/Địa điểm
                     </a>
@@ -73,7 +73,7 @@
                                     </a>
                                 </li>
                                 <li class="menu__item">
-                                    <a href="/html/candidate/account_Management/job_applied.html" class="menu__link">
+                                    <a href="job_applied.jsp" class="menu__link">
                                         <i class="menu__link-icon fa-regular fa-paper-plane"></i>
                                         <span class="menu__link-title">Việc đã ứng tuyển</span>
                                     </a>

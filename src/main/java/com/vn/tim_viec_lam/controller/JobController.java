@@ -1,6 +1,9 @@
 package com.vn.tim_viec_lam.controller;
 
+import com.vn.tim_viec_lam.dao.model.Category;
 import com.vn.tim_viec_lam.dao.model.Job;
+import com.vn.tim_viec_lam.dao.model.JobPostCategory;
+import com.vn.tim_viec_lam.service.CategoryService;
 import com.vn.tim_viec_lam.service.JobService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet("/home")
 public class JobController extends HttpServlet {
@@ -25,12 +29,20 @@ public class JobController extends HttpServlet {
             index = "1";
         }
         int indexPage = Integer.parseInt(index);
-
         List<Job> jobs = jsv.getJobByPage(indexPage);
 
 
+        String i = request.getParameter("i");
+        if(i == null) {
+            i = "1";
+        }
+        int indexCategory = Integer.parseInt(i);
+
+        CategoryService cs = new CategoryService();
+        List<JobPostCategory> categories = cs.getCategoriesByNumberPage(indexCategory);
 
         request.setAttribute("jobs", jobs);
+        request.setAttribute("categories", categories);
         request.setAttribute("newJob", newJob);
         request.setAttribute("np", numberPage);
         request.getRequestDispatcher("index.jsp").forward(request, response);

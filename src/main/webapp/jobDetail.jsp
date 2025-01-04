@@ -156,359 +156,42 @@
             <button class="notify-button"><i class="fas fa-bell"></i> Gửi cho tôi việc tương tự</button>
             <div class="grid__row">
                 <h2>Việc tương tự</h2>
+                <c:forEach var="j" items="${jobs}">
+
+
                 <div class="content__job-item">
                     <div class="wrapper__logo">
-                        <img src="https://blob-careerlinkvn.careerlink.vn/company_logos/49770d19ebd2b01ed9d4debfd5eea62b.png" alt="picture" class="wrapper__img">
+                        <img src="${j.img}" alt="picture" class="wrapper__img">
                     </div>
                     <div class="wrapper__info">
                         <div class="wrapper__header">
                             <div class="job__name">
                                 <div class="job__tag">
 
-                                    <a class="name__lable" href="">KẾ TOÁN TRƯỞNG</a>
+                                    <a class="name__lable" href="">${j.title}</a>
                                 </div>
                             </div>
                             <div class="job__company">
                                     <span class="job__company-title">
-                                        CÔNG TY OPPO VIỆT NAM
+                                        ${j.companyName}
                                     </span>
                             </div>
                         </div>
                         <div class="wrapper__infomation">
                             <div class="infomation__address">
                                 <i class="fa-solid fa-location-dot"></i>
-                                <span class="infomation__address-lable">Thành phố Hồ Chí Minh</span>
+                                <span class="infomation__address-lable">${j.city}</span>
                             </div>
                             <div class="infomation__bottom">
                                 <div class="infomation__salary">
                                     <i class="salary-icon fa-solid fa-coins"></i>
-                                    <span class="salary-lable">Cạnh tranh</span>
+                                    <span class="salary-lable">${j.salary}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="content__job-item">
-                    <div class="wrapper__logo">
-                        <img src="https://static.careerlink.vn/image/6481511d84e590fe1229ba45134e2f5b" alt="picture" class="wrapper__img">
-                    </div>
-                    <div class="wrapper__info">
-                        <div class="wrapper__header">
-                            <div class="job__name">
-                                <div class="job__tag">
-
-                                    <a class="name__lable" href="">Nhân Viên Chăm Sóc Khách Hàng</a>
-                                </div>
-                            </div>
-                            <div class="job__company">
-                                    <span class="job__company-title">
-                                        CÔNG TY TNHH BỆNH VIỆN  ĐA KHOA TÂM TRÍ SÀI GÒN
-                                    </span>
-                            </div>
-                        </div>
-                        <div class="wrapper__infomation">
-                            <div class="infomation__address">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span class="infomation__address-lable">Thành phố Hồ Chí Minh</span>
-                            </div>
-                            <div class="infomation__bottom">
-                                <div class="infomation__salary">
-                                    <i class="salary-icon fa-solid fa-coins"></i>
-                                    <span class="salary-lable">Thương lượng</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content__job-item">
-                    <div class="wrapper__logo">
-                        <img src="https://static.careerlink.vn/image/fef478c7dd5a9b526fa99e7797517085" alt="picture" class="wrapper__img">
-                    </div>
-                    <div class="wrapper__info">
-                        <div class="wrapper__header">
-                            <div class="job__name">
-                                <div class="job__tag">
-
-                                    <a class="name__lable" href="">Nhân Viên Chăm Sóc Khách Hàng</a>
-                                </div>
-                            </div>
-                            <div class="job__company">
-                                    <span class="job__company-title">
-                                        CÔNG TY CỔ PHẦN TẬP ĐOÀN KIM TÍN
-                                    </span>
-                            </div>
-                        </div>
-                        <div class="wrapper__infomation">
-                            <div class="infomation__address">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span class="infomation__address-lable">Thành phố Hồ Chí Minh</span>
-                            </div>
-                            <div class="infomation__bottom">
-                                <div class="infomation__salary">
-                                    <i class="salary-icon fa-solid fa-coins"></i>
-                                    <span class="salary-lable">Thương lượng</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content__job-item">
-                    <div class="wrapper__logo">
-                        <img src="https://blob-careerlinkvn.careerlink.vn/company_logos/d6ef11da31c499211d5e753c21d93a8e.png" alt="picture" class="wrapper__img">
-                    </div>
-                    <div class="wrapper__info">
-                        <div class="wrapper__header">
-                            <div class="job__name">
-                                <div class="job__tag">
-
-                                    <a class="name__lable" href="">Nhân Viên Chăm Sóc Khách Hàng(Quận 12-HCM)</a>
-                                </div>
-                            </div>
-                            <div class="job__company">
-                                    <span class="job__company-title">
-                                        Công Ty TNHH Ô Tô Điện Miền Nam (Vifast Cộng Hòa)
-                                    </span>
-                            </div>
-                        </div>
-                        <div class="wrapper__infomation">
-                            <div class="infomation__address">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span class="infomation__address-lable">Thành phố Hồ Chí Minh</span>
-                            </div>
-                            <div class="infomation__bottom">
-                                <div class="infomation__salary">
-                                    <i class="salary-icon fa-solid fa-coins"></i>
-                                    <span class="salary-lable">8 triệu - 10 triệu</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content__job-item">
-                    <div class="wrapper__logo">
-                        <img src="https://static.careerlink.vn/image/91374f7e0ce4c0a1db8dc0df3adb5229" alt="picture" class="wrapper__img">
-                    </div>
-                    <div class="wrapper__info">
-                        <div class="wrapper__header">
-                            <div class="job__name">
-                                <div class="job__tag">
-
-                                    <a class="name__lable" href="">Nhân Viên  Kinh Doanh  Dịch Vụ Cảng</a>
-                                </div>
-                            </div>
-                            <div class="job__company">
-                                    <span class="job__company-title">
-                                        Công Ty Cổ Phần Đồng Tâm
-                                    </span>
-                            </div>
-                        </div>
-                        <div class="wrapper__infomation">
-                            <div class="infomation__address">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span class="infomation__address-lable">Thành phố Hồ Chí Minh</span>
-                            </div>
-                            <div class="infomation__bottom">
-                                <div class="infomation__salary">
-                                    <i class="salary-icon fa-solid fa-coins"></i>
-                                    <span class="salary-lable">Thương lượng</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content__job-item">
-                    <div class="wrapper__logo">
-                        <img src="https://static.careerlink.vn/image/19014613b5c280b61e795e6f31559c9f" alt="picture" class="wrapper__img">
-                    </div>
-                    <div class="wrapper__info">
-                        <div class="wrapper__header">
-                            <div class="job__name">
-                                <div class="job__tag">
-
-                                    <a class="name__lable" href="">NHÂN VIÊN KINH DOANH</a>
-                                </div>
-                            </div>
-                            <div class="job__company">
-                                    <span class="job__company-title">
-                                        Công Ty Cổ Phần Sợi Thế Kỷ
-                                    </span>
-                            </div>
-                        </div>
-                        <div class="wrapper__infomation">
-                            <div class="infomation__address">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span class="infomation__address-lable">Hồ Chí Minh, Tây Ninh</span>
-                            </div>
-                            <div class="infomation__bottom">
-                                <div class="infomation__salary">
-                                    <i class="salary-icon fa-solid fa-coins"></i>
-                                    <span class="salary-lable">Thương lượng</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content__job-item">
-                    <div class="wrapper__logo">
-                        <img src="https://blob-careerlinkvn.careerlink.vn/company_logos/49770d19ebd2b01ed9d4debfd5eea62b.png" alt="picture" class="wrapper__img">
-                    </div>
-                    <div class="wrapper__info">
-                        <div class="wrapper__header">
-                            <div class="job__name">
-                                <div class="job__tag">
-
-                                    <a class="name__lable" href="">Call Center Agent(Tiếng Trung)</a>
-                                </div>
-                            </div>
-                            <div class="job__company">
-                                    <span class="job__company-title">
-                                        CÔNG TY OPPO VIỆT NAM
-                                    </span>
-                            </div>
-                        </div>
-                        <div class="wrapper__infomation">
-                            <div class="infomation__address">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span class="infomation__address-lable">Hồ Chí Minh</span>
-                            </div>
-                            <div class="infomation__bottom">
-                                <div class="infomation__salary">
-                                    <i class="salary-icon fa-solid fa-coins"></i>
-                                    <span class="salary-lable">Thương lượng</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content__job-item">
-                    <div class="wrapper__logo">
-                        <img src="https://static.careerlink.vn/image/f3c05bd148493f375543af83bcf8baec" alt="picture" class="wrapper__img">
-                    </div>
-                    <div class="wrapper__info">
-                        <div class="wrapper__header">
-                            <div class="job__name">
-                                <div class="job__tag">
-
-                                    <a class="name__lable" href="">Customer Service Specialist</a>
-                                </div>
-                            </div>
-                            <div class="job__company">
-                                    <span class="job__company-title">
-                                        Công Ty Cổ Phần  Vàng Bạc Đá  quý Phú Nhuận - PNJ
-                                    </span>
-                            </div>
-                        </div>
-                        <div class="wrapper__infomation">
-                            <div class="infomation__address">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span class="infomation__address-lable">Hồ Chí Minh</span>
-                            </div>
-                            <div class="infomation__bottom">
-                                <div class="infomation__salary">
-                                    <i class="salary-icon fa-solid fa-coins"></i>
-                                    <span class="salary-lable">Thương lượng</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content__job-item">
-                    <div class="wrapper__logo">
-                        <img src="https://static.careerlink.vn/image/41046bd58f763fd70022b845b3535561" alt="picture" class="wrapper__img">
-                    </div>
-                    <div class="wrapper__info">
-                        <div class="wrapper__header">
-                            <div class="job__name">
-                                <div class="job__tag">
-
-                                    <a class="name__lable" href="">NHÂN VIÊN QC CÔNG ĐOẠN(PQC)</a>
-                                </div>
-                            </div>
-                            <div class="job__company">
-                                    <span class="job__company-title">
-                                        NIPRO VIETNAM CO.,LTD
-                                    </span>
-                            </div>
-                        </div>
-                        <div class="wrapper__infomation">
-                            <div class="infomation__address">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span class="infomation__address-lable">Hồ Chí Minh</span>
-                            </div>
-                            <div class="infomation__bottom">
-                                <div class="infomation__salary">
-                                    <i class="salary-icon fa-solid fa-coins"></i>
-                                    <span class="salary-lable">Cạnh tranh</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content__job-item">
-                    <div class="wrapper__logo">
-                        <img src="https://static.careerlink.vn/image/41046bd58f763fd70022b845b3535561" alt="picture" class="wrapper__img">
-                    </div>
-                    <div class="wrapper__info">
-                        <div class="wrapper__header">
-                            <div class="job__name">
-                                <div class="job__tag">
-
-                                    <a class="name__lable" href="">Tổ trưởng/Tổ phó QA</a>
-                                </div>
-                            </div>
-                            <div class="job__company">
-                                    <span class="job__company-title">
-                                        CÔNG TY TNHH SÀI GÒN PRECISION
-                                    </span>
-                            </div>
-                        </div>
-                        <div class="wrapper__infomation">
-                            <div class="infomation__address">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span class="infomation__address-lable">Hồ Chí Minh</span>
-                            </div>
-                            <div class="infomation__bottom">
-                                <div class="infomation__salary">
-                                    <i class="salary-icon fa-solid fa-coins"></i>
-                                    <span class="salary-lable">Thương lượng</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content__job-item">
-                    <div class="wrapper__logo">
-                        <img src="https://static.careerlink.vn/image/8e21cf2da00ad17e92fd05425978edd6" alt="picture" class="wrapper__img">
-                    </div>
-                    <div class="wrapper__info">
-                        <div class="wrapper__header">
-                            <div class="job__name">
-                                <div class="job__tag">
-
-                                    <a class="name__lable" href="">Trưởng Phòng Điều Hành Tour Inbound</a>
-                                </div>
-                            </div>
-                            <div class="job__company">
-                                    <span class="job__company-title">
-                                        Công Ty CP Du lịch Coxi
-                                    </span>
-                            </div>
-                        </div>
-                        <div class="wrapper__infomation">
-                            <div class="infomation__address">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span class="infomation__address-lable">Hồ Chí Minh</span>
-                            </div>
-                            <div class="infomation__bottom">
-                                <div class="infomation__salary">
-                                    <i class="salary-icon fa-solid fa-coins"></i>
-                                    <span class="salary-lable">Cạnh tranh</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
 
@@ -536,7 +219,7 @@
 <!-- Overlay -->
 <div id="overlay" class="hidden"></div>
 
-<!-- poppup -->
+<!-- popup -->
 <div  id="popupForm" class="form-container hidden">
     <div class="form-content ">
         <div class="head">
@@ -548,51 +231,28 @@
         <p class="email">leminhcong8323@gmail.com</p>
         <div class="form-group">
 <%--            <label for="resume">Hồ sơ xin việc*</label>--%>
-            <div class="file-options">
-                <p>Chọn hồ sơ</p>
-                <button class="file-btn active">Từ tài khoản <i class="fa-solid fa-chevron-down"></i></button>
-                <input style="display: none" accept=".docx" type="file" id="file-input" />
-                <button id="upload-btn" class="file-btn">Từ máy tính</button>
-                <script>
-                    const fileInput = document.getElementById("file-input");
-                    const uploadBtn = document.getElementById("upload-btn");
+    <div class="file-options">
+        <div class="form--no-file">
+            <p>Chọn hồ sơ</p>
+            <button class="file-btn active">Từ tài khoản <i class="fa-solid fa-chevron-down"></i></button>
+            <input style="display: none" accept=".docx" type="file" id="file-input" />
+            <button id="upload-btn" class="file-btn">Từ máy tính</button>
+        </div>
+        <div style="display: none" class="form--has-file">
+            <p id="form--has-file__title"></p>
+            <p id="form--has-file__type"></p>
+            <p id="form--has-file__size"></p>
+            <button id="remove-file">
+                <i class="fa-solid fa-xmark"></i>
+                <span class="remove-file__title">Bỏ chọn file</span>
+                </button>
+        </div>
+    </div>
 
-                    // Trigger the file input when button is clicked
-                    uploadBtn.addEventListener("click", () => {
-                        fileInput.click();
-                    });
 
-                    // Handle file selection and send to servlet
-                    fileInput.addEventListener("change", async (event) => {
-                        const file = event.target.files[0];
-                        if (file) {
-                            console.log(`Selected file: ${file.name}`);
 
-                            // Prepare FormData
-                            const formData = new FormData();
-                            formData.append("file", file);
 
-                            try {
-                                // Send file to servlet
-                                const response = await fetch("upload-file", {
-                                    method: "POST",
-                                    body: formData,
-                                });
-
-                                if (response.ok) {
-                                    const result = await response.text();
-                                    console.log("File uploaded successfully:", result);
-                                } else {
-                                    console.error("File upload failed:", response.statusText);
-                                }
-                            } catch (error) {
-                                console.error("Error uploading file:", error);
-                            }
-                        }
-                    });
-                </script>
-            </div>
-            <p class="file-note">File: doc, docx, xls, pdf (tối đa 3MB).</p>
+    <p class="file-note">File: doc, docx, xls, pdf (tối đa 3MB).</p>
             <p class="requirement">Nhà tuyển dụng yêu cầu hồ sơ: <span class="highlight">Tiếng Anh</span></p>
         </div>
 
@@ -621,10 +281,20 @@
 
     <div class="form-actions">
         <button id="closePopup" class="save-btn">Hủy</button>
-        <button class="apply-btn">Nộp đơn ngay</button>
+        <button id="submit-btn" class="apply-btn">Nộp đơn ngay</button>
     </div>
     <p>Cho dù bạn chọn nút "Bảo mật" cho những thông tin hồ sơ trực tuyến mà bạn gởi cho Nhà tuyển dụng, nhưng Nhà tuyển dụng có thể truy cập đến tất cả nội dung thông tin có trong hồ sơ trực tuyến đó.</p>
 </div>
+<div id="popup__form-successful" class="form-container hidden">
+    <button class="close-btn" onclick="closePopup()">✖</button>
+    <div class="icon">✔</div>
+    <div class="title">Nộp đơn thành công</div>
+    <div class="message">
+        Trạng thái đơn ứng tuyển của bạn sẽ được cập nhật tại
+        <a href="#" target="_blank">Việc đã ứng tuyển</a>. Hãy theo dõi thường xuyên.
+    </div>
+</div>
+
 <script>
     const saveButton = document.getElementById('save__button');
     saveButton.addEventListener('click', () => handleSaveButton(saveButton));
@@ -647,6 +317,7 @@
         function closePopupHandler() {
             popupForm.classList.add('hidden'); // Ẩn popup
             overlay.classList.add('hidden'); // Ẩn overlay
+            document.getElementById('popup__form-successful').classList.add('hidden');
         }
         //
         // // Gắn sự kiện mở popup
@@ -661,7 +332,78 @@
 
 
 
-</script>
+    const fileInput = document.getElementById("file-input");
+    const uploadBtn = document.getElementById("upload-btn");
+    const fileNameDisplay = document.getElementById("form--has-file__title");
+    const fileTypeDisplay = document.getElementById("form--has-file__type");
+    const fileSizeDisplay = document.getElementById("form--has-file__size");
+    const removeFile = document.getElementById("remove-file");
+    const submitBtn = document.getElementById("submit-btn");
+    const formNoFile = document.querySelector(".form--no-file");
+    const formHasFile = document.querySelector(".form--has-file");
+    const popupSuccess = document.getElementById("popup__form-successful");
+    const popupForm = document.getElementById('popupForm'); // Popup form
 
+
+
+    let selectedFile = null; // Biến lưu trữ file đã chọn
+
+    // Khi nhấn "Từ máy tính" để chọn file
+    uploadBtn.addEventListener("click", () => {
+        fileInput.click();
+    });
+
+    // Khi người dùng chọn file
+    fileInput.addEventListener("change", () => {
+        if (fileInput.files.length > 0) {
+            selectedFile = fileInput.files[0]; // Lưu file vào biến
+            fileNameDisplay.textContent = `Tên file: ` + selectedFile.name;
+            fileTypeDisplay.textContent=`Loại file : ` + selectedFile.name.split('.').pop().toLowerCase();
+            fileSizeDisplay.textContent = `Kích thước: `+(selectedFile.size / 1024).toFixed(2)+ `KB`;
+            formNoFile.style.display = "none";
+            formHasFile.style.display = "block";
+        }
+    });
+
+    // Khi nhấn "Bỏ chọn"
+    removeFile.addEventListener("click", () => {
+        selectedFile = null; // Reset file đã chọn
+        fileInput.value = ""; // Reset input
+        formNoFile.style.display = "block";
+        formHasFile.style.display = "none";
+    });
+
+    // Khi nhấn "Nộp đơn"
+    submitBtn.addEventListener("click", async () => {
+        if (!selectedFile) {
+            alert("Bạn chưa chọn file.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+
+        try {
+            const response = await fetch("upload-file", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (response.ok) {
+                popupSuccess.classList.remove('hidden');
+                popupForm.classList.add('hidden');
+            } else {
+                alert("Lỗi khi nộp đơn.");
+            }
+        } catch (error) {
+            alert("Không thể gửi dữ liệu.");
+        }
+    });
+                function closePopup() {
+                    document.getElementById('popup__form-successful').classList.add('hidden');
+                    document.getElementById('overlay').classList.add('hidden');
+                }
+
+</script>
 </body>
 </html>

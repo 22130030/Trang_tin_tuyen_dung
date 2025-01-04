@@ -3,9 +3,7 @@ package com.vn.tim_viec_lam.service;
 import jakarta.servlet.http.Part;
 
 public class FileService {
-    public FileService fileService;
     public FileService() {
-        fileService = new FileService();
     }
     public String extractFile(Part Part){
         String contentDisposition = Part.getHeader("content-disposition");
