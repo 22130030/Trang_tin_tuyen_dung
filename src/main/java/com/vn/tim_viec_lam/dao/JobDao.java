@@ -32,6 +32,28 @@ public class JobDao {
         }
         return null;
     }
+    public List<Job> getAllNewJob() {
+        List<Job> jobs = new ArrayList<Job>();
+
+        try {
+            Connection con = DBconnect.getConnection();
+            String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
+                    " join companies as c on c.companyID = jp.companyID" +
+                    " join job_locations as jl on jl.locationID = jp.locationID"+
+                    " order by jp.created_at desc";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Job job = getResultSet(rs);
+                jobs.add(job);
+            }
+            return jobs;
+        } catch (Exception e) {
+
+        }
+        return null;
+
+    }
 
     public List<Job> get4NewJob() {
         List<Job> jobs = new ArrayList<Job>();
@@ -100,7 +122,52 @@ public class JobDao {
         }
 
     }
+    public List<Job> getJobsByJobPostCategoryId(int categoryID) {
+        List<Job> jobs = new ArrayList<>();
+        Connection con = DBconnect.getConnection();
+        String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
+                " join companies as c on c.companyID = jp.companyID" +
+                " join job_locations as jl on jl.locationID = jp.locationID" +
+                " join job_post_categories jpc on jpc.jobPostID = jp.jobPostID" +
+                " where jpc.jobPostCategoryID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, categoryID);
+            ResultSet rs = ps.executeQuery();
+            Job job = new Job();
+            while (rs.next()) {
+                job = getResultSet(rs);
+                jobs.add(job);
+            }
+            return jobs;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
+    }
+    public List<Job> getJobsByCategoryId(int categoryID) {
+        List<Job> jobs = new ArrayList<>();
+        Connection con = DBconnect.getConnection();
+        String sql = "select DISTINCT jp.*,c.companyName,jl.city from job_posting as jp" +
+                " join companies as c on c.companyID = jp.companyID" +
+                " join job_locations as jl on jl.locationID = jp.locationID" +
+                " join job_post_categories jpc on jpc.jobPostID = jp.jobPostID" +
+                " where jpc.categoryID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, categoryID);
+            ResultSet rs = ps.executeQuery();
+            Job job = new Job();
+            while (rs.next()) {
+                job = getResultSet(rs);
+                jobs.add(job);
+            }
+            return jobs;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
     public Job getResultSet(ResultSet rs) throws SQLException {
         Job job = new Job();
         int id = rs.getInt("jobPostID");
@@ -245,6 +312,24 @@ public class JobDao {
 
 
     }
+    public List<String> getAllLocation() {
+        List<String> rs = new ArrayList<>();
+        Connection con = DBconnect.getConnection();
+        String sql = "select jl.city from job_posting jp" +
+                "  join job_locations jl on jl.locationID = jp.locationID" +
+                " group by jl.city";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                rs.add(resultSet.getString(1));
+            }
+            return rs;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
     public List<Job> filterJobs(String locationID, String position, String status) {
         List<Job> jobs = new ArrayList<>();
         String query = "SELECT jp.*, c.companyName FROM job_posting jp JOIN companies c ON jp.companyID = c.companyID WHERE 1=1";
@@ -286,9 +371,7 @@ public class JobDao {
 
     public static void main(String[] args) {
         JobDao jobDao = new JobDao();
-//        System.out.println(jobDao.searchJobByAddress("hồ chí minh").toString());
+        System.out.println(jobDao.getJobsByCategoryId(5));
 
-        String test = "hhh";
-        System.out.println(String.join(",", Collections.nCopies(test.length(),"?")));
     }
 }
