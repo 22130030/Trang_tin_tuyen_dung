@@ -85,7 +85,7 @@
                      <div class="grid__company">
                     <c:forEach var="c" items="${companies}">
                         <div class="company-card">
-                            <a href="/html/job.html" class="company-card__link">
+                            <a href="company-detail?jid=${c.id}" class="company-card__link">
                                 <img src="${c.img}" class="picture" alt="NEXTDOOR Logo">
                                 <h3>${c.companyName}</h3>
                                 <p>0 việc đang tuyển</p>
