@@ -1,10 +1,16 @@
 package com.vn.tim_viec_lam.dao.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Company  implements Serializable {
     private int id;
     private String companyName;
+    private String email;
+    private String phone_number;
+    private String status;
+    private LocalDateTime createDate;
     private String img;
     private String address;
     private String city;
@@ -12,9 +18,13 @@ public class Company  implements Serializable {
     private String description;
 
     public Company() {}
-    public Company(int id, String companyName, String img, String address,String city, String website, String description) {
+    public Company(int id, String companyName,String email,String phone_number,String status,LocalDateTime createDate, String img, String address,String city, String website, String description) {
         this.id = id;
         this.companyName = companyName;
+        this.email = email;
+        this.phone_number = phone_number;
+        this.status = status;
+        this.createDate = createDate;
         this.img = img;
         this.address = address;
         this.city = city;
@@ -37,6 +47,35 @@ public class Company  implements Serializable {
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public String getPhone_number() {
+        return phone_number;
+    }
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+    public String getFormattedCreateDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return createDate.format(formatter);
+    }
+
 
     public String getImg() {
         return img;
@@ -83,11 +122,15 @@ public class Company  implements Serializable {
         return "Company{" +
                 "id=" + id +
                 ", companyName='" + companyName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone_number='" + phone_number + '\'' +
+                ", status='" + status + '\'' +
+                ", createDate=" + createDate +
                 ", img='" + img + '\'' +
                 ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
                 ", website='" + website + '\'' +
                 ", description='" + description + '\'' +
-                ", city='" + city + '\'' +
-                '\n';
+                '}';
     }
 }
