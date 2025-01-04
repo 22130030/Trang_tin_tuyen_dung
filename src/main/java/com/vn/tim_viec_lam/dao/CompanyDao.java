@@ -2,6 +2,7 @@ package com.vn.tim_viec_lam.dao;
 
 import com.vn.tim_viec_lam.dao.model.Company;
 import com.vn.tim_viec_lam.dao.model.Job;
+import com.vn.tim_viec_lam.dao.model.User;
 import com.vn.tim_viec_lam.database.DBconnect;
 
 import java.sql.Connection;
@@ -67,11 +68,11 @@ public class CompanyDao {
     public List<Company> findByEmail(String nameCompany) {
         List<Company> companies = new ArrayList<Company>();
         Connection con = DBconnect.getConnection();
-        String sql = "SELECT *" +
+        String sql = "SELECT c.*, u.email AS email, u.phone_number AS phone, u.status AS status, u.created_at AS createDate\n" +
                 "FROM company_users cu\n" +
                 "JOIN companies c ON cu.companyID = c.companyID\n" +
                 "JOIN users u ON cu.userID = u.userID\n" +
-                "WHERE u.email like ?; -- Thay 'email@example.com' bằng email cần tìm\n";
+                "WHERE u.email LIKE ?;\n";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, "%" + nameCompany + "%");
@@ -121,7 +122,7 @@ public class CompanyDao {
             String website = rs.getString("website");
             String description = rs.getString("description");
             String city = rs.getString("city");
-            Company com = new Company(id, companyName, logo, address,city, website, description);
+            Company com = new Company(id, companyName,email,phone,status,createDate, logo, address,city, website, description);
 
             return com;
         } catch (SQLException e) {
@@ -129,6 +130,7 @@ public class CompanyDao {
         }
 
     }
+
 
 
     public static void main(String[] args) {

@@ -29,7 +29,7 @@
             <div class="grid__row">
 
                 <div class="grid__col-9">
-                    <h3 class="container_head">Tất cả việc làm mới nhất trong 7 ngày qua</h3>
+                    <h3 class="container_head">Tất cả việc làm ${title} </h3>
                     <div class="container__filter">
                             <span class="filter__total-jobs">${size}
                                 <span>Việc làm</span>
