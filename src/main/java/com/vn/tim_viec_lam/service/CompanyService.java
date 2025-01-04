@@ -26,6 +26,11 @@ public class CompanyService {
     public List<Company> filterByCity(List<String> city) {
         return companyDao.filterByCity(city);
     }
+    public List<Company> findByEmail(String email) {
+        return companyDao.findByEmail(email);
+    }
+
+
     public static void main(String[] args) {
         CompanyService companyService = new CompanyService();
         System.out.println(companyService.getCompanyByName("cồ phần"));

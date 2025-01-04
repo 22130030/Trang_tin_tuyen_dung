@@ -126,9 +126,9 @@
         <!-- Table Section -->
         <div id="table-container">
             <h3>Quản lý nhà tuyển dụng</h3>
-            <div class="employer_management">
-                <div class="employer__search">
-                    <input class="search__input" type="text" name="name" class="search__candidate" placeholder="Nhập tên,email,...">
+            <div  class="employer_management" >
+                <form class="employer__search" action="company-user-job" method="post">
+                    <input class="search__input" type="text" name="searchEmail" class="search__candidate" placeholder="Nhập tên,email,...">
                     <div class="search__status-filter">
 
                         <span>Trạng thái : </span>
@@ -142,7 +142,7 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <span>Tìm kiếm</span>
                     </button>
-                </div>
+                </form>
                 </h4>
 
                 <table>
@@ -160,13 +160,14 @@
 
 
                     <tbody>
+                    <c:forEach var="e" items="${email}">
                     <tr>
-                        <td>10</td>
-                        <td class="company__name">Coca Cola</td>
-                        <td>cocacola@gmail.com</td>
-                        <td>0938475</td>
-                        <td class = "company_status">Đang hoạt động</td>
-                        <td>2024-11-17</td>
+                        <td>${e.id}</td>
+                        <td class="company__name">${e.companyName}</td>
+                        <td>${e.email}</td>
+                        <td>${e.phone_number}</td>
+                        <td class = "company_status">${e.status}</td>
+                        <td>${e.createDate}</td>
                         <td>
                             <div class="operations">
 
@@ -182,281 +183,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="company__name">Công ty cổ phần sợi thế kỷ</td>
-                        <td>soitheky@gmail.com</td>
-                        <td>09384757</td>
-                        <td class = "company_status">Đang hoạt động</td>
-                        <td>2024-11-16</td>
-                        <td>
-
-
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editEmployerForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="company__name">Công ty cổ phần sợi thế kỷ</td>
-                        <td>soitheky@gmail.com</td>
-                        <td>09384757</td>
-                        <td class = "company_status">Đang hoạt động</td>
-                        <td>2024-11-16</td>
-                        <td>
-
-
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editEmployerForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="company__name">Công ty cổ phần sợi thế kỷ</td>
-                        <td>soitheky@gmail.com</td>
-                        <td>09384757</td>
-                        <td class = "company_status">Đang hoạt động</td>
-                        <td>2024-11-16</td>
-                        <td>
-
-
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editEmployerForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="company__name">Công ty cổ phần sợi thế kỷ</td>
-                        <td>soitheky@gmail.com</td>
-                        <td>09384757</td>
-                        <td class = "company_status">Đang hoạt động</td>
-                        <td>2024-11-16</td>
-                        <td>
-
-
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editEmployerForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="company__name">SCG VietNam</td>
-                        <td>SCG@gmail.com</td>
-                        <td>02387475</td>
-                        <td class = "company_status">Đang hoạt động</td>
-                        <td>2024-11-15</td>
-                        <td>
-
-
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editEmployerForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="company__name">SCG VietNam</td>
-                        <td>SCG@gmail.com</td>
-                        <td>02387475</td>
-                        <td class = "company_status">Đang hoạt động</td>
-                        <td>2024-11-15</td><td>
-
-
-                        <div class="operations">
-                            <div class="operation operation__edit">
-                                <a href="javascript:void(0)" onclick="editEmployerForm()" id="section__edit" class="operation__edit-link">
-
-                                    <i class="fa-solid fa-pen"></i>
-                                </a>
-                            </div>
-                            <div class="operation operation__remove">
-                                <i class="fa-solid fa-trash"></i>
-                            </div>
-                        </div>
-                    </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="company__name">SCG VietNam</td>
-                        <td>SCG@gmail.com</td>
-                        <td>02387475</td>
-                        <td class = "company_status">Đang hoạt động</td>
-                        <td>2024-11-15</td>
-                        <td>
-
-
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editEmployerForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="company__name">SCG VietNam</td>
-                        <td>SCG@gmail.com</td>
-                        <td>02387475</td>
-                        <td class = "company_status">Đang hoạt động</td>
-                        <td>2024-11-15</td>
-                        <td>
-
-
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editEmployerForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="company__name">SCG VietNam</td>
-                        <td>SCG@gmail.com</td>
-                        <td>02387475</td>
-                        <td class = "company_status">Đang hoạt động</td>
-                        <td>2024-11-15</td>
-                        <td>
-
-
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editEmployerForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="company__name">SCG VietNam</td>
-                        <td>SCG@gmail.com</td>
-                        <td>02387475</td>
-                        <td class = "company_status">Đang hoạt động</td>
-                        <td>2024-11-15</td>
-                        <td>
-
-
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editEmployerForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="company__name">SCG VietNam</td>
-                        <td>SCG@gmail.com</td>
-                        <td>02387475</td>
-                        <td class = "company_status">Đang hoạt động</td>
-                        <td>2024-11-15</td>
-                        <td>
-
-
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editEmployerForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="company__name">SCG VietNam</td>
-                        <td>SCG@gmail.com</td>
-                        <td>02387475</td>
-                        <td class = "company_status">Đang hoạt động</td>
-                        <td>2024-11-15</td>
-                        <td>
-
-
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editEmployerForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                    </c:forEach>
 
                     </tbody>
                 </table>
