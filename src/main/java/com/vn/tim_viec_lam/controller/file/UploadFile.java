@@ -1,13 +1,13 @@
 package com.vn.tim_viec_lam.controller.file;
 
+import com.vn.tim_viec_lam.dao.model.Job;
+import com.vn.tim_viec_lam.dao.model.cart.JobAppliedCart;
 import com.vn.tim_viec_lam.service.FileService;
+import com.vn.tim_viec_lam.service.JobService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
+import jakarta.servlet.http.*;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -35,20 +35,34 @@ public class UploadFile extends HttpServlet {
 
         String uploadPart = getServletContext().getRealPath("");
 
-//        FileService fs = new FileService();
-//        try{
-//            for(Part part : request.getParts()){
-//                String fileName = fs.extractFile(part);
-//                if(!fileName.isEmpty() && fileName != null){
-//                    String filePath = uploadDir.getAbsolutePath() + File.separator + fileName;
-//
-//                    part.write(filePath);
-//                }
-//            }
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
+        FileService fs = new FileService();
+        try{
+            for(Part part : request.getParts()){
+                String fileName = fs.extractFile(part);
+                if(!fileName.isEmpty() && fileName != null){
+                    String filePath = uploadDir.getAbsolutePath() + File.separator + fileName;
 
+                    part.write(filePath);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if(request.getParameter("jid") != null){
+            int id = Integer.parseInt(request.getParameter("jid"));
+            JobService js = new JobService();
+
+            Job job = js.getJobById(id);
+
+            HttpSession session = request.getSession();
+
+            JobAppliedCart cart = (JobAppliedCart) session.getAttribute("jobAppliedCart");
+            if(cart == null){
+                cart = new JobAppliedCart();
+            }
+            cart.addJobCart(job);
+            session.setAttribute("jobAppliedCart",cart);
+        }
         Part filePart = request.getPart("file");
         String fileName = filePart.getSubmittedFileName();
         long size = filePart.getSize();

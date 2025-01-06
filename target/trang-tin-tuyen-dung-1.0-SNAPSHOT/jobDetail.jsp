@@ -384,7 +384,7 @@
         formData.append("file", selectedFile);
 
         try {
-            const response = await fetch("upload-file", {
+            const response = await fetch("upload-file?jid=${job.id}", {
                 method: "POST",
                 body: formData,
             });
