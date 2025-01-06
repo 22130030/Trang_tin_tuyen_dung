@@ -24,6 +24,7 @@
     border-radius: 5px;
     border: 2px solid rgba(0,0,0,0.2);
     position: relative;
+    margin-bottom : 20px;
 }
 .job__applied-thumb{
     width: 120px;
