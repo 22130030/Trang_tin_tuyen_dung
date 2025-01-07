@@ -32,6 +32,9 @@ public class CompanyService {
     public List<Company> getUserCompany() {
         return companyDao.getListCompanyUser();
     }
+    public void deleteUserCompany(int id) {
+        companyDao.deleteUserCompany(id);
+    }
 
     public static void main(String[] args) {
         CompanyService companyService = new CompanyService();

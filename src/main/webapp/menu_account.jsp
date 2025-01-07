@@ -35,8 +35,8 @@
                 </a>
             </li>
             <li class="nav__menu-item">
-                <a href="#" class="nav__menu__link ${relativePath eq '/#.jsp' ? 'nav__menu-active' : ''}">
-                    <c:if test="${relativePath eq '/#.jsp'}">
+                <a href="job_application.jsp" class="nav__menu__link ${relativePath eq '/job_application.jsp' ? 'nav__menu-active' : ''}">
+                    <c:if test="${relativePath eq '/job_application.jsp'}">
                         <div class="nav-menu__has-separated"></div>
                     </c:if>
 
@@ -69,7 +69,7 @@
                     <i class="fa-regular fa-paper-plane"></i>
 
                     <span class="nav__menu-title">Việc làm đã ứng tuyển(
-                                <span class="nav__menu-toltal">1</span>
+                                <span class="nav__menu-toltal">${sessionScope.jobAppliedCart == null ? 0 : sessionScope.jobAppliedCart.size}</span>
                                 )
                             </span>
                 </a>
