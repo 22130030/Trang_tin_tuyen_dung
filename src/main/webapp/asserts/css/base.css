@@ -417,9 +417,16 @@ html,body{
 .suggest__head{
     font-size: 1.8rem;
     border-bottom: 1px solid rgba(0,0,0,0.2);
-    padding: 30px 0 30px 10px;
+    padding: 30px 0 20px 10px;
     margin: 0;
 
+}
+.suggest__head h3{
+    margin: 0 0 10px 0;
+}
+.suggest__head span{
+    font-size: 1.4rem;
+    color : var(--blue-color)
 }
 .suggest-item{
     display: flex;

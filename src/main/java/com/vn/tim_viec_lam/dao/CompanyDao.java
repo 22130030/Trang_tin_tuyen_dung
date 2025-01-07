@@ -124,6 +124,86 @@ public class CompanyDao {
 
 
     }
+    public void deleteUserCompany(int userId) {
+//        List<Company> companies = new ArrayList<Company>();
+//        String sql = "DELETE c, cu, u \n" +
+//                "FROM company_users cu\n" +
+//                "JOIN companies c ON cu.companyID = c.companyID\n" +
+//                "JOIN users u ON cu.userID = u.userID\n" +
+//                "WHERE u.userID = ?;\n";
+//        try {
+//            Connection con = DBconnect.getConnection();
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setInt(1, id);
+//            ps.executeUpdate();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+        String deleteJobLocationsSql = "DELETE FROM job_locations " +
+                    "WHERE locationID IN ( " +
+                    "    SELECT locationID FROM job_posting " +
+                    "    WHERE companyID IN ( " +
+                    "        SELECT companyID FROM company_users " +
+                    "        WHERE userID = ? " +
+                    "    ) " +
+                    ");";
+            String deleteJobPostCategoriesSql = "DELETE FROM job_post_categories " +
+                    "WHERE jobPostID IN ( " +
+                    "    SELECT jobPostID FROM job_posting " +
+                    "    WHERE companyID IN ( " +
+                    "        SELECT companyID FROM company_users " +
+                    "        WHERE userID = ? " +
+                    "    ) " +
+                    ");";
+            String deleteJobPostingSql = "DELETE FROM job_posting " +
+                    "WHERE companyID IN ( " +
+                    "    SELECT companyID FROM company_users " +
+                    "    WHERE userID = ? " +
+                    ");";
+            String deleteCompanyUsersSql = "DELETE FROM company_users WHERE userID = ?;";
+            String deleteCompaniesSql = "DELETE FROM companies " +
+                    "WHERE companyID IN ( " +
+                    "    SELECT companyID FROM company_users " +
+                    "    WHERE userID = ? " +
+                    ");";
+            String deleteUserSql = "DELETE FROM users WHERE userID = ?;";
+
+            try (Connection con = DBconnect.getConnection()) {
+                con.setAutoCommit(false); // Bắt đầu transaction
+
+                try (PreparedStatement ps1 = con.prepareStatement(deleteJobLocationsSql);
+                     PreparedStatement ps2 = con.prepareStatement(deleteJobPostCategoriesSql);
+                     PreparedStatement ps3 = con.prepareStatement(deleteJobPostingSql);
+                     PreparedStatement ps4 = con.prepareStatement(deleteCompanyUsersSql);
+                     PreparedStatement ps5 = con.prepareStatement(deleteCompaniesSql);
+                     PreparedStatement ps6 = con.prepareStatement(deleteUserSql)) {
+
+                    ps1.setInt(1, userId);
+                    ps2.setInt(1, userId);
+                    ps3.setInt(1, userId);
+                    ps4.setInt(1, userId);
+                    ps5.setInt(1, userId);
+                    ps6.setInt(1, userId);
+
+                    ps1.executeUpdate(); // Xóa từ bảng job_locations
+                    ps2.executeUpdate(); // Xóa từ bảng job_post_categories
+                    ps3.executeUpdate(); // Xóa từ bảng job_posting
+                    ps4.executeUpdate(); // Xóa từ bảng company_users
+                    ps5.executeUpdate(); // Xóa từ bảng companies
+                    ps6.executeUpdate(); // Xóa từ bảng users
+
+                    con.commit(); // Commit nếu không có lỗi
+                    System.out.println("Delete successful.");
+                } catch (SQLException e) {
+                    con.rollback(); // Rollback nếu có lỗi
+                    throw e;
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+    }
+
+
     public  List<CompanyStatusCategory> getAllStatusCategory() {
         List<CompanyStatusCategory> list = new ArrayList<CompanyStatusCategory>();
         Connection con = DBconnect.getConnection();
@@ -164,6 +244,7 @@ public class CompanyDao {
             throw new RuntimeException(e);
         }
 
+
     }
     public Company excuteResultSet(ResultSet rs) {
         try {
@@ -191,8 +272,8 @@ public class CompanyDao {
 
     public static void main(String[] args) {
         CompanyDao dao = new CompanyDao();
-        List<String> test = new ArrayList<>();
-        System.out.println(dao.getListCompanyUser());
+        //List<String> test = new ArrayList<>();
+        dao.deleteUserCompany(6);
     }
 
 

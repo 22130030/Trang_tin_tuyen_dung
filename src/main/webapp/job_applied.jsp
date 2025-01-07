@@ -29,22 +29,22 @@
         <div class="grid__row">
           <div class="grid__col-9">
             <h3 class="job-applied__head">Việc làm đã ứng tuyển(
-              <span class="job__applied-toltal">1</span>
+              <span class="job__applied-toltal">${sessionScope.jobAppliedCart == null ? 0 : sessionScope.jobAppliedCart.size}</span>
               )
             </h3>
             <span class="job-applied__saved-at">30 ngày qua</span>
             <div class="job__applied-list">
+              <c:forEach items="${sessionScope.jobAppliedCart.list}" var="jac">
+
               <div class="job__applied-item">
                 <div href="/html/job_description.html" class="job__applied-link">
                   <div class="job__applied-thumb">
-                    <img src="asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
+                    <img src="${jac.img}" alt="">
                   </div>
                   <div class="job__applied-content">
 
-                    <a href="/html/job_description.html" class="la__content-lable">Nhân viên tư
-                      vấn bán hàng</a>
-                    <a href="/html/Job.html" class="la__content-company">Công ty cổ phần Người
-                      Bạn Vàng</a>
+                    <a href="/html/job_description.html" class="la__content-lable">${jac.title}</a>
+                    <a href="/html/Job.html" class="la__content-company">${jac.companyName}</a>
 
                     <span class="la-content__applied-at">Ngày nộp :
                                                 <span class="la__applied-date">
@@ -58,6 +58,7 @@
 
               </div>
             </div>
+              </c:forEach>
           </div>
 
 
@@ -66,179 +67,7 @@
 
 
         <div class="grid__col-3">
-          <div class="suggest__container">
-
-
-            <h3 class="suggest__head">Gợi ý việc làm</h3>
-
-            <div class="suggest-list">
-
-              <div class="suggest-item">
-                <a href="/html/job_description.html" class="suggest__link">
-                  <div class="suggest-thumb">
-                    <img src="	https://blob-careerlinkvn.careerlink.vn/company_logos/82c29a21edc8aae52392753e21d1ee36.png
-                                                " alt="">
-                  </div>
-                  <div class="suggest-content">
-
-                    <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên
-                      Tư Vấn Tuyển Sinh</a>
-                    <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
-                      Smartcom Việt Nam
-                    </a>
-                    <div class="suggest-info">
-                      <i class="fa-solid fa-location-dot"></i>
-                      <span class="suggest-address">Hà nội</span>
-
-                    </div>
-                    <div class="suggest-detail">
-                      <span class="suggest-salary">1,500 USD - 2000 USD</span>
-                      <div class="suggest-save">
-                        <i class="fa-regular fa-heart"></i>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="suggest-item">
-                <a href="/html/job_description.html" class="suggest__link">
-                  <div class="suggest-thumb">
-                    <img src="	https://blob-careerlinkvn.careerlink.vn/company_logos/82c29a21edc8aae52392753e21d1ee36.png
-                                                " alt="">
-                  </div>
-                  <div class="suggest-content">
-
-                    <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên
-                      Tư Vấn Tuyển Sinh</a>
-                    <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
-                      Smartcom Việt Nam
-                    </a>
-                    <div class="suggest-info">
-                      <i class="fa-solid fa-location-dot"></i>
-                      <span class="suggest-address">Hà nội</span>
-
-                    </div>
-                    <div class="suggest-detail">
-                      <span class="suggest-salary">1,500 USD - 2000 USD</span>
-                      <div class="suggest-save">
-                        <i class="fa-regular fa-heart"></i>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="suggest-item">
-                <a href="/html/job_description.html" class="suggest__link">
-                  <div class="suggest-thumb">
-                    <img src="	https://blob-careerlinkvn.careerlink.vn/company_logos/82c29a21edc8aae52392753e21d1ee36.png
-                                                " alt="">
-                  </div>
-                  <div class="suggest-content">
-
-                    <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên
-                      Tư Vấn Tuyển Sinh</a>
-                    <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
-                      Smartcom Việt Nam
-                    </a>
-                    <div class="suggest-info">
-                      <i class="fa-solid fa-location-dot"></i>
-                      <span class="suggest-address">Hà nội</span>
-
-                    </div>
-                    <div class="suggest-detail">
-                      <span class="suggest-salary">1,500 USD - 2000 USD</span>
-                      <div class="suggest-save">
-                        <i class="fa-regular fa-heart"></i>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="suggest-item">
-                <a href="/html/job_description.html" class="suggest__link">
-                  <div class="suggest-thumb">
-                    <img src="	https://blob-careerlinkvn.careerlink.vn/company_logos/82c29a21edc8aae52392753e21d1ee36.png
-                                                " alt="">
-                  </div>
-                  <div class="suggest-content">
-
-                    <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên
-                      Tư Vấn Tuyển Sinh</a>
-                    <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
-                      Smartcom Việt Nam
-                    </a>
-                    <div class="suggest-info">
-                      <i class="fa-solid fa-location-dot"></i>
-                      <span class="suggest-address">Hà nội</span>
-
-                    </div>
-                    <div class="suggest-detail">
-                      <span class="suggest-salary">1,500 USD - 2000 USD</span>
-                      <div class="suggest-save">
-                        <i class="fa-regular fa-heart"></i>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="suggest-item">
-                <a href="/html/job_description.html" class="suggest__link">
-                  <div class="suggest-thumb">
-                    <img src="	https://blob-careerlinkvn.careerlink.vn/company_logos/82c29a21edc8aae52392753e21d1ee36.png
-                                                " alt="">
-                  </div>
-                  <div class="suggest-content">
-
-                    <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên
-                      Tư Vấn Tuyển Sinh</a>
-                    <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
-                      Smartcom Việt Nam
-                    </a>
-                    <div class="suggest-info">
-                      <i class="fa-solid fa-location-dot"></i>
-                      <span class="suggest-address">Hà nội</span>
-
-                    </div>
-                    <div class="suggest-detail">
-                      <span class="suggest-salary">1,500 USD - 2000 USD</span>
-                      <div class="suggest-save">
-                        <i class="fa-regular fa-heart"></i>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="suggest-item">
-                <a href="/html/job_description.html" class="suggest__link">
-                  <div class="suggest-thumb">
-                    <img src="	https://blob-careerlinkvn.careerlink.vn/company_logos/82c29a21edc8aae52392753e21d1ee36.png
-                                                " alt="">
-                  </div>
-                  <div class="suggest-content">
-
-                    <a href="/html/job_description.html" class="suggest-lable">Chuyên Viên
-                      Tư Vấn Tuyển Sinh</a>
-                    <a href="/html/Job.html" class="suggest-company">Công Ty Cổ Phần
-                      Smartcom Việt Nam
-                    </a>
-                    <div class="suggest-info">
-                      <i class="fa-solid fa-location-dot"></i>
-                      <span class="suggest-address">Hà nội</span>
-
-                    </div>
-                    <div class="suggest-detail">
-                      <span class="suggest-salary">1,500 USD - 2000 USD</span>
-                      <div class="suggest-save">
-                        <i class="fa-regular fa-heart"></i>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-
-            </div>
-          </div>
+          <%@include file="suggest.jsp"%>
         </div>
       </div>
     </div>
