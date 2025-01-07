@@ -29,10 +29,12 @@ public class CompanyService {
     public List<Company> findByEmail(String email) {
         return companyDao.findByEmail(email);
     }
-
+    public List<Company> getUserCompany() {
+        return companyDao.getListCompanyUser();
+    }
 
     public static void main(String[] args) {
         CompanyService companyService = new CompanyService();
-        System.out.println(companyService.getCompanyByName("cồ phần"));
+        System.out.println(companyService.getUserCompany());
     }
 }
