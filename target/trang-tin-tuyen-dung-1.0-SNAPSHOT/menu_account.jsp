@@ -42,7 +42,7 @@
 
                     <i class="fa-regular fa-address-card"></i>
                     <span class="nav__menu-title">Hồ sơ xin việc(
-                                <span class="nav__menu-toltal">0</span>
+                                <span class="nav__menu-toltal">${sessionScope.jac == null ? 0 : sessionScope.jac.size}</span>
                                 )
                             </span>
                 </a>

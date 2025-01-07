@@ -234,9 +234,36 @@
     <div class="file-options">
         <div class="form--no-file">
             <p>Chọn hồ sơ</p>
-            <button class="file-btn active">Từ tài khoản <i class="fa-solid fa-chevron-down"></i></button>
+            <button onclick="toggleFileAccountContainer()" class="file-btn upload-file--from-account active">Từ tài khoản <i class="fa-solid fa-chevron-down"></i>
+                <div class="file-account-container">
+                    <ul class="file-account__list">
+                        <!-- Kiểm tra nếu có hồ sơ mới duyệt danh sách -->
+                        <c:if test="${not empty sessionScope.jac.list}">
+                            <c:forEach items="${sessionScope.jac.list}" var="f">
+                                <li class="file-account-item">
+                                    <i class="fa-regular fa-file"></i>
+                                    <span class="file-account-item__title">${f.title}</span>
+                                </li>
+                            </c:forEach>
+                        </c:if>
+
+                        <!-- Nếu không có hồ sơ, hiển thị thông báo -->
+                        <c:if test="${empty sessionScope.jac.list}">
+                            <li class="file-account-item">
+                                <span class="file-account-item__title">Bạn chưa có hồ sơ xin việc nào</span>
+                            </li>
+                        </c:if>
+                    </ul>
+
+                    <a href="job_application.jsp" class="add-file">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>tạo hồ sơ mới</span>
+                    </a>
+                </div>
+            </button>
             <input style="display: none" accept=".docx" type="file" id="file-input" />
-            <button id="upload-btn" class="file-btn">Từ máy tính</button>
+            <button id="upload-btn" class="file-btn">Từ máy tính
+            </button>
         </div>
         <div style="display: none" class="form--has-file">
             <p id="form--has-file__title"></p>
@@ -291,7 +318,7 @@
     <div class="title">Nộp đơn thành công</div>
     <div class="message">
         Trạng thái đơn ứng tuyển của bạn sẽ được cập nhật tại
-        <a href="#" target="_blank">Việc đã ứng tuyển</a>. Hãy theo dõi thường xuyên.
+        <a href="job_applied.jsp" target="_blank">Việc đã ứng tuyển</a>. Hãy theo dõi thường xuyên.
     </div>
 </div>
 
@@ -384,7 +411,7 @@
         formData.append("file", selectedFile);
 
         try {
-            const response = await fetch("upload-file?jid=${job.id}", {
+            const response = await fetch("job-applied?jid=${job.id}", {
                 method: "POST",
                 body: formData,
             });
@@ -403,7 +430,14 @@
                     document.getElementById('popup__form-successful').classList.add('hidden');
                     document.getElementById('overlay').classList.add('hidden');
                 }
-
+    function toggleFileAccountContainer() {
+        var container = document.querySelector('.file-account-container');
+        if (container.style.display === 'none' || container.style.display === '') {
+            container.style.display = 'block';
+        } else {
+            container.style.display = 'none';
+        }
+    }
 </script>
 </body>
 </html>
