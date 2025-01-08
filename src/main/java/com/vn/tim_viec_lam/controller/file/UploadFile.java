@@ -70,7 +70,7 @@ public class UploadFile extends HttpServlet {
         if(jac == null){
             jac = new JobApplicationCart();
         }
-        FileCart fc = new FileCart(++id,fileName,path,type,new Date());
+        FileCart fc = new FileCart(++id,fileName,path,type,size,new Date());
         jac.addFileCart(fc);
         session.setAttribute("jac",jac);
     }

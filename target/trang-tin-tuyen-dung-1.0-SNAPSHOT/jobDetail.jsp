@@ -240,7 +240,11 @@
                         <!-- Kiểm tra nếu có hồ sơ mới duyệt danh sách -->
                         <c:if test="${not empty sessionScope.jac.list}">
                             <c:forEach items="${sessionScope.jac.list}" var="f">
-                                <li class="file-account-item">
+                                <li class="file-account-item"
+                                    data-title="${f.title}"
+                                    data-type="${f.type}"
+                                    data-size="${f.size}"
+                                    data-id="${f.id}">
                                     <i class="fa-regular fa-file"></i>
                                     <span class="file-account-item__title">${f.title}</span>
                                 </li>
@@ -371,7 +375,7 @@
     const popupSuccess = document.getElementById("popup__form-successful");
     const popupForm = document.getElementById('popupForm'); // Popup form
 
-
+    let fileId = 0;
 
     let selectedFile = null; // Biến lưu trữ file đã chọn
 
@@ -402,29 +406,36 @@
 
     // Khi nhấn "Nộp đơn"
     submitBtn.addEventListener("click", async () => {
-        if (!selectedFile) {
+        if (!selectedFile && fileId === 0) {
             alert("Bạn chưa chọn file.");
             return;
         }
-
         const formData = new FormData();
-        formData.append("file", selectedFile);
-
-        try {
-            const response = await fetch("job-applied?jid=${job.id}", {
-                method: "POST",
-                body: formData,
-            });
-
-            if (response.ok) {
-                popupSuccess.classList.remove('hidden');
-                popupForm.classList.add('hidden');
-            } else {
-                alert("Lỗi khi nộp đơn.");
-            }
-        } catch (error) {
-            alert("Không thể gửi dữ liệu.");
+        console.log(fileId);
+        if(selectedFile) {
+            formData.append("file", selectedFile);
         }
+        if(fileId != 0){
+            formData.append("fileId",fileId.toString());
+            console.log(1);
+        }
+
+            try {
+                const response = await fetch(`job-applied?jid=${job.id}`, {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    popupSuccess.classList.remove('hidden');
+                    popupForm.classList.add('hidden');
+                } else {
+                    alert("Lỗi khi nộp đơn.");
+                }
+            } catch (error) {
+                alert("Không thể gửi dữ liệu.");
+            }
+
     });
                 function closePopup() {
                     document.getElementById('popup__form-successful').classList.add('hidden');
@@ -438,6 +449,32 @@
             container.style.display = 'none';
         }
     }
+    document.addEventListener("DOMContentLoaded", function () {
+        const fileItems = document.querySelectorAll(".file-account-item");
+        console.log(1)
+
+        // Gắn sự kiện click cho từng item
+        fileItems.forEach(item => {
+            item.addEventListener("click", function () {
+                // Lấy dữ liệu từ thuộc tính data-*
+                const title = this.getAttribute("data-title");
+                const type = this.getAttribute("data-type");
+                const size = this.getAttribute("data-size");
+                fileId = this.getAttribute('data-id');
+
+
+                console.log(title);
+
+                // Hiển thị dữ liệu lên các phần tử
+                fileNameDisplay.textContent = `Tên file: ` + title;
+                fileTypeDisplay.textContent=`Loại file : ` + title.split('.').pop().toLowerCase();
+                fileSizeDisplay.textContent = `Kích thước: `+(size / 1024).toFixed(2)+ `KB`;
+                formNoFile.style.display = "none";
+                formHasFile.style.display = "block";
+            });
+        });
+    });
+
 </script>
 </body>
 </html>
