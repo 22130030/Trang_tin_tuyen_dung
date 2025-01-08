@@ -19,7 +19,7 @@ import java.io.IOException;
         maxRequestSize = 1024 * 1024 * 40
 )
 public class JobApplied extends HttpServlet {
-    private static final String UPLOAD_DIR = "upload_file";
+    private static final String UPLOAD_DIR = "job_application";
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -61,15 +61,20 @@ public class JobApplied extends HttpServlet {
             cart.addJobCart(job);
             session.setAttribute("jobAppliedCart",cart);
         }
-        Part filePart = request.getPart("file");
-        String fileName = filePart.getSubmittedFileName();
-        long size = filePart.getSize();
+        if(request.getPart("file") != null){
 
-        response.getWriter().write(String.format(
-                "{\"fileName\": \"%s\", \"fileSize\": %.2f}",
-                fileName, size / 1024.0
-        ));
+            Part filePart = request.getPart("file");
+            String fileName = filePart.getSubmittedFileName();
+            long size = filePart.getSize();
 
+            response.getWriter().write(String.format(
+                    "{\"fileName\": \"%s\", \"fileSize\": %.2f}",
+                    fileName, size / 1024.0
+            ));
+        }
+        if(request.getParameter("fileId") != null){
+            System.out.println(request.getParameter("fileId"));
+        }
 
     }
 }

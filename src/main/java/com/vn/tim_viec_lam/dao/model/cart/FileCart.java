@@ -8,16 +8,18 @@ public class FileCart implements Serializable {
     private String title;
     private String path;
     private String type;
+    private long size;
     private Date updated;
 
     public FileCart() {
     }
 
-    public FileCart(int id, String title,String path, String type, Date updated) {
+    public FileCart(int id, String title,String path, String type,long size, Date updated) {
         this.id = id;
         this.title = title;
         this.path = path;
         this.type = type;
+        this.size = size;
         this.updated = updated;
     }
 
@@ -51,6 +53,14 @@ public class FileCart implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public long getSize() {
+        return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
     }
 
     public Date getUpdated() {
