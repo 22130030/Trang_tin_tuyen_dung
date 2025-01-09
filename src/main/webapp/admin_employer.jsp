@@ -130,13 +130,15 @@
                 <form class="employer__search" action="company-user-job" method="post">
                     <input class="search__input" type="text" name="searchEmail" class="search__candidate" placeholder="Nhập tên,email,...">
                     <div class="search__status-filter">
-
                         <span>Trạng thái : </span>
                         <select name="" id="" class="search__filter">
-                            <option value="">Đã duyệt</option>
-                            <option value="">Đang xử lí</option>
-                            <option value="">Đã bị từ chối</option>
+                            <c:forEach var="s" items="${status}">
+                                <a href="company-user-job?statusID=${s.statusID}">
+                                <option value="${s.statusID}">${s.statusName}</option>
+                                </a>
+                            </c:forEach>
                         </select>
+
                     </div>
                     <button class="search__submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -158,9 +160,8 @@
                     </tr>
                     </thead>
 
-
-                    <tbody>
                     <c:forEach var="e" items="${email}">
+                    <tbody>
                     <tr>
                         <td>${e.id}</td>
                         <td class="company__name">${e.companyName}</td>
@@ -171,39 +172,39 @@
                         <td>
                             <div class="operations">
 
-                                <div class="operation operation__edit">
+
+                                <div class="operation operagit add .tion__edit">
                                     <a href="javascript:void(0)" onclick="editEmployerForm()" id="section__edit" class="operation__edit-link">
 
                                         <i class="fa-solid fa-pen"></i>
                                     </a>
                                 </div>
                                 <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
+                                    <a href="delete-company?pid=${e.id}" class="delete"> <i class="fa-solid fa-trash"></i></a>
                                 </div>
                             </div>
                         </td>
                     </tr>
-                    </c:forEach>
-
                     </tbody>
+                    </c:forEach>
                 </table>
             </div>
         </div>
         <div id="editEmployerForm">
             <h3 class = "form__title">Chỉnh sửa thông tin nhà tuyển dụng</h3>
-            <form class="form__content" action="" method="POST">
+            <form class="form__content" action="company-user-job" method="POST">
+                <c:forEach var="e" items="${email}">
                 <div class="form__item">
-
                     <label for="name">Email : </label>
-                    <input type="email" id="email" name="email" required placeholder="Email"><br>
+                    <input value="${e.email}" type="email" id="email" name="email" required placeholder="Email"><br>
                 </div>
                 <div class="form__item">
                     <label for="company_name">Tên công ty :</label>
-                    <input type="text" id="company" name="company" required><br>
+                    <input value="${e.companyName}" type="text" id="company" name="company" required><br>
                 </div>
                 <div class="form__item">
                     <label for="phone">Số Điện Thoại:</label>
-                    <input type="text" id="phone" name="phone" required><br>
+                    <input value="${e.phone_number}" type="text" id="phone" name="phone" required><br>
                 </div>
 
                 <div class="form__item">
@@ -230,9 +231,9 @@
                     </div>
                     <div class="form__item">
 
-                        <!-- Địa chỉ chi tiết -->
+                        <!-- Địa chỉ chi  -->
                         <label class="address__detail" for="detail">Địa chỉ chi tiết:</label>
-                        <input type="text" id="detail" name="detail" placeholder="Số nhà, tên đường..." required><br><br>
+                        <input value="${e.address}" id="detail" name="detail" placeholder="Số nhà, tên đường..." required><br><br>
                     </div>
 
                 </div>
@@ -250,6 +251,7 @@
                         Quay lại
                     </a>
                 </div>
+                </c:forEach>
             </form>
         </div>
     </div>

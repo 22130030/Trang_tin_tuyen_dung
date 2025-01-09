@@ -27,7 +27,6 @@ public class JobService {
     public List<Job> getJobByCompanyId(int companyId) {
         return jobDao.getJobsByCompanyId(companyId);
     }
-
     public int getNumberPage(){
         return jobDao.getNumberPage();
     }
