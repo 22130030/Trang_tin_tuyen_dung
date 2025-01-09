@@ -853,6 +853,54 @@ select {
     color: #ff0000;
 }
 
+
+
+.upload-file--from-account{
+    position: relative;
+}
+.file-account-container{
+    display: none;
+    position: absolute;
+    width: 100%;
+    min-height : 40px;
+    left: 0;
+    top: calc(100% + 3px);
+    background-color: var(--white-color);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.file-account__list{
+    list-style: none;
+    padding: 15px 10px;
+    margin: 0;
+    text-align: left;
+    font-size: 1.4rem;
+    color : var(--text-color);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.file-account-item i {
+    padding-right: 10px;
+    font-size: 2rem;
+}
+.file-account-item{
+    display: flex;
+    align-items: center;
+}
+.file-account-item span{
+    font-size: 1.4rem;
+    line-height: 2rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.add-file{
+    font-size: 1.6rem;
+    color : var(--blue-color);
+    padding: 10px;
+    display: block;
+    text-decoration: none;
+}
   
   
   
