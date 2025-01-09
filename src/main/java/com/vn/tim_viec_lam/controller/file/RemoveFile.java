@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-@WebServlet(name="removeFile",value = "/remove-file")
+@WebServlet(name="removeFile",value = "/account/remove-file")
 public class RemoveFile extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getParameter("fileId") != null) {

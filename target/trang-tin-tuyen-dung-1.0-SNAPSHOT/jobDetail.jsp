@@ -259,7 +259,7 @@
                         </c:if>
                     </ul>
 
-                    <a href="job_application.jsp" class="add-file">
+                    <a href="account/job_application.jsp" class="add-file">
                         <i class="fa-solid fa-plus"></i>
                         <span>tạo hồ sơ mới</span>
                     </a>
@@ -322,7 +322,7 @@
     <div class="title">Nộp đơn thành công</div>
     <div class="message">
         Trạng thái đơn ứng tuyển của bạn sẽ được cập nhật tại
-        <a href="job_applied.jsp" target="_blank">Việc đã ứng tuyển</a>. Hãy theo dõi thường xuyên.
+        <a href="account/job_applied.jsp" target="_blank">Việc đã ứng tuyển</a>. Hãy theo dõi thường xuyên.
     </div>
 </div>
 
@@ -421,7 +421,7 @@
         }
 
             try {
-                const response = await fetch(`job-applied?jid=${job.id}`, {
+                const response = await fetch(`account/job-applied?jid=${job.id}`, {
                     method: "POST",
                     body: formData,
                 });
