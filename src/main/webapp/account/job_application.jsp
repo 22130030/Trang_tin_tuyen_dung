@@ -12,17 +12,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="asserts/css/base.css">
-    <link rel="stylesheet" href="asserts/css/candidate/job_application.css">
-    <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
-    <link rel="stylesheet" href="asserts/css/candidate/account_base.css">
+    <link rel="stylesheet" href="../asserts/css/base.css">
+    <link rel="stylesheet" href="../asserts/css/candidate/job_application.css">
+    <link rel="stylesheet" href="../asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
+    <link rel="stylesheet" href="../asserts/css/candidate/account_base.css">
     <title>Hồ sơ xin việc</title>
 
 </head>
 <body>
     <div class="application">
-        <%@ include file="header.jsp"%>
-        <%@include file="menu_account.jsp"%>
+        <%@ include file="../header.jsp"%>
+        <%@include file="../menu_account.jsp"%>
         <div class="container">
             <div class="grid__1100">
 
@@ -81,7 +81,7 @@
 
                         </div>
                         <div class="grid__col-3">
-                            <%@include file="suggest.jsp"%>
+                            <%@include file="../suggest.jsp"%>
                         </div>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                 </div>
             </div>
         </div>
-        <%@include file="footer.jsp"%>
+        <%@include file="../footer.jsp"%>
     </div>
 
     <script>

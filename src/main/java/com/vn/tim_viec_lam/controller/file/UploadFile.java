@@ -17,7 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
-@WebServlet(name = "uploadFile",value = "/upload-file")
+@WebServlet(name = "uploadFile",value = "/account/upload-file")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 3, // 3MB
         maxFileSize = 1024 * 1024 * 30,

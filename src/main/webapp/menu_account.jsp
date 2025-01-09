@@ -35,7 +35,7 @@
                 </a>
             </li>
             <li class="nav__menu-item">
-                <a href="job_application.jsp" class="nav__menu__link ${relativePath eq '/job_application.jsp' ? 'nav__menu-active' : ''}">
+                <a href="account/job_application.jsp" class="nav__menu__link ${relativePath eq '/job_application.jsp' ? 'nav__menu-active' : ''}">
                     <c:if test="${relativePath eq '/job_application.jsp'}">
                         <div class="nav-menu__has-separated"></div>
                     </c:if>
@@ -48,7 +48,7 @@
                 </a>
             </li>
             <li class="nav__menu-item">
-                <a href="job_saving.jsp" class="nav__menu__link ${relativePath eq '/job_saving.jsp' ? 'nav__menu-active' : ''}">
+                <a href="account/job_saving.jsp" class="nav__menu__link ${relativePath eq '/job_saving.jsp' ? 'nav__menu-active' : ''}">
                     <c:if test="${relativePath eq '/job_saving.jsp'}">
                         <div class="nav-menu__has-separated"></div>
                     </c:if>
@@ -62,7 +62,7 @@
                 </a>
             </li>
             <li class="nav__menu-item">
-                <a href="job_applied.jsp" class="nav__menu__link ${relativePath eq '/job_applied.jsp' ? 'nav__menu-active' : ''}">
+                <a href="account/job_applied.jsp" class="nav__menu__link ${relativePath eq '/job_applied.jsp' ? 'nav__menu-active' : ''}">
                     <c:if test="${relativePath eq '/job_applied.jsp'}">
                         <div class="nav-menu__has-separated"></div>
                     </c:if>

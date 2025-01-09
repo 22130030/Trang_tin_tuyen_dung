@@ -12,7 +12,7 @@ import jakarta.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 
-@WebServlet(name = "jobApplied",value = "/job-applied")
+@WebServlet(name = "jobApplied",value = "/account/job-applied")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 3, // 3MB
         maxFileSize = 1024 * 1024 * 30,
