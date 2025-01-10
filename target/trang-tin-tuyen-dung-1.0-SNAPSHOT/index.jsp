@@ -322,7 +322,7 @@
     function addJobToCartAjax(event, jobId) {
     event.preventDefault();
 
-        fetch(`addJob?jid=` + jobId, {
+        fetch(`account/addJob?jid=` + jobId, {
         method: 'GET'
         })
         .then(response => {
