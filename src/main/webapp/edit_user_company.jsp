@@ -24,6 +24,7 @@
             align-items: center;
             height: 100vh;
             background-color: #f9f9f9;
+            box-sizing: border-box;
         }
         .container {
             width: 700px;
@@ -32,6 +33,16 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             text-align: center;
+            box-sizing: border-box; /* Đảm bảo padding không gây lỗi */
+        }
+        input, select, button {
+            width: calc(100% - 20px); /* Chiều rộng của phần tử, trừ padding */
+            margin: 10px auto; /* Tạo khoảng cách trên và dưới */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Gồm padding và border trong kích thước */
+            display: block; /* Đảm bảo các phần tử là khối */
         }
         h2 {
             margin-bottom: 20px;
@@ -77,42 +88,33 @@
 <body>
 <div class="container">
     <h2>Chỉnh sửa thông tin nhà tuyển dụng</h2>
-    <form action="updateEmployer" method="post">
+    <form action="edit" method="post">
+        <label for="email">ID:</label>
+        <input value="${ls.id}" type="text" id="id" name="id" readonly>
+
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+        <input value="${ls.email}" type="email" id="email" name="email" required>
 
         <label for="companyName">Tên công ty:</label>
-        <input type="text" id="companyName" name="companyName" required>
+        <input value="${ls.companyName}" type="text" id="companyName" name="companyName" required>
 
         <label for="phone">Số Điện Thoại:</label>
-        <input type="text" id="phone" name="phone" required>
-
-        <label>Địa chỉ:</label>
-        <select id="province" name="province" required>
-            <option value="">Chọn Tỉnh/Thành phố --</option>
-            <!-- Add options dynamically -->
-        </select>
-        <select id="district" name="district" required>
-            <option value="">Chọn Quận/Huyện --</option>
-            <!-- Add options dynamically -->
-        </select>
-        <select id="ward" name="ward" required>
-            <option value="">Chọn Phường/Xã --</option>
-            <!-- Add options dynamically -->
-        </select>
+        <input value="${ls.phone_number}" type="text" id="phone" name="phone" required>
 
         <label for="address">Địa chỉ chi tiết:</label>
-        <input type="text" id="address" name="address">
+        <input value="${ls.address}" type="text" id="address" name="address">
 
-        <label for="status">Trạng thái:</label>
-        <select id="status" name="status" required>
-            <option value="duyet">duyệt</option>
-            <option value="choDuyet">chờ duyệt</option>
-            <option value="tuChoi">từ chối</option>
+        <label for="">Trạng thái:</label>
+        <select id="" name="" >
+            <c:forEach var="s" items="${status}">
+                <a href="company-user-job?statusID=${s.statusID}">
+                    <option value="${s.statusID}">${s.statusName}</option>
+                </a>
+            </c:forEach>
         </select>
 
         <button type="submit">Lưu</button>
-        <a href="home.jsp">← Quay lại</a>
+        <a href="admin_employer.jsp">← Quay lại</a>
     </form>
 </div>
 </body>
