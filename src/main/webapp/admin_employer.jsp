@@ -21,40 +21,40 @@
 
     <title>Admin</title>
 
-    <script>
-        function editEmployerForm(){
-            var employerForm = document.getElementById("editEmployerForm");
+<%--    <script>--%>
+<%--        function editEmployerForm(){--%>
+<%--            var employerForm = document.getElementById("editEmployerForm");--%>
 
-            var employerTable = document.getElementById("table-container");
-            if(employerForm.style.display === '' || employerForm.style.display === 'none'){
-                employerForm.style.display = 'block';
-            }else{
-                employerForm.style.display = 'none';
-            }
-            if(employerTable.style.display === '' || employerTable.style.display === 'block'){
-                employerTable.style.display = 'none';
-            }else{
-                employerTable.style.display = 'block';
-            }
-        }
-        document.addEventListener('DOMContentLoaded', function () {
-            const navUser = document.querySelector('.nav__admin');
-            const dropdownMenu = document.querySelector('.nav__form-admin');
+<%--            var employerTable = document.getElementById("table-container");--%>
+<%--            if(employerForm.style.display === '' || employerForm.style.display === 'none'){--%>
+<%--                employerForm.style.display = 'block';--%>
+<%--            }else{--%>
+<%--                employerForm.style.display = 'none';--%>
+<%--            }--%>
+<%--            if(employerTable.style.display === '' || employerTable.style.display === 'block'){--%>
+<%--                employerTable.style.display = 'none';--%>
+<%--            }else{--%>
+<%--                employerTable.style.display = 'block';--%>
+<%--            }--%>
+<%--        }--%>
+<%--        document.addEventListener('DOMContentLoaded', function () {--%>
+<%--            const navUser = document.querySelector('.nav__admin');--%>
+<%--            const dropdownMenu = document.querySelector('.nav__form-admin');--%>
 
-            // Hiển thị menu khi click vào `.nav__has--form-login`
-            navUser.addEventListener('click', function (event) {
-                event.stopPropagation();
-                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-            });
+<%--            // Hiển thị menu khi click vào `.nav__has--form-login`--%>
+<%--            navUser.addEventListener('click', function (event) {--%>
+<%--                event.stopPropagation();--%>
+<%--                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';--%>
+<%--            });--%>
 
-            // Đóng menu khi click ra ngoài
-            document.addEventListener('click', function (event) {
-                if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                    dropdownMenu.style.display = 'none';
-                }
-            });
-        });
-    </script>
+<%--            // Đóng menu khi click ra ngoài--%>
+<%--            document.addEventListener('click', function (event) {--%>
+<%--                if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {--%>
+<%--                    dropdownMenu.style.display = 'none';--%>
+<%--                }--%>
+<%--            });--%>
+<%--        });--%>
+<%--    </script>--%>
 
 </head>
 <body>
@@ -174,8 +174,7 @@
 
 
                                 <div class="operation operagit add .tion__edit">
-                                    <a href="javascript:void(0)" onclick="editEmployerForm()" id="section__edit" class="operation__edit-link">
-
+                                    <a href="loaduser?pid=${e.id}" class="operation__edit-link">
                                         <i class="fa-solid fa-pen"></i>
                                     </a>
                                 </div>
@@ -190,70 +189,70 @@
                 </table>
             </div>
         </div>
-        <div id="editEmployerForm">
-            <h3 class = "form__title">Chỉnh sửa thông tin nhà tuyển dụng</h3>
-            <form class="form__content" action="company-user-job" method="POST">
-                <c:forEach var="e" items="${email}">
-                <div class="form__item">
-                    <label for="name">Email : </label>
-                    <input value="${e.email}" type="email" id="email" name="email" required placeholder="Email"><br>
-                </div>
-                <div class="form__item">
-                    <label for="company_name">Tên công ty :</label>
-                    <input value="${e.companyName}" type="text" id="company" name="company" required><br>
-                </div>
-                <div class="form__item">
-                    <label for="phone">Số Điện Thoại:</label>
-                    <input value="${e.phone_number}" type="text" id="phone" name="phone" required><br>
-                </div>
+<%--        <div id="editEmployerForm">--%>
+<%--            <h3 class = "form__title">Chỉnh sửa thông tin nhà tuyển dụng</h3>--%>
+<%--            <form class="form__content" action="company-user-job" method="post">--%>
+<%--&lt;%&ndash;                <c:forEach var="e" items="${email}">&ndash;%&gt;--%>
+<%--                <div class="form__item">--%>
+<%--                    <label for="name">Email : </label>--%>
+<%--&lt;%&ndash;                    <input value="${email}" type="email" id="email" name="email" required placeholder="Email"><br>&ndash;%&gt;--%>
+<%--                </div>--%>
+<%--                <div class="form__item">--%>
+<%--                    <label for="company_name">Tên công ty :</label>--%>
+<%--&lt;%&ndash;                    <input value="${companyName}" type="text" id="company" name="company" required><br>&ndash;%&gt;--%>
+<%--                </div>--%>
+<%--                <div class="form__item">--%>
+<%--                    <label for="phone">Số Điện Thoại:</label>--%>
+<%--&lt;%&ndash;                    <input value="${email.phone_number}" type="text" id="phone" name="phone" required><br>&ndash;%&gt;--%>
+<%--                </div>--%>
 
-                <div class="form__item">
-                    <label for="address">Địa chỉ : </label>
-                    <div class="form__address-city">
+<%--                <div class="form__item">--%>
+<%--                    <label for="address">Địa chỉ : </label>--%>
+<%--                    <div class="form__address-city">--%>
 
-                        <select id="province" name="province" required>
-                            <option class="select__head" value=""> Chọn Tỉnh/Thành phố --</option>
-                            <option value="hanoi">Hà Nội</option>
-                            <option value="hochiminh">TP Hồ Chí Minh</option>
-                            <option value="danang">Đà Nẵng</option>
-                        </select>
+<%--                        <select id="province" name="province" required>--%>
+<%--                            <option class="select__head" value=""> Chọn Tỉnh/Thành phố --</option>--%>
+<%--                            <option value="hanoi">Hà Nội</option>--%>
+<%--                            <option value="hochiminh">TP Hồ Chí Minh</option>--%>
+<%--                            <option value="danang">Đà Nẵng</option>--%>
+<%--                        </select>--%>
 
-                        <!-- Quận/Huyện -->
-                        <select id="district" name="district" required>
-                            <option class="select__head" value=""> Chọn Quận/Huyện --</option>
-                        </select>
+<%--                        <!-- Quận/Huyện -->--%>
+<%--                        <select id="district" name="district" required>--%>
+<%--                            <option class="select__head" value=""> Chọn Quận/Huyện --</option>--%>
+<%--                        </select>--%>
 
-                        <!-- Phường/Xã -->
-                        <select id="ward" name="ward" required>
-                            <option class="select__head" value=""> Chọn Phường/Xã --</option>
-                        </select>
+<%--                        <!-- Phường/Xã -->--%>
+<%--                        <select id="ward" name="ward" required>--%>
+<%--                            <option class="select__head" value=""> Chọn Phường/Xã --</option>--%>
+<%--                        </select>--%>
 
-                    </div>
-                    <div class="form__item">
+<%--                    </div>--%>
+<%--                    <div class="form__item">--%>
 
-                        <!-- Địa chỉ chi  -->
-                        <label class="address__detail" for="detail">Địa chỉ chi tiết:</label>
-                        <input value="${e.address}" id="detail" name="detail" placeholder="Số nhà, tên đường..." required><br><br>
-                    </div>
+<%--                        <!-- Địa chỉ chi  -->--%>
+<%--                        <label class="address__detail" for="detail">Địa chỉ chi tiết:</label>--%>
+<%--&lt;%&ndash;                        <input value="${email.address}" id="detail" name="detail" placeholder="Số nhà, tên đường..." required><br><br>&ndash;%&gt;--%>
+<%--                    </div>--%>
 
-                </div>
-                <div class="form__item">
-                    <label for="status">Trạng thái</label>
-                    <select class="status" name="status" id="status">
-                        <option value="enable">duyệt</option>
-                        <option value="disable">vô hiệu hóa</option>
-                    </select>
-                </div>
-                <div class="form__bottom">
-                    <button class="form__submit" type="submit">lưu</button>
-                    <a href="javascript:void(0)" onclick="editEmployerForm()"  class="form__back">
-                        <i class="fa-solid fa-arrow-left"></i>
-                        Quay lại
-                    </a>
-                </div>
-                </c:forEach>
-            </form>
-        </div>
+<%--                </div>--%>
+<%--                <div class="form__item">--%>
+<%--                    <label for="status">Trạng thái</label>--%>
+<%--                    <select class="status" name="status" id="status">--%>
+<%--                        <option value="enable">duyệt</option>--%>
+<%--                        <option value="disable">vô hiệu hóa</option>--%>
+<%--                    </select>--%>
+<%--                </div>--%>
+<%--                <div class="form__bottom">--%>
+<%--                    <button class="form__submit" type="submit">lưu</button>--%>
+<%--                    <a href="javascript:void(0)" onclick="editEmployerForm()"  class="form__back">--%>
+<%--                        <i class="fa-solid fa-arrow-left"></i>--%>
+<%--                        Quay lại--%>
+<%--                    </a>--%>
+<%--                </div>--%>
+<%--&lt;%&ndash;                </c:forEach>&ndash;%&gt;--%>
+<%--            </form>--%>
+<%--        </div>--%>
     </div>
 </div>
 
