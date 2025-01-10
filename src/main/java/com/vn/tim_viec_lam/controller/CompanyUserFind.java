@@ -26,6 +26,7 @@
             req.setAttribute("email",listEmailCompany);
             req.setAttribute("status",listStatusCompany);
             req.getRequestDispatcher("/admin_employer.jsp").forward(req,resp);
+
         }
 
         @Override
@@ -40,6 +41,5 @@
             List<CompanyStatusCategory> listStatusCompany = categoryService.getCompanyStatusCategories();
             req.setAttribute("status",listStatusCompany);
             req.setAttribute("email", listEmailCompany);
-            req.getRequestDispatcher("admin_employer.jsp").forward(req, resp);
         }
     }
