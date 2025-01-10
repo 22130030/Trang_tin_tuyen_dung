@@ -92,7 +92,7 @@
                         </div>
                         <div class="grid__col-4">
                             <div class="job__status-applied job__status-item">
-                                <span class="job__status-toltal">1</span>
+                                <span class="job__status-toltal">${sessionScope.jobAppliedCart == null ? 0 : sessionScope.jobAppliedCart.size}</span>
                                 <span class="job__status-title">Việc làm đã ứng tuyển</span>
                             </div>
                         </div>
