@@ -123,11 +123,9 @@
         <div id="table-container">
             <h3>Quản lý ứng viên</h3>
             <div class="candidate__management">
-
-                <div class="candidate__search">
-                    <input class="search__input" type="text" name="name" class="search__candidate" placeholder="Nhập tên,email,...">
+                <form action="candidate-user-find"  method="post" class="candidate__search">
+                    <input class="search__input" type="text" name="email" class="search__candidate" placeholder="Nhập tên,email,...">
                     <div class="search__status-filter">
-
                         <span>Trạng thái : </span>
                         <select name="" id="" class="search__filter">
                             <option value="">Đang xử lí</option>
@@ -140,7 +138,7 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <span>Tìm kiếm</span>
                     </button>
-                </div>
+                </form>
 
                 <table>
                     <thead>
@@ -155,17 +153,16 @@
                         <th>Thao tác</th>
                     </tr>
                     </thead>
-
-
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td class="candidate__name">Nguyễn Văn A</td>
-                        <td>nguyenvana@gmail.com</td>
-                        <td>0938475</td>
-                        <td class="candidate__company">Viettel</td>
-                        <td>2024-11-17</td>
-                        <td class = "candidate_status">Đang chờ xử lí</td>
+                    <c:forEach items="${candidateList}" var="cu">
+                        <tr>
+                        <td>${cu.candidateID}</td>
+                        <td class="candidate__name">${cu.fullName}</td>
+                        <td>${cu.email}</td>
+                        <td>${cu.phone}</td>
+                        <td class="candidate__company">${cu.appliedCompany}</td>
+                        <td>${cu.applyDate}</td>
+                        <td class = "candidate_status">${cu.status}</td>
                         <td>
                             <div class="operations">
                                 <div class="operation operation__edit">
@@ -175,227 +172,15 @@
                                     </a>
                                 </div>
                                 <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
+                                   <a href="delete-user-candidate?cid=${cu.candidateID}" class="delete">
+                                       <i class="fa-solid fa-trash"></i>
+                                   </a>
                                 </div>
                             </div>
-            </div>
-            </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td class="candidate__name">Nguyễn Văn A</td>
-                <td>nguyenvana@gmail.com</td>
-                <td>0938475</td>
-                <td class="candidate__company">Viettel</td>
-                <td>2024-11-17</td>
-                <td class = "candidate_status">Đang chờ xử lí</td>
-                <td>
-                    <div class="operations">
-                        <div class="operation operation__edit">
-                            <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
-
-                                <i class="fa-solid fa-pen"></i>
-                            </a>
-                        </div>
-                        <div class="operation operation__remove">
-                            <i class="fa-solid fa-trash"></i>
-                        </div>
-                    </div>
-                </td>
-            </tr><tr>
-            <td>1</td>
-            <td class="candidate__name">Nguyễn Văn A</td>
-            <td>nguyenvana@gmail.com</td>
-            <td>0938475</td>
-            <td class="candidate__company">Viettel</td>
-            <td>2024-11-17</td>
-            <td class = "candidate_status">Đang chờ xử lí</td>
-            <td>
-                <div class="operations">
-                    <div class="operation operation__edit">
-                        <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
-
-                            <i class="fa-solid fa-pen"></i>
-                        </a>
-                    </div>
-                    <div class="operation operation__remove">
-                        <i class="fa-solid fa-trash"></i>
-                    </div>
-                </div>
-            </td>
-        </tr><tr>
-            <td>1</td>
-            <td class="candidate__name">Nguyễn Văn A</td>
-            <td>nguyenvana@gmail.com</td>
-            <td>0938475</td>
-            <td class="candidate__company">Viettel</td>
-            <td>2024-11-17</td>
-            <td class = "candidate_status">Đang chờ xử lí</td>
-            <td>
-                <div class="operations">
-                    <div class="operation operation__edit">
-                        <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
-
-                            <i class="fa-solid fa-pen"></i>
-                        </a>
-                    </div>
-                    <div class="operation operation__remove">
-                        <i class="fa-solid fa-trash"></i>
-                    </div>
-                </div>
-            </td>
-        </tr><tr>
-            <td>1</td>
-            <td class="candidate__name">Nguyễn Văn A</td>
-            <td>nguyenvana@gmail.com</td>
-            <td>0938475</td>
-            <td class="candidate__company">Viettel</td>
-            <td>2024-11-17</td>
-            <td class = "candidate_status">Đang chờ xử lí</td>
-            <td>
-                <div class="operations">
-                    <div class="operation operation__edit">
-                        <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
-
-                            <i class="fa-solid fa-pen"></i>
-                        </a>
-                    </div>
-                    <div class="operation operation__remove">
-                        <i class="fa-solid fa-trash"></i>
-                    </div>
-                </div>
-            </td>
-        </tr><tr>
-            <td>1</td>
-            <td class="candidate__name">Nguyễn Văn A</td>
-            <td>nguyenvana@gmail.com</td>
-            <td>0938475</td>
-            <td class="candidate__company">Viettel</td>
-            <td>2024-11-17</td>
-            <td class = "candidate_status">Đang chờ xử lí</td>
-            <td>
-                <div class="operations">
-                    <div class="operation operation__edit">
-                        <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
-
-                            <i class="fa-solid fa-pen"></i>
-                        </a>
-                    </div>
-                    <div class="operation operation__remove">
-                        <i class="fa-solid fa-trash"></i>
-                    </div>
-                </div>
-            </td>
-        </tr><tr>
-            <td>1</td>
-            <td class="candidate__name">Nguyễn Văn A</td>
-            <td>nguyenvana@gmail.com</td>
-            <td>0938475</td>
-            <td class="candidate__company">Viettel</td>
-            <td>2024-11-17</td>
-            <td class = "candidate_status">Đang chờ xử lí</td>
-            <td>
-                <div class="operations">
-                    <div class="operation operation__edit">
-                        <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
-
-                            <i class="fa-solid fa-pen"></i>
-                        </a>
-                    </div>
-                    <div class="operation operation__remove">
-                        <i class="fa-solid fa-trash"></i>
-                    </div>
-                </div>
-            </td>
-        </tr><tr>
-            <td>1</td>
-            <td class="candidate__name">Nguyễn Văn A</td>
-            <td>nguyenvana@gmail.com</td>
-            <td>0938475</td>
-            <td class="candidate__company">Viettel</td>
-            <td>2024-11-17</td>
-            <td class = "candidate_status">Đang chờ xử lí</td>
-            <td>
-                <div class="operations">
-                    <div class="operation operation__edit">
-                        <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
-
-                            <i class="fa-solid fa-pen"></i>
-                        </a>
-                    </div>
-                    <div class="operation operation__remove">
-                        <i class="fa-solid fa-trash"></i>
-                    </div>
-                </div>
-            </td>
-        </tr><tr>
-            <td>1</td>
-            <td class="candidate__name">Nguyễn Văn A</td>
-            <td>nguyenvana@gmail.com</td>
-            <td>0938475</td>
-            <td class="candidate__company">Viettel</td>
-            <td>2024-11-17</td>
-            <td class = "candidate_status">Đang chờ xử lí</td>
-            <td>
-                <div class="operations">
-                    <div class="operation operation__edit">
-                        <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
-
-                            <i class="fa-solid fa-pen"></i>
-                        </a>
-                    </div>
-                    <div class="operation operation__remove">
-                        <i class="fa-solid fa-trash"></i>
-                    </div>
-                </div>
-            </td>
-        </tr><tr>
-            <td>1</td>
-            <td class="candidate__name">Nguyễn Văn A</td>
-            <td>nguyenvana@gmail.com</td>
-            <td>0938475</td>
-            <td class="candidate__company">Viettel</td>
-            <td>2024-11-17</td>
-            <td class = "candidate_status">Đang chờ xử lí</td>
-            <td>
-                <div class="operations">
-                    <div class="operation operation__edit">
-                        <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
-
-                            <i class="fa-solid fa-pen"></i>
-                        </a>
-                    </div>
-                    <div class="operation operation__remove">
-                        <i class="fa-solid fa-trash"></i>
-                    </div>
-                </div>
-            </td>
-        </tr><tr>
-            <td>1</td>
-            <td class="candidate__name">Nguyễn Văn A</td>
-            <td>nguyenvana@gmail.com</td>
-            <td>0938475</td>
-            <td class="candidate__company">Viettel</td>
-            <td>2024-11-17</td>
-            <td class = "candidate_status">Đang chờ xử lí</td>
-            <td>
-                <div class="operations">
-                    <div class="operation operation__edit">
-                        <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
-
-                            <i class="fa-solid fa-pen"></i>
-                        </a>
-                    </div>
-                    <div class="operation operation__remove">
-                        <i class="fa-solid fa-trash"></i>
-                    </div>
-                </div>
-            </td>
-        </tr>
-
-
-
-            </tbody>
+                        </td>
+                    </tr>
+                    </c:forEach>
+                    </tbody>
             </table>
         </div>
     </div>
