@@ -198,7 +198,9 @@ a.btn.btn-primary {
 .align-items-center {
   align-items: center !important;
 }
-
+.hidden{
+  display: none;
+}
 a {
   color: #0069DB;
   text-decoration: none;

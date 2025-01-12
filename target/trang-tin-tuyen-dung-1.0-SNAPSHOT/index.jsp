@@ -325,19 +325,18 @@
         fetch(`account/addJob?jid=` + jobId, {
         method: 'GET'
         })
-        .then(response => {
-        if (response.ok) {
-
-        // Thay đổi biểu tượng trái tim sau khi lưu
-        const heartIcon = event.target.closest('a').querySelector('i');
-        heartIcon.classList.remove('fa-regular');
-        heartIcon.classList.add('fa-solid');
-
-        }
-        else {
-        alert('Có lỗi xảy ra!');
-        }
-        })
+            .then(response => {
+                if (response.status === 401) {
+                    // Chuyển hướng đến trang đăng nhập
+                    window.location.href = '/login.jsp';
+                } else if (response.ok) {
+                    const heartIcon = event.target.closest('a').querySelector('i');
+                    heartIcon.classList.remove('fa-regular');
+                    heartIcon.classList.add('fa-solid');
+                } else {
+                    alert('Có lỗi xảy ra!');
+                }
+            })
         .catch(error => {
         console.error('Error:', error);
         alert('Có lỗi xảy ra!');

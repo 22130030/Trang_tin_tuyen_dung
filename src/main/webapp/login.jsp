@@ -36,7 +36,6 @@
     <!-- header -->
     <%@include file="header.jsp" %>
 
-</div>
 
 <!-- navigation -->
 <!-- content -->
@@ -51,15 +50,15 @@
                         <div class="text-center mb-5">
                             <h3 class="text-uppercase"><strong>Người tìm việc đăng nhập</strong></h3>
                         </div>
-                        <form>
+                        <form action="login" method="post">
                             <div class="form-group first">
                                 <label for="username">Username</label>
-                                <input type="text" class="form-control" placeholder="Email" id="username">
+                                <input type="text" class="form-control" placeholder="email" id="email" name="email">
                             </div>
                             <div class="form-group last mb-3">
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control" placeholder="Mật khẩu"
-                                       id="password">
+                                       id="password" name="password">
                             </div>
 
                             <div class="d-sm-flex mb-5 align-items-center">
@@ -72,8 +71,8 @@
                                                     mật khẩu</a></span>
                             </div>
 
-                            <a href="html/admin/admin_home.html"
-                               class="btn btn-block py-2 btn-primary text-center" type="submit">Đăng nhập</a>
+                            <button
+                               class="btn btn-block py-2 btn-primary text-center" type="submit">Đăng nhập</button>
                             <span class="text-center my-3 d-block">hoặc</span>
 
                             <div class="icon">
@@ -93,12 +92,12 @@
     </div>
 </div>
 <!-- footer -->
-<div class="footer-1" style="margin-top: -80px;">
     <%@include file="footer.jsp" %>
 </div>
 </body>
 
 </html>
+
 
 
 

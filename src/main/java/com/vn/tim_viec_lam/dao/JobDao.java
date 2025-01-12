@@ -330,32 +330,37 @@ public class JobDao {
         }
 
     }
-    public List<Job> filterJobs(String locationID, String position, String status) {
+    public List<Job> filterJobs(String jobName,String jobCategory,String jobLocation) {
         List<Job> jobs = new ArrayList<>();
-        String query = "SELECT jp.*, c.companyName FROM job_posting jp JOIN companies c ON jp.companyID = c.companyID WHERE 1=1";
+        String query = "SELECT jp.*, c.companyName,jl.city FROM job_posting jp" +
+                " Join companies c ON jp.companyID = c.companyID" +
+                " JOIN job_locations jl ON jl.locationID = jp.locationID" +
+                " join job_post_categories jpc on jpc.jobPostID = jp.jobPostID" +
+                " Join Job_categories jc on jc.categoryID = jpc.categoryID" +
+                " WHERE 1=1";
 
-        if (locationID != null && !locationID.isEmpty()) {
-            query += " AND jp.locationID = ?";
+        if (jobName != null && !jobName.isEmpty()) {
+            query += " AND jp.titleJob like ?";
         }
-        if (position != null && !position.isEmpty()) {
-            query += " AND jp.position LIKE ?";
+        if (jobCategory != null && !jobCategory.isEmpty()) {
+            query += " AND jc.categoryName LIKE ?";
         }
-        if (status != null && !status.isEmpty()) {
-            query += " AND jp.status = ?";
+        if (jobLocation != null && !jobLocation.isEmpty()) {
+            query += " AND jl.city like ?";
         }
 
         try (Connection connection = DBconnect.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
             int index = 1;
-            if (locationID != null && !locationID.isEmpty()) {
-                statement.setInt(index++, Integer.parseInt(locationID));
+            if (jobName != null && !jobName.isEmpty()) {
+                statement.setString(index++, "%"+jobName+"%");
             }
-            if (position != null && !position.isEmpty()) {
-                statement.setString(index++, "%" + position + "%");
+            if (jobCategory != null && !jobCategory.isEmpty()) {
+                statement.setString(index++, "%" + jobCategory + "%");
             }
-            if (status != null && !status.isEmpty()) {
-                statement.setString(index++, status);
+            if (jobLocation != null && !jobLocation.isEmpty()) {
+                statement.setString(index++, "%"+jobLocation+"%");
             }
 
             ResultSet resultSet = statement.executeQuery();
@@ -368,10 +373,12 @@ public class JobDao {
         }
         return jobs;
     }
-
+    public boolean addJobPosting(){
+        return false;
+    }
     public static void main(String[] args) {
         JobDao jobDao = new JobDao();
-        System.out.println(jobDao.getJobsByCategoryId(5));
+        System.out.println(jobDao.filterJobs("Nhân viên","Công nghệ thông tin","Hải Phòng"));
 
     }
 }
