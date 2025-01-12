@@ -18,39 +18,6 @@
     <link rel="stylesheet" href="asserts/css/admin/candidate.css">
     <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
     <title>Admin</title>
-    <script>
-        function editCandidateForm(){
-            var candidateForm = document.getElementById("editCandidateForm");
-            var candidateTable = document.getElementById("table-container");
-            if(candidateForm.style.display === '' || candidateForm.style.display === 'none'){
-                candidateForm.style.display = 'block';
-            }else{
-                candidateForm.style.display = 'none';
-            }
-            if(candidateTable.style.display === '' || candidateTable.style.display === 'block'){
-                candidateTable.style.display = 'none';
-            }else{
-                candidateTable.style.display = 'block';
-            }
-        }
-        document.addEventListener('DOMContentLoaded', function () {
-            const navUser = document.querySelector('.nav__admin');
-            const dropdownMenu = document.querySelector('.nav__form-admin');
-
-            // Hiển thị menu khi click vào `.nav__has--form-login`
-            navUser.addEventListener('click', function (event) {
-                event.stopPropagation();
-                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-            });
-
-            // Đóng menu khi click ra ngoài
-            document.addEventListener('click', function (event) {
-                if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                    dropdownMenu.style.display = 'none';
-                }
-            });
-        });
-    </script>
 
 </head>
 <body>
@@ -166,8 +133,7 @@
                         <td>
                             <div class="operations">
                                 <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editCandidateForm()" id="section__edit" class="operation__edit-link">
-
+                                    <a href="load-user-candidate?cid=${cu.candidateID}" >
                                         <i class="fa-solid fa-pen"></i>
                                     </a>
                                 </div>
