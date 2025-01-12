@@ -159,281 +159,33 @@
 
                     </thead>
                     <tbody>
-                    <tr>
+                    <c:forEach items="${list}" var="l">
+                        <tr>
+                            <td>${l.id}</td>
+                            <td class="job__column-img">
+                                <div class="job__column-item">
+                                    <img src="${l.img}" alt="">
+                                </div>
+                            </td>
+                            <td>${l.title}</td>
+                            <td>${l.companyName}</td>
+                            <td>${l.city}</td>
+                            <td>${l.salary}</td>
+                            <td>${l.created}</td>
+                            <td>${l.status}</td>
+                            <td>
+                                <div class="operations">
+                                    <div class="operation operation__edit">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </div>
+                                    <div class="operation operation__remove">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
 
-                        <td>1</td>
-                        <td class="job__column-img">
-                            <div class="job__column-item">
-                                <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
-                            </div>
-                        </td>
-                        <td>Nhân viên phiên dịch tiếng Hàn</td>
-                        <td>Công ty TNHH D&O CM VietNam</td>
-                        <td>Hải Phòng</td>
-                        <td>2 triệu</td>
-                        <td>1/11/2024</td>
-                        <td>Đã duyệt</td>
-                        <td>
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <i class="fa-solid fa-pen"></i>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-
-                        <td>1</td>
-                        <td class="job__column-img">
-                            <div class="job__column-item">
-                                <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
-                            </div>
-                        </td>
-                        <td>Nhân viên phiên dịch tiếng Hàn</td>
-                        <td>Công ty TNHH D&O CM VietNam</td>
-                        <td>Hải Phòng</td>
-                        <td>2 triệu</td>
-                        <td>1/11/2024</td>
-                        <td>Đã duyệt</td>
-                        <td>
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <i class="fa-solid fa-pen"></i>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-
-                        <td>1</td>
-                        <td class="job__column-img">
-                            <div class="job__column-item">
-                                <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
-                            </div>
-                        </td>
-                        <td>Nhân viên phiên dịch tiếng Hàn</td>
-                        <td>Công ty TNHH D&O CM VietNam</td>
-                        <td>Hải Phòng</td>
-                        <td>2 triệu</td>
-                        <td>1/11/2024</td>
-                        <td>Đã duyệt</td>
-                        <td>
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <i class="fa-solid fa-pen"></i>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-
-                        <td>1</td>
-                        <td class="job__column-img">
-                            <div class="job__column-item">
-                                <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
-                            </div>
-                        </td>
-                        <td>Nhân viên phiên dịch tiếng Hàn</td>
-                        <td>Công ty TNHH D&O CM VietNam</td>
-                        <td>Hải Phòng</td>
-                        <td>2 triệu</td>
-                        <td>1/11/2024</td>
-                        <td>Đã duyệt</td>
-                        <td>
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <i class="fa-solid fa-pen"></i>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-
-                        <td>1</td>
-                        <td class="job__column-img">
-                            <div class="job__column-item">
-                                <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
-                            </div>
-                        </td>
-                        <td>Nhân viên phiên dịch tiếng Hàn</td>
-                        <td>Công ty TNHH D&O CM VietNam</td>
-                        <td>Hải Phòng</td>
-                        <td>2 triệu</td>
-                        <td>1/11/2024</td>
-                        <td>Đã duyệt</td>
-                        <td>
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <i class="fa-solid fa-pen"></i>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-
-                        <td>1</td>
-                        <td class="job__column-img">
-                            <div class="job__column-item">
-                                <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
-                            </div>
-                        </td>
-                        <td>Nhân viên phiên dịch tiếng Hàn</td>
-                        <td>Công ty TNHH D&O CM VietNam</td>
-                        <td>Hải Phòng</td>
-                        <td>2 triệu</td>
-                        <td>1/11/2024</td>
-                        <td>Đã duyệt</td>
-                        <td>
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <i class="fa-solid fa-pen"></i>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-
-                        <td>1</td>
-                        <td class="job__column-img">
-                            <div class="job__column-item">
-                                <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
-                            </div>
-                        </td>
-                        <td>Nhân viên phiên dịch tiếng Hàn</td>
-                        <td>Công ty TNHH D&O CM VietNam</td>
-                        <td>Hải Phòng</td>
-                        <td>2 triệu</td>
-                        <td>1/11/2024</td>
-                        <td>Đã duyệt</td>
-                        <td>
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <i class="fa-solid fa-pen"></i>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-
-                        <td>1</td>
-                        <td class="job__column-img">
-                            <div class="job__column-item">
-                                <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
-                            </div>
-                        </td>
-                        <td>Nhân viên phiên dịch tiếng Hàn</td>
-                        <td>Công ty TNHH D&O CM VietNam</td>
-                        <td>Hải Phòng</td>
-                        <td>2 triệu</td>
-                        <td>1/11/2024</td>
-                        <td>Đã duyệt</td>
-                        <td>
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <i class="fa-solid fa-pen"></i>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-
-                        <td>1</td>
-                        <td class="job__column-img">
-                            <div class="job__column-item">
-                                <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
-                            </div>
-                        </td>
-                        <td>Nhân viên phiên dịch tiếng Hàn</td>
-                        <td>Công ty TNHH D&O CM VietNam</td>
-                        <td>Hải Phòng</td>
-                        <td>2 triệu</td>
-                        <td>1/11/2024</td>
-                        <td>Đã duyệt</td>
-                        <td>
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <i class="fa-solid fa-pen"></i>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-
-                        <td>1</td>
-                        <td class="job__column-img">
-                            <div class="job__column-item">
-                                <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
-                            </div>
-                        </td>
-                        <td>Nhân viên phiên dịch tiếng Hàn</td>
-                        <td>Công ty TNHH D&O CM VietNam</td>
-                        <td>Hải Phòng</td>
-                        <td>2 triệu</td>
-                        <td>1/11/2024</td>
-                        <td>Đã duyệt</td>
-                        <td>
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <i class="fa-solid fa-pen"></i>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-
-                        <td>1</td>
-                        <td class="job__column-img">
-                            <div class="job__column-item">
-                                <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
-                            </div>
-                        </td>
-                        <td>Nhân viên phiên dịch tiếng Hàn</td>
-                        <td>Công ty TNHH D&O CM VietNam</td>
-                        <td>Hải Phòng</td>
-                        <td>2 triệu</td>
-                        <td>1/11/2024</td>
-                        <td>Đã duyệt</td>
-                        <td>
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <i class="fa-solid fa-pen"></i>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
 
                     </tbody>
                 </table>
