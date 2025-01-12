@@ -1,6 +1,7 @@
 package com.vn.tim_viec_lam.dao;
 
 import com.vn.tim_viec_lam.dao.model.Candidate;
+import com.vn.tim_viec_lam.dao.model.Company;
 import com.vn.tim_viec_lam.database.DBconnect;
 
 import java.sql.Connection;
@@ -99,6 +100,50 @@ public class CandidateDao {
 
     }
 
+    public Candidate getCandidateById(int id) {
+        Connection con = DBconnect.getConnection();
+        String sql = "SELECT " +
+                "c.candidateID, " +
+                "c.fullname, " +
+                "c.address, " +
+                "c.email, " +
+                "c.phone, " +
+                "j.status AS application_status, " +
+                "j.application_date AS application_date, " +
+                "co.companyName AS company_name " +
+                "FROM candidates c " +
+                "JOIN job_applications j ON c.candidateID = j.candidateID " +
+                "JOIN job_posting jp ON j.jobPostID = jp.jobPostID " +
+                "JOIN companies co ON jp.companyID = co.companyID " +
+                "WHERE c.candidateID = ?;";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            return rs.next() ? executeResult(rs) : null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public boolean editUserCandidate(int cid, String fullname, String email, String phone,String status ) {
+        Connection conn = DBconnect.getConnection();
+        String sql = "UPDATE candidates c JOIN job_applications ja ON c.candidateID = ja.candidateID SET c.fullname = ?, c.email = ?, c.phone = ?, ja.status = ? WHERE c.candidateID = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, fullname);
+            pre.setString(2, email);
+            pre.setString(3, phone);
+            pre.setString(4, status);
+            pre.setInt(5, cid);
+            if(pre.executeUpdate()>0){
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
 
 
 
@@ -122,7 +167,7 @@ public class CandidateDao {
 //        for (Candidate candidate : listCandidate) {
 //            System.out.println(candidate);
 //        }
-       System.out.println(dao.deleteCandidateById(8));
+        System.out.println(dao.editUserCandidate(30,"Lê Thị Tra","ethihoa@example.com","6412905873","Đang xu li"));
     }
 
 

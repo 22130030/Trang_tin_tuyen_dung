@@ -1,4 +1,4 @@
-    package com.vn.tim_viec_lam.controller;
+    package com.vn.tim_viec_lam.controller.admin;
 
     import com.vn.tim_viec_lam.dao.model.Company;
     import com.vn.tim_viec_lam.dao.model.CompanyStatusCategory;

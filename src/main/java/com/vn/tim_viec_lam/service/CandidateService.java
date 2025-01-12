@@ -18,5 +18,11 @@ public class CandidateService {
     public void deleteUserCandidate(int id)  {
         candidateDao.deleteCandidateById(id);
     }
+    public  Candidate loadUserCandidate(int id)  {
+        return candidateDao.getCandidateById(id);
+    }
+    public void editUserCandidate(int id , String fullname ,String email, String phone ,String status)  {
+         candidateDao.editUserCandidate(id,fullname,email,phone,status);
+    }
 
 }

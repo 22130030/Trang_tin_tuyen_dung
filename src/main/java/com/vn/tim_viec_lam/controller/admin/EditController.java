@@ -1,6 +1,5 @@
-package com.vn.tim_viec_lam.controller;
+package com.vn.tim_viec_lam.controller.admin;
 
-import com.vn.tim_viec_lam.dao.model.Company;
 import com.vn.tim_viec_lam.service.CompanyService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name="edit",value = "/edit")
 public class EditController extends HttpServlet {

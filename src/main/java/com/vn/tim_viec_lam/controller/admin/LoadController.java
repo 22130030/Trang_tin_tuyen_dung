@@ -1,6 +1,5 @@
-package com.vn.tim_viec_lam.controller;
+package com.vn.tim_viec_lam.controller.admin;
 
-import com.vn.tim_viec_lam.dao.model.Company;
 import com.vn.tim_viec_lam.dao.model.CompanyStatusCategory;
 import com.vn.tim_viec_lam.service.CategoryService;
 import com.vn.tim_viec_lam.service.CompanyService;
@@ -17,6 +16,11 @@ import java.util.List;
 public class LoadController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         CompanyService service = new CompanyService();
         int pid = Integer.parseInt(req.getParameter("pid"));
@@ -28,10 +32,5 @@ public class LoadController extends HttpServlet {
         req.setAttribute("ls", service.getListCompanyUserById(pid));
         req.setAttribute("status",listStatusCompany);
         req.getRequestDispatcher("edit_user_company.jsp").forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
     }
 }
