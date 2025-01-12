@@ -70,8 +70,17 @@ public class JobService {
         }
         return fristLetterLocation;
     }
+    public boolean addJobPosting(String companyName,String employerSize,String website,String jobName,String jobAddress
+    ,String salaryValue,String salaryUnit,String educationLevel,String experienceLevel,String jobType,String jobLocation,
+                                 String jobCategory,String keywords,String age,String contactName
+    ,String contactEmail,String contactPhone,String contactAddress ,String jobPostingDate,String JobExpiryDate,String language){
+        return false;
+    }
+    public List<Job> filterJob(String jobName,String jobCategory,String jobLocation){
+        return jobDao.filterJobs(jobName,jobCategory,jobLocation);
+    }
     public static void main(String[] args) {
         JobService jobService = new JobService();
-        System.out.println(jobService.getFristLetterLocation());
+        System.out.println(jobService.filterJob("nhân viên","",""));
     }
 }
