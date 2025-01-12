@@ -122,9 +122,9 @@
         <div class="content" id="content__section">
             <h3>Quản lý bài đăng</h3>
             <div class="jobs_management">
-                <div class="jobs__search">
+                <form action="job_manager" method="post" class="jobs__search">
                     <input class="search__input" type="text" name="name" class="search__candidate"
-                           placeholder="Nhập tiêu đề,công ty,...">
+                           placeholder="Nhập tiêu đề,...">
                     <div class="search__status-filter">
 
                         <span>Trạng thái : </span>
@@ -138,7 +138,7 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <span>Tìm kiếm</span>
                     </button>
-                </div>
+                </form>
                 <div class="jobs__add">
 
                     <h4 class="job__add-list">Danh sách bài đăng :
@@ -179,7 +179,9 @@
                                         <i class="fa-solid fa-pen"></i>
                                     </div>
                                     <div class="operation operation__remove">
-                                        <i class="fa-solid fa-trash"></i>
+                                        <a href="delete-jobposting?jid=${l.id}">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </td>
@@ -189,7 +191,6 @@
 
                     </tbody>
                 </table>
-
             </div>
         </div>
         <div id="addJobsForm">

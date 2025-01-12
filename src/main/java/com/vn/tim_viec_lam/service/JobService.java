@@ -46,6 +46,12 @@ public class JobService {
         }
         return null;
     }
+    public List<Job> getSearchJobByNameJob(String name){
+        return jobDao.searchJobEqualsByNamejob(name);
+    }
+    public void deleteJobPosting(int id){
+        jobDao.deleteJobPosting(id);
+    }
     public List<Job> getJobsByAddress(String address){
         return jobDao.searchJobByAddress(address);
     }
