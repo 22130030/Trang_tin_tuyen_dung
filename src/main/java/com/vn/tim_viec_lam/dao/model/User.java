@@ -14,12 +14,12 @@ public class User {
     public User() {
     }
 
-    public User(int userID, String email, String password, String status, String phone_number, LocalDateTime created_at, int roleNum) {
+    public User(int userID, String email, String password,String phone_number, String status , LocalDateTime created_at, int roleNum) {
         this.userID = userID;
         this.email = email;
         this.password = password;
-        this.status = status;
         this.phone_number = phone_number;
+        this.status = status;
         this.created_at = created_at;
         this.roleNum = roleNum;
     }
