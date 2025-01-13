@@ -153,7 +153,7 @@
                 <div class="category__add">
 
                     <h4 class="category__add-list">Danh sách bài đăng :
-                        <a href="javascript:void(0)" onclick="addCategoryForm()" class="list__add-link">thêm mới</a>
+                        <a href="add" class="list__add-link">thêm mới</a>
                     </h4>
                 </div>
                 </h4>

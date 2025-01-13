@@ -107,7 +107,7 @@
                 <div class="jobs__add">
 
                     <h4 class="job__add-list">Danh sách bài đăng :
-                        <a href="add-job-porting" class="list__add-link">thêm mới</a>
+                        <a href="add" class="list__add-link">thêm mới</a>
                     </h4>
                 </div>
                 <table>
