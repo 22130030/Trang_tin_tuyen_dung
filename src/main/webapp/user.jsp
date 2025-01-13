@@ -118,67 +118,36 @@
                     <th>Thao tác</th>
 
                     </thead>
+                    private int userID;
+                    private String email;
+                    private String password;
+                    private String phone_number;
+                    private String status;
+                    private LocalDateTime created_at;
+                    private int roleNum;
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>admin@gmail.com</td>
-                        <td>123456</td>
-                        <td>Admin</td>
-                        <td>Đang hoạt động</td>
-                        <td>
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <a class="operation__edit-link" href="">
-                                        <i class="fa-solid fa-pen"></i>
+                    <c:forEach items="${user}" var="u">
+                        <tr>
+                            <td>${u.userID}</td>
+                            <td>${u.email}</td>
+                            <td>${u.password}</td>
+                            <td>${u.roleNum}</td>
+                            <td>${u.status}</td>
+                            <td>
+                                <div class="operations">
+                                    <div class="operation operation__edit">
+                                        <a class="operation__edit-link" href="">
+                                            <i class="fa-solid fa-pen"></i>
 
-                                    </a>
+                                        </a>
+                                    </div>
+                                    <div class="operation operation__remove">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </div>
                                 </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>vanduc@gmail.com</td>
-                        <td>123456</td>
-                        <td>Ứng viên</td>
-                        <td>Đang hoạt động</td>
-                        <td>
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <a class="operation__edit-link" href="">
-                                        <i class="fa-solid fa-pen"></i>
-
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>cocacola@gmail.com</td>
-                        <td>123456</td>
-                        <td>Nhà tuyển dụng</td>
-                        <td>Đang hoạt động</td>
-                        <td>
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <a class="operation__edit-link" href="">
-                                        <i class="fa-solid fa-pen"></i>
-
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>

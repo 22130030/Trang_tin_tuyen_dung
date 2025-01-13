@@ -89,15 +89,15 @@
       <!-- Cards Section -->
       <div class="statistical">
         <div class="statistical__employer statistical__item">
-          <h2>150</h2>
+          <h2>${size}</h2>
           <p>Nhà tuyển dụng</p>
         </div>
         <div class="statistical__user statistical__item">
-          <h2>502</h2>
+          <h2>${size2}</h2>
           <p>Ứng viên</p>
         </div>
         <div class="statistical__jobs statistical__item">
-          <h2>156</h2>
+          <h2>${size3}</h2>
           <p>Việc làm đã đăng</p>
         </div>
       </div>
@@ -121,86 +121,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>10</td>
-              <td>Coca Cola</td>
-              <td>cocacola@gmail.com</td>
-              <td>0938475</td>
-              <td>Đang hoạt động</td>
-              <td>2024-11-17</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Công ty cổ phần sợi thế kỷ</td>
-              <td>soitheky@gmail.com</td>
-              <td>09384757</td>
-              <td>Đang hoạt động</td>
-              <td>2024-11-16</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>SCG VietNam</td>
-              <td>SCG@gmail.com</td>
-              <td>02387475</td>
-              <td>Đang hoạt động</td>
-              <td>2024-11-15</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>SCG VietNam</td>
-              <td>SCG@gmail.com</td>
-              <td>02387475</td>
-              <td>Đang hoạt động</td>
-              <td>2024-11-15</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>SCG VietNam</td>
-              <td>SCG@gmail.com</td>
-              <td>02387475</td>
-              <td>Đang hoạt động</td>
-              <td>2024-11-15</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>SCG VietNam</td>
-              <td>SCG@gmail.com</td>
-              <td>02387475</td>
-              <td>Đang hoạt động</td>
-              <td>2024-11-15</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>SCG VietNam</td>
-              <td>SCG@gmail.com</td>
-              <td>02387475</td>
-              <td>Đang hoạt động</td>
-              <td>2024-11-15</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>SCG VietNam</td>
-              <td>SCG@gmail.com</td>
-              <td>02387475</td>
-              <td>Đang hoạt động</td>
-              <td>2024-11-15</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>SCG VietNam</td>
-              <td>SCG@gmail.com</td>
-              <td>02387475</td>
-              <td>Đang hoạt động</td>
-              <td>2024-11-15</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>SCG VietNam</td>
-              <td>SCG@gmail.com</td>
-              <td>02387475</td>
-              <td>Đang hoạt động</td>
-              <td>2024-11-15</td>
-            </tr>
+            <c:forEach items="${com}" var="c">
+              <tr>
+                <td>${c.id}</td>
+                <td>${c.companyName}</td>
+                <td>${c.email}</td>
+                <td>${c.phone_number}</td>
+                <td>${c.status}</td>
+                <td>${c.createDate}</td>
+              </tr>
+            </c:forEach>
+
+
 
             </tbody>
           </table>

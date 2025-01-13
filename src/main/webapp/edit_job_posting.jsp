@@ -144,7 +144,7 @@
 
         <!-- Mức lương -->
         <label for="salary">Mức lương:</label>
-        <input type=text id="salary" name="salary" value="${job.salary}" required>
+        <input type="text" id="salary" name="salary" value="${job.salary}" required>
 
         <!-- Trạng thái -->
         <label for="status">Trạng thái:</label>
@@ -156,7 +156,7 @@
 
         <!-- Nút -->
         <div class="form-buttons">
-            <button type="submit" >Lưu</button>
+            <button type="submit" class="btn-primary" >Lưu</button>
             <a href="job_manager" class="btn-secondary">← Quay lại</a>
         </div>
     </form>

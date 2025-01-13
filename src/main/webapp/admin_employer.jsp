@@ -17,8 +17,6 @@
     <link rel="stylesheet" href="asserts/css/base.css">
     <link rel="stylesheet" href="asserts/css/admin/admin_employer.css">
     <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
-
-
     <title>Admin</title>
 
 <%--    <script>--%>
