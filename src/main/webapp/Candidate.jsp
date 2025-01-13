@@ -75,12 +75,12 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <h3>Trang chủ admin</h3>
-            <a  href="/html/admin/admin_home.html">Thống kê và báo cáo</a>
-            <a  href="/html/admin/admin_employer.html">Quản lý nhà tuyển dụng</a>
+            <a  href="report">Thống kê và báo cáo</a>
+            <a  href="company-user-job">Quản lý nhà tuyển dụng</a>
             <a class="sidebar--active" href="#">Quản lý ứng viên</a>
-            <a href="/html/admin/admin_jobs.html">Quản lý bài đăng</a>
+            <a href="job_manager">Quản lý bài đăng</a>
             <a href="/html/admin/admin_category.html">Quản lý ngành nghề</a>
-            <a href="/html/admin/user.html">Quản lý tài khoản</a>
+            <a href="manager-user">Quản lý tài khoản</a>
         </div>
 
 
@@ -94,7 +94,7 @@
                     <input class="search__input" type="text" name="email" class="search__candidate" placeholder="Nhập tên,email,...">
                     <div class="search__status-filter">
                         <span>Trạng thái : </span>
-                        <select name="" id="" class="search__filter">
+                        <select name="status" id="" class="search__filter">
                             <option value="">Đang xử lí</option>
                             <option value="">Đã phỏng vấn</option>
                             <option value="">Đã trúng tuyển</option>

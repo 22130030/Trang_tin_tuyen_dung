@@ -77,12 +77,12 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <h3>Trang chủ admin</h3>
-            <a href="/html/admin/admin_home.html">Thống kê và báo cáo</a>
-            <a href="/html/admin/admin_employer.html">Quản lý nhà tuyển dụng</a>
-            <a href="/html/admin/candidate.html">Quản lý ứng viên</a>
+            <a  href="report">Thống kê và báo cáo</a>
+            <a  href="company-user-job">Quản lý nhà tuyển dụng</a>
+            <a href="candidate-user-find">Quản lý ứng viên</a>
             <a class="sidebar--active" href="#">Quản lý bài đăng</a>
             <a href="/html/admin/admin_category.html">Quản lý ngành nghề</a>
-            <a href="/html/admin/user.html">Quản lý tài khoản</a>
+            <a href="manager-user">Quản lý tài khoản</a>
         </div>
         <div class="content" id="content__section">
             <h3>Quản lý bài đăng</h3>

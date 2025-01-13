@@ -69,6 +69,36 @@ public class CandidateDao {
             throw new RuntimeException(e);
         }
     }
+    public List<Candidate> FindListCandidateStatus(String status)  {
+        List<Candidate> listCandidate = new ArrayList<>();
+        Connection con = DBconnect.getConnection();
+        String sql = "SELECT " +
+                "c.candidateID, " +
+                "c.fullname, " +
+                "c.address, " +
+                "c.email, " +
+                "c.phone, " +
+                "j.status AS application_status, " +
+                "j.application_date AS application_date, " +
+                "co.companyName AS company_name " +
+                "FROM candidates c " +
+                "JOIN job_applications j ON c.candidateID = j.candidateID " +
+                "JOIN job_posting jp ON j.jobPostID = jp.jobPostID " +
+                "JOIN companies co ON jp.companyID = co.companyID " +
+                "WHERE j.status LIKE ?;";
+        try {
+            PreparedStatement pre = con.prepareStatement(sql);
+            pre.setString(1, "%"+status+"%");
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                Candidate c = executeResult(rs);
+                listCandidate.add(c);
+            }
+            return listCandidate;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public boolean deleteCandidateById(int candidateID) {
         Connection con = DBconnect.getConnection();
         try {
@@ -167,7 +197,8 @@ public class CandidateDao {
 //        for (Candidate candidate : listCandidate) {
 //            System.out.println(candidate);
 //        }
-        System.out.println(dao.editUserCandidate(30,"Lê Thị Tra","ethihoa@example.com","6412905873","Đang xu li"));
+        //System.out.println(dao.editUserCandidate(30,"Lê Thị Tra","ethihoa@example.com","6412905873","Đang xu li"));
+        System.out.println(dao.FindListCandidateStatus("Đã trúng tuyến"));
     }
 
 
