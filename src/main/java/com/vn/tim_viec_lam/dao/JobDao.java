@@ -11,6 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class JobDao {
+    private int locationID;
+
     public List<Job> getAll() {
         List<Job> jobs = new ArrayList<Job>();
 
@@ -357,6 +359,59 @@ public class JobDao {
         }
         return false;
     }
+    public boolean addJobPostWithJoin(String img, String titleJob, String companyName, String city, String salary, String status) {
+        Connection conn = DBconnect.getConnection();
+
+        int companyID, locationID;
+
+        try {
+            // Truy vấn để lấy companyID từ bảng companies
+            String companyQuery = "SELECT companyID FROM companies WHERE companyName = ?";
+            try (PreparedStatement companyStmt = conn.prepareStatement(companyQuery)) {
+                companyStmt.setString(1, companyName);
+                ResultSet companyRs = companyStmt.executeQuery();
+
+                if (companyRs.next()) {
+                    companyID = companyRs.getInt("companyID");
+                } else {
+                    throw new SQLException("Không tìm thấy công ty với tên: " + companyName);
+                }
+            }
+
+            // Truy vấn để lấy locationID từ bảng job_locations
+            String locationQuery = "SELECT locationID FROM job_locations WHERE city = ?";
+            try (PreparedStatement locationStmt = conn.prepareStatement(locationQuery)) {
+                locationStmt.setString(1, city);
+                ResultSet locationRs = locationStmt.executeQuery();
+
+                if (locationRs.next()) {
+                    locationID = locationRs.getInt("locationID");
+                } else {
+                    throw new SQLException("Không tìm thấy địa điểm với thành phố: " + city);
+                }
+            }
+
+            // Chèn dữ liệu vào bảng job_posting
+            String insertQuery = "INSERT INTO job_posting (companyID, titleJob, locationID, image, position, salary, status, created_at, updated_at) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+            try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
+                insertStmt.setInt(1, companyID);         // companyID
+                insertStmt.setString(2, titleJob);      // titleJob
+                insertStmt.setInt(3, locationID);       // locationID
+                insertStmt.setString(4, img);           // image
+                insertStmt.setString(5, "Unknown");     // position (tạm thời là Unknown nếu không có giá trị)
+                insertStmt.setString(6, salary);        // salary
+                insertStmt.setString(7, status);        // status
+
+                // Thực thi câu lệnh INSERT
+                return insertStmt.executeUpdate() > 0;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi khi thêm bài đăng công việc: " + e.getMessage(), e);
+        }
+    }
+
 
 
     public List<Job> searchJobByAddress(String address) {
@@ -471,7 +526,14 @@ public class JobDao {
 //            System.out.println(job);
 //        }
    //     jobDao.deleteJobPosting(93);
-        System.out.println(jobDao.editJobPosting(5,"https://static.careerlink.vn/image/514bbe803013776598ec4a8812958d6b","Trưởng phòng đấu thầu","SGS Vietnam Ltd.","Hồ Chí Minh","20 trieu","Dang xu li" ) );
+     //   System.out.println(jobDao.editJobPosting(5,"https://static.careerlink.vn/image/514bbe803013776598ec4a8812958d6b","Trưởng phòng đấu thầu","SGS Vietnam Ltd.","Hồ Chí Minh","20 trieu","Dang xu li" ) );
+        String img = "developer.jpg";                  // Hình ảnh bài đăng
+        String titleJob = "Lập trình viên Backend";   // Tiêu đề công việc
+        String companyName = "CÔNG TY TNHH ID DECOR";           // Tên công ty (có trong bảng companies)
+        String city = "Hồ Chí Minh";                  // Thành phố (có trong bảng job_locations)
+        String salary = "20000000";                   // Mức lương
+        String status = "Đang xử lý";
+        System.out.println(jobDao.addJobPostWithJoin(img, titleJob, companyName, city, salary, status));
     }
 }
 

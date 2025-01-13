@@ -74,10 +74,10 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <h3>Trang chủ admin</h3>
-            <a  href="/html/admin/admin_home.html">Thống kê và báo cáo</a>
-            <a  href="/html/admin/admin_employer.html">Quản lý nhà tuyển dụng</a>
-            <a  href="/html/admin/candidate.html">Quản lý ứng viên</a>
-            <a href="/html/admin/admin_jobs.html">Quản lý bài đăng</a>
+            <a  href="report">Thống kê và báo cáo</a>
+            <a  href="company-user-job">Quản lý nhà tuyển dụng</a>
+            <a href="candidate-user-find">Quản lý ứng viên</a>
+            <a href="job_manager">Quản lý bài đăng</a>
             <a href="/html/admin/admin_category.html">Quản lý ngành nghề</a>
             <a class="sidebar--active" href="#">Quản lý tài khoản</a>
         </div>
@@ -89,9 +89,9 @@
         <div class="table__container">
             <h3>Quản lý ứng viên</h3>
             <div class="user__managerment">
-                <div class="user__search">
+                <form action="manager-user" method="post" class="user__search">
 
-                    <input class="search__input" type="text" name="name" class="search__candidate" placeholder="Nhập tên,email,...">
+                    <input class="search__input" type="text" name="email" class="search__candidate" placeholder="Nhập tên,email,...">
                     <div class="search__status-filter">
 
                         <span>Trạng thái : </span>
@@ -104,7 +104,7 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <span>Tìm kiếm</span>
                     </button>
-                </div>
+                </form>
 
 
                 <table>
@@ -119,66 +119,30 @@
 
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>admin@gmail.com</td>
-                        <td>123456</td>
-                        <td>Admin</td>
-                        <td>Đang hoạt động</td>
-                        <td>
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <a class="operation__edit-link" href="">
-                                        <i class="fa-solid fa-pen"></i>
+                    <c:forEach items="${user}" var="u">
+                        <tr>
+                            <td>${u.userID}</td>
+                            <td>${u.email}</td>
+                            <td>${u.password}</td>
+                            <td>${u.roleNum}</td>
+                            <td>${u.status}</td>
+                            <td>
+                                <div class="operations">
+                                    <div class="operation operation__edit">
+                                        <a  href="load-users?uid=${u.userID}">
+                                            <i class="fa-solid fa-pen"></i>
 
-                                    </a>
+                                        </a>
+                                    </div>
+                                    <div class="operation operation__remove">
+                                        <a href="delete-user?uid=${u.userID}">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>vanduc@gmail.com</td>
-                        <td>123456</td>
-                        <td>Ứng viên</td>
-                        <td>Đang hoạt động</td>
-                        <td>
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <a class="operation__edit-link" href="">
-                                        <i class="fa-solid fa-pen"></i>
-
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>cocacola@gmail.com</td>
-                        <td>123456</td>
-                        <td>Nhà tuyển dụng</td>
-                        <td>Đang hoạt động</td>
-                        <td>
-                            <div class="operations">
-                                <div class="operation operation__edit">
-                                    <a class="operation__edit-link" href="">
-                                        <i class="fa-solid fa-pen"></i>
-
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>

@@ -51,7 +51,7 @@
         form input[type="number"],
         form input[type="file"],
         form select {
-            width: 100%;
+            width: 97%;
             padding: 10px;
             margin-bottom: 20px;
             border: 1px solid #ddd;
@@ -144,19 +144,19 @@
 
         <!-- Mức lương -->
         <label for="salary">Mức lương:</label>
-        <input type=text id="salary" name="salary" value="${job.salary}" required>
+        <input type="text" id="salary" name="salary" value="${job.salary}" required>
 
         <!-- Trạng thái -->
         <label for="status">Trạng thái:</label>
         <select id="status" name="status">
-            <option value="Đang xử lý" ${job.status == 'Đang xử lý' ? 'selected' : ''}>Đang xử lý</option>
             <option value="Đã duyệt" ${job.status == 'Đã duyệt' ? 'selected' : ''}>Đã duyệt</option>
-            <option value="Từ chối" ${job.status == 'Từ chối' ? 'selected' : ''}>Từ chối</option>
+            <option value="Chưa duyệt" ${job.status == 'Chưa duyệt' ? 'selected' : ''}>Chưa duyệt</option>
+            <option value="Đã từ chối " ${job.status == 'Đã từ chối ' ? 'selected' : ''}>Đã từ chối </option>
         </select>
 
         <!-- Nút -->
         <div class="form-buttons">
-            <button type="submit" >Lưu</button>
+            <button type="submit" class="btn-primary" >Lưu</button>
             <a href="job_manager" class="btn-secondary">← Quay lại</a>
         </div>
     </form>

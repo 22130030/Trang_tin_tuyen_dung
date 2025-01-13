@@ -15,6 +15,9 @@ public class CandidateService {
     public List<Candidate> findListCandidateEmail(String email)  {
         return candidateDao.FindListCandidateEmail(email);
     }
+    public List<Candidate> findListCandidateStatus(String status)  {
+        return candidateDao.FindListCandidateEmail(status);
+    }
     public void deleteUserCandidate(int id)  {
         candidateDao.deleteCandidateById(id);
     }

@@ -105,17 +105,15 @@
         <label for="address">Địa chỉ chi tiết:</label>
         <input value="${ls.address}" type="text" id="address" name="address">
 
-        <label for="">Trạng thái:</label>
-        <select id="" name="" >
-            <c:forEach var="s" items="${status}">
-                <a href="company-user-job?statusID=${s.statusID}">
-                    <option value="${s.statusID}">${s.statusName}</option>
-                </a>
-            </c:forEach>
+        <label for="status">Trạng thái:</label>
+        <select id="status" name="status" >
+            <option value="Đã duyệt" ${ls.status == 'Đã duyệt' ? 'selected' : ''}>Đã duyệt</option>
+            <option value="Chưa duyệt" ${ls.status == 'Chưa duyệt' ? 'selected' : ''}>Chưa duyệt</option>
+            <option value="Đã từ chối " ${ls.status == 'Đã từ chối ' ? 'selected' : ''}>Đã từ chối </option>
         </select>
 
         <button type="submit" class="btn-primary">Lưu</button>
-        <a href="admin_employer.jsp">← Quay lại</a>
+        <a href="company-user-job">← Quay lại</a>
     </form>
 </div>
 </body>
