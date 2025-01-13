@@ -86,6 +86,7 @@
     </style>
 </head>
 <body>
+
 <div class="container">
     <h2>Chỉnh sửa thông tin nhà tuyển dụng</h2>
     <form action="edit" method="post">
@@ -113,7 +114,7 @@
             </c:forEach>
         </select>
 
-        <button type="submit">Lưu</button>
+        <button type="submit" class="btn-primary">Lưu</button>
         <a href="admin_employer.jsp">← Quay lại</a>
     </form>
 </div>
