@@ -1,9 +1,10 @@
 package com.vn.tim_viec_lam.dao.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class User {
+public class User implements Serializable {
     private int userID;
     private String email;
     private String password;

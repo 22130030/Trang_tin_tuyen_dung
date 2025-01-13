@@ -100,8 +100,8 @@
         <div class="form-group">
             <label for="status">Trạng thái</label>
             <select id="status" name="status" required>
-                <option value="Hoạt động" ${load.status == 'active' ? 'selected' : ''}>Hoạt động</option>
-                <option value="Không hoạt động " ${load.status == 'inactive' ? 'selected' : ''}>Không hoạt động</option>
+                <option value="Đang hoạt động" ${load.status == 'active' ? 'selected' : ''}>Đang hoạt động</option>
+                <option value="Đã bị vô hiệu" ${load.status == 'inactive' ? 'selected' : ''}>Đã bị vô hiệu</option>
             </select>
         </div>
 

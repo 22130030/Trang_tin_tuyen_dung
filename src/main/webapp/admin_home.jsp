@@ -76,11 +76,11 @@
     <div class="sidebar">
       <h3>Trang chủ admin</h3>
       <a class="sidebar--active" href="#">Thống kê và báo cáo</a>
-      <a href="/html/admin/admin_employer.html">Quản lý nhà tuyển dụng</a>
-      <a href="/html/admin/candidate.html">Quản lý ứng viên</a>
-      <a href="/html/admin/admin_jobs.html">Quản lý bài đăng</a>
+      <a href="company-user-job">Quản lý nhà tuyển dụng</a>
+      <a href="candidate-user-find">Quản lý ứng viên</a>
+      <a href="job_manager">Quản lý bài đăng</a>
       <a href="/html/admin/admin_category.html">Quản lý ngành nghề</a>
-      <a href="/html/admin/user.html">Quản lý tài khoản</a>
+      <a href="manager-user">Quản lý tài khoản</a>
     </div>
 
     <!-- Main Content -->

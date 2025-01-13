@@ -82,10 +82,10 @@
 
     <label for="status">Trạng thái:</label>
     <select id="status" name="status">
-        <option value="xuli">Đang xử lí</option>
-        <option value="phongvan"> Đã phỏng vấn</option>
-        <option value="trungtuyen">Đã trúng tuyến</option>
-        <option value="tuchoi"> Đã bị từ chối</option>
+        <option value="Đang xử lí" ${load.status == 'Đang xử lí' ? 'selected' : ''}>Đang xử lí</option>
+        <option value="Đã phỏng vấn" ${load.status == 'Đã phỏng vấn' ? 'selected' : ''} > Đã phỏng vấn</option>
+        <option value="Đã trúng tuyến" ${load.status == 'Đã trúng tuyến' ? 'selected' : ''}>Đã trúng tuyến</option>
+        <option value= "Đã bị từ chối"${load.status == 'Đã bị từ chối' ? 'selected' : ''}> Đã bị từ chối</option>
     </select>
 
     <button type="submit">Lưu</button>
