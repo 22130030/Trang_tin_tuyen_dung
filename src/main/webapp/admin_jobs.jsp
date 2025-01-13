@@ -20,41 +20,6 @@
     <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
     <title>Admin</title>
 
-    <script>
-        function addJobForm() {
-            var jobForm = document.getElementById("addJobsForm");
-            var jobTable = document.getElementById("content__section");
-
-            if (jobTable.style.display === 'block' || jobTable.style.display === '') {
-                jobTable.style.display = 'none';
-            } else {
-                jobTable.style.display = 'block';
-            }
-            if (jobForm.style.display === 'none' || jobForm.style.display === '') {
-                jobForm.style.display = 'block';
-            } else {
-                jobForm.style.display = 'none';
-            }
-        }
-        document.addEventListener('DOMContentLoaded', function () {
-            const navUser = document.querySelector('.nav__admin');
-            const dropdownMenu = document.querySelector('.nav__form-admin');
-
-            // Hiển thị menu khi click vào `.nav__has--form-login`
-            navUser.addEventListener('click', function (event) {
-                event.stopPropagation();
-                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-            });
-
-            // Đóng menu khi click ra ngoài
-            document.addEventListener('click', function (event) {
-                if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                    dropdownMenu.style.display = 'none';
-                }
-            });
-        });
-    </script>
-
 </head>
 
 <body>
@@ -142,7 +107,7 @@
                 <div class="jobs__add">
 
                     <h4 class="job__add-list">Danh sách bài đăng :
-                        <a href="javascript:void(0)" onclick="addJobForm()" class="list__add-link">thêm mới</a>
+                        <a href="add-job-porting" class="list__add-link">thêm mới</a>
                     </h4>
                 </div>
                 <table>
@@ -176,7 +141,9 @@
                             <td>
                                 <div class="operations">
                                     <div class="operation operation__edit">
-                                        <i class="fa-solid fa-pen"></i>
+                                       <a href="load-job-post?lid=${l.id}">
+                                           <i class="fa-solid fa-pen"></i>
+                                       </a>
                                     </div>
                                     <div class="operation operation__remove">
                                         <a href="delete-jobposting?jid=${l.id}">
