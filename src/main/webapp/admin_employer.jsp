@@ -17,8 +17,6 @@
     <link rel="stylesheet" href="asserts/css/base.css">
     <link rel="stylesheet" href="asserts/css/admin/admin_employer.css">
     <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
-
-
     <title>Admin</title>
 
 <%--    <script>--%>
@@ -112,12 +110,12 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <h3>Trang chủ admin</h3>
-            <a  href="/html/admin/admin_home.html">Thống kê và báo cáo</a>
+            <a  href="report">Thống kê và báo cáo</a>
             <a class="sidebar--active"  href="#">Quản lý nhà tuyển dụng</a>
-            <a href="/html/admin/candidate.html">Quản lý ứng viên</a>
-            <a href="/html/admin/admin_jobs.html">Quản lý bài đăng</a>
+            <a href="candidate-user-find">Quản lý ứng viên</a>
+            <a href="job_manager">Quản lý bài đăng</a>
             <a href="/html/admin/admin_category.html">Quản lý ngành nghề</a>
-            <a href="/html/admin/user.html">Quản lý tài khoản</a>
+            <a href="manager-user">Quản lý tài khoản</a>
         </div>
 
 
@@ -131,12 +129,10 @@
                     <input class="search__input" type="text" name="searchEmail" class="search__candidate" placeholder="Nhập tên,email,...">
                     <div class="search__status-filter">
                         <span>Trạng thái : </span>
-                        <select name="" id="" class="search__filter">
-                            <c:forEach var="s" items="${status}">
-                                <a href="company-user-job?statusID=${s.statusID}">
-                                <option value="${s.statusID}">${s.statusName}</option>
-                                </a>
-                            </c:forEach>
+                        <select name="status" id="status" class="search__filter">
+                            <option value="">Đã duyệt</option>
+                            <option value="">Chưa duyệt</option>
+                            <option value="">Đã từ chối</option>
                         </select>
 
                     </div>
@@ -160,26 +156,26 @@
                     </tr>
                     </thead>
 
-                    <c:forEach var="e" items="${email}">
+                    <c:forEach var="c" items="${com}">
                     <tbody>
                     <tr>
-                        <td>${e.id}</td>
-                        <td class="company__name">${e.companyName}</td>
-                        <td>${e.email}</td>
-                        <td>${e.phone_number}</td>
-                        <td class = "company_status">${e.status}</td>
-                        <td>${e.createDate}</td>
+                        <td>${c.id}</td>
+                        <td class="company__name">${c.companyName}</td>
+                        <td>${c.email}</td>
+                        <td>${c.phone_number}</td>
+                        <td class = "company_status">${c.status}</td>
+                        <td>${c.createDate}</td>
                         <td>
                             <div class="operations">
 
 
                                 <div class="operation operagit add .tion__edit">
-                                    <a href="loaduser?pid=${e.id}" class="operation__edit-link">
+                                    <a href="loaduser?pid=${c.id}" class="operation__edit-link">
                                         <i class="fa-solid fa-pen"></i>
                                     </a>
                                 </div>
                                 <div class="operation operation__remove">
-                                    <a href="delete-company?pid=${e.id}" class="delete"> <i class="fa-solid fa-trash"></i></a>
+                                    <a href="delete-company?pid=${c.id}" class="delete"> <i class="fa-solid fa-trash"></i></a>
                                 </div>
                             </div>
                         </td>

@@ -56,6 +56,9 @@ public class JobService {
     public  void editJobPosting(int cid, String img, String titleJob, String companyName,String city,String salary,String status ){
         jobDao.editJobPosting(cid,img,titleJob,companyName,city,salary,status);
     }
+    public void addJobPosting(String img,String titleJob,String  companyName,String city,String salary,String status){
+        jobDao.addJobPostWithJoin(img,titleJob,companyName,city,salary,status);
+    }
     public List<Job> getJobsByAddress(String address){
         return jobDao.searchJobByAddress(address);
     }
