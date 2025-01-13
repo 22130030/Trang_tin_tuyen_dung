@@ -13,5 +13,18 @@ public class UserService {
     public List<User> getListAll(){
       return userDao.getListUser();
     }
+    public List<User> FindListUserByEmail(String  email){
+        return userDao.findListUserbyEmail(email);
+    }
+    public User FindListUserByID(int  id){
+        return userDao.findListUserbyID(id);
+    }
+
+    public void deleteUserByID(int id){
+        userDao.deleteUser(id);
+    }
+    public void editUser(int id, String email, String pass, int role, String status){
+        userDao.updateUser(id, email, pass, role, status);
+    }
 
 }

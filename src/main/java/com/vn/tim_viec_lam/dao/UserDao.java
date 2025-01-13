@@ -22,14 +22,15 @@ public class UserDao {
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            while (rs.next()){
                 User user = getResultSet(rs);
                 users.add(user);
             }
+            return users;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-     return users;
     }
     public List<User> findListUserbyEmail(String email){
         List<User> users = new ArrayList<User>();
@@ -42,7 +43,7 @@ public class UserDao {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,"%" + email + "%");
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 User user = getResultSet(rs);
                 users.add(user);
             }
@@ -50,6 +51,26 @@ public class UserDao {
             throw new RuntimeException(e);
         }
         return users;
+    }
+    public User findListUserbyID(int id){
+        User user = new User();
+        Connection conn = DBconnect.getConnection();
+        String sql = "SELECT u.*, r.roleNum " +
+                "FROM users u " +
+                "JOIN roles r ON u.userId = r.userId " +
+                "WHERE u.userID = ? ";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                 user = getResultSet(rs);
+            }
+            return user;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
     public boolean deleteUser(int userId) {
         Connection conn = DBconnect.getConnection();
@@ -119,15 +140,16 @@ public class UserDao {
 
     public static void main(String[] args) {
         UserDao dao = new UserDao();
-     //   System.out.println(dao.getListUser());
+
 //        System.out.println(dao.findListUserbyEmail("user9"));
       //  System.out.println(dao.deleteUser(7));
-        int userId = 1; // ID user muốn cập nhật
-        String newEmail = "newemail@example.com";
-        String newPassword = "111111";
-        int newRole = 2; // Vai trò mới
-        String newStatus = "Da duyet";
-        System.out.println(dao.updateUser(userId, newEmail, newPassword, newRole, newStatus));
+//        int userId = 1; // ID user muốn cập nhật
+//        String newEmail = "newemail@example.com";
+//        String newPassword = "111111";
+//        int newRole = 2; // Vai trò mới
+//        String newStatus = "Da duyet";
+//        System.out.println(dao.updateUser(userId, newEmail, newPassword, newRole, newStatus));
+         System.out.println(dao.findListUserbyID(1));
     }
 
 }

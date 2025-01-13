@@ -21,4 +21,14 @@ public class UserManager extends HttpServlet {
         req.setAttribute("user", userList);
         req.getRequestDispatcher("user.jsp").forward(req, resp);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        UserService userService = new UserService();
+        String email = req.getParameter("email");
+        List<User> userList = userService.FindListUserByEmail(email);
+        req.setAttribute("user", userList);
+        req.getRequestDispatcher("user.jsp").forward(req, resp);
+    }
 }

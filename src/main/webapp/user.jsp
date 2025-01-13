@@ -89,9 +89,9 @@
         <div class="table__container">
             <h3>Quản lý ứng viên</h3>
             <div class="user__managerment">
-                <div class="user__search">
+                <form action="manager-user" method="post" class="user__search">
 
-                    <input class="search__input" type="text" name="name" class="search__candidate" placeholder="Nhập tên,email,...">
+                    <input class="search__input" type="text" name="email" class="search__candidate" placeholder="Nhập tên,email,...">
                     <div class="search__status-filter">
 
                         <span>Trạng thái : </span>
@@ -104,7 +104,7 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <span>Tìm kiếm</span>
                     </button>
-                </div>
+                </form>
 
 
                 <table>
@@ -118,13 +118,6 @@
                     <th>Thao tác</th>
 
                     </thead>
-                    private int userID;
-                    private String email;
-                    private String password;
-                    private String phone_number;
-                    private String status;
-                    private LocalDateTime created_at;
-                    private int roleNum;
                     <tbody>
                     <c:forEach items="${user}" var="u">
                         <tr>
@@ -136,13 +129,15 @@
                             <td>
                                 <div class="operations">
                                     <div class="operation operation__edit">
-                                        <a class="operation__edit-link" href="">
+                                        <a  href="load-users?uid=${u.userID}">
                                             <i class="fa-solid fa-pen"></i>
 
                                         </a>
                                     </div>
                                     <div class="operation operation__remove">
-                                        <i class="fa-solid fa-trash"></i>
+                                        <a href="delete-user?uid=${u.userID}">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </td>
