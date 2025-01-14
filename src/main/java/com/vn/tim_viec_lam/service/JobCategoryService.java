@@ -26,4 +26,7 @@ public class JobCategoryService {
     public void editCategory(int id,String jobCategory,String jobCategoryName) {
         jobCategoryDao.editCategory(id, jobCategory, jobCategoryName);
     }
+    public void addCategory(String jobCategory,String jobCategoryName) {
+        jobCategoryDao.addCategory(jobCategory, jobCategoryName);
+    }
 }

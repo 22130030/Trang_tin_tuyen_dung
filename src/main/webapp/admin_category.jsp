@@ -77,7 +77,7 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <h3>Trang chủ admin</h3>
-            <a class="sidebar--active" href="#">Thống kê và báo cáo</a>
+            <a href="report">Thống kê và báo cáo</a>
             <a href="company-user-job">Quản lý nhà tuyển dụng</a>
             <a href="candidate-user-find">Quản lý ứng viên</a>
             <a href="job_manager">Quản lý bài đăng</a>

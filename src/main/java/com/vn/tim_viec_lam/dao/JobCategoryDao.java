@@ -83,6 +83,34 @@ public class JobCategoryDao {
         }
         return false;
     }
+    public boolean addCategory(String categoryName, String jobPostCategoryName) {
+        String sql = "INSERT INTO job_post_categories (categoryID, jobPostCategoryName) " +
+                "VALUES ((SELECT categoryID FROM job_categories WHERE categoryName = ?), ?)";
+        try (Connection conn = DBconnect.getConnection();
+             PreparedStatement pre = conn.prepareStatement(sql)) {
+
+            // Thiết lập tham số cho câu truy vấn
+            pre.setString(1, categoryName); // Tên phân loại
+            pre.setString(2, jobPostCategoryName); // Tên ngành nghề
+
+            // Thực thi câu lệnh
+            int rowsAffected = pre.executeUpdate();
+
+            // Kiểm tra nếu có ít nhất một dòng được chèn
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    // Hàm sinh giá trị duy nhất cho jobPostID
+    private int generateUniqueID() {
+        return (int) (System.currentTimeMillis() % Integer.MAX_VALUE);
+    }
+
+
 
     private JobCategory executeResult(ResultSet rs) throws SQLException {
        JobCategory jc = new JobCategory();
@@ -133,11 +161,12 @@ public class JobCategoryDao {
        // System.out.println(daoc.FindListJobCategroy("Giáo viên mầm non"));
        //System.out.println(daoc.deleteJobPostCategory(86));
 
-//        String categoryName = "IT & Công nghệ";
+       String categoryName = "IT & Công nghệ";
 //
 //        int jobPostCategoryID = 63;
-//        String jobPostCategoryName = "Lập trình viên Python";
+      String jobPostCategoryName = "Lập trình viên cơ bản";
 //        daoc.editCategory(jobPostCategoryID,categoryName,jobPostCategoryName);
-        System.out.println(daoc.FindListJobCategroyByID(64));
+      //  System.out.println(daoc.FindListJobCategroyByID(64));
+        System.out.println(daoc.addCategory(categoryName,jobPostCategoryName));
     }
 }
