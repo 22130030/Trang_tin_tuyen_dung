@@ -2,18 +2,18 @@ package com.vn.tim_viec_lam.dao.model;
 
 import java.io.Serializable;
 
-public class JobCategy implements Serializable {
+public class JobCategory implements Serializable {
     private int categoryID;
     private String categoryName;
-    private String jobName;
+    private String jobPostCategoryName;
 
-    public JobCategy() {
+    public JobCategory() {
     }
 
-    public JobCategy(int categoryID, String categoryName, String jobName) {
+    public JobCategory(int categoryID, String categoryName, String jobPostCategoryName) {
         this.categoryID = categoryID;
         this.categoryName = categoryName;
-        this.jobName = jobName;
+        this.jobPostCategoryName = jobPostCategoryName;
     }
 
     public String getCategoryName() {
@@ -32,12 +32,12 @@ public class JobCategy implements Serializable {
         this.categoryID = categoryID;
     }
 
-    public String getJobName() {
-        return jobName;
+    public String getJobPostCategoryName() {
+        return jobPostCategoryName;
     }
 
-    public void setJobName(String jobName) {
-        this.jobName = jobName;
+    public void setjobPostCategoryName(String jobPostCategoryName) {
+        this.jobPostCategoryName =jobPostCategoryName;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class JobCategy implements Serializable {
         return "JobCategy{" +
                 "categoryID=" + categoryID +
                 ", categoryName='" + categoryName + '\'' +
-                ", jobName='" + jobName + '\'' +
+                ", jobName='" + jobPostCategoryName + '\'' +
                 '}';
     }
 }
