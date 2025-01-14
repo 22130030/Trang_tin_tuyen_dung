@@ -19,57 +19,7 @@
     <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
 
 
-    <title>Admin</title>
-
-    <script>
-        function addCategoryForm(){
-            var categoryForm = document.getElementById("addCategoryForm");
-
-            var categoryTable = document.getElementById("table-container");
-            if(categoryForm.style.display === '' || categoryForm.style.display === 'none'){
-                categoryForm.style.display = 'block';
-            }else{
-                categoryForm.style.display = 'none';
-            }
-            if(categoryTable.style.display === '' || categoryTable.style.display === 'block'){
-                categoryTable.style.display = 'none';
-            }else{
-                categoryTable.style.display = 'block';
-            }
-        }
-        function editCategoryForm(){
-            var categoryForm = document.getElementById("editCategoryForm");
-
-            var categoryTable = document.getElementById("table-container");
-            if(categoryForm.style.display === '' || categoryForm.style.display === 'none'){
-                categoryForm.style.display = 'block';
-            }else{
-                categoryForm.style.display = 'none';
-            }
-            if(categoryTable.style.display === '' || categoryTable.style.display === 'block'){
-                categoryTable.style.display = 'none';
-            }else{
-                categoryTable.style.display = 'block';
-            }
-        }
-        document.addEventListener('DOMContentLoaded', function () {
-            const navUser = document.querySelector('.nav__admin');
-            const dropdownMenu = document.querySelector('.nav__form-admin');
-
-            // Hiển thị menu khi click vào `.nav__has--form-login`
-            navUser.addEventListener('click', function (event) {
-                event.stopPropagation();
-                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-            });
-
-            // Đóng menu khi click ra ngoài
-            document.addEventListener('click', function (event) {
-                if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                    dropdownMenu.style.display = 'none';
-                }
-            });
-        });
-    </script>
+    <title>AdminCategory</title>
 
 </head>
 <body>
@@ -127,29 +77,25 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <h3>Trang chủ admin</h3>
-            <a  href="/html/admin/admin_home.html">Thống kê và báo cáo</a>
-            <a href="/html/admin/admin_employer.html">Quản lý nhà tuyển dụng</a>
-            <a href="/html/admin/candidate.html">Quản lý ứng viên</a>
-            <a href="/html/admin/admin_jobs.html">Quản lý bài đăng</a>
-            <a class="sidebar--active">Quản lý ngành nghề</a>
-            <a href="/html/admin/user.html">Quản lý tài khoản</a>
+            <a href="report">Thống kê và báo cáo</a>
+            <a href="company-user-job">Quản lý nhà tuyển dụng</a>
+            <a href="candidate-user-find">Quản lý ứng viên</a>
+            <a href="job_manager">Quản lý bài đăng</a>
+            <a href="manager-category">Quản lý ngành nghề</a>
+            <a href="manager-user">Quản lý tài khoản</a>
         </div>
-
-
-
-
         <!-- Table Section -->
         <div id="table-container">
             <h3>Quản lý ngành nghề</h3>
             <div class="category_management">
-                <div class="category__search">
+                <form action="manager-category" method="post" class="category__search">
                     <input class="search__input" type="text" name="name" class="search__candidate" placeholder="Nhập tên ngành nghề">
 
                     <button class="search__submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <span>Tìm kiếm</span>
                     </button>
-                </div>
+                </form>
                 <div class="category__add">
 
                     <h4 class="category__add-list">Danh sách bài đăng :
@@ -168,226 +114,29 @@
                     </tr>
                     </thead>
 
-
                     <tbody>
-                    <tr>
-                        <td>10</td>
-                        <td  class="category__classify">
-                                    <span class="category__alignment" data-type="profession">
-                                        Ngành nghề
+                    <c:forEach items="${category}" var="c">
+                        <tr>
+                            <td>${c.categoryID}</td>
+                            <td>${c.categoryName}</td>
+                            <td class="classify__title">${c.jobPostCategoryName}</td>
+                            <td>
+                                <div class="operations">
 
-                                    </span>
-                        </td>
-                        <td class="classify__title">CNTT - phần mềm</td>
-                        <td>
-                            <div class="operations">
-
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editCategoryForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
+                                    <div class="operation operation__edit">
+                                        <a href="loadcategory?lid=${c.jobPostCategoryID}" class="operation__edit-link">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+                                    </div>
+                                    <div class="operation operation__remove">
+                                       <a href="delete-category?did=${c.jobPostCategoryID}">
+                                           <i class="fa-solid fa-trash"></i>
+                                       </a>
+                                    </div>
                                 </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td  class="category__classify">
-                                    <span class="category__alignment" data-type="profession">
-                                        Ngành nghề
-
-                                    </span>
-                        </td>
-                        <td class="classify__title">Kế toán</td>
-                        <td>
-                            <div class="operations">
-
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editCategoryForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td  class="category__classify">
-                                    <span class="category__alignment" data-type="profession">
-                                        Ngành nghề
-
-                                    </span>
-                        </td>
-                        <td class="classify__title">Cơ khí</td>
-                        <td>
-                            <div class="operations">
-
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editCategoryForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11</td>
-                        <td  class="category__classify">
-                                    <span class="category__alignment" data-type="working-form">
-                                        Hình thức làm việc
-
-                                    </span>
-                        </td>
-                        <td class="classify__title">Nhân viên toàn thời gian</td>
-                        <td>
-                            <div class="operations">
-
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editCategoryForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11</td>
-                        <td  class="category__classify">
-                                    <span class="category__alignment" data-type="working-form">
-                                        Hình thức làm việc
-
-                                    </span>
-                        </td>
-                        <td class="classify__title">Nhân viên hợp đồng</td>
-                        <td>
-                            <div class="operations">
-
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editCategoryForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11</td>
-                        <td  class="category__classify">
-                                    <span class="category__alignment" data-type="working-form">
-                                        Hình thức làm việc
-
-                                    </span>
-                        </td>
-                        <td class="classify__title">Nhân viên bán thời gian</td>
-                        <td>
-                            <div class="operations">
-
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editCategoryForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>12</td>
-                        <td  class="category__classify">
-                                    <span class="category__alignment" data-type="level">
-                                        cấp bậc
-
-                                    </span>
-                        </td>
-                        <td class="classify__title">thực tập sinh</td>
-                        <td>
-                            <div class="operations">
-
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editCategoryForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>12</td>
-                        <td  class="category__classify">
-                                    <span class="category__alignment" data-type="level">
-                                        cấp bậc
-
-                                    </span>
-                        </td>
-                        <td class="classify__title">Quản lý</td>
-                        <td>
-                            <div class="operations">
-
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editCategoryForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>12</td>
-                        <td  class="category__classify">
-                                    <span class="category__alignment" data-type="level">
-                                        cấp bậc
-
-                                    </span>
-                        </td>
-                        <td class="classify__title">giám đốc</td>
-                        <td>
-                            <div class="operations">
-
-                                <div class="operation operation__edit">
-                                    <a href="javascript:void(0)" onclick="editCategoryForm()" id="section__edit" class="operation__edit-link">
-
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                </div>
-                                <div class="operation operation__remove">
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-
-
+                            </td>
+                        </tr>
+                    </c:forEach>
 
                     </tbody>
                 </table>
