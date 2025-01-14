@@ -49,6 +49,25 @@ public class JobCategoryDao {
             throw new RuntimeException(e);
         }
     }
+    public JobCategory FindListJobCategroyByID(int jobPostCategoryNameID) {
+        JobCategory jc = new JobCategory();
+        Connection conn = DBconnect.getConnection();
+        String sql = "SELECT jp.*, j.categoryName " +
+                "FROM job_post_categories jp " +
+                "JOIN job_categories j ON jp.categoryID = j.categoryID " +
+                "WHERE jp.jobPostCategoryID = ?;";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1,  jobPostCategoryNameID);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                jc = executeResult(rs);
+            }
+            return jc;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public boolean deleteJobPostCategory(int id) {
        Connection conn = DBconnect.getConnection();
        String sql = "DELETE FROM job_post_categories\n" +
@@ -74,6 +93,36 @@ public class JobCategoryDao {
        jc = new JobCategory(id, category,idjob, categoryjob);
        return jc;
     }
+    public void editCategory(int jobPostCategoryID, String categoryName, String jobPostCategoryName) {
+        // SQL query to update the job_post_categories table
+        String sql = "UPDATE job_post_categories " +
+                "SET jobPostCategoryName = ?, " +
+                "    categoryID = (SELECT categoryID FROM job_categories WHERE categoryName = ?) " +
+                "WHERE jobPostCategoryID = ?";
+
+        try (Connection connection = DBconnect.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            // Set the parameters for the query
+            preparedStatement.setString(1, jobPostCategoryName);
+            preparedStatement.setString(2, categoryName);
+            preparedStatement.setInt(3, jobPostCategoryID);
+
+            // Execute the update
+            int rowsUpdated = preparedStatement.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Category updated successfully.");
+            } else {
+                System.out.println("No category found with the specified ID.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     public static void main(String[] args) {
         JobCategoryDao daoc = new JobCategoryDao();
@@ -82,6 +131,13 @@ public class JobCategoryDao {
 //            System.out.println(jc1);
 //        }
        // System.out.println(daoc.FindListJobCategroy("Giáo viên mầm non"));
-       System.out.println(daoc.deleteJobPostCategory(86));
+       //System.out.println(daoc.deleteJobPostCategory(86));
+
+//        String categoryName = "IT & Công nghệ";
+//
+//        int jobPostCategoryID = 63;
+//        String jobPostCategoryName = "Lập trình viên Python";
+//        daoc.editCategory(jobPostCategoryID,categoryName,jobPostCategoryName);
+        System.out.println(daoc.FindListJobCategroyByID(64));
     }
 }
