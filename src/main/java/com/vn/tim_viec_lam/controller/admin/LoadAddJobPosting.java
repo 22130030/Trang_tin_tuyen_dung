@@ -8,12 +8,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "add", value = "/add")
-public class AddJob extends HttpServlet {
+@WebServlet(name = "add",value = "/add")
+public class LoadAddJobPosting extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=utf-8");
-        resp.sendRedirect("add_job_posting.jsp");
+        req.getRequestDispatcher("add_job_posting.jsp").forward(req,resp);
     }
-
 }

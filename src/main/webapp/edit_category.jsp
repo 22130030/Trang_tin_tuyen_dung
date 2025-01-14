@@ -13,7 +13,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chỉnh sửa thông tin nhà tuyển dụng</title>
+  <title>Chỉnh sửa thông tin phân loại nghề nghiệp</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -75,7 +75,7 @@
 </head>
 <body>
 <div class="container">
-  <h2>Chỉnh sửa thông tin nhà tuyển dụng</h2>
+  <h2>Chỉnh sửa thông tin phân loại nghề nghiệp</h2>
   <form action="edit-category" method="post">
     <label for="jobCategoryName">ID</label>
     <input type="text" value="${loadcate.jobPostCategoryID}" id="id" name="id" readonly>

@@ -74,11 +74,11 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <h3>Trang chủ admin</h3>
-            <a  href="report">Thống kê và báo cáo</a>
-            <a  href="company-user-job">Quản lý nhà tuyển dụng</a>
+            <a href="report">Thống kê và báo cáo</a>
+            <a href="company-user-job">Quản lý nhà tuyển dụng</a>
             <a href="candidate-user-find">Quản lý ứng viên</a>
             <a href="job_manager">Quản lý bài đăng</a>
-            <a href="/html/admin/admin_category.html">Quản lý ngành nghề</a>
+            <a href="manager-category">Quản lý ngành nghề</a>
             <a class="sidebar--active" href="#">Quản lý tài khoản</a>
         </div>
 
@@ -87,7 +87,7 @@
 
         <!-- Table Section -->
         <div class="table__container">
-            <h3>Quản lý ứng viên</h3>
+            <h3>Quản lý tài khoản</h3>
             <div class="user__managerment">
                 <form action="manager-user" method="post" class="user__search">
 
