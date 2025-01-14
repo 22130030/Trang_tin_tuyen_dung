@@ -128,13 +128,14 @@
                                 <div class="operations">
 
                                     <div class="operation operation__edit">
-                                        <a href="javascript:void(0)" onclick="editCategoryForm()" id="section__edit" class="operation__edit-link">
-
+                                        <a href="loadcategory?did=${c.jobPostCategoryID}" class="operation__edit-link">
                                             <i class="fa-solid fa-pen"></i>
                                         </a>
                                     </div>
                                     <div class="operation operation__remove">
-                                        <i class="fa-solid fa-trash"></i>
+                                       <a href="delete-category?did=${c.jobPostCategoryID}">
+                                           <i class="fa-solid fa-trash"></i>
+                                       </a>
                                     </div>
                                 </div>
                             </td>
