@@ -17,4 +17,7 @@ public class JobCategoryService {
     public List<JobCategory> FindListCategoryByNameJob(String jobName) {
         return jobCategoryDao.FindListJobCategroy(jobName);
     }
+    public void deleteCategory(int id) {
+        jobCategoryDao.deleteJobPostCategory(id);
+    }
 }

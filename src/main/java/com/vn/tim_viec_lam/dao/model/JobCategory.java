@@ -5,15 +5,25 @@ import java.io.Serializable;
 public class JobCategory implements Serializable {
     private int categoryID;
     private String categoryName;
+    private int jobPostCategoryID;
     private String jobPostCategoryName;
 
     public JobCategory() {
     }
 
-    public JobCategory(int categoryID, String categoryName, String jobPostCategoryName) {
+    public JobCategory(int categoryID, String categoryName,int jobPostCategoryID, String jobPostCategoryName) {
         this.categoryID = categoryID;
         this.categoryName = categoryName;
+        this.jobPostCategoryID = jobPostCategoryID;
         this.jobPostCategoryName = jobPostCategoryName;
+    }
+
+    public int getJobPostCategoryID() {
+        return jobPostCategoryID;
+    }
+
+    public void setJobPostCategoryID(int jobPostCategoryID) {
+        this.jobPostCategoryID = jobPostCategoryID;
     }
 
     public String getCategoryName() {
@@ -42,10 +52,11 @@ public class JobCategory implements Serializable {
 
     @Override
     public String toString() {
-        return "JobCategy{" +
+        return "JobCategory{" +
                 "categoryID=" + categoryID +
                 ", categoryName='" + categoryName + '\'' +
-                ", jobName='" + jobPostCategoryName + '\'' +
+                ", jobPostCategoryID=" + jobPostCategoryID +
+                ", jobPostCategoryName='" + jobPostCategoryName + '\'' +
                 '}';
     }
 }
