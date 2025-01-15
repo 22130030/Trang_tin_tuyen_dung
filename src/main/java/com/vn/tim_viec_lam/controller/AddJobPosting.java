@@ -1,5 +1,6 @@
 package com.vn.tim_viec_lam.controller;
 
+import com.vn.tim_viec_lam.service.JobService;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 @WebServlet(name = "add-job-posting", value = "/employer/add-job-posting")
@@ -39,10 +40,9 @@ public class AddJobPosting extends HttpServlet {
         String JobExpiryDate = request.getParameter("JobExpiryDate");
         String language = request.getParameter("language");
 
-        System.out.println(companyName + " " + employerSize + " " + website + " " + jobName + " " + jobAddress + " " + salaryType
-                + " " + salaryValue + " " + salaryUnit + " " + educationLevel + " " + experienceLevel + " " + jobType
-        + age);
-        System.out.println(educationLevel);
+        JobService js = new JobService();
+        boolean res = js.addJobPosting(companyName,employerSize,website,jobName,jobAddress,salaryValue,salaryUnit,educationLevel,experienceLevel,jobType,jobLocation,jobCategory,keywords,age,contactName,contactEmail,contactPhone,contactAddress,jobPostingDate,JobExpiryDate,language);
+        System.out.println(res);
         request.getRequestDispatcher("employer.jsp").forward(request,response);
 
 

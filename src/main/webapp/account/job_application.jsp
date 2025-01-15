@@ -33,7 +33,7 @@
                             <div class="job-application__header">
 
                                 <h3 class="job-application__head">Hồ sơ xin việc(
-                                    <span class="job__application-toltal">${sessionScope.jac == null ? 0 : sessionScope.jac.size}</span>
+                                    <span class="job__application-toltal">${sessionScope.jac == null ? 0 : sessionScope.jac.size()}</span>
                                     )
                                 </h3>
                                 <input style="display: none" accept=".docx" type="file" id="file-input" />
@@ -42,7 +42,7 @@
                                     <span>Thêm hồ sơ mới</span>
                                 </button>
                             </div>
-                            <div class="job__application-content" style="${empty sessionScope.jac.list ? 'display: block;' : 'display: none;'}">
+                            <div class="job__application-content" style="${sessionScope.jac == null ? 'display: block;' : 'display: none;'}">
                                 <img src="https://www.careerlink.vn/web/images/pages/my_careerlink/resumes-empty.png" alt="">
                                 <span class="ja__content-descripton">Hiện tại bạn chưa có hồ sơ nào, xin hãy chọn nút "Tạo hồ sơ mới" để tạo hồ sơ cho bạn.</span>
                                 <div class="user__profile-submit">
@@ -53,8 +53,8 @@
                                 </div>
                             </div>
 
-                            <div class="job__application-content--has-file" style="${!empty sessionScope.jac.list ? 'display: block;' : 'display: none;'}">
-                                <c:forEach items="${sessionScope.jac.list}" var="f">
+                            <div class="job__application-content--has-file" style="${sessionScope.jac != null ? 'display: block;' : 'display: none;'}">
+                                <c:forEach items="${sessionScope.jac}" var="f">
                                     <!-- File Item -->
                                     <div class="file-item">
                                         <div class="file-thumbnail">
@@ -62,11 +62,19 @@
                                         </div>
                                         <div class="file-details">
                                             <p class="file-name">${f.title}</p>
-                                            <p class="file-date">Chỉnh sửa lần cuối: 27/12/2024</p>
+                                            <p class="file-date">Chỉnh sửa lần cuối: ${f.convertUpdated}</p>
+
+                                            <div class="file-details__status" style="display : ${f.status == 1 ? 'flex' :'none'}">
+                                                <span class="file__status-title">chia sẻ thông tin :</span>
+                                                <label class="switch">
+                                                    <input type="checkbox" id="share-social" checked>
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </div>
                                         </div>
                                         <div class="file-actions">
-                                            <button class="btn-disabled" disabled>Bản tạm</button>
-                                            <button class="btn-edit-small">
+                                            <button class="${f.status == 1 ? 'btn-enabled' : 'btn-disabled' }" disabled>${f.convertStatus}</button>
+                                            <button onclick="editJobApplication(event,${f.id})" class="btn-edit-small">
                                                 <i class="fa-solid fa-pen"></i>
                                             </button>
                                             <button onclick="removeFileCart(event, ${f.id})" class="btn-delete-small">
@@ -168,7 +176,10 @@
                 });
 
                 if (response.ok) {
-                    window.location.href = "job_application.jsp"; // Chuyển hướng tới trang sau khi tải thành công
+                    const data = await response.json();
+                    const resumesId = data.resumesId; // Lấy resumesId từ server
+                    console.log(resumesId);
+                    window.location.href = "add-job-application?fileId=" + resumesId;
                 } else {
                     alert("Lỗi khi nộp đơn.");
                 }
@@ -212,6 +223,13 @@
                 });
 
             return false; // Đảm bảo không chuyển trang
+        }
+        function editJobApplication(event, fileId) {
+                // Lấy tên file từ thuộc tính của file item
+                const fileName = event.target.closest('.file-item').querySelector('.file-name').textContent;
+
+                // Chuyển hướng tới trang add-profile với tên file được truyền qua tham số URL
+                window.location.href = 'edit-job-application?fileName=' + fileName+'&fileId=' + fileId;
         }
     </script>
 </body>

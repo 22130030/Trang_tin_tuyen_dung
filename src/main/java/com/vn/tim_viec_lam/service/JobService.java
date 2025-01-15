@@ -74,11 +74,12 @@ public class JobService {
     ,String salaryValue,String salaryUnit,String educationLevel,String experienceLevel,String jobType,String jobLocation,
                                  String jobCategory,String keywords,String age,String contactName
     ,String contactEmail,String contactPhone,String contactAddress ,String jobPostingDate,String JobExpiryDate,String language){
-        return false;
+        return jobDao.addJobPosting(companyName,employerSize,website,jobName,jobAddress,salaryValue,salaryUnit,educationLevel,experienceLevel,jobType,jobLocation,jobCategory,keywords,age,contactName,contactEmail,contactPhone,contactAddress,jobPostingDate,JobExpiryDate,language);
     }
     public List<Job> filterJob(String jobName,String jobCategory,String jobLocation){
         return jobDao.filterJobs(jobName,jobCategory,jobLocation);
     }
+
     public static void main(String[] args) {
         JobService jobService = new JobService();
         System.out.println(jobService.filterJob("nhân viên","",""));

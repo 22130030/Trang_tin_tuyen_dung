@@ -1,21 +1,16 @@
 package com.vn.tim_viec_lam.controller.file;
 
-import com.vn.tim_viec_lam.dao.model.Job;
-import com.vn.tim_viec_lam.dao.model.cart.FileCart;
-import com.vn.tim_viec_lam.dao.model.cart.JobApplicationCart;
-import com.vn.tim_viec_lam.dao.model.cart.JobAppliedCart;
+import com.vn.tim_viec_lam.dao.model.Resumes;
 import com.vn.tim_viec_lam.service.FileService;
-import com.vn.tim_viec_lam.service.JobService;
+import com.vn.tim_viec_lam.service.ResumesService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
+import java.util.List;
 
 @WebServlet(name = "uploadFile",value = "/account/upload-file")
 @MultipartConfig(
@@ -27,52 +22,60 @@ public class UploadFile extends HttpServlet {
     private static final String UPLOAD_DIR = "upload_file";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        ResumesService rs = new ResumesService();
 
+        List<Resumes> resumesList = rs.getResumes();
+        session.setAttribute("jac", resumesList);
+        request.getRequestDispatcher("job_application.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json");
 
-        File uploadDir = new File(UPLOAD_DIR);
+        String uploadDirPath = getServletContext().getRealPath("")  + UPLOAD_DIR;
+
+        File uploadDir = new File(uploadDirPath);
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
         }
 
-        String uploadPart = getServletContext().getRealPath("");
-
         FileService fs = new FileService();
+        HttpSession session = request.getSession();
+        ResumesService rs = new ResumesService();
+        String filePath = "";
+        int resumeId =0;
         try{
             for(Part part : request.getParts()){
                 String fileName = fs.extractFile(part);
                 if(!fileName.isEmpty() && fileName != null){
-                    String filePath = uploadDir.getAbsolutePath() + File.separator + fileName;
-
+                    String fName = part.getSubmittedFileName();
+                    filePath = uploadDirPath + File.separator + fileName;
+                    String type = "";
+                    long size = part.getSize();
+                    int i = fileName.lastIndexOf('.');
+                    if (i > 0) {
+                        type = fileName.substring(i + 1).toLowerCase();
+                    }
                     part.write(filePath);
+                    resumeId = rs.addResume(fName, filePath, type);
+                    System.out.println("resumeId = " + resumeId);
+
                 }
+                    List<Resumes> updatedList = rs.getResumes();
+                    session.setAttribute("jac", updatedList);
             }
+                    response.setContentType("application/json");
+                    response.getWriter().write("{\"resumesId\": " + resumeId + "}");
+                    response.getWriter().flush();
+                    response.getWriter().close();
         }catch (Exception e){
+            System.out.println(1);
             e.printStackTrace();
         }
 
-        Part filePart = request.getPart("file");
-        String path = filePart.getSubmittedFileName();
-        String fileName = filePart.getSubmittedFileName();
-        String type = filePart.getContentType();
-        long size = filePart.getSize();
 
-        HttpSession session = request.getSession();
 
-        JobApplicationCart jac = (JobApplicationCart)session.getAttribute("jac");
-        int id = 0;
-        if(jac != null){
-            id = jac.getSize();
-
-        }
-        if(jac == null){
-            jac = new JobApplicationCart();
-        }
-        FileCart fc = new FileCart(++id,fileName,path,type,size,new Date());
-        jac.addFileCart(fc);
-        session.setAttribute("jac",jac);
     }
 
 

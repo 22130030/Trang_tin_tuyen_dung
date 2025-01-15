@@ -867,15 +867,20 @@ select {
     top: calc(100% + 3px);
     background-color: var(--white-color);
     border: 1px solid rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    max-height: 200px;
+    overflow-y: scroll;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .file-account__list{
     list-style: none;
-    padding: 15px 10px;
     margin: 0;
     text-align: left;
     font-size: 1.4rem;
     color : var(--text-color);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0;
 }
 .file-account-item i {
     padding-right: 10px;
@@ -884,6 +889,11 @@ select {
 .file-account-item{
     display: flex;
     align-items: center;
+    padding : 10px;
+}
+.file-account-item:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 .file-account-item span{
     font-size: 1.4rem;
