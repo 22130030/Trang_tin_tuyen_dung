@@ -1,13 +1,11 @@
 package com.vn.tim_viec_lam.dao.model;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
-public class User {
+public class User implements Serializable {
     private int userID;
     private String email;
     private String password;
@@ -15,16 +13,27 @@ public class User {
     private String phone_number;
     private String status;
     private LocalDateTime created_at;
-    private int role;
+    private int roleNum;
+    public User() {
+    }
 
-    public User(int userID, String email, String password,String name, String status, String phone_number, LocalDateTime created_at) {
+    public User(int userID, String email, String password, String status, String phone_number, LocalDateTime created_at) {
         this.userID = userID;
         this.email = email;
         this.password = password;
         this.name = name;
-        this.status = status;
         this.phone_number = phone_number;
+        this.status = status;
         this.created_at = created_at;
+        this.roleNum = roleNum;
+    }
+
+    public int getRoleNum() {
+        return roleNum;
+    }
+
+    public void setRoleNum(int roleNum) {
+        this.roleNum = roleNum;
     }
 
     public int getUserID() {
@@ -105,6 +114,7 @@ public class User {
                 ", phone_number='" + phone_number + '\'' +
                 ", status='" + status + '\'' +
                 ", created_at=" + created_at +
-                '\n';
+                ", roleNum=" + roleNum +
+                '}';
     }
 }

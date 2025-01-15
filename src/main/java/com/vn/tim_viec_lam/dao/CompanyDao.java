@@ -88,25 +88,36 @@ public class CompanyDao {
             throw new RuntimeException(e);
         }
     }
+    public Company getListCompanyUserbyID (int id) {
+        List<Company> companies = new ArrayList<Company>();
+
+        Connection con = DBconnect.getConnection();
+        String sql ="SELECT c.*, u.email AS email, u.phone_number AS phone, u.status AS status, u.created_at AS createDate\n" +
+                "FROM company_users cu\n" +
+                "JOIN companies c ON cu.companyID = c.companyID\n" +
+                "JOIN users u ON cu.userID = u.userID\n" +
+                "WHERE u.userID = ?;\n";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            return rs.next() ? excuteResultSet(rs) : null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
     public List<Company> getListCompanyUser (){
         List<Company> companies = new ArrayList<Company>();
 
         Connection con = DBconnect.getConnection();
-        String sql = "SELECT \n" +
-                "    c.*, \n" +
-                "    u.email AS email, \n" +
-                "    u.phone_number AS phone, \n" +
-                "    u.status AS status, \n" +
-                "    u.created_at AS createDate, \n" +
-                "    cs.statusName AS statusName\n" +
-                "FROM \n" +
-                "    company_users cu\n" +
-                "JOIN \n" +
-                "    companies c ON cu.companyID = c.companyID\n" +
-                "JOIN \n" +
-                "    users u ON cu.userID = u.userID\n" +
-                "JOIN \n" +
-                "    category_status_for_company cs ON u.statusID = cs.statusID;\n";
+        String sql = "SELECT c.*, u.email AS email, u.phone_number AS phone, u.status AS status, u.created_at AS createDate\n" +
+                "FROM company_users cu\n" +
+                "JOIN companies c ON cu.companyID = c.companyID\n" +
+                "JOIN users u ON cu.userID = u.userID\n";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -202,6 +213,48 @@ public class CompanyDao {
                 throw new RuntimeException(e);
             }
     }
+    public void editUser(int pid, String pname, String pemail, String pphone,String pstatus, String paddress ) {
+        Connection conn = null;
+        PreparedStatement ps1 = null;
+        PreparedStatement ps2 = null;
+        try {
+            conn = DBconnect.getConnection();
+
+            // Cập nhật bảng companies
+            String query1 = "UPDATE companies c " +
+                    "JOIN company_users cu ON c.companyID = cu.companyID " +
+                    "SET c.companyName = ?, c.address = ? " +
+                    "WHERE cu.userID = ?";
+            ps1 = conn.prepareStatement(query1);
+            ps1.setString(1, pname);
+            ps1.setString(2, paddress);
+            ps1.setInt(3, pid);
+            ps1.executeUpdate();
+
+            // Cập nhật bảng users
+            String query2 = "UPDATE users " +
+                    "SET email = ?, phone_number = ?, status = ? " +
+                    "WHERE userID = ?";
+            ps2 = conn.prepareStatement(query2);
+
+            ps2.setString(1, pemail);
+            ps2.setString(2, pphone);
+            ps2.setString(3, pstatus);
+            ps2.setInt(4, pid);
+            ps2.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps1 != null) ps1.close();
+                if (ps2 != null) ps2.close();
+                if (conn != null) conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
     public  List<CompanyStatusCategory> getAllStatusCategory() {
@@ -273,8 +326,12 @@ public class CompanyDao {
     public static void main(String[] args) {
         CompanyDao dao = new CompanyDao();
         //List<String> test = new ArrayList<>();
-        dao.deleteUserCompany(6);
+//       dao.editUser(3,"CÔNG TY TNHH THẨM MỸ NGỌC DUNG","user33@example.com","+1-800-792-9935","Đã duyệt");
+       dao.editUser(17,"CÔNG TY TNHH HOJEONG","user1717@example.com","+1-800-532-1520 ","Đã duyệt","Lô R13, 14, 15 KCN Hải Sơn Xã Đức Hòa Hạ, Huyện Đức Hòa, Long An");
+      //  dao.deleteUserCompany(6);
+        System.out.println(dao.getAll());
     }
+
 
 
 }

@@ -65,13 +65,6 @@
                                id="fname">
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <div class="form-group first">
-                        <label for="lname">Tên</label>
-                        <input type="text" class="form-control" placeholder="Tên"
-                               id="lname">
-                      </div>
-                    </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
@@ -79,6 +72,13 @@
                         <label for="email">Địa chỉ Email</label>
                         <input type="email" class="form-control" placeholder="xxx@gmail.com"
                                id="email">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group first">
+                        <label for="lname">Số điện thoại</label>
+                        <input type="text" class="form-control" placeholder="84+"
+                               id="lname">
                       </div>
                     </div>
                   </div>
@@ -134,6 +134,7 @@
                     </div>
                     <label class="control control--checkbox mb-1"><span class="caption">Tôi đã
                                                     là thành viên rồi! <a href="/html/login.html">Đăng nhập</a></span>
+                    </label>
                   </div>
                 </div>
               </form>

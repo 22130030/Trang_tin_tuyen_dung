@@ -35,9 +35,17 @@ public class CompanyService {
     public void deleteUserCompany(int id) {
         companyDao.deleteUserCompany(id);
     }
+    public Company getListCompanyUserById(int id) {
+        return companyDao.getListCompanyUserbyID(id);
+    }
+    public void editUserCompany(int pid, String pname, String pemail, String pphone,String pstatus, String paddress) {
+        companyDao.editUser(pid,pname,pemail,pphone,pstatus,paddress);
+    }
 
     public static void main(String[] args) {
         CompanyService companyService = new CompanyService();
         System.out.println(companyService.getUserCompany());
     }
+
+
 }
