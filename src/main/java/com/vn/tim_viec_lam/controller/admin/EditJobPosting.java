@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.HashMap;
-@WebServlet(name = "edit-job-posting" , value = "/edit-job-posting")
+@WebServlet(name = "edit-job-posting" , value = "/admin/edit-job-posting")
 public class EditJobPosting extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

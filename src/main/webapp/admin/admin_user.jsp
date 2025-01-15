@@ -13,10 +13,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="asserts/css/admin/admin__base.css">
-    <link rel="stylesheet" href="asserts/css/admin/user.css">
-    <link rel="stylesheet" href="asserts/css/base.css">
-    <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
+    <link rel="stylesheet" href="../asserts/css/admin/admin__base.css">
+    <link rel="stylesheet" href="../asserts/css/admin/user.css">
+    <link rel="stylesheet" href="../asserts/css/base.css">
+    <link rel="stylesheet" href="../asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
     <title>Admin</title>
 </head>
 <body>
@@ -27,7 +27,7 @@
             <div class="grid nav__container">
                 <div class="nav__logo">
                     <a href="#" class="nav__logo-link">
-                        <img src="asserts/img/brand-logo@2x.png" alt="" class="nav-logo__img">
+                        <img src="../asserts/img/brand-logo@2x.png" alt="" class="nav-logo__img">
                     </a>
                 </div>
                 <ul class="nav__list">
@@ -72,15 +72,8 @@
     <div class="container">
 
         <!-- Sidebar -->
-        <div class="sidebar">
-            <h3>Trang chủ admin</h3>
-            <a href="report">Thống kê và báo cáo</a>
-            <a href="company-user-job">Quản lý nhà tuyển dụng</a>
-            <a href="candidate-user-find">Quản lý ứng viên</a>
-            <a href="job_manager">Quản lý bài đăng</a>
-            <a href="manager-category">Quản lý ngành nghề</a>
-            <a class="sidebar--active" href="#">Quản lý tài khoản</a>
-        </div>
+        <%@include file="sidebar_admin.jsp"%>
+
 
 
 

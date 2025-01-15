@@ -111,7 +111,7 @@
                                     ${f.convertCreated}
                             </td>
                             <td class="has-data">
-                                ${f.title}
+                                ${f.status}
                             </td>
                             <td class="has-data">
                                 ${f.type}

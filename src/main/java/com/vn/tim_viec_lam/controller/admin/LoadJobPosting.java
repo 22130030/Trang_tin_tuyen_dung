@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "load-job-post",value = "/load-job-post")
+@WebServlet(name = "load-job-post",value = "/admin/load-job-post")
 public class LoadJobPosting extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

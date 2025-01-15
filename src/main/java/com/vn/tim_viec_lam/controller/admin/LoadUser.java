@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "load-users", value = "/load-users")
+@WebServlet(name = "load-users", value = "/admin/load-users")
 public class LoadUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -18,6 +18,6 @@ public class LoadUser extends HttpServlet {
         UserService userService = new UserService();
         userService.FindListUserByID(id);
         req.setAttribute("load",userService.FindListUserByID(id));
-        req.getRequestDispatcher("/edit_user.jsp").forward(req, resp);
+        req.getRequestDispatcher("edit_user.jsp").forward(req, resp);
     }
 }
