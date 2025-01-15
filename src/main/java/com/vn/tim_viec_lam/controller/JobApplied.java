@@ -1,8 +1,10 @@
 package com.vn.tim_viec_lam.controller;
 
 import com.vn.tim_viec_lam.dao.model.Job;
+import com.vn.tim_viec_lam.dao.model.JobApplication;
 import com.vn.tim_viec_lam.dao.model.cart.JobAppliedCart;
 import com.vn.tim_viec_lam.service.FileService;
+import com.vn.tim_viec_lam.service.JobApplicationService;
 import com.vn.tim_viec_lam.service.JobService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -11,6 +13,7 @@ import jakarta.servlet.http.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "jobApplied",value = "/account/job-applied")
 @MultipartConfig(
@@ -26,54 +29,50 @@ public class JobApplied extends HttpServlet {
 
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        File uploadDir = new File(UPLOAD_DIR);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
-        }
-
-        String uploadPart = getServletContext().getRealPath("");
-
-        FileService fs = new FileService();
-        try{
-            for(Part part : request.getParts()){
-                String fileName = fs.extractFile(part);
-                if(!fileName.isEmpty() && fileName != null){
-                    String filePath = uploadDir.getAbsolutePath() + File.separator + fileName;
-
-                    part.write(filePath);
-                }
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
         if(request.getParameter("jid") != null){
             int id = Integer.parseInt(request.getParameter("jid"));
+
             JobService js = new JobService();
-
             Job job = js.getJobById(id);
-
+            int companyId = job.getCompanyId();
             HttpSession session = request.getSession();
+            JobApplicationService jas = new JobApplicationService();
+                if(request.getPart("fileId") == null){
 
-            JobAppliedCart cart = (JobAppliedCart) session.getAttribute("jobAppliedCart");
-            if(cart == null){
-                cart = new JobAppliedCart();
-            }
-            cart.addJobCart(job);
-            session.setAttribute("jobAppliedCart",cart);
-        }
-        if(request.getPart("file") != null){
+                    String uploadDirPath = getServletContext().getRealPath("") + UPLOAD_DIR;
+                    File uploadDir = new File(uploadDirPath);
+                    if (!uploadDir.exists()) {
+                        uploadDir.mkdirs();
+                    }
 
-            Part filePart = request.getPart("file");
-            String fileName = filePart.getSubmittedFileName();
-            long size = filePart.getSize();
+                    FileService fs = new FileService();
+                    String filePath = "";
+                    try{
+                        for(Part part : request.getParts()){
+                            String fileName = fs.extractFile(part);
+                            if(!fileName.isEmpty() && fileName != null){
+                                filePath = uploadDirPath + File.separator + fileName;
+                                String type = "";
+                                long size = part.getSize();
+                                int i = fileName.lastIndexOf('.');
+                                if (i > 0) {
+                                    type = fileName.substring(i + 1).toLowerCase();
+                                }
+                                part.write(filePath);
+                                jas.addJobAppFromComputer(filePath,fileName,type,id,companyId,1);
+                            }
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+                if(request.getPart("fileId") != null){
+                    int fId = Integer.parseInt(request.getParameter("fileId"));
+                    jas.addJobApplicationFromAccount(companyId,id,fId,1);
+                    }
+                List<JobApplication> jobApplicationList = jas.getAll();
+                session.setAttribute("jobAppliedCart",jobApplicationList);
 
-            response.getWriter().write(String.format(
-                    "{\"fileName\": \"%s\", \"fileSize\": %.2f}",
-                    fileName, size / 1024.0
-            ));
-        }
-        if(request.getParameter("fileId") != null){
-            System.out.println(request.getParameter("fileId"));
         }
 
     }

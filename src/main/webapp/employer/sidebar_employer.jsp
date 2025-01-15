@@ -53,12 +53,12 @@
                                     Ứng viên của tôi</span>
                             </span>
           <div class="sidebar__item my__candidates-item">
-            <a class="nav-link bs-tooltip ${relativePath eq "/employer/findResumes_employer.jsp" ? 'active' : ''}" href="${pageContext.request.contextPath}/employer/findResumes_employer.jsp">
+            <a class="nav-link bs-tooltip ${relativePath eq "/employer/findResumes_employer.jsp" ? 'active' : ''}" href="${pageContext.request.contextPath}/employer/find-profile">
               <span class="item-label text-truncate">Tìm Hồ sơ</span>
             </a>
           </div>
           <div class="sidebar__item my__candidates-item">
-            <a class="nav-link bs-tooltip" href="/html/employer/application_letter_received.html">
+            <a class="nav-link bs-tooltip ${relativePath eq "/employer/jobApplication_letter.jsp" ? 'active' : ''}" href="${pageContext.request.contextPath}/employer/application-letter">
               <span class="item-label text-truncate">Thư xin việc đã nhận</span>
             </a>
           </div>

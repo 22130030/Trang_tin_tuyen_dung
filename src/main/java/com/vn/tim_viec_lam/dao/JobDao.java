@@ -373,7 +373,55 @@ public class JobDao {
         }
         return jobs;
     }
-    public boolean addJobPosting(){
+    public boolean addJobPosting(String companyName,String employerSize,String website,String jobName,String jobAddress
+            ,String salaryValue,String salaryUnit,String educationLevel,String experienceLevel,String jobType,String jobLocation,
+                                 String jobCategory,String keywords,String age,String contactName
+            ,String contactEmail,String contactPhone,String contactAddress ,String jobPostingDate,String JobExpiryDate,String language){
+        Connection con = DBconnect.getConnection();
+        String sqlLocation = "INSERT INTO job_locations (address, country, city) VALUES (?, ?, ?)";
+        try (PreparedStatement stmtLocation = con.prepareStatement(sqlLocation, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            stmtLocation.setString(1, jobAddress);
+            stmtLocation.setString(2, "VietNam");
+            stmtLocation.setString(3, jobLocation);
+
+            int rowsAffected = stmtLocation.executeUpdate();
+            if(rowsAffected >0){
+                try (ResultSet generatedKeys = stmtLocation.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int locationID = generatedKeys.getInt(1);  // Lấy locationID
+
+                        // Tiến hành thêm dữ liệu vào bảng job_posting
+                        String sqlJobPosting = "INSERT INTO job_posting (companyID, titleJob, locationID, image, position, jobdescription, salary, created_at, updated_at, status, requirement) "
+                                + "VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)";
+
+                        try (PreparedStatement stmtJobPosting = con.prepareStatement(sqlJobPosting)) {
+                            stmtJobPosting.setInt(1, 1);  // companyID, giả sử là 1 (có thể lấy từ form)
+                            stmtJobPosting.setString(2, jobName);
+                            stmtJobPosting.setInt(3, locationID);  // Sử dụng locationID vừa lấy
+                            stmtJobPosting.setString(4, ""); // Image, có thể lấy từ form nếu cần
+                            stmtJobPosting.setString(5, "Full-time"); // Position, có thể lấy từ form
+                            stmtJobPosting.setString(6, "Mô tả công việc tại đây"); // Job description
+                            stmtJobPosting.setString(7, salaryValue);  // Salary
+                            stmtJobPosting.setString(8, "active");  // Status
+                            stmtJobPosting.setString(9, "Yêu cầu công việc tại đây");
+
+                            int jobPostingRowsAffected = stmtJobPosting.executeUpdate();
+
+                            if (jobPostingRowsAffected > 0) {
+                                System.out.println("Job posting added successfully.");
+                                return true;
+                            } else {
+                                System.out.println("Failed to add job posting.");
+                            }
+                        }
+                    }
+                }
+            }
+
+        }catch (SQLException e) {
+            e.printStackTrace(); // In chi tiết lỗi để biết nguyên nhân
+            System.out.println("Error executing update: " + e.getMessage());
+        }
         return false;
     }
     public static void main(String[] args) {

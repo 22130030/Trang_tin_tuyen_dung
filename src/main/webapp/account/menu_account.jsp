@@ -21,7 +21,6 @@
     String relativePath = fullPath.substring(contextPath.length());
 %>
 <c:set var="relativePath" value="<%= relativePath %>" />
-    <div class="application">
         <div class="nav__menu">
     <div class="grid__1100">
         <ul class="nav__menu-list">
@@ -35,14 +34,14 @@
                 </a>
             </li>
             <li class="nav__menu-item">
-                <a href="${pageContext.request.contextPath}/account/job_application.jsp" class="nav__menu__link ${relativePath eq '/account/job_application.jsp' ? 'nav__menu-active' : ''}">
+                <a href="${pageContext.request.contextPath}/account/upload-file" class="nav__menu__link ${relativePath eq '/account/job_application.jsp' ? 'nav__menu-active' : ''}">
                     <c:if test="${relativePath eq '/account/job_application.jsp'}">
                         <div class="nav-menu__has-separated"></div>
                     </c:if>
 
                     <i class="fa-regular fa-address-card"></i>
                     <span class="nav__menu-title">Hồ sơ xin việc(
-                                <span class="nav__menu-toltal">${sessionScope.jac == null ? 0 : sessionScope.jac.size}</span>
+                                <span class="nav__menu-toltal">${sessionScope.jac == null ? 0 : sessionScope.jac.size()}</span>
                                 )
                             </span>
                 </a>
@@ -69,7 +68,7 @@
                     <i class="fa-regular fa-paper-plane"></i>
 
                     <span class="nav__menu-title">Việc làm đã ứng tuyển(
-                                <span class="nav__menu-toltal">${sessionScope.jobAppliedCart == null ? 0 : sessionScope.jobAppliedCart.size}</span>
+                                <span class="nav__menu-toltal">${sessionScope.jobAppliedCart == null ? 0 : sessionScope.jobAppliedCart.size()}</span>
                                 )
                             </span>
                 </a>
@@ -85,6 +84,5 @@
         </ul>
     </div>
 </div>
-    </div>
 </body>
 </html>

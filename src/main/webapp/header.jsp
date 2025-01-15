@@ -62,13 +62,13 @@
                             ${sessionScope.user.name}
                         </c:if>
                             <div class="nav__dropdown-menu">
-                                <div style="display: ${sessionScope.user == null ? 'block' : 'none'}"  class="menu__buttons">
+                                <div style="display: ${sessionScope.user == null ? 'flex' : 'none'}"  class="menu__buttons">
                                     <button class="btn menu__register" onclick="window.location.href='/html/candidate/register.html'">Đăng ký</button>
                                     <button class="btn menu__login" onclick="window.location.href='/html/candidate/login.html'">Đăng nhập</button>
                                 </div>
                             <ul class="menu__list">
                                 <li class="menu__item">
-                                    <a href="${pageContext.request.contextPath}/account/job_application.jsp" class="menu__link">
+                                    <a href="${pageContext.request.contextPath}/account/upload-file" class="menu__link">
                                         <i class="menu__link-icon fa-regular fa-id-badge"></i>
                                         <span class="menu__link-title">Hồ sơ xin việc</span>
                                     </a>
