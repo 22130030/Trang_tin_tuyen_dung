@@ -1,7 +1,7 @@
 package com.vn.tim_viec_lam.controller.file;
 
 import com.mysql.cj.Session;
-import com.vn.tim_viec_lam.dao.model.cart.JobApplicationCart;
+import com.vn.tim_viec_lam.service.ResumesService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,10 +17,8 @@ public class RemoveFile extends HttpServlet {
             int fileId = Integer.parseInt(request.getParameter("fileId"));
             HttpSession session = request.getSession();
 
-            JobApplicationCart jac = (JobApplicationCart)session.getAttribute("jac");
-            if(jac != null) {
-                jac.removeFileCart(fileId);
-            }
+            ResumesService rs = new ResumesService();
+            rs.deleteResume(fileId);
         }
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

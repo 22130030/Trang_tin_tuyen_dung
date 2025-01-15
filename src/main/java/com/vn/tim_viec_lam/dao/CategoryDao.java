@@ -35,6 +35,28 @@ public class CategoryDao {
 
         return 0;
     }
+    public List<JobPostCategory> getAllCategories() {
+        List<JobPostCategory> categoryList = new ArrayList<JobPostCategory>();
+
+        try {
+            Connection con = DBconnect.getConnection();
+            String sql = "select * from job_categories";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                String img = rs.getString(3);
+                JobPostCategory category = new JobPostCategory(id, name, img);
+                categoryList.add(category);
+            }
+            return categoryList;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public List<JobPostCategory> getPaging(int indexPage) {
         List<JobPostCategory> categoryList = new ArrayList<JobPostCategory>();
 
@@ -99,6 +121,6 @@ public class CategoryDao {
 
     public static void main(String[] args) {
         CategoryDao dao = new CategoryDao();
-        System.out.println(dao.getPaging(2));
+        System.out.println(dao.getAllCategories());
     }
 }

@@ -12,16 +12,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="asserts/css/base.css">
-    <link rel="stylesheet" href="asserts/css/candidate/account_main.css">
-    <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
-    <link rel="stylesheet" href="asserts/css/candidate/account_base.css">
+    <link rel="stylesheet" href="../asserts/css/base.css">
+    <link rel="stylesheet" href="../asserts/css/candidate/account_main.css">
+    <link rel="stylesheet" href="../asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
+    <link rel="stylesheet" href="../asserts/css/candidate/account_base.css">
 
     <title>Quản lý tài khoản</title>
 </head>
 <body>
     <div class="application">
-    <%@include file="header.jsp"%>
+    <%@include file="../header.jsp"%>
     <%@include file="menu_account.jsp"%>
 
     <div class="container">
@@ -38,8 +38,8 @@
                                 </div>
                                 <div class="user__detail-contact">
 
-                                    <span class="user__detail-name">Nguyễn Văn A</span>
-                                    <span class="user__detail-email">nguyenvana@gmail.com</span>
+                                    <span class="user__detail-name">${sessionScope.user.name}</span>
+                                    <span class="user__detail-email">${sessionScope.user.email}</span>
                                 </div>
                             </div>
                             <div class="user__info-edit">
@@ -47,11 +47,11 @@
                             </div>
                             <div class="user__info-status">
                                     <span class="user__status-created">Ngày đăng ký
-                                        <span>13-11-2024</span>
+                                        <span>${sessionScope.user.convertCreated}</span>
                                     </span>
                                 <div class="user__status-logout">
                                     <i class="fa-solid fa-right-from-bracket"></i>
-                                    <span>Đăng xuất</span>
+                                    <a href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
                                 </div>
                             </div>
                         </div>
@@ -148,7 +148,7 @@
         </div>
     </div>
 
-        <%@include file="footer.jsp"%>
+        <%@include file="../footer.jsp"%>
 </div>
 </body>
 </html>

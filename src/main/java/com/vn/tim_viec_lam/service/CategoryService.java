@@ -21,7 +21,9 @@ public class CategoryService {
     public List<CompanyStatusCategory> getCompanyStatusCategories(){
         return companyDao.getAllStatusCategory();
     }
-
+    public List<JobPostCategory> getAllCategories(){
+        return categoryDao.getAllCategories();
+    }
     public static void main(String[] args) {
         CategoryService categoryService = new CategoryService();
         System.out.println(categoryService.getCompanyStatusCategories());

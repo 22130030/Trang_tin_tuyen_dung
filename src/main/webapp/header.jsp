@@ -47,21 +47,28 @@
                 </li>
                 <li class="nav__item nav__item-link--separated">
                     <div class="nav__item-link nav__user nav__has--form-login">
-                        <div class="nav__user-icon">
-                            <i class="fa-regular fa-user"></i>
-                        </div>
-                        Đăng ký
+                        <c:if  test="${empty sessionScope.user}">
 
-                        <div class="nav__dropdown-menu">
-                            <div class="menu__buttons">
-                                <button class="btn menu__register" onclick="window.location.href='/html/candidate/register.html'">Đăng ký</button>
-                                <button class="btn menu__login" onclick="window.location.href='/html/candidate/login.html'">Đăng nhập</button>
+                            <div class="nav__user-icon">
+                                <i class="fa-regular fa-user"></i>
                             </div>
+                            Đăng ký
 
-
+                        </c:if>
+                        <c:if test="${not empty sessionScope.user}">
+                            <div class="nav__user-icon">
+                                <i class="fa-regular fa-user"></i>
+                            </div>
+                            ${sessionScope.user.name}
+                        </c:if>
+                            <div class="nav__dropdown-menu">
+                                <div style="display: ${sessionScope.user == null ? 'flex' : 'none'}"  class="menu__buttons">
+                                    <button class="btn menu__register" onclick="window.location.href='/html/candidate/register.html'">Đăng ký</button>
+                                    <button class="btn menu__login" onclick="window.location.href='/html/candidate/login.html'">Đăng nhập</button>
+                                </div>
                             <ul class="menu__list">
                                 <li class="menu__item">
-                                    <a href="${pageContext.request.contextPath}/account/job_application.jsp" class="menu__link">
+                                    <a href="${pageContext.request.contextPath}/account/upload-file" class="menu__link">
                                         <i class="menu__link-icon fa-regular fa-id-badge"></i>
                                         <span class="menu__link-title">Hồ sơ xin việc</span>
                                     </a>
@@ -90,7 +97,7 @@
                     </div>
                 </li>
                 <li class="nav__item nav__item-link--separated">
-                    <a href="/html/employer/home-employer.html" class="nav__item-link">
+                    <a href="employer_home.jsp" class="nav__item-link">
                         Nhà tuyển dụng
 
                     </a>

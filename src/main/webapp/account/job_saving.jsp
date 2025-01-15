@@ -21,7 +21,7 @@
 <body>
 <div class="application">
     <%@include file="../header.jsp" %>
-    <%@include file="../menu_account.jsp" %>
+    <%@include file="menu_account.jsp" %>
 
     <div class="container">
         <div class="grid__1100">
