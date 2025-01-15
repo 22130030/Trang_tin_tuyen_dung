@@ -13,6 +13,67 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
+    public List<User> getAll() {
+        List<User> users = new ArrayList<User>();
+        Connection con = DBconnect.getConnection();
+        String sql = "select * from users";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User u = excute(rs);
+                users.add(u);
+            }
+            return users;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public User getUserByEmail(String email) {
+        Connection con = DBconnect.getConnection();
+        String sql = "select * from users where email = ?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            User user = null;
+            if(rs.next()) {
+                user = excute(rs);
+            }
+            return user;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public boolean getUser(String email,String password) {
+        Connection con = DBconnect.getConnection();
+        String sql = "select * from users where email = ? and password = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, email);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public User excute(ResultSet rs) throws SQLException {
+        int id = rs.getInt("userID");
+        String email = rs.getString("email");
+//        String password = rs.getString("password");
+        String name = rs.getString("name");
+        String phoneNumber = rs.getString("phone_number");
+        String status = rs.getString("status");
+        LocalDateTime date = rs.getTimestamp("created_at").toLocalDateTime();
+        return new User(id, email,name, phoneNumber, status, date);
+    }
+
+    public static void main(String[] args) {
+        UserDao dao = new UserDao();
+        System.out.println(dao.getAll());
+    }
     public List<User> getListUser(){
         List<User> users = new ArrayList<User>();
         Connection conn = DBconnect.getConnection();
@@ -134,22 +195,10 @@ public class UserDao {
         String status = rs.getString("status");
         LocalDateTime created = rs.getTimestamp("created_at").toLocalDateTime();
         int roleNum = rs.getInt("roleNum");
-        user = new User(id, email, password, phone, status, created, roleNum);
+        user = new User(id, email, password, phone,status, created);
         return user;
     }
 
-    public static void main(String[] args) {
-        UserDao dao = new UserDao();
 
-//        System.out.println(dao.findListUserbyEmail("user9"));
-      //  System.out.println(dao.deleteUser(7));
-//        int userId = 1; // ID user muốn cập nhật
-//        String newEmail = "newemail@example.com";
-//        String newPassword = "111111";
-//        int newRole = 2; // Vai trò mới
-//        String newStatus = "Da duyet";
-//        System.out.println(dao.updateUser(userId, newEmail, newPassword, newRole, newStatus));
-         System.out.println(dao.findListUserbyID(1));
-    }
 
 }

@@ -21,13 +21,12 @@
     String relativePath = fullPath.substring(contextPath.length());
 %>
 <c:set var="relativePath" value="<%= relativePath %>" />
-    <div class="application">
         <div class="nav__menu">
     <div class="grid__1100">
         <ul class="nav__menu-list">
             <li class="nav__menu-item">
-                <a href="home_account.jsp" class="nav__menu__link ${relativePath eq '/home_account.jsp' ? 'nav__menu-active' : ''}">
-                    <c:if test="${relativePath eq '/home_account.jsp'}">
+                <a href="${pageContext.request.contextPath}/account/home_account.jsp" class="nav__menu__link ${relativePath eq '/account/home_account.jsp' ? 'nav__menu-active' : ''}">
+                    <c:if test="${relativePath eq '/account/home_account.jsp'}">
                         <div class="nav-menu__has-separated"></div>
                     </c:if>
                     <i class="fa-solid fa-house"></i>
@@ -35,21 +34,21 @@
                 </a>
             </li>
             <li class="nav__menu-item">
-                <a href="account/job_application.jsp" class="nav__menu__link ${relativePath eq '/job_application.jsp' ? 'nav__menu-active' : ''}">
-                    <c:if test="${relativePath eq '/job_application.jsp'}">
+                <a href="${pageContext.request.contextPath}/account/upload-file" class="nav__menu__link ${relativePath eq '/account/job_application.jsp' ? 'nav__menu-active' : ''}">
+                    <c:if test="${relativePath eq '/account/job_application.jsp'}">
                         <div class="nav-menu__has-separated"></div>
                     </c:if>
 
                     <i class="fa-regular fa-address-card"></i>
                     <span class="nav__menu-title">Hồ sơ xin việc(
-                                <span class="nav__menu-toltal">${sessionScope.jac == null ? 0 : sessionScope.jac.size}</span>
+                                <span class="nav__menu-toltal">${sessionScope.jac == null ? 0 : sessionScope.jac.size()}</span>
                                 )
                             </span>
                 </a>
             </li>
             <li class="nav__menu-item">
-                <a href="account/job_saving.jsp" class="nav__menu__link ${relativePath eq '/job_saving.jsp' ? 'nav__menu-active' : ''}">
-                    <c:if test="${relativePath eq '/job_saving.jsp'}">
+                <a href="${pageContext.request.contextPath}/account/job_saving.jsp" class="nav__menu__link ${relativePath eq '/account/job_saving.jsp' ? 'nav__menu-active' : ''}">
+                    <c:if test="${relativePath eq '/account/job_saving.jsp'}">
                         <div class="nav-menu__has-separated"></div>
                     </c:if>
 
@@ -62,14 +61,14 @@
                 </a>
             </li>
             <li class="nav__menu-item">
-                <a href="account/job_applied.jsp" class="nav__menu__link ${relativePath eq '/job_applied.jsp' ? 'nav__menu-active' : ''}">
-                    <c:if test="${relativePath eq '/job_applied.jsp'}">
+                <a href="${pageContext.request.contextPath}/account/job_applied.jsp" class="nav__menu__link ${relativePath eq '/account/job_applied.jsp' ? 'nav__menu-active' : ''}">
+                    <c:if test="${relativePath eq '/account/job_applied.jsp'}">
                         <div class="nav-menu__has-separated"></div>
                     </c:if>
                     <i class="fa-regular fa-paper-plane"></i>
 
                     <span class="nav__menu-title">Việc làm đã ứng tuyển(
-                                <span class="nav__menu-toltal">${sessionScope.jobAppliedCart == null ? 0 : sessionScope.jobAppliedCart.size}</span>
+                                <span class="nav__menu-toltal">${sessionScope.jobAppliedCart == null ? 0 : sessionScope.jobAppliedCart.size()}</span>
                                 )
                             </span>
                 </a>
@@ -85,6 +84,5 @@
         </ul>
     </div>
 </div>
-    </div>
 </body>
 </html>

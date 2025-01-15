@@ -3,11 +3,13 @@ package com.vn.tim_viec_lam.dao.model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class User implements Serializable {
     private int userID;
     private String email;
     private String password;
+    private String name;
     private String phone_number;
     private String status;
     private LocalDateTime created_at;
@@ -15,10 +17,11 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(int userID, String email, String password,String phone_number, String status , LocalDateTime created_at, int roleNum) {
+    public User(int userID, String email, String password, String status, String phone_number, LocalDateTime created_at) {
         this.userID = userID;
         this.email = email;
         this.password = password;
+        this.name = name;
         this.phone_number = phone_number;
         this.status = status;
         this.created_at = created_at;
@@ -65,6 +68,14 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -80,10 +91,19 @@ public class User implements Serializable {
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
+    public String getConvertCreated() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String res = "";
+
+
+        res = formatter.format(created_at);
+        return  res;
+    }
     public String getFormattedCreateDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return created_at.format(formatter);
     }
+
 
     @Override
     public String toString() {

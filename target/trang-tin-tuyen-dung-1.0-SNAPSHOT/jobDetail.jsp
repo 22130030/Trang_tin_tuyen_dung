@@ -238,12 +238,12 @@
                 <div class="file-account-container">
                     <ul class="file-account__list">
                         <!-- Kiểm tra nếu có hồ sơ mới duyệt danh sách -->
-                        <c:if test="${not empty sessionScope.jac.list}">
-                            <c:forEach items="${sessionScope.jac.list}" var="f">
+                        <c:if test="${sessionScope.jac != null}">
+                            <c:forEach items="${sessionScope.jac}" var="f">
                                 <li class="file-account-item"
                                     data-title="${f.title}"
                                     data-type="${f.type}"
-                                    data-size="${f.size}"
+<%--                                    data-size="${f.size}"--%>
                                     data-id="${f.id}">
                                     <i class="fa-regular fa-file"></i>
                                     <span class="file-account-item__title">${f.title}</span>
@@ -252,14 +252,14 @@
                         </c:if>
 
                         <!-- Nếu không có hồ sơ, hiển thị thông báo -->
-                        <c:if test="${empty sessionScope.jac.list}">
+                        <c:if test="${sessionScope.jac == null}">
                             <li class="file-account-item">
                                 <span class="file-account-item__title">Bạn chưa có hồ sơ xin việc nào</span>
                             </li>
                         </c:if>
                     </ul>
 
-                    <a href="account/job_application.jsp" class="add-file">
+                    <a href="account/upload-file" class="add-file">
                         <i class="fa-solid fa-plus"></i>
                         <span>tạo hồ sơ mới</span>
                     </a>
@@ -367,7 +367,7 @@
     const uploadBtn = document.getElementById("upload-btn");
     const fileNameDisplay = document.getElementById("form--has-file__title");
     const fileTypeDisplay = document.getElementById("form--has-file__type");
-    const fileSizeDisplay = document.getElementById("form--has-file__size");
+    // const fileSizeDisplay = document.getElementById("form--has-file__size");
     const removeFile = document.getElementById("remove-file");
     const submitBtn = document.getElementById("submit-btn");
     const formNoFile = document.querySelector(".form--no-file");
@@ -390,7 +390,7 @@
             selectedFile = fileInput.files[0]; // Lưu file vào biến
             fileNameDisplay.textContent = `Tên file: ` + selectedFile.name;
             fileTypeDisplay.textContent=`Loại file : ` + selectedFile.name.split('.').pop().toLowerCase();
-            fileSizeDisplay.textContent = `Kích thước: `+(selectedFile.size / 1024).toFixed(2)+ `KB`;
+            // fileSizeDisplay.textContent = `Kích thước: `+(selectedFile.size / 1024).toFixed(2)+ `KB`;
             formNoFile.style.display = "none";
             formHasFile.style.display = "block";
         }
@@ -459,7 +459,7 @@
                 // Lấy dữ liệu từ thuộc tính data-*
                 const title = this.getAttribute("data-title");
                 const type = this.getAttribute("data-type");
-                const size = this.getAttribute("data-size");
+                // const size = this.getAttribute("data-size");
                 fileId = this.getAttribute('data-id');
 
 
@@ -468,7 +468,7 @@
                 // Hiển thị dữ liệu lên các phần tử
                 fileNameDisplay.textContent = `Tên file: ` + title;
                 fileTypeDisplay.textContent=`Loại file : ` + title.split('.').pop().toLowerCase();
-                fileSizeDisplay.textContent = `Kích thước: `+(size / 1024).toFixed(2)+ `KB`;
+                // fileSizeDisplay.textContent = `Kích thước: `+(size / 1024).toFixed(2)+ `KB`;
                 formNoFile.style.display = "none";
                 formHasFile.style.display = "block";
             });

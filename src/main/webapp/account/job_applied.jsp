@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "f" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -19,7 +21,7 @@
 <body>
 <div class="application">
     <%@include file="../header.jsp"%>
-    <%@include file="../menu_account.jsp"%>
+    <%@include file="menu_account.jsp"%>
 
     <div class="container">
     <div class="grid__1100">
@@ -29,12 +31,12 @@
         <div class="grid__row">
           <div class="grid__col-9">
             <h3 class="job-applied__head">Việc làm đã ứng tuyển(
-              <span class="job__applied-toltal">${sessionScope.jobAppliedCart == null ? 0 : sessionScope.jobAppliedCart.size}</span>
+              <span class="job__applied-toltal">${sessionScope.jobAppliedCart == null ? 0 : sessionScope.jobAppliedCart.size()}</span>
               )
             </h3>
             <span class="job-applied__saved-at">30 ngày qua</span>
             <div class="job__applied-list">
-              <c:forEach items="${sessionScope.jobAppliedCart.list}" var="jac">
+              <c:forEach items="${sessionScope.jobAppliedCart}" var="jac">
 
               <div class="job__applied-item">
                 <div href="/html/job_description.html" class="job__applied-link">
@@ -48,7 +50,7 @@
 
                     <span class="la-content__applied-at">Ngày nộp :
                                                 <span class="la__applied-date">
-                                                    4-11-2024
+                                                    ${jac.convertCreated}
                                                 </span>
                                             </span>
                     <div class="job__applied-status">

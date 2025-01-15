@@ -26,12 +26,9 @@ html, body{
     margin-left: -15px;
 }
 
-a.nav__item-link,.nav__item-link > i{
+a.nav__item-link{
       color: var(--white-color);
   }
-div.nav__item-link,.nav__item-link > i{
-    color: var(--white-color);
-}
 
 #main-screen {
     margin-top: 10px;
@@ -147,10 +144,7 @@ img.employer-logo {
 .no-gutters {
     margin-right: 0;
     margin-left: 0;
-}
-.no-gutters {
-    margin-right: 0;
-    margin-left: 0;
+    padding : 10px;
 }
 .employer-info{
     margin-top: 20px;
@@ -301,4 +295,60 @@ a.btn.btn-link {
 }
 .employer-latest-jobs{
     margin-top: 20px;
+}
+
+
+/*job-item*/
+/* Job Display Styles */
+.job-item {
+    padding : 1rem;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 1.6rem; /* Font size cho phần công việc */
+}
+
+.job-title {
+    font-size: 1.6rem; /* Font lớn cho tiêu đề công việc */
+    color: #007bff;
+    font-weight: 600;
+}
+
+.job-title:hover {
+    text-decoration: underline;
+}
+
+.badge {
+    font-size: 1.6rem; /* Font size cho nhãn trạng thái */
+    padding: 0.25rem 0.5rem;
+}
+
+.badge-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+    color: white;
+}
+
+.btn-outline-primary {
+    border-color: #007bff;
+    color: #007bff;
+    font-size: 1rem; /* Font size cho nút "Làm mới" */
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Đảm bảo hiển thị đúng khi kích thước màn hình nhỏ */
+@media (max-width: 992px) {
+    .employer-latest-jobs-content .d-none {
+        display: block;
+    }
 }
