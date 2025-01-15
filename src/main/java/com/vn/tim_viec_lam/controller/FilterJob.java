@@ -18,7 +18,6 @@ import java.util.List;
 public class FilterJob extends HttpServlet {
     protected void doGet(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response) throws jakarta.servlet.ServletException, IOException {
         response.setContentType("application/json");
-        request.setCharacterEncoding("UTF-8");
         String jobName = request.getParameter("jobName");
 //        String jobStatus = request.getParameter("jobStatus");
         String jobCategory = request.getParameter("jobCategory");

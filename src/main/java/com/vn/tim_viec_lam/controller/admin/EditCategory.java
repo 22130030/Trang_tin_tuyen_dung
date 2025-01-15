@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "edit-category", value = "/edit-category")
+@WebServlet(name = "edit-category", value = "/admin/edit-category")
 public class EditCategory extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

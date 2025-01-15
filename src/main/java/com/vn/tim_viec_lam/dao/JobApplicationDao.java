@@ -17,22 +17,37 @@ public class JobApplicationDao {
         Connection con = DBconnect.getConnection();
         String sql = "insert into job_applications(companyID,jobPostID,resumeID,candidateID,status,created_at) values (?,?,?,?,?,NOW())";
         try {
-            PreparedStatement prep = con.prepareStatement(sql);
+            PreparedStatement prep = con.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
             prep.setInt(1, companyID);
             prep.setInt(2, jobPostID);
             prep.setInt(3, resumesID);
             prep.setInt(4, 1);
             prep.setString(5, "Đã nộp");
             int res = prep.executeUpdate();
+            if(res > 0){
+                try(ResultSet rs = prep.getGeneratedKeys()){
+                    if(rs.next()){
+                        int applicationId = rs.getInt(1);
+                        sql = "insert into reviews(applicationID,companyID,rating,created_at) values (?,?,?,NOW())";
+                        prep = con.prepareStatement(sql);
+                        prep.setInt(1, applicationId);
+                        prep.setInt(2, companyID);
+                        prep.setString(3, "Chưa xem");
+                        return prep.executeUpdate() > 0;
+
+                    }
+                }
+            }
             return res > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
     }
+
     public boolean addJobAppFromComputer(String path, String fileName,String type,int jobID,int companyID,int candidateId) {
             Connection connection = DBconnect.getConnection();
-            String sql = "INSERT INTO resumes (fileCv,title,type) VALUES (?,?,?)";
+            String sql = "INSERT INTO resumes (fileCv,title,type,updated_at) VALUES (?,?,?,NOW())";
             try {
                 PreparedStatement prep = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
                 prep.setString(1,path);

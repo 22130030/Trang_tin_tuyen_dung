@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "manager-user", value = "/manager-user")
+@WebServlet(name = "manager-user", value = "/admin/manager-user")
 public class ManagerUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -19,7 +19,7 @@ public class ManagerUser extends HttpServlet {
         UserService userService = new UserService();
         List<User> userList = userService.getListAll();
         req.setAttribute("user", userList);
-        req.getRequestDispatcher("user.jsp").forward(req, resp);
+        req.getRequestDispatcher("admin_user.jsp").forward(req, resp);
     }
 
     @Override
@@ -29,6 +29,6 @@ public class ManagerUser extends HttpServlet {
         String email = req.getParameter("email");
         List<User> userList = userService.FindListUserByEmail(email);
         req.setAttribute("user", userList);
-        req.getRequestDispatcher("user.jsp").forward(req, resp);
+        req.getRequestDispatcher("admin_user.jsp").forward(req, resp);
     }
 }

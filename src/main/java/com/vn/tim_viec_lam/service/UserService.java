@@ -57,6 +57,6 @@ public class UserService {
 
     public static void main(String[] args) {
         UserService userService = new UserService();
-        System.out.println(userService.hasPasswordToMD5("1"));
+        System.out.println(userService.getUser("22@gmail.com"));
     }
 }

@@ -479,61 +479,92 @@ public class JobDao {
         }
 
     }
-    public List<Job> filterJobs(String locationID, String position, String status) {
+    public List<Job> filterJobs(String jobName,String jobCategory,String jobLocation) {
         List<Job> jobs = new ArrayList<>();
-        String query = "SELECT jp.*, c.companyName FROM job_posting jp JOIN companies c ON jp.companyID = c.companyID WHERE 1=1";
+        String query = "SELECT jp.*, c.companyName,jl.city FROM job_posting jp" +
+                " Join companies c ON jp.companyID = c.companyID" +
+                " JOIN job_locations jl ON jl.locationID = jp.locationID" +
+                " join job_post_categories jpc on jpc.jobPostID = jp.jobPostID" +
+                " Join Job_categories jc on jc.categoryID = jpc.categoryID" +
+                " WHERE 1=1";
 
-        if (locationID != null && !locationID.isEmpty()) {
-            query += " AND jp.locationID = ?";
+        if (jobName != null && !jobName.isEmpty()) {
+            query += " AND jp.titleJob LIKE ?";
         }
-        if (position != null && !position.isEmpty()) {
-            query += " AND jp.position LIKE ?";
+        if (jobCategory != null && !jobCategory.isEmpty()) {
+            query += " AND jc.categoryName LIKE ?";
         }
-        if (status != null && !status.isEmpty()) {
-            query += " AND jp.status = ?";
+        if (jobLocation != null && !jobLocation.isEmpty()) {
+            query += " AND jl.city like ?";
         }
 
         try (Connection connection = DBconnect.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
             int index = 1;
-            if (locationID != null && !locationID.isEmpty()) {
-                statement.setInt(index++, Integer.parseInt(locationID));
+            if (jobName != null && !jobName.isEmpty()) {
+                statement.setString(index++, "%" + jobName + "%");
             }
-            if (position != null && !position.isEmpty()) {
-                statement.setString(index++, "%" + position + "%");
+            if (jobCategory != null && !jobCategory.isEmpty()) {
+                statement.setString(index++, "%" + jobCategory + "%");
             }
-            if (status != null && !status.isEmpty()) {
-                statement.setString(index++, status);
+            if (jobLocation != null && !jobLocation.isEmpty()) {
+                statement.setString(index++, "%" + jobLocation + "%");
             }
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Job job = getResultSet(resultSet);
-                jobs.add(job);
+                jobs.add(getResultSet(resultSet));
             }
+            return jobs;
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return jobs;
-    }
 
-    public static void main(String[] args) {
-        JobDao jobDao = new JobDao();
-       // System.out.println(jobDao.getJobsByCategoryId(5));
-//        List<Job> jobs = jobDao.searchJobEqualsByNamejob("Nhân viên tư vấn quảng bá");
-//        for (Job job : jobs) {
-//            System.out.println(job);
-//        }
-   //     jobDao.deleteJobPosting(93);
-     //   System.out.println(jobDao.editJobPosting(5,"https://static.careerlink.vn/image/514bbe803013776598ec4a8812958d6b","Trưởng phòng đấu thầu","SGS Vietnam Ltd.","Hồ Chí Minh","20 trieu","Dang xu li" ) );
-        String img = "developer.jpg";                  // Hình ảnh bài đăng
-        String titleJob = "Lập trình viên Backend";   // Tiêu đề công việc
-        String companyName = "CÔNG TY TNHH ID DECOR";           // Tên công ty (có trong bảng companies)
-        String city = "Hồ Chí Minh";                  // Thành phố (có trong bảng job_locations)
-        String salary = "20000000";                   // Mức lương
-        String status = "Đang xử lý";
-        System.out.println(jobDao.addJobPostWithJoin(img, titleJob, companyName, city, salary, status));
     }
-}
+        public boolean addJobPosting(String companyName,String employerSize,String website,String jobName,String jobAddress
+            ,String salaryValue,String salaryUnit,String educationLevel,String experienceLevel,String jobType,String jobLocation,
+                                 String jobCategory,String keywords,String age,String contactName
+            ,String contactEmail,String contactPhone,String contactAddress ,String jobPostingDate,String JobExpiryDate,String language){
+        Connection con = DBconnect.getConnection();
+        String sqlLocation = "INSERT INTO job_locations (address, country, city) VALUES (?, ?, ?)";
+        try (PreparedStatement stmtLocation = con.prepareStatement(sqlLocation, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            stmtLocation.setString(1, jobAddress);
+            stmtLocation.setString(2, "VietNam");
+            stmtLocation.setString(3, jobLocation);
+            int rowsAffected = stmtLocation.executeUpdate();
+            if(rowsAffected >0){
+                try (ResultSet generatedKeys = stmtLocation.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int locationID = generatedKeys.getInt(1);  // Lấy locationID
+                        // Tiến hành thêm dữ liệu vào bảng job_posting
+                        String sqlJobPosting = "INSERT INTO job_posting (companyID, titleJob, locationID, image, position, jobdescription, salary, created_at, updated_at, status, requirement) "
+                                + "VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)";
+                        try (PreparedStatement stmtJobPosting = con.prepareStatement(sqlJobPosting)) {
+                            stmtJobPosting.setInt(1, 1);  // companyID, giả sử là 1 (có thể lấy từ form)
+                            stmtJobPosting.setString(2, jobName);
+                            stmtJobPosting.setInt(3, locationID);  // Sử dụng locationID vừa lấy
+                            stmtJobPosting.setString(4, ""); // Image, có thể lấy từ form nếu cần
+                            stmtJobPosting.setString(5, "Full-time"); // Position, có thể lấy từ form
+                            stmtJobPosting.setString(6, "Mô tả công việc tại đây"); // Job description
+                            stmtJobPosting.setString(7, salaryValue);  // Salary
+                            stmtJobPosting.setString(8, "active");  // Status
+                            stmtJobPosting.setString(9, "Yêu cầu công việc tại đây");
+                            int jobPostingRowsAffected = stmtJobPosting.executeUpdate();
+                            if (jobPostingRowsAffected > 0) {
+                                System.out.println("Job posting added successfully.");
+                                return true;
+                            } else {
+                                System.out.println("Failed to add job posting.");
+                            }
+                        }
+                    }
+                }
+            }
+        }catch (SQLException e) {
+            e.printStackTrace(); // In chi tiết lỗi để biết nguyên nhân
+            System.out.println("Error executing update: " + e.getMessage());
+        }
+        return false;
+    }}
 

@@ -37,6 +37,21 @@ public class CompanyDao {
 
 
     }
+    public Company excuteResultSet(ResultSet rs){
+        try {
+        int id = rs.getInt("companyID");
+        String companyName = rs.getString("companyName");
+        String logo = rs.getString("logo");
+        String address = rs.getString("address");
+        String website = rs.getString("website");
+        String description = rs.getString("description");
+        String city = rs.getString("city");
+        Company  company = new Company(id, companyName,"","","",null, logo, address,city, website, description);
+            return company;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public Company getCompanyById(int id) {
         Connection con = DBconnect.getConnection();
         String sql = "select * from companies where companyID = ?";
@@ -80,7 +95,7 @@ public class CompanyDao {
             ps.setString(1, "%" + email + "%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Company company = excuteResultSet(rs);
+                Company company = excuteResult(rs);
                 companies.add(company);
             }
             return companies;
@@ -102,7 +117,7 @@ public class CompanyDao {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
-            return rs.next() ? excuteResultSet(rs) : null;
+            return rs.next() ? excuteResult(rs) : null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -125,7 +140,7 @@ public class CompanyDao {
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
-                Company company = excuteResultSet(rs);
+                Company company = excuteResult(rs);
                 companies.add(company);
             }
             return companies;
@@ -299,7 +314,7 @@ public class CompanyDao {
 
 
     }
-    public Company excuteResultSet(ResultSet rs) {
+    public Company excuteResult(ResultSet rs) {
         try {
             int id = rs.getInt("companyID");
             String companyName = rs.getString("companyName");
