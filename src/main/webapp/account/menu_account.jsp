@@ -74,7 +74,10 @@
                 </a>
             </li>
             <li class="nav__menu-item">
-                <a href="/html/candidate/account.html" class=" nav__menu__link">
+                <a href="${pageContext.request.contextPath}/account/account_candidate.jsp" class="nav__menu__link ${relativePath eq '/account/account_candidate.jsp' ? 'nav__menu-active' : ''}">
+                    <c:if test="${relativePath eq '/account/account_candidate.jsp'}">
+                        <div class="nav-menu__has-separated"></div>
+                    </c:if>
 
                     <i class="fa-regular fa-user"></i>
                     <span class="nav__menu-title">Quản lý tài khoản

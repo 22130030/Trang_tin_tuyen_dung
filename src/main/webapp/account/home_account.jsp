@@ -39,7 +39,7 @@
                                 <div class="user__detail-contact">
 
                                     <span class="user__detail-name">${sessionScope.user.name}</span>
-                                    <span class="user__detail-email">${sessionScope.user.email}</span>
+<%--                                    <span class="user__detail-email">${sessionScope.user.email}</span>--%>
                                 </div>
                             </div>
                             <div class="user__info-edit">
@@ -92,7 +92,7 @@
                         </div>
                         <div class="grid__col-4">
                             <div class="job__status-applied job__status-item">
-                                <span class="job__status-toltal">${sessionScope.jobAppliedCart == null ? 0 : sessionScope.jobAppliedCart.size}</span>
+                                <span class="job__status-toltal">${sessionScope.jobAppliedCart == null ? 0 : sessionScope.jobAppliedCart.size()}</span>
                                 <span class="job__status-title">Việc làm đã ứng tuyển</span>
                             </div>
                         </div>

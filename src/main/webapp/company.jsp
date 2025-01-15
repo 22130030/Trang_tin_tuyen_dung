@@ -65,15 +65,7 @@
                 <li class="hidden-location"><input type="checkbox" name="location" value="Thừa Thiên - Huế"> Thừa Thiên - Huế</li>
                 <li><a href="#" id="show-all">Tất cả</a></li>
             </ul>
-            <h3>Quy mô</h3>
-            <ul>
-                <li><input type="radio" name="size"> 25 - 99 nhân viên</li>
-                <li><input type="radio" name="size"> 100 - 499 nhân viên</li>
-                <li><input type="radio" name="size"> 500 - 999 nhân viên</li>
-                <li><input type="radio" name="size"> 1.000 - 4.999 nhân viên</li>
-                <li><input type="radio" name="size"> 5.000 - 9.999 nhân viên</li>
-                <li><input type="radio" name="size"> 10.000 - 19.999 nhân viên</li>
-            </ul>
+
         </aside>
 
 

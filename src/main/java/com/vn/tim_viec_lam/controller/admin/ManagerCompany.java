@@ -12,7 +12,7 @@
     import java.io.IOException;
     import java.util.List;
 
-    @WebServlet(name = "company-user-job",value = "/company-user-job")
+    @WebServlet(name = "company-user-job",value = "/admin/company-user-job")
     public class ManagerCompany extends HttpServlet {
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,7 +22,7 @@
             CategoryService categoryService = new CategoryService();
             List<Company> listCompany = service.getUserCompany();
             req.setAttribute("com",listCompany);
-            req.getRequestDispatcher("/admin_employer.jsp").forward(req,resp);
+            req.getRequestDispatcher("admin_employer.jsp").forward(req,resp);
 
         }
 
@@ -34,6 +34,6 @@
             CompanyService service = new CompanyService();
             List<Company> listEmailCompany= service.findByEmail(txtEmail);
             req.setAttribute("email", listEmailCompany);
-            req.getRequestDispatcher("/admin_employer.jsp").forward(req,resp);
+            req.getRequestDispatcher("admin_employer.jsp").forward(req,resp);
         }
     }

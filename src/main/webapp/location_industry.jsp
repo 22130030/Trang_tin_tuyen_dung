@@ -19,90 +19,90 @@
 <body>
 <div class="application">
     <%@include file="header.jsp"%>
-    <div class="boxmenu">
-        <ul>
-            <li><a href="/"><i class="fa-solid fa-border-all"></i> Ngành nghề <i class="fa-solid fa-angle-down"></i></a>
-                <div class="box-submenu">
-                    <ul>
-                        <li><input type="checkbox"><a href="">An Ninh / Bảo Vệ</a></li>
-                        <li><input type="checkbox"><a href="">An Toàn / Lao Động</a></li>
-                        <li><input type="checkbox"><a href="">Bán Hàng / Kinh Doanh</a></li>
-                        <li><input type="checkbox"><a href="">Bán lẻ / Bán sỉ</a></li>
-                        <li><input type="checkbox"><a href="">Bảo hiểm</a></li>
-                        <p class="delete"><i class="fa-solid fa-trash-can"></i> Xóa lọc</p>
-                    </ul>
-                </div></li>
-            <li><a href="/"><i class="fa-solid fa-layer-group"></i> Cấp bậc <i class="fa-solid fa-angle-down"></i></a>
-                <div class="box-submenu">
-                    <ul>
-                        <li><input type="checkbox"><a href="">Thực tập</a></li>
-                        <li><input type="checkbox"><a href="">Mới đi làm</a></li>
-                        <li><input type="checkbox"><a href="">Nhân viên</a></li>
-                        <li><input type="checkbox"><a href="">Trưởng phòng / Quản lý</a></li>
-                        <li><input type="checkbox"><a href="">Giám đốc</a></li>
-                        <p class="delete"><i class="fa-solid fa-trash-can"></i> Xóa lọc</p>
-                    </ul>
-                </div>
-            </li>
-            <li><a href="/"><i class="fa-solid fa-stopwatch"></i> Kinh nghiệm <i class="fa-solid fa-angle-down"></i></a>
-                <div class="box-submenu">
-                    <ul>
-                        <li><input type="checkbox"><a href="">Dưới 1 năm</a></li>
-                        <li><input type="checkbox"><a href="">1 - 2 năm</a></li>
-                        <li><input type="checkbox"><a href="">2 - 5 năm</a></li>
-                        <li><input type="checkbox"><a href="">5 - 10 năm</a></li>
-                        <li><input type="checkbox"><a href="">Trên 10 năm</a></li>
-                        <p class="delete"><i class="fa-solid fa-trash-can"></i> Xóa lọc</p>
-                    </ul>
-                </div></li>
-            <li><a href="/"><i class="fa-solid fa-hand-holding-dollar"></i> Mức lương <i class="fa-solid fa-angle-down"></i></a>
-                <div class="box-submenu">
-                    <ul>
-                        <li><input type="checkbox"><a href="">1 - 20 triệu</a></li>
-                        <li><input type="checkbox"><a href="">21 - 40 triệu</a></li>
-                        <li><input type="checkbox"><a href="">41 - 60 triệu</a></li>
-                        <li><input type="checkbox"><a href="">61 - 80 triệu</a></li>
-                        <li><input type="checkbox"><a href="">81 - 100 triệu</a></li>
-                        <p class="delete"><i class="fa-solid fa-trash-can"></i> Xóa lọc</p>
-                    </ul>
-                </div></li>
+<%--    <div class="boxmenu">--%>
+<%--        <ul>--%>
+<%--            <li><a href="/"><i class="fa-solid fa-border-all"></i> Ngành nghề <i class="fa-solid fa-angle-down"></i></a>--%>
+<%--                <div class="box-submenu">--%>
+<%--                    <ul>--%>
+<%--                        <li><input type="checkbox"><a href="">An Ninh / Bảo Vệ</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">An Toàn / Lao Động</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">Bán Hàng / Kinh Doanh</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">Bán lẻ / Bán sỉ</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">Bảo hiểm</a></li>--%>
+<%--                        <p class="delete"><i class="fa-solid fa-trash-can"></i> Xóa lọc</p>--%>
+<%--                    </ul>--%>
+<%--                </div></li>--%>
+<%--            <li><a href="/"><i class="fa-solid fa-layer-group"></i> Cấp bậc <i class="fa-solid fa-angle-down"></i></a>--%>
+<%--                <div class="box-submenu">--%>
+<%--                    <ul>--%>
+<%--                        <li><input type="checkbox"><a href="">Thực tập</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">Mới đi làm</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">Nhân viên</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">Trưởng phòng / Quản lý</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">Giám đốc</a></li>--%>
+<%--                        <p class="delete"><i class="fa-solid fa-trash-can"></i> Xóa lọc</p>--%>
+<%--                    </ul>--%>
+<%--                </div>--%>
+<%--            </li>--%>
+<%--            <li><a href="/"><i class="fa-solid fa-stopwatch"></i> Kinh nghiệm <i class="fa-solid fa-angle-down"></i></a>--%>
+<%--                <div class="box-submenu">--%>
+<%--                    <ul>--%>
+<%--                        <li><input type="checkbox"><a href="">Dưới 1 năm</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">1 - 2 năm</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">2 - 5 năm</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">5 - 10 năm</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">Trên 10 năm</a></li>--%>
+<%--                        <p class="delete"><i class="fa-solid fa-trash-can"></i> Xóa lọc</p>--%>
+<%--                    </ul>--%>
+<%--                </div></li>--%>
+<%--            <li><a href="/"><i class="fa-solid fa-hand-holding-dollar"></i> Mức lương <i class="fa-solid fa-angle-down"></i></a>--%>
+<%--                <div class="box-submenu">--%>
+<%--                    <ul>--%>
+<%--                        <li><input type="checkbox"><a href="">1 - 20 triệu</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">21 - 40 triệu</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">41 - 60 triệu</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">61 - 80 triệu</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">81 - 100 triệu</a></li>--%>
+<%--                        <p class="delete"><i class="fa-solid fa-trash-can"></i> Xóa lọc</p>--%>
+<%--                    </ul>--%>
+<%--                </div></li>--%>
 
 
-            <li><a href="/"><i class="fa-solid fa-graduation-cap"></i> Học vấn <i class="fa-solid fa-angle-down"></i></a>
-                <div class="box-submenu">
-                    <ul>
-                        <li><input type="checkbox"><a href="">Trung học phổ thông</a></li>
-                        <li><input type="checkbox"><a href="">Trung cấp</a></li>
-                        <li><input type="checkbox"><a href="">Cao đẳng / Đại học</a></li>
-                        <li><input type="checkbox"><a href="">Thạc sĩ</a></li>
-                        <li><input type="checkbox"><a href="">Tiến sĩ</a></li>
-                        <p class="delete"><i class="fa-solid fa-trash-can"></i> Xóa lọc</p>
-                    </ul>
-                </div></li>
+<%--            <li><a href="/"><i class="fa-solid fa-graduation-cap"></i> Học vấn <i class="fa-solid fa-angle-down"></i></a>--%>
+<%--                <div class="box-submenu">--%>
+<%--                    <ul>--%>
+<%--                        <li><input type="checkbox"><a href="">Trung học phổ thông</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">Trung cấp</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">Cao đẳng / Đại học</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">Thạc sĩ</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">Tiến sĩ</a></li>--%>
+<%--                        <p class="delete"><i class="fa-solid fa-trash-can"></i> Xóa lọc</p>--%>
+<%--                    </ul>--%>
+<%--                </div></li>--%>
 
-            <li><a href="/"><i class="fa-solid fa-briefcase"></i> Loại công việc <i class="fa-solid fa-angle-down"></i></a>
-                <div class="box-submenu">
-                    <ul>
-                        <li><input type="checkbox"><a href="">Toàn thời gian</a></li>
-                        <li><input type="checkbox"><a href="">Bán thời gian</a></li>
-                        <li><input type="checkbox"><a href="">Thời vụ</a></li>
-                        <p class="delete"><i class="fa-solid fa-trash-can"></i> Xóa lọc</p>
-                    </ul>
-                </div></li>
+<%--            <li><a href="/"><i class="fa-solid fa-briefcase"></i> Loại công việc <i class="fa-solid fa-angle-down"></i></a>--%>
+<%--                <div class="box-submenu">--%>
+<%--                    <ul>--%>
+<%--                        <li><input type="checkbox"><a href="">Toàn thời gian</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">Bán thời gian</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">Thời vụ</a></li>--%>
+<%--                        <p class="delete"><i class="fa-solid fa-trash-can"></i> Xóa lọc</p>--%>
+<%--                    </ul>--%>
+<%--                </div></li>--%>
 
-            <li><a href="/"><i class="fa-solid fa-calendar-days"></i> Đăng trong <i class="fa-solid fa-angle-down"></i></a>
-                <div class="box-submenu">
-                    <ul>
-                        <li><input type="checkbox"><a href="">Hôm nay</a></li>
-                        <li><input type="checkbox"><a href="">3 ngày</a></li>
-                        <li><input type="checkbox"><a href="">1 tuần</a></li>
-                        <li><input type="checkbox"><a href="">2 tuần</a></li>
-                        <li><input type="checkbox"><a href="">1 tháng</a></li>
-                        <p class="delete"><i class="fa-solid fa-trash-can"></i> Xóa lọc</p>
-                    </ul>
-                </div></li>
-        </ul>
-    </div>
+<%--            <li><a href="/"><i class="fa-solid fa-calendar-days"></i> Đăng trong <i class="fa-solid fa-angle-down"></i></a>--%>
+<%--                <div class="box-submenu">--%>
+<%--                    <ul>--%>
+<%--                        <li><input type="checkbox"><a href="">Hôm nay</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">3 ngày</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">1 tuần</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">2 tuần</a></li>--%>
+<%--                        <li><input type="checkbox"><a href="">1 tháng</a></li>--%>
+<%--                        <p class="delete"><i class="fa-solid fa-trash-can"></i> Xóa lọc</p>--%>
+<%--                    </ul>--%>
+<%--                </div></li>--%>
+<%--        </ul>--%>
+<%--    </div>--%>
 
     <div class="container">
 
@@ -134,7 +134,7 @@
                             <ul class="list_unstyled">
                                 <li class="border_bottom">
                                     <a href="search-job?cid=${value.id}&name=${value.name}" class="text_body">${value.name} </a>
-                                    <span>(2009)</span>
+                                    <span></span>
                                 </li>
                             </ul>
                         </c:forEach>
@@ -153,7 +153,7 @@
                             <li class="border_bottom">
                                 <a href="search-job?location=${value}" class="text_body">
                                     ${value} </a>
-                                <span>(281)</span>
+                                <span></span>
                             </li>
                             </c:forEach>
                         </ul>

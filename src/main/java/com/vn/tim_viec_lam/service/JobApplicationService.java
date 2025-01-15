@@ -19,5 +19,8 @@ public class JobApplicationService {
     public boolean addJobAppFromComputer(String path, String fileName,String type,int jobID,int companyID,int candidateId) {
         return jobApplicationDao.addJobAppFromComputer(path, fileName, type, jobID, companyID, candidateId);
     }
+
+    public static void main(String[] args) {
+    }
 }
 

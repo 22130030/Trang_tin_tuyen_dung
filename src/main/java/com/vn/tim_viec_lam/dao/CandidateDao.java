@@ -21,7 +21,7 @@ public class CandidateDao {
         String sql = "SELECT " +
                 "c.*, " +
                 "j.status AS application_status, " +
-                "j.application_date AS application_date, " +
+                "j.created_at AS application_date, " +
                 "co.companyName AS company_name " +
                 "FROM candidates c " +
                 "JOIN job_applications j ON c.candidateID = j.candidateID " +
@@ -49,7 +49,7 @@ public class CandidateDao {
                 "c.email, " +
                 "c.phone, " +
                 "j.status AS application_status, " +
-                "j.application_date AS application_date, " +
+                "j.created_at AS application_date, " +
                 "co.companyName AS company_name " +
                 "FROM candidates c " +
                 "JOIN job_applications j ON c.candidateID = j.candidateID " +
@@ -79,7 +79,7 @@ public class CandidateDao {
                 "c.email, " +
                 "c.phone, " +
                 "j.status AS application_status, " +
-                "j.application_date AS application_date, " +
+                "j.created_at AS application_date, " +
                 "co.companyName AS company_name " +
                 "FROM candidates c " +
                 "JOIN job_applications j ON c.candidateID = j.candidateID " +
@@ -139,7 +139,7 @@ public class CandidateDao {
                 "c.email, " +
                 "c.phone, " +
                 "j.status AS application_status, " +
-                "j.application_date AS application_date, " +
+                "j.created_at AS application_date, " +
                 "co.companyName AS company_name " +
                 "FROM candidates c " +
                 "JOIN job_applications j ON c.candidateID = j.candidateID " +
@@ -193,12 +193,7 @@ public class CandidateDao {
 
     public static void main(String[] args) {
         CandidateDao dao = new CandidateDao();
-//        List<Candidate> listCandidate = dao.getListCandidate();
-//        for (Candidate candidate : listCandidate) {
-//            System.out.println(candidate);
-//        }
-        //System.out.println(dao.editUserCandidate(30,"Lê Thị Tra","ethihoa@example.com","6412905873","Đang xu li"));
-        System.out.println(dao.FindListCandidateStatus("Đã trúng tuyến"));
+        System.out.println(dao.getListCandidate());
     }
 
 

@@ -27,7 +27,16 @@ public class User implements Serializable {
         this.created_at = created_at;
         this.roleNum = roleNum;
     }
-
+    public User(int userID, String email, String password, String name, String phone_number, String status, LocalDateTime created_at, int roleNum) {
+        this.userID = userID;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.phone_number = phone_number;
+        this.status = status;
+        this.created_at = created_at;
+        this.roleNum = roleNum;
+    }
     public int getRoleNum() {
         return roleNum;
     }
@@ -52,7 +61,7 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getPhone_number() {
+    public String getPhoneNumber() {
         return phone_number;
     }
 
@@ -111,6 +120,7 @@ public class User implements Serializable {
                 "userID=" + userID +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
                 ", phone_number='" + phone_number + '\'' +
                 ", status='" + status + '\'' +
                 ", created_at=" + created_at +

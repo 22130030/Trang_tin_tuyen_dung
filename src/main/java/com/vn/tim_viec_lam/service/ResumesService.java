@@ -24,11 +24,25 @@ public class ResumesService {
     public List<Resumes> getResumes(){
         return resumesDao.getResumes();
     }
+    public List<Resumes> getResumesByStatus(){
+        return resumesDao.getResumesByStatus();
+    }
     public boolean deleteResume(int resumesId){
         return resumesDao.removeResumes(resumesId);
     }
+    public List<Resumes> findResumesByNameOrAddress(String title,String address){
+        return resumesDao.findResumesByNameOrAddress(title,address);
+    }
+    public List<Resumes> filterResume(String industry,String salary,String education, String school,String gender,String marialStatus,String age){
+        return resumesDao.filterResumes( industry, salary, education,  school, gender,marialStatus,age);
+    }
+    public boolean updateStatus(int resumesId,int status){
+        int res = status == 2 ? 1 : 2;
+
+        return resumesDao.updateStatus(resumesId,status);
+    }
     public static void main(String[] args) {
         ResumesService rs = new ResumesService();
-        System.out.println(rs.addResume("D://","","docx"));
+        System.out.println(rs.findResumesByNameOrAddress("lap trinh vien",""));
     }
 }

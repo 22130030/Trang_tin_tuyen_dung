@@ -67,7 +67,7 @@ public class UserDao {
         String phoneNumber = rs.getString("phone_number");
         String status = rs.getString("status");
         LocalDateTime date = rs.getTimestamp("created_at").toLocalDateTime();
-        return new User(id, email,name, phoneNumber, status, date);
+        return new User(id,email,"",name,phoneNumber,status,date,1);
     }
 
     public static void main(String[] args) {
