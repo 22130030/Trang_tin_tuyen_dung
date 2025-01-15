@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "delete-user-candidate",value = "/delete-user-candidate")
+@WebServlet(name = "delete-user-candidate",value = "/admin/delete-user-candidate")
 public class DeleteCandidate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

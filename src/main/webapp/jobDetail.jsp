@@ -33,7 +33,7 @@
                 <img src="${job.img}" alt="Logo Công Ty" class="company-logo">
                 <div class="job-details">
                     <h1>${job.title}</h1>
-                    <a href="/html/Job.html" class="job-details__link">${job.companyName}</a>
+                    <a href="company-detail?jid=${job.companyId}" class="job-details__link">${job.companyName}</a>
                     <p><i class="fas fa-map-marker-alt"></i> Quận Cầu Giấy, Hà Nội</p>
                     <p><strong><i class="fa-solid fa-sack-dollar"></i>Lương:</strong> ${job.salary}</p>
                     <p><strong><i class="fa-solid fa-briefcase"></i>Kinh nghiệm:</strong> 2 - 5 năm kinh nghiệm</p>

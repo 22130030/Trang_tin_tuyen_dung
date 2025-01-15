@@ -95,6 +95,6 @@ public class JobService {
 
     public static void main(String[] args) {
         JobService jobService = new JobService();
-        System.out.println(jobService.filterJob("nhân viên","",""));
+        System.out.println(jobService.filterJob("j","",""));
     }
 }
