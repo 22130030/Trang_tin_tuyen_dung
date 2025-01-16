@@ -27,7 +27,7 @@ public class FilterJob extends HttpServlet {
         List<Job> jobList = null;
         // Kiểm tra và lọc jobList nếu có tham số tìm kiếm
 //        if (jobName != null || jobCategory != null || jobLocation != null) {
-            jobList = js.filterJob(jobName, jobCategory, jobLocation);
+        jobList = js.filterJob(jobName, jobCategory, jobLocation);
 //            System.out.println(1);
 //        }
         System.out.println(jobName + " " + jobCategory + " " + jobLocation);

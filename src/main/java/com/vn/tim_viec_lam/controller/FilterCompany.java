@@ -21,6 +21,7 @@ public class FilterCompany extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         request.setCharacterEncoding("utf-8");
@@ -54,6 +55,7 @@ public class FilterCompany extends HttpServlet {
             companyObj.put("img", company.getImg());
             result.put(companyObj);
         }
+        // Gửi JSON về phía client
         // Gửi JSON về phía client
         PrintWriter out = response.getWriter();
         out.print(result.toString());
