@@ -9,10 +9,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "f" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>company</title>
+    <title>Company</title>
     <link rel="stylesheet" href="asserts/css/main_company.css">
     <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.min.css">
     <link rel="stylesheet" href="asserts/css/base.css">
@@ -38,62 +39,39 @@
         <aside class="sidebar">
             <h3>Nơi làm việc</h3>
             <ul id="location-list">
-                <li><input type="checkbox" name="location" value="An Giang"> An Giang</li>
-                <li><input type="checkbox" name="location" value="Bình Dương"> Bình Dương</li>
-                <li><input type="checkbox" name="location" value="Bình Định"> Bình Định</li>
-                <li><input type="checkbox" name="location" value="Bắc Giang"> Bắc Giang</li>
-                <li><input type="checkbox" name="location" value="Bắc Cạn"> Bắc Cạn</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Bạc Liêu"> Bạc Liêu</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Bắc Ninh"> Bắc Ninh</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Bình Phước"> Bình Phước</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Bà Rịa - Vũng Tàu"> Bà Rịa - Vũng Tàu</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Bình Thuận"> Bình Thuận</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Cà Mau"> Cà Mau</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Cần Thơ"> Cần Thơ</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Đà Nẵng"> Đà Nẵng</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Đắk Lắk"> Đắk Lắk</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Điện Biên"> Điện Biên</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Đồng Nai"> Đồng Nai</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Đồng Tháp"> Đồng Tháp</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Hà Nội"> Hà Nội</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Hồ Chí Minh"> Hồ Chí Minh</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Khánh Hòa"> Khánh Hòa</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Lâm Đồng"> Lâm Đồng</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Nghệ An"> Nghệ An</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Quảng Bình"> Quảng Bình</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Thanh Hóa"> Thanh Hóa</li>
-                <li class="hidden-location"><input type="checkbox" name="location" value="Thừa Thiên - Huế"> Thừa Thiên - Huế</li>
+                <c:forEach var="location" items="${locations}">
+                    <li class="${location.hidden ? 'hidden-location' : ''}">
+                        <input type="checkbox" name="location" value="${location.name}"> ${location.name}
+                    </li>
+                </c:forEach>
                 <li><a href="#" id="show-all">Tất cả</a></li>
             </ul>
-
         </aside>
 
-
         <div class="grid__col-10">
-        <div class="company-list">
-            <header>
-                <h2>${size} công ty được tìm thấy</h2>
-            </header>
-                     <div class="grid__company">
+            <div class="company-list">
+                <header>
+                    <h2>${size} công ty được tìm thấy</h2>
+                </header>
+                <div class="grid__company">
                     <c:forEach var="c" items="${companies}">
                         <div class="company-card">
                             <a href="company-detail?jid=${c.id}" class="company-card__link">
-                                <img src="${c.img}" class="picture" alt="NEXTDOOR Logo">
+                                <img src="${c.img}" class="picture" alt="Company Logo">
                                 <h3>${c.companyName}</h3>
-                                <p>0 việc đang tuyển</p>
-                                <p> An Giang</p>
+                                <p>${c.jobCount} việc đang tuyển</p>
+                                <p>${c.city}</p>
                             </a>
                         </div>
-
-
                     </c:forEach>
                 </div>
-
             </div>
         </div>
     </div>
-    <!-- footer -->
+
     <%@include file="footer.jsp" %>
+</div>
+
 
 
         <script>
