@@ -40,21 +40,23 @@
                     <div class="latest__jobs-list">
                         <c:forEach var="j" items="${jobs}">
 
-                            <div class="latest__jobs-item">
-                                <div class="latest__job-thumb">
-                                    <img src="${j.img}" alt="">
-                                </div>
-                                <div class="latest__jobs-content">
-                                    <a href="/html/job_description.html" class="latest__job-link">
+                        <div class="latest__jobs-item">
+                            <div class="latest__job-thumb">
+                                <img src="${j.img}" alt="">
+                            </div>
+                            <div class="latest__jobs-content">
+                                <div  class="latest__job-link">
 
-                                        <a href="/html/job_description.html" class="lj__content-lable">${j.title}</a href="#">
-                                        <a href="/html/Job.html" class="lj__content-company">${j.companyName}</a>
-                                        <div class="lj__content-info">
-                                            <span class="lj__content-address">${j.city}</span>
-                                            <span>Ngày đăng :
+                                    <a href="job-detail?jid=${j.id}" class="lj__content-lable">${j.title}</a href="#">
+                                    <a href="company-detail?jid=${j.companyId}" class="lj__content-company">${j.companyName}</a>
+                                    <div class="lj__content-info">
+                                        <span class="lj__content-address">${j.city}</span>
+                                        <span>Ngày đăng :
+                           
                                                     <span class="lj__content-time">${j.convertCreated}</span>
                                                 </span>
                                         </div>
+                                    </div>
                                         <div class="lj__content-detail">
                                             <span class="lj__content-salary">${j.salary}</span>
                                             <div class="lj__detail-save">

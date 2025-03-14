@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "f" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -86,12 +88,12 @@
              <div class="right_column">
                  <aside class="login-panel">
                      <h3>Nhà tuyển dụng đăng nhập</h3>
-                     <form>
+                     <form action="employer-login" method="post">
                          <input type="email" id="email" name="email" placeholder="email@example.com">
                          <input type="password" id="password" name="password" placeholder="Mật khẩu">
                          <input type="checkbox" id="remember">
                          <label for="remember">Nhớ mật khẩu</label>
-                         <button onclick="window.location.href='/html/employer/employer.html'" type="submit">Đăng nhập</button>
+                         <button type="submit">Đăng nhập</button>
 
                          <a href="#">Quên mật khẩu</a>
                          <a href="#">Đăng kí</a>
