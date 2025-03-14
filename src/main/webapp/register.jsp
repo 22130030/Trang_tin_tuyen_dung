@@ -55,14 +55,14 @@
               <a class="note">Lưu ý:</a>
               <p class="note-1"> Hãy dùng tên thật. Nhà tuyển dụng có thể thấy tên bạn khi xem hồ sơ
               </p>
-              <form action="#" method="post">
+              <form action="register" method="post">
                 <div class="form-block mx-auto">
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group first">
-                        <label for="fname">Họ</label>
-                        <input type="text" class="form-control" placeholder="Họ"
-                               id="fname">
+                        <label for="fName">Họ và tên</label>
+                        <input name="fName" type="text" class="form-control" placeholder="Họ và tên"
+                               id="fName">
                       </div>
                     </div>
                   </div>
@@ -71,14 +71,14 @@
                       <div class="form-group first">
                         <label for="email">Địa chỉ Email</label>
                         <input type="email" class="form-control" placeholder="xxx@gmail.com"
-                               id="email">
+                               name="email"id="email">
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group first">
-                        <label for="lname">Số điện thoại</label>
+                        <label for="phone">Số điện thoại</label>
                         <input type="text" class="form-control" placeholder="84+"
-                               id="lname">
+                               name = "phone" id="phone">
                       </div>
                     </div>
                   </div>
@@ -89,7 +89,7 @@
                       <div class="form-group last mb-3">
                         <label for="password">Nhập mật khẩu</label>
                         <input type="password" class="form-control"
-                               placeholder="Mật khẩu của bạn" id="password">
+                               name="password" placeholder="Mật khẩu của bạn" id="password">
                       </div>
                     </div>
                     <div class="col-md-7">
@@ -97,7 +97,7 @@
                       <div class="form-group last mb-3">
                         <label for="re-password">Nhập lại mật khẩu</label>
                         <input type="password" class="form-control"
-                               placeholder="Mật khẩu của bạn" id="re-password">
+                               name ="re-password" placeholder="Mật khẩu của bạn" id="re-password">
                       </div>
                     </div>
                   </div>

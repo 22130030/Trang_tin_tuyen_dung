@@ -2,12 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/asserts/css/base.css">
-    <link rel="stylesheet" href="/asserts/css/career_handbook.css">
-    <link rel="stylesheet" href="/asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
-    <title>Cẩm nang nghề nghiệp</title>
+
 </head>
 
 <body>
@@ -33,10 +28,10 @@
                                 Công ty
                             </a>
                         </li>
-                        
+
                         <li class="nav__item">
                             <a href="/html/career_handbook.html" class="nav__item-link">
-                                <i class="nav-item__icon fa-solid fa-book-open"></i>   
+                                <i class="nav-item__icon fa-solid fa-book-open"></i>
                                 Cẩm nang việc làm
                             </a>
                         </li>
@@ -58,8 +53,8 @@
                                         <button class="btn menu__register" onclick="window.location.href='/html/candidate/register.html'">Đăng ký</button>
                                         <button class="btn menu__login" onclick="window.location.href='/html/candidate/login.html'">Đăng nhập</button>
                                     </div>
-                                    
-                                    
+
+
                                     <ul class="menu__list">
                                         <li class="menu__item">
                                             <a href="" class="menu__link">
@@ -98,7 +93,7 @@
                         </li>
                     </ul>
                 </div>
-            </nav> 
+            </nav>
         </div>
         <header class="header">
             <div class="header__container">
@@ -282,7 +277,7 @@
                                         <div class="featured__content">
 
                                             <span class="featured-content__name">
-                                                <a href="" class="featured-name__link">Bí kíp tìm việc</a href="">
+                                                <a href="" class="featured-name__link">Bí kíp tìm việc</a>
                                             </span>
                                             <div class="featured-content__title featured-content__title-right">
                                                 <h3>Tổng hợp 10 việc làm Tiếng Anh siêu HOT 2024 cho dân ngoại ngữ</h3>
@@ -499,25 +494,6 @@
 
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-         const navUser = document.querySelector('.nav__has--form-login');
-         const dropdownMenu = document.querySelector('.nav__dropdown-menu');
- 
-     // Hiển thị menu khi click vào `.nav__has--form-login`
-         navUser.addEventListener('click', function (event) {
-         event.stopPropagation();
-         dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-     });
- 
-     // Đóng menu khi click ra ngoài
-     document.addEventListener('click', function (event) {
-         if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {
-             dropdownMenu.style.display = 'none';
-         }
-     });
- });
-     </script>
 </body>
 
 </html>
