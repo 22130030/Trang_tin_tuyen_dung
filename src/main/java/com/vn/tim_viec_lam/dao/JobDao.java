@@ -479,14 +479,14 @@ public class JobDao {
         }
 
     }
-    public List<Job> filterJobs(String jobName,String jobCategory,String jobLocation) {
+    public List<Job> filterJobs(int companyID,String jobName,String jobCategory,String jobLocation) {
         List<Job> jobs = new ArrayList<>();
-        String query = "SELECT jp.*, c.companyName,jl.city FROM job_posting jp" +
-                " Join companies c ON jp.companyID = c.companyID" +
-                " JOIN job_locations jl ON jl.locationID = jp.locationID" +
-                " join job_post_categories jpc on jpc.jobPostID = jp.jobPostID" +
-                " Join Job_categories jc on jc.categoryID = jpc.categoryID" +
-                " WHERE 1=1";
+        String query = "SELECT jp.*, c.companyName,jl.city FROM job_posting jp " +
+                " Join companies c ON jp.companyID = c.companyID " +
+                " JOIN job_locations jl ON jl.locationID = jp.locationID " +
+                " join job_post_categories jpc on jpc.jobPostID = jp.jobPostID " +
+                " Join Job_categories jc on jc.categoryID = jpc.categoryID " +
+                " WHERE c.companyID = ?";
 
         if (jobName != null && !jobName.isEmpty()) {
             query += " AND jp.titleJob LIKE ?";
@@ -502,6 +502,7 @@ public class JobDao {
              PreparedStatement statement = connection.prepareStatement(query)) {
 
             int index = 1;
+            statement.setInt(index++, companyID);
             if (jobName != null && !jobName.isEmpty()) {
                 statement.setString(index++, "%" + jobName + "%");
             }
@@ -522,7 +523,7 @@ public class JobDao {
         }
 
     }
-        public boolean addJobPosting(String companyName,String employerSize,String website,String jobName,String jobAddress
+        public boolean addJobPosting(int companyId,String companyName,String employerSize,String website,String jobName,String jobAddress
             ,String salaryValue,String salaryUnit,String educationLevel,String experienceLevel,String jobType,String jobLocation,
                                  String jobCategory,String keywords,String age,String contactName
             ,String contactEmail,String contactPhone,String contactAddress ,String jobPostingDate,String JobExpiryDate,String language){
@@ -541,7 +542,7 @@ public class JobDao {
                         String sqlJobPosting = "INSERT INTO job_posting (companyID, titleJob, locationID, image, position, jobdescription, salary, created_at, updated_at, status, requirement) "
                                 + "VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)";
                         try (PreparedStatement stmtJobPosting = con.prepareStatement(sqlJobPosting)) {
-                            stmtJobPosting.setInt(1, 1);  // companyID, giả sử là 1 (có thể lấy từ form)
+                            stmtJobPosting.setInt(1, companyId);  // companyID, giả sử là 1 (có thể lấy từ form)
                             stmtJobPosting.setString(2, jobName);
                             stmtJobPosting.setInt(3, locationID);  // Sử dụng locationID vừa lấy
                             stmtJobPosting.setString(4, ""); // Image, có thể lấy từ form nếu cần

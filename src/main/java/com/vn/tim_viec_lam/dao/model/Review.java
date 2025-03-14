@@ -15,6 +15,7 @@ public class Review implements java.io.Serializable {
     private String title;
     private String status;
     private LocalDateTime created;
+    private String phone;
 
     public Review() {
     }
@@ -48,6 +49,12 @@ public class Review implements java.io.Serializable {
 
     public void setPath(String path) {
         this.path = path;
+    }
+    public String getPhone() {
+        return phone;
+    }
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
     public String getEncodingPath(){
         try {
