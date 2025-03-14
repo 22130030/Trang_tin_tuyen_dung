@@ -7,7 +7,7 @@ public class AddJobApplication extends HttpServlet {
     protected void doGet(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response) throws jakarta.servlet.ServletException, java.io.IOException {
         if(request.getParameter("fileId") != null){
             int fileId = Integer.parseInt(request.getParameter("fileId").toString());
-            System.out.println(fileId);
+
             request.setAttribute("fileId", fileId);
             request.getRequestDispatcher("addProfile.jsp").forward(request, response);
         }

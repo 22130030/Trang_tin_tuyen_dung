@@ -37,6 +37,8 @@ public class JobApplied extends HttpServlet {
             int companyId = job.getCompanyId();
             HttpSession session = request.getSession();
             JobApplicationService jas = new JobApplicationService();
+            String phone = request.getParameter("phone");
+
                 if(request.getPart("fileId") == null){
 
                     String uploadDirPath = getServletContext().getRealPath("") + UPLOAD_DIR;
@@ -50,7 +52,7 @@ public class JobApplied extends HttpServlet {
                     try{
                         for(Part part : request.getParts()){
                             String fileName = fs.extractFile(part);
-                            if(!fileName.isEmpty() && fileName != null){
+                            if(fileName != null && !fileName.isEmpty()){
                                 filePath = uploadDirPath + File.separator + fileName;
                                 String type = "";
                                 long size = part.getSize();
@@ -59,7 +61,7 @@ public class JobApplied extends HttpServlet {
                                     type = fileName.substring(i + 1).toLowerCase();
                                 }
                                 part.write(filePath);
-                                jas.addJobAppFromComputer(filePath,fileName,type,id,companyId,1);
+                                jas.addJobAppFromComputer(filePath,fileName,type,id,companyId,1,phone);
                             }
                         }
                     }catch (Exception e){
@@ -68,7 +70,7 @@ public class JobApplied extends HttpServlet {
                 }
                 if(request.getPart("fileId") != null){
                     int fId = Integer.parseInt(request.getParameter("fileId"));
-                    jas.addJobApplicationFromAccount(companyId,id,fId,1);
+                    jas.addJobApplicationFromAccount(companyId,id,fId,1,phone);
                     }
                 List<JobApplication> jobApplicationList = jas.getAll();
                 session.setAttribute("jobAppliedCart",jobApplicationList);

@@ -86,8 +86,8 @@
                             <th>Nhận lúc</th>
                             <th>Trạng thái</th>
                             <th>Loại</th>
-                            <th>Ghi chú</th>
-                            <th>Thao tác</th>
+                            <th>Số điện thoại</th>
+<%--                            <th>Thao tác</th>--%>
                         </tr>
                         </thead>
                         <tbody>
@@ -117,11 +117,11 @@
                                 ${f.type}
                             </td>
                             <td class="has-data">
-                                ${f.title}
+                                ${f.phone}
                             </td>
-                            <td class="has-data">
-                                ${f.title}
-                            </td>
+<%--                            <td class="has-data">--%>
+<%--                                ${f.title}--%>
+<%--                            </td>--%>
                         </tr>
                         </c:forEach>
                         </tbody>

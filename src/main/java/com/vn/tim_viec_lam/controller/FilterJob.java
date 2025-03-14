@@ -1,12 +1,14 @@
 package com.vn.tim_viec_lam.controller;
 
 import com.google.gson.JsonObject;
+import com.vn.tim_viec_lam.dao.model.CompanyUser;
 import com.vn.tim_viec_lam.dao.model.Job;
 import com.vn.tim_viec_lam.dao.model.JobPostCategory;
 import com.vn.tim_viec_lam.service.CategoryService;
 import com.vn.tim_viec_lam.service.JobService;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -25,13 +27,10 @@ public class FilterJob extends HttpServlet {
 
         JobService js = new JobService();
         List<Job> jobList = null;
-        // Kiểm tra và lọc jobList nếu có tham số tìm kiếm
-//        if (jobName != null || jobCategory != null || jobLocation != null) {
-            jobList = js.filterJob(jobName, jobCategory, jobLocation);
-//            System.out.println(1);
-//        }
-        System.out.println(jobName + " " + jobCategory + " " + jobLocation);
-        System.out.println(jobList.size());
+
+        HttpSession session = request.getSession();
+        int companyId = (int) session.getAttribute("companyId");
+            jobList = js.filterJob(companyId,jobName, jobCategory, jobLocation);
 
         CategoryService cs = new CategoryService();
         List<JobPostCategory> categoryList = cs.getAllCategories();
@@ -45,7 +44,6 @@ public class FilterJob extends HttpServlet {
             jobJson.put("title", job.getTitle());
             jobJson.put("city", job.getCity());
             jobJson.put("created", job.getConvertCreated());
-            System.out.println(job.getId() + " " + job.getTitle() + " " + job.getCity());
             result.put(jobJson);
         }
         JSONArray categories = new JSONArray();
