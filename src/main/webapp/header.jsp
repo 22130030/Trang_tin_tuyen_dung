@@ -93,6 +93,12 @@
                                         <span class="menu__link-title">Tài khoản của tôi</span>
                                     </a>
                                 </li>
+                                <li class="menu__item">
+                                    <a href="${pageContext.request.contextPath}/account/upgrade_account.jsp" class="menu__link">
+                                        <i class="fa-solid fa-circle-up"></i>
+                                        <span class="menu__link-title">Nâng cấp tài khoản</span>
+                                    </a>
+                                </li>
                             </c:if>
                             </ul>
                         </div>
