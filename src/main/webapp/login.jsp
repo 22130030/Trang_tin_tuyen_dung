@@ -29,6 +29,7 @@
     <script src="asserts/fonts/fontawesome-free-6.4.0-web/js/jquery-3.3.1.min.js"></script>
     <!-- title -->
     <title>Kiếm việc làm online</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -60,6 +61,7 @@
                                 <input type="password" class="form-control" placeholder="Mật khẩu"
                                        id="password" name="password">
                             </div>
+                            <div class="g-recaptcha" data-sitekey="6LeLpe0qAAAAAPsSeOuqF9w9I3GGAgtLz0Cb7RUc"></div>
 
                             <div class="d-sm-flex mb-5 align-items-center">
                                 <label class="control control--checkbox mb-3 mb-sm-0"><span

@@ -18,7 +18,6 @@ import java.util.List;
 public class FilterJob extends HttpServlet {
     protected void doGet(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response) throws jakarta.servlet.ServletException, IOException {
         response.setContentType("application/json");
-        request.setCharacterEncoding("UTF-8");
         String jobName = request.getParameter("jobName");
 //        String jobStatus = request.getParameter("jobStatus");
         String jobCategory = request.getParameter("jobCategory");
@@ -28,7 +27,7 @@ public class FilterJob extends HttpServlet {
         List<Job> jobList = null;
         // Kiểm tra và lọc jobList nếu có tham số tìm kiếm
 //        if (jobName != null || jobCategory != null || jobLocation != null) {
-            jobList = js.filterJob(jobName, jobCategory, jobLocation);
+        jobList = js.filterJob(jobName, jobCategory, jobLocation);
 //            System.out.println(1);
 //        }
         System.out.println(jobName + " " + jobCategory + " " + jobLocation);

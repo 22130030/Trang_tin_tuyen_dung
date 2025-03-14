@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="container2">
-                        <form action="" class="content">
+                        <form action="find-profile" method="post" class="content">
                             <div class="search-box">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                                 <input name="titleInput" type="text" placeholder="Nhập từ khóa" class="search-input">
@@ -49,7 +49,7 @@
                                 <i class="fa-solid fa-location-dot"></i>
                                 <input name="addressInput" type="text" placeholder="Nhập tỉnh, thành phố" class="search-input">
                             </div>
-                            <button>Tìm kiếm</button>
+                            <button type="submit">Tìm kiếm</button>
                         </form>
 
                         <div class="content2">
@@ -74,125 +74,72 @@
 
                                     <!-- Ngành nghề Filter -->
                                     <div class="form__item">
-                                        <span class="form__item-title"><i class="fa-solid fa-border-all"></i>Ngành nghề</span>
-                                        <div class="form__item-section">
-                                            <button class="form__section-btn">
-                                                <span class="form__section-lable">Ngành nghề</span>
-                                                <i class="fa-solid fa-chevron-down"></i>
-                                            </button>
-                                            <div class="dropdown">
-                                                <ul>
-                                                    <li>Công nghệ thông tin</li>
-                                                    <li>Kế toán</li>
-                                                    <li>Quản trị kinh doanh</li>
-                                                    <li>Marketing</li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        <label for="industry">Ngành nghề</label>
+                                        <select name="industry" id="industry">
+                                            <option value="IT">Công nghệ thông tin</option>
+                                            <option value="Accounting">Kế toán</option>
+                                            <option value="Business">Quản trị kinh doanh</option>
+                                            <option value="Marketing">Marketing</option>
+                                        </select>
                                     </div>
 
-                                    <!-- Mức lương Filter -->
                                     <div class="form__item">
-                                        <span class="form__item-title"><i class="fa-solid fa-sack-dollar"></i>Mức lương</span>
-                                        <div class="form__item-section">
-                                            <button class="form__section-btn">
-                                                <span class="form__section-lable">Mức lương</span>
-                                                <i class="fa-solid fa-chevron-down"></i>
-                                            </button>
-                                            <div class="dropdown">
-                                                <ul>
-                                                    <li>Dưới 5 triệu</li>
-                                                    <li>5 - 10 triệu</li>
-                                                    <li>10 - 20 triệu</li>
-                                                    <li>Trên 20 triệu</li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        <label for="salary">Mức lương</label>
+                                        <select name="salary" id="salary">
+                                            <option value="0M-5M">Dưới 5 triệu</option>
+                                            <option value="5M-10M">5 - 10 triệu</option>
+                                            <option value="10M-20M">10 - 20 triệu</option>
+                                            <option value="over-20M">Trên 20 triệu</option>
+                                        </select>
                                     </div>
 
-                                    <!-- Trình độ học vấn Filter -->
                                     <div class="form__item">
-                                        <span class="form__item-title"><i class="fa-solid fa-graduation-cap"></i>Trình độ học vấn</span>
-                                        <div class="form__item-section">
-                                            <button class="form__section-btn">
-                                                <span class="form__section-lable">Học vấn</span>
-                                                <i class="fa-solid fa-chevron-down"></i>
-                                            </button>
-                                            <div class="dropdown">
-                                                <ul>
-                                                    <li>Trung học phổ thông</li>
-                                                    <li>Trung cấp</li>
-                                                    <li>Cao đẳng</li>
-                                                    <li>Đại học</li>
-                                                    <li>Thạc sĩ</li>
-                                                    <li>Tiến sĩ</li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        <label for="education">Trình độ học vấn</label>
+                                        <select name="education" id="education">
+                                            <option value="HighSchool">Trung học phổ thông</option>
+                                            <option value="College">Cao đẳng</option>
+                                            <option value="University">Đại học</option>
+                                            <option value="Master">Thạc sĩ</option>
+                                            <option value="PhD">Tiến sĩ</option>
+                                        </select>
                                     </div>
 
-                                    <!-- Trường Filter -->
                                     <div class="form__item">
-                                        <span class="form__item-title"><i class="fa-solid fa-school"></i>Trường</span>
-                                        <div class="form__item-section">
-                                            <input type="text" class="form__section-input" placeholder="Nhập tên trường">
-                                        </div>
+                                        <label for="school">Trường</label>
+                                        <input type="text" name="school" id="school" placeholder="Nhập tên trường">
                                     </div>
 
-
-                                    <!-- Giới tính Filter -->
                                     <div class="form__item">
-                                        <span class="form__item-title"><i class="fa-solid fa-venus-mars"></i>Giới tính</span>
-                                        <div class="form__item-section">
-                                            <button class="form__section-btn">
-                                                <span class="form__section-lable">Bất kì</span>
-                                                <i class="fa-solid fa-chevron-down"></i>
-                                            </button>
-                                            <div class="dropdown">
-                                                <ul>
-                                                    <li>Nam</li>
-                                                    <li>Nữ</li>
-                                                    <li>Khác</li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        <label for="gender">Giới tính</label>
+                                        <select name="gender" id="gender">
+                                            <option value="any">Bất kỳ</option>
+                                            <option value="male">Nam</option>
+                                            <option value="female">Nữ</option>
+                                            <option value="other">Khác</option>
+                                        </select>
                                     </div>
 
-                                    <!-- Tình trạng hôn nhân Filter -->
                                     <div class="form__item">
-                                        <span class="form__item-title"><i class="fa-solid fa-hand-holding-heart"></i>Tình trạng hôn nhân</span>
-                                        <div class="form__item-section">
-                                            <button class="form__section-btn">
-                                                <span class="form__section-lable">Bất kì</span>
-                                                <i class="fa-solid fa-chevron-down"></i>
-                                            </button>
-                                            <div class="dropdown">
-                                                <ul>
-                                                    <li>Độc thân</li>
-                                                    <li>Đã kết hôn</li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        <label for="marital-status">Tình trạng hôn nhân</label>
+                                        <select name="marital-status" id="marital-status">
+                                            <option value="any">Bất kỳ</option>
+                                            <option value="single">Độc thân</option>
+                                            <option value="married">Đã kết hôn</option>
+                                        </select>
                                     </div>
 
-                                    <!-- Độ tuổi Filter -->
                                     <div class="form__item">
-                                        <span class="form__item-title"><i class="fa-solid fa-user"></i>Độ tuổi</span>
-                                        <div class="form__item-section">
-                                            <button class="form__section-btn">
-                                                <span class="form__section-lable">15 trở lên</span>
-                                                <i class="fa-solid fa-chevron-down"></i>
-                                            </button>
-                                            <div class="dropdown">
-                                                <ul>
-                                                    <li>15 - 20</li>
-                                                    <li>20 - 30</li>
-                                                    <li>30 - 40</li>
-                                                    <li>Trên 40</li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        <label for="age">Độ tuổi</label>
+                                        <select name="age" id="age">
+                                            <option value="any">Bất kỳ</option>
+                                            <option value="15-20">15 - 20</option>
+                                            <option value="20-30">20 - 30</option>
+                                            <option value="30-40">30 - 40</option>
+                                            <option value="over-40">Trên 40</option>
+                                        </select>
                                     </div>
+
+
                                 </div>
                             </div>
 
@@ -208,19 +155,21 @@
                                     <div class="profile-card">
                                         <!-- <div class="bookmark">&#9734;</div> -->
                                         <div class="profile-card-content">
-                                            <img class="profile-card__img" src="../asserts/img/apartment.png" alt="Profile Picture">
+                                            <img class="profile-card__img" src="../asserts/img/user.png" alt="Profile Picture">
                                             <div>
-                                                <div class="title">${r.title}</div>
+                                                <a href="download-file?path=${r.encodingPath}" class="title">${r.title}</a>
                                                 <div class="location">
                                                     <i class="fa fa-map-marker">
                                                     </i>
                                                         ${r.address}
                                                 </div>
                                                 <div class="salary">
+                                                    <i class="fa-solid fa-dollar-sign"></i>
                                                     <i class="fa fa-money"></i> ${r.salary}
                                                 </div>
                                                 <div class="experience">
-                                                    <i class="fa fa-briefcase"></i> 1 năm (Nhân viên)
+                                                    <i class="fa fa-briefcase"></i>
+                                                    ${r.type}
                                                 </div>
                                             </div>
                                         </div>
@@ -234,5 +183,74 @@
             </div>
         <%@ include file="../footer.jsp"%>
     </div>
+    <script>
+        $(document).ready(function() {
+            // Lưu giá trị ban đầu của các trường
+            var previousValues = {
+                industry: $('select[name="industry"]').val(),
+                salary: $('select[name="salary"]').val(),
+                education: $('select[name="education"]').val(),
+                school: $('input[name="school"]').val(),
+                gender: $('select[name="gender"]').val(),
+                maritalStatus: $('select[name="marital-status"]').val(),
+                age: $('select[name="age"]').val()
+            };
+
+            // Lắng nghe sự kiện thay đổi trên các trường lọc
+            $('input, select').change(function() {
+                // Kiểm tra và chỉ gửi trường có sự thay đổi
+                var formData = {};
+
+                // Kiểm tra nếu giá trị trường đã thay đổi
+                $('input, select').each(function() {
+                    var fieldName = $(this).attr('name');
+                    var currentValue = $(this).val();
+
+                    // Nếu giá trị trường đã thay đổi, thêm vào formData
+                    if (currentValue !== previousValues[fieldName]) {
+                        formData[fieldName] = currentValue;
+                        previousValues[fieldName] = currentValue;  // Cập nhật giá trị mới
+                    }
+                });
+
+                // Kiểm tra nếu có trường thay đổi
+                if (Object.keys(formData).length > 0) {
+                    // Gửi yêu cầu AJAX nếu có sự thay đổi
+                    $.ajax({
+                        type: "POST",
+                        url: "filter-profile",  // Địa chỉ servlet xử lý lọc hồ sơ
+                        data: formData,
+                        success: function(response) {
+                            // Lấy dữ liệu JSON trả về
+                            var data = JSON.parse(response);  // Phân tích dữ liệu JSON
+                            var resumes = data.result;  // Lấy mảng kết quả
+
+                            // Tạo nội dung mới cho các hồ sơ
+                            var content = '';
+                            resumes.forEach(function(resume) {
+                                console.log(resume);
+                                content += '<div class="profile-card">';
+                                content += '<div class="profile-card-content">';
+                                content += '<img class="profile-card__img" src="../asserts/img/user.png" alt="Profile Picture">';
+                                content += '<div>';
+                                content += '<a href="download-file?path=' + resume.encodingPath + '" class="title">' + resume.title + '</a>';
+                                content += '<div class="location"><i class="fa fa-map-marker"></i>' + resume.address + '</div>';
+                                content += '<div class="salary"><i class="fa-solid fa-dollar-sign"></i>' + resume.salary + '</div>';
+                                content += '<div class="experience"><i class="fa fa-briefcase"></i>' + resume.type + '</div>';
+                                content += '</div></div></div>';
+                            });
+
+                            // Cập nhật nội dung vào phần tử có class 'item-has--profile'
+                            $(".item-has--profile").html(content);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Lỗi: " + error);
+                        }
+                    });                }
+            });
+        });
+    </script>
+
+
 </body>
 </html>

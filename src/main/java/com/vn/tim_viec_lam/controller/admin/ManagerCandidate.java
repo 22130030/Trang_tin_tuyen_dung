@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "candidate-user-find",value = "/candidate-user-find")
+@WebServlet(name = "candidate-user-find",value = "/admin/candidate-user-find")
 public class ManagerCandidate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -19,7 +19,7 @@ public class ManagerCandidate extends HttpServlet {
         CandidateService service = new CandidateService();
         List<Candidate> candidateList = service.getListCandidate();
         req.setAttribute("candidateList", candidateList);
-        req.getRequestDispatcher("/Candidate.jsp").forward(req, resp);
+        req.getRequestDispatcher("admin_candidate.jsp").forward(req, resp);
     }
 
     @Override
@@ -30,6 +30,6 @@ public class ManagerCandidate extends HttpServlet {
 
         List<Candidate> candidateList = service.findListCandidateEmail(email);
         req.setAttribute("candidateList", candidateList);
-        req.getRequestDispatcher("/Candidate.jsp").forward(req, resp);
+        req.getRequestDispatcher("admin_candidate.jsp").forward(req, resp);
     }
 }

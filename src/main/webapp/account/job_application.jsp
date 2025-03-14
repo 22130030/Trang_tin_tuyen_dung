@@ -56,7 +56,7 @@
                             <div class="job__application-content--has-file" style="${sessionScope.jac != null ? 'display: block;' : 'display: none;'}">
                                 <c:forEach items="${sessionScope.jac}" var="f">
                                     <!-- File Item -->
-                                    <div class="file-item">
+                                    <div class="file-item" data-file-id="${f.id}">
                                         <div class="file-thumbnail">
                                             <i class="fa-regular fa-file"></i>
                                         </div>
@@ -64,16 +64,16 @@
                                             <p class="file-name">${f.title}</p>
                                             <p class="file-date">Chỉnh sửa lần cuối: ${f.convertUpdated}</p>
 
-                                            <div class="file-details__status" style="display : ${f.status == 1 ? 'flex' :'none'}">
+                                            <div class="file-details__status" style="display : ${f.status >= 1 ? 'flex' :'none'}">
                                                 <span class="file__status-title">chia sẻ thông tin :</span>
                                                 <label class="switch">
-                                                    <input type="checkbox" id="share-social" checked>
+                                                    <input type="checkbox" id="share-social" ${f.status == 1 ? 'checked' :''}>
                                                     <span class="slider"></span>
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="file-actions">
-                                            <button class="${f.status == 1 ? 'btn-enabled' : 'btn-disabled' }" disabled>${f.convertStatus}</button>
+                                            <button class="${f.status >= 1 ? 'btn-enabled' : 'btn-disabled' }" disabled>${f.convertStatus}</button>
                                             <button onclick="editJobApplication(event,${f.id})" class="btn-edit-small">
                                                 <i class="fa-solid fa-pen"></i>
                                             </button>
@@ -231,6 +231,36 @@
                 // Chuyển hướng tới trang add-profile với tên file được truyền qua tham số URL
                 window.location.href = 'edit-job-application?fileName=' + fileName+'&fileId=' + fileId;
         }
+        document.querySelectorAll('.switch input').forEach((checkbox) => {
+            checkbox.addEventListener('change', (event) => {
+                const fileId = event.target.closest('.file-item').dataset.fileId; // Lấy fileId từ thẻ cha (data attribute)
+                const status = event.target.checked ? 1 : 2; // Trạng thái của checkbox
+
+                // Gửi yêu cầu AJAX cập nhật trạng thái chia sẻ
+                fetch('update-application', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        fileId: fileId,
+                        status: status,
+                    }),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.success) {
+                            console.log('Cập nhật trạng thái chia sẻ thành công!');
+                        } else {
+                            console.error('Cập nhật trạng thái chia sẻ thất bại.');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Lỗi kết nối:', error);
+                    });
+            });
+        });
+
     </script>
 </body>
 </html>
