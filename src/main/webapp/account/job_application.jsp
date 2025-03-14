@@ -123,7 +123,7 @@
         <div class="popup-content">
             <p id="popupText">Bạn chỉ được phép tải lên tối đa 2 hồ sơ.</p>
             <p class="popup__lever">
-                <a href="" class="popup__lever--link">Nâng cấp tài khoản</a>
+                <a href="upgrade_account.jsp" class="popup__lever--link">Nâng cấp tài khoản</a>
                 ngay để lưu được nhiều hồ sơ hơn
             </p>
             <button id="closePopup">Đóng</button>
