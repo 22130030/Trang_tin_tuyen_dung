@@ -32,7 +32,7 @@
                 </h4>
                 <div class="step-payment__content">
                     <label for="" class="step-payment__content--pro">
-                        <input type="radio">
+                        <input type="radio" name="group__account" id="account-pro">
                         <strong class="">Tài khoản Pro
                             -
                             </strong>
@@ -41,9 +41,9 @@
                             <span class="step-payment__date"> / 1 tháng sử dụng</span>
                     </label>
 
-                    <label for="" class="step-payment__content--prenium">
-                        <input type="radio">
-                        <strong class="">Tài khoản Prenium
+                    <label for="" class="step-payment__content--premium">
+                        <input type="radio" name="group__account" id="account-premium">
+                        <strong class="">Tài khoản premium
                             -
                             </strong>
                             <strong>500.000</strong>
