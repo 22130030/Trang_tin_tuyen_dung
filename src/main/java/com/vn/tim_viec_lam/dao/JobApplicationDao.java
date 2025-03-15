@@ -1,3 +1,4 @@
+
 package com.vn.tim_viec_lam.dao;
 
 import com.vn.tim_viec_lam.dao.model.Job;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JobApplicationDao {
-    public boolean addJobApplicationFromAccount(int companyID, int jobPostID,int resumesID,int candidateID) {
+    public boolean addJobApplicationFromAccount(int companyID, int jobPostID,int resumesID,int candidateID,String phone) {
         Connection con = DBconnect.getConnection();
         String sql = "insert into job_applications(companyID,jobPostID,resumeID,candidateID,status,created_at) values (?,?,?,?,?,NOW())";
         try {
@@ -28,11 +29,12 @@ public class JobApplicationDao {
                 try(ResultSet rs = prep.getGeneratedKeys()){
                     if(rs.next()){
                         int applicationId = rs.getInt(1);
-                        sql = "insert into reviews(applicationID,companyID,rating,created_at) values (?,?,?,NOW())";
+                        sql = "insert into reviews(applicationID,companyID,rating,created_at,phone) values (?,?,?,NOW(),?)";
                         prep = con.prepareStatement(sql);
                         prep.setInt(1, applicationId);
                         prep.setInt(2, companyID);
                         prep.setString(3, "Chưa xem");
+                        prep.setString(4, phone);
                         return prep.executeUpdate() > 0;
 
                     }
@@ -45,28 +47,29 @@ public class JobApplicationDao {
 
     }
 
-    public boolean addJobAppFromComputer(String path, String fileName,String type,int jobID,int companyID,int candidateId) {
-            Connection connection = DBconnect.getConnection();
-            String sql = "INSERT INTO resumes (fileCv,title,type,updated_at) VALUES (?,?,?,NOW())";
-            try {
-                PreparedStatement prep = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
-                prep.setString(1,path);
-                prep.setString(2,fileName);
-                prep.setString(3,type);
-                int res = prep.executeUpdate();
-                if(res > 0){
-                    try(ResultSet rs = prep.getGeneratedKeys()){
-                        if(rs.next()){
-                            int resumeID = rs.getInt(1);
-                            return addJobApplicationFromAccount(companyID,jobID,resumeID,candidateId);
-                        }
+    public boolean addJobAppFromComputer(String path, String fileName,String type,int jobID,int companyID,int candidateId,String phone) {
+        Connection connection = DBconnect.getConnection();
+        String sql = "INSERT INTO resumes (fileCv,title,type,updated_at,phone) VALUES (?,?,?,NOW(),?)";
+        try {
+            PreparedStatement prep = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+            prep.setString(1,path);
+            prep.setString(2,fileName);
+            prep.setString(3,type);
+            prep.setString(4,phone);
+            int res = prep.executeUpdate();
+            if(res > 0){
+                try(ResultSet rs = prep.getGeneratedKeys()){
+                    if(rs.next()){
+                        int resumeID = rs.getInt(1);
+                        return addJobApplicationFromAccount(companyID,jobID,resumeID,candidateId,phone);
                     }
                 }
-                return res > 0;
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
             }
+            return res > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
     public List<JobApplication> getAll() {
@@ -103,4 +106,3 @@ public class JobApplicationDao {
         System.out.println(dao.getAll());
     }
 }
-

@@ -8,8 +8,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/account/*",
-//        "/admin/*",
+@WebFilter(urlPatterns = {"/account/*", "/admin/*",
 //        "/employer/*"
 })
 public class LoginFilter implements Filter {

@@ -15,7 +15,7 @@ public class ResumesDao {
     public ResumesDao() {
     }
     public boolean updateProfile(int resumesId,String title,int birthYear,String marital,String address,String education,
-                                 String schoolName,String salary,String career,String gender){
+                                 String schoolName,String salary,String career,String gender,String phone){
         Connection connection = DBconnect.getConnection();
 
         String sql = "UPDATE resumes " +
@@ -29,6 +29,7 @@ public class ResumesDao {
                 "career = ?, " +
                 "gender = ?, " +
                 "status = 1, " +
+                "phone = ? ," +
                 "updated_at = NOW() " +
                 "WHERE resumeID = ?";
         int index = 0;
@@ -43,6 +44,7 @@ public class ResumesDao {
             ps.setString(++index, salary);
             ps.setString(++index, career);
             ps.setString(++index, gender);
+            ps.setString(++index, phone);
             ps.setInt(++index, resumesId);
             index = ps.executeUpdate();
             if(index > 0) return true;
@@ -52,14 +54,15 @@ public class ResumesDao {
         }
         return false;
     }
-    public int addResume(String fileName,String path,String type){
+    public int addResume(int candidateID,String fileName,String path,String type){
         Connection connection = DBconnect.getConnection();
-        String sql = "INSERT INTO resumes (fileCv,title,type,updated_at) VALUES (?,?,?,NOW())";
+        String sql = "INSERT INTO resumes (candidateID,fileCv,title,type,updated_at) VALUES (?,?,?,?,NOW())";
         try {
             PreparedStatement prep = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
-            prep.setString(1,path);
-            prep.setString(2,fileName);
-            prep.setString(3,type);
+            prep.setInt(1, candidateID);
+            prep.setString(2,path);
+            prep.setString(3,fileName);
+            prep.setString(4,type);
             int res = prep.executeUpdate();
             int resumeID = 0;
             if(res > 0){
@@ -97,11 +100,12 @@ public class ResumesDao {
             throw new RuntimeException(e);
         }
     }
-    public List<Resumes> getResumes(){
+    public List<Resumes> getResumes(int candidateId){
         Connection con = DBconnect.getConnection();
-        String sql = "select * from resumes";
+        String sql = "select * from resumes where candidateID=?";
         try {
             PreparedStatement prep = con.prepareStatement(sql);
+            prep.setInt(1, candidateId);
             ResultSet rs = prep.executeQuery();
             List<Resumes> resumes = new ArrayList<>();
             while(rs.next()){
@@ -138,6 +142,7 @@ public class ResumesDao {
         String salary = rs.getString("salary");
         String career = rs.getString("career");
         int status = rs.getInt("status");
+        String phone = rs.getString("phone");
         LocalDateTime updatedAt = rs.getTimestamp("updated_at").toLocalDateTime();
         Resumes resumes = new Resumes();
         resumes.setId(resumeID);
@@ -154,6 +159,7 @@ public class ResumesDao {
         resumes.setUpdated(updatedAt);
         resumes.setType(type);
         resumes.setPath(path);
+        resumes.setPhone(phone);
         return resumes;
     }
 
@@ -180,9 +186,10 @@ public class ResumesDao {
                 String career = rs.getString("career");
                 String gender = rs.getString("gender");
                 int status = rs.getInt("status");
+                String phone = rs.getString("phone");
                 LocalDateTime updatedAt = rs.getTimestamp("updated_at").toLocalDateTime();
                 Resumes resumes = new Resumes(resumeID,candidateID,fileCv,title,"",birthYear,marital
-                ,address,education,schoolName,salary,career,gender);
+                        ,address,education,schoolName,salary,career,gender,phone);
                 resumes.setStatus(status);
                 resumes.setUpdated(updatedAt);
                 res.add(resumes);
@@ -250,9 +257,10 @@ public class ResumesDao {
                 String career = rs.getString("career");
                 String gender = rs.getString("gender");
                 int status = rs.getInt("status");
+                String phone = rs.getString("phone");
                 LocalDateTime updatedAt = rs.getTimestamp("updated_at").toLocalDateTime();
                 Resumes resumes = new Resumes(resumeID,candidateID,fileCv,title,"",birthYear,marital
-                        ,address,education,schoolName,salary,career,gender);
+                        ,address,education,schoolName,salary,career,gender,phone);
                 resumes.setStatus(status);
                 resumes.setUpdated(updatedAt);
                 resumes.setType(type);
@@ -332,7 +340,7 @@ public class ResumesDao {
     }
     public static void main(String[] args) {
         ResumesDao dao = new ResumesDao();
-
+        System.out.println(dao.countResumesByCandidateID(17));
 
     }
 
@@ -349,4 +357,57 @@ public class ResumesDao {
             throw new RuntimeException(e);
         }
     }
+
+    public Resumes getById(int id) {
+        Connection con = DBconnect.getConnection();
+
+        String sql = "select * from resumes where resumeID = ? and status >= 1";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int resumeID = rs.getInt("resumeID");
+                int candidateID = rs.getInt("candidateID");
+                String fileCv = rs.getString("fileCv");
+                String title = rs.getString("title");
+                String type = rs.getString("type");
+                int birthYear = rs.getInt("birthYear");
+                String marital = rs.getString("marital");
+                String address = rs.getString("address");
+                String education = rs.getString("education");
+                String schoolName = rs.getString("schoolName");
+                String salary = rs.getString("salary");
+                String career = rs.getString("career");
+                String gender = rs.getString("gender");
+                int status = rs.getInt("status");
+                String phone = rs.getString("phone");
+                LocalDateTime updatedAt = rs.getTimestamp("updated_at").toLocalDateTime();
+                Resumes resumes = new Resumes(resumeID,candidateID,fileCv,title,"",birthYear,marital
+                        ,address,education,schoolName,salary,career,gender,phone);
+                resumes.setStatus(status);
+                resumes.setUpdated(updatedAt);
+                resumes.setType(type);
+                return resumes;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+    public int countResumesByCandidateID(int candidateID) {
+        Connection con = DBconnect.getConnection();
+        String sql = "select count(*) from resumes where candidateID = ?";
+        try {
+            PreparedStatement prep = con.prepareStatement(sql);
+            prep.setInt(1,candidateID);
+            ResultSet rs = prep.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

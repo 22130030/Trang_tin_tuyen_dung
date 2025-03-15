@@ -119,7 +119,16 @@
         </div>
         <%@include file="../footer.jsp"%>
     </div>
-
+    <div id="popupMessage" class="popup">
+        <div class="popup-content">
+            <p id="popupText">Bạn chỉ được phép tải lên tối đa 2 hồ sơ.</p>
+            <p class="popup__lever">
+                <a href="upgrade_account.jsp" class="popup__lever--link">Nâng cấp tài khoản</a>
+                ngay để lưu được nhiều hồ sơ hơn
+            </p>
+            <button id="closePopup">Đóng</button>
+        </div>
+    </div>
     <script>
         const fileInput = document.getElementById("file-input");
         const uploadBtn = document.getElementById("upload-btn");
@@ -136,11 +145,37 @@
         const jobAppConHasFile = document.querySelector('.job__application-content--has-file');
         const savedFile = document.getElementById('saved-file-btn');
 
+        const popup = document.getElementById("popupMessage");
+        const popupText = document.getElementById("popupText");
+        const closePopup = document.getElementById("closePopup");
+
 
         uploadBtn.addEventListener("click", () => {
-            jobApp.style.display = 'none';
-            jobAppUpload.style.display = 'block';
+            fetch('update-file')  // Gửi request lấy số lượng hồ sơ hiện có
+                .then(response => response.json())
+                .then(data => {
+                    if (data.items >= 2) {
+                        popup.style.display = 'flex';
 
+                    } else {
+                        jobApp.style.display = 'none';
+                        jobAppUpload.style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                });
+
+        });
+        closePopup.addEventListener("click", () => {
+            popup.style.display = "none";
+        });
+
+        // Đóng popup khi nhấn ra ngoài (vùng tối)
+        popup.addEventListener("click", (event) => {
+            if (event.target === popup) { // Kiểm tra nếu người dùng nhấn vào vùng nền
+                popup.style.display = "none";
+            }
         });
         userProfileBtn.addEventListener("click",()=>{
             jobApp.style.display = 'none';

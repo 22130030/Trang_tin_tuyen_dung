@@ -21,7 +21,7 @@ public class UserService {
         return userDao.getUserByEmail(email);
     }
     public List<User> getListAll(){
-      return userDao.getListUser();
+        return userDao.getListUser();
     }
     public String hasPasswordToMD5(String password) {
         try {
@@ -41,7 +41,8 @@ public class UserService {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
-    }public List<User> FindListUserByEmail(String  email){
+    }
+    public List<User> FindListUserByEmail(String  email){
         return userDao.findListUserbyEmail(email);
     }
     public User FindListUserByID(int  id){
@@ -54,9 +55,14 @@ public class UserService {
     public void editUser(int id, String email, String pass, int role, String status){
         userDao.updateUser(id, email, pass, role, status);
     }
-
+    public boolean insetUser(String email,String pass, String rePass,String fName,String phone){
+        if(hasPasswordToMD5(rePass).equals(hasPasswordToMD5(pass))){
+            return userDao.insertUser(email,hasPasswordToMD5(pass),fName,phone);
+        }
+        return false;
+    }
     public static void main(String[] args) {
         UserService userService = new UserService();
-        System.out.println(userService.getUser("22@gmail.com"));
+        System.out.println(userService.insetUser("email@gmail.com","1","1","van duc","03545162839"));
     }
 }

@@ -197,4 +197,20 @@ public class CandidateDao {
     }
 
 
+    public int findCandidateIdByUserId(int userId) {
+        Connection con = DBconnect.getConnection();
+        int res = -1;
+        String sql = "SELECT candidateId FROM candidates WHERE userId = ?";
+        try {
+            PreparedStatement pre = con.prepareStatement(sql);
+            pre.setInt(1, userId);
+            ResultSet rs = pre.executeQuery();
+            if(rs.next()) {
+                res = rs.getInt(1);
+            }
+            return res;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

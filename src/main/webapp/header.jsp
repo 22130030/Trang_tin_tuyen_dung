@@ -85,15 +85,12 @@
                                         <span class="menu__link-title">Việc đã ứng tuyển</span>
                                     </a>
                                 </li>
-                            <c:if  test="${!empty sessionScope.user}">
-
                                 <li class="menu__item">
-                                    <a href="${pageContext.request.contextPath}/account/account_candidate.jsp" class="menu__link">
-                                        <i class="fa-regular fa-user"></i>
-                                        <span class="menu__link-title">Tài khoản của tôi</span>
+                                    <a href="" class="menu__link">
+                                        <i class="menu__link-icon fa-regular fa-bell"></i>
+                                        <span class="menu__link-title">Thông báo việc làm</span>
                                     </a>
                                 </li>
-                            </c:if>
                             </ul>
                         </div>
 

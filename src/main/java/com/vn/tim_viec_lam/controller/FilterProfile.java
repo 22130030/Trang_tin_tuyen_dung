@@ -19,7 +19,6 @@ public class FilterProfile extends HttpServlet {
     protected void doPost(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response) throws jakarta.servlet.ServletException, java.io.IOException {
         // Set response content type
         response.setContentType("text/html;charset=UTF-8");
-
         // Retrieve parameters from the request
         String industry = request.getParameter("industry");
         String salary = request.getParameter("salary");

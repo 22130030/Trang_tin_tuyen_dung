@@ -44,10 +44,10 @@
                                 <img src="${j.img}" alt="">
                             </div>
                             <div class="latest__jobs-content">
-                                <a href="/html/job_description.html" class="latest__job-link">
+                                <div  class="latest__job-link">
 
-                                    <a href="/html/job_description.html" class="lj__content-lable">${j.title}</a href="#">
-                                    <a href="/html/Job.html" class="lj__content-company">${j.companyName}</a>
+                                    <a href="job-detail?jid=${j.id}" class="lj__content-lable">${j.title}</a href="#">
+                                    <a href="company-detail?jid=${j.companyId}" class="lj__content-company">${j.companyName}</a>
                                     <div class="lj__content-info">
                                         <span class="lj__content-address">${j.city}</span>
                                         <span>Ngày đăng :
@@ -61,7 +61,7 @@
                                             <a>Lưu</a>
                                         </div>
                                     </div>
-                                </a>
+                                </div>
                             </div>
                         </div>
 

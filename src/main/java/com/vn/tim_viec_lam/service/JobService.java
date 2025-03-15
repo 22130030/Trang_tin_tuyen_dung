@@ -83,18 +83,18 @@ public class JobService {
         }
         return fristLetterLocation;
     }
-    public boolean addJobPosting(String companyName,String employerSize,String website,String jobName,String jobAddress
-    ,String salaryValue,String salaryUnit,String educationLevel,String experienceLevel,String jobType,String jobLocation,
+    public boolean addJobPosting(int companyId,String companyName,String employerSize,String website,String jobName,String jobAddress
+            ,String salaryValue,String salaryUnit,String educationLevel,String experienceLevel,String jobType,String jobLocation,
                                  String jobCategory,String keywords,String age,String contactName
-    ,String contactEmail,String contactPhone,String contactAddress ,String jobPostingDate,String JobExpiryDate,String language){
-        return jobDao.addJobPosting(companyName,employerSize,website,jobName,jobAddress,salaryValue,salaryUnit,educationLevel,experienceLevel,jobType,jobLocation,jobCategory,keywords,age,contactName,contactEmail,contactPhone,contactAddress,jobPostingDate,JobExpiryDate,language);
+            ,String contactEmail,String contactPhone,String contactAddress ,String jobPostingDate,String JobExpiryDate,String language){
+        return jobDao.addJobPosting(companyId,companyName,employerSize,website,jobName,jobAddress,salaryValue,salaryUnit,educationLevel,experienceLevel,jobType,jobLocation,jobCategory,keywords,age,contactName,contactEmail,contactPhone,contactAddress,jobPostingDate,JobExpiryDate,language);
     }
-    public List<Job> filterJob(String jobName,String jobCategory,String jobLocation){
-        return jobDao.filterJobs(jobName,jobCategory,jobLocation);
+    public List<Job> filterJob(int companyID,String jobName,String jobCategory,String jobLocation){
+        return jobDao.filterJobs(companyID,jobName,jobCategory,jobLocation);
     }
 
     public static void main(String[] args) {
         JobService jobService = new JobService();
-        System.out.println(jobService.filterJob("j","",""));
+        System.out.println(jobService.filterJob(1,"giám đốc","",""));
     }
 }
