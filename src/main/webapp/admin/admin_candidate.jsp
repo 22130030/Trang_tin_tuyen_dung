@@ -13,22 +13,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../asserts/css/base.css">
-    <link rel="stylesheet" href="../asserts/css/admin/admin__base.css">
-    <link rel="stylesheet" href="../asserts/css/admin/candidate.css">
-    <link rel="stylesheet" href="../asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
+    <link rel="stylesheet" href="asserts/css/base.css">
+    <link rel="stylesheet" href="asserts/css/admin/admin__base.css">
+    <link rel="stylesheet" href="asserts/css/admin/candidate.css">
+    <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
     <title>Admin</title>
 
 </head>
 <body>
 <div class="admin">
-    <%@include file="header_admin.jsp"%>
 
+    <header class="header">
+        <nav class="nav">
+            <div class="grid nav__container">
+                <div class="nav__logo">
+                    <a href="/html/admin/admin_home.html" class="nav__logo-link">
+                        <img src="asserts/img/brand-logo@2x.png" alt="" class="nav-logo__img">
+                    </a>
+                </div>
+                <ul class="nav__list">
+
+                    <li class="nav__item ">
+                        <div class="nav__item-link nav__admin nav__form-logged-in">
+                            <div class="nav__admin-icon">
+                                <i class="fa-regular fa-user"></i>
+                            </div>
+                            Admin
+
+                            <div class="nav__form-admin">
+
+
+
+                                <ul class="form-admin__list">
+                                    <!-- <li class="form-admin__item">
+                                        <a href="" class="form-admin__link">
+                                            <i class="fa-solid fa-gear"></i>
+                                            <span class="form-admin__link-title">Quản lí tài khoản</span>
+                                        </a>
+                                    </li> -->
+
+
+                                    <li class="form-admin__item">
+                                        <a href="/" class="form-admin__item-link">
+                                            <i class="fa-solid fa-right-from-bracket"></i>
+                                            <span class="form-admin__link-title">Đăng xuất</span>
+
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </header>
     <div class="container">
 
         <!-- Sidebar -->
-        <%@include file="sidebar_admin.jsp"%>
-
+        <div class="sidebar">
+            <h3>Trang chủ admin</h3>
+            <a  href="report">Thống kê và báo cáo</a>
+            <a  href="company-user-job">Quản lý nhà tuyển dụng</a>
+            <a class="sidebar--active" href="#">Quản lý ứng viên</a>
+            <a href="job_manager">Quản lý bài đăng</a>
+            <a href="manager-category">Quản lý ngành nghề</a>
+            <a href="manager-user">Quản lý tài khoản</a>
+        </div>
 
 
 

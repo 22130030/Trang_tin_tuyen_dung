@@ -189,7 +189,7 @@ public class ResumesDao {
                 String phone = rs.getString("phone");
                 LocalDateTime updatedAt = rs.getTimestamp("updated_at").toLocalDateTime();
                 Resumes resumes = new Resumes(resumeID,candidateID,fileCv,title,"",birthYear,marital
-                ,address,education,schoolName,salary,career,gender,phone);
+                        ,address,education,schoolName,salary,career,gender,phone);
                 resumes.setStatus(status);
                 resumes.setUpdated(updatedAt);
                 res.add(resumes);

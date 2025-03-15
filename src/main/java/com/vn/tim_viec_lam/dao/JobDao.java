@@ -446,7 +446,7 @@ public class JobDao {
                 " where jl.city like ? and jp.titleJob like ?";
 
         try {
-              PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, "%" + address + "%");
             ps.setString(2, "%" + name + "%");
             ResultSet rs = ps.executeQuery();
@@ -523,7 +523,7 @@ public class JobDao {
         }
 
     }
-        public boolean addJobPosting(int companyId,String companyName,String employerSize,String website,String jobName,String jobAddress
+    public boolean addJobPosting(int companyId,String companyName,String employerSize,String website,String jobName,String jobAddress
             ,String salaryValue,String salaryUnit,String educationLevel,String experienceLevel,String jobType,String jobLocation,
                                  String jobCategory,String keywords,String age,String contactName
             ,String contactEmail,String contactPhone,String contactAddress ,String jobPostingDate,String JobExpiryDate,String language){
@@ -568,4 +568,3 @@ public class JobDao {
         }
         return false;
     }}
-

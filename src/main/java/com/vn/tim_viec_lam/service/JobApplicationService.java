@@ -23,4 +23,3 @@ public class JobApplicationService {
     public static void main(String[] args) {
     }
 }
-

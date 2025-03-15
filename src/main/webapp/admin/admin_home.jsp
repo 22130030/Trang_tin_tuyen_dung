@@ -22,7 +22,54 @@
 </head>
 <body>
 <div class="admin">
-  <%@include file="header_admin.jsp"%>
+
+  <header class="header">
+    <nav class="nav">
+      <div class="grid nav__container">
+        <div class="nav__logo">
+          <a href="/html/admin/admin_home.html" class="nav__logo-link">
+            <img src="../asserts/img/brand-logo@2x.png" alt="" class="nav-logo__img">
+          </a>
+        </div>
+        <ul class="nav__list">
+
+          <li class="nav__item ">
+            <div class="nav__item-link nav__admin nav__form-logged-in">
+              <div class="nav__admin-icon">
+                <i class="fa-regular fa-user"></i>
+              </div>
+              Admin
+
+              <div class="nav__form-admin">
+
+
+
+                <ul class="form-admin__list">
+                  <!-- <li class="form-admin__item">
+                      <a href="" class="form-admin__link">
+                          <i class="fa-solid fa-gear"></i>
+                          <span class="form-admin__link-title">Quản lí tài khoản</span>
+                      </a>
+                  </li> -->
+
+
+                  <li class="form-admin__item">
+                    <a href="/" class="form-admin__item-link">
+                      <i class="fa-solid fa-right-from-bracket"></i>
+                      <span class="form-admin__link-title">Đăng xuất</span>
+
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </nav>
+  </header>
   <div class="container">
 
     <!-- Sidebar -->
@@ -87,6 +134,24 @@
     </div>
   </div>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const navUser = document.querySelector('.nav__admin');
+    const dropdownMenu = document.querySelector('.nav__form-admin');
 
+    // Hiển thị menu khi click vào `.nav__has--form-login`
+    navUser.addEventListener('click', function (event) {
+      event.stopPropagation();
+      dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Đóng menu khi click ra ngoài
+    document.addEventListener('click', function (event) {
+      if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {
+        dropdownMenu.style.display = 'none';
+      }
+    });
+  });
+</script>
 </body>
 </html>

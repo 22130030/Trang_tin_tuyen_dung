@@ -1,3 +1,4 @@
+
 package com.vn.tim_viec_lam.dao;
 
 import com.vn.tim_viec_lam.dao.model.Job;
@@ -127,7 +128,7 @@ public class UserDao {
             ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                 user = getResultSet(rs);
+                user = getResultSet(rs);
             }
             return user;
         } catch (SQLException e) {

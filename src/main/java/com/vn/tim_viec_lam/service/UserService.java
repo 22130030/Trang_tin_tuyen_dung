@@ -21,7 +21,7 @@ public class UserService {
         return userDao.getUserByEmail(email);
     }
     public List<User> getListAll(){
-      return userDao.getListUser();
+        return userDao.getListUser();
     }
     public String hasPasswordToMD5(String password) {
         try {

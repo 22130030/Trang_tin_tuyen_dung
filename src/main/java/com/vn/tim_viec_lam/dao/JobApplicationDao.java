@@ -1,3 +1,4 @@
+
 package com.vn.tim_viec_lam.dao;
 
 import com.vn.tim_viec_lam.dao.model.Job;
@@ -47,28 +48,28 @@ public class JobApplicationDao {
     }
 
     public boolean addJobAppFromComputer(String path, String fileName,String type,int jobID,int companyID,int candidateId,String phone) {
-            Connection connection = DBconnect.getConnection();
-            String sql = "INSERT INTO resumes (fileCv,title,type,updated_at,phone) VALUES (?,?,?,NOW(),?)";
-            try {
-                PreparedStatement prep = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
-                prep.setString(1,path);
-                prep.setString(2,fileName);
-                prep.setString(3,type);
-                prep.setString(4,phone);
-                int res = prep.executeUpdate();
-                if(res > 0){
-                    try(ResultSet rs = prep.getGeneratedKeys()){
-                        if(rs.next()){
-                            int resumeID = rs.getInt(1);
-                            return addJobApplicationFromAccount(companyID,jobID,resumeID,candidateId,phone);
-                        }
+        Connection connection = DBconnect.getConnection();
+        String sql = "INSERT INTO resumes (fileCv,title,type,updated_at,phone) VALUES (?,?,?,NOW(),?)";
+        try {
+            PreparedStatement prep = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+            prep.setString(1,path);
+            prep.setString(2,fileName);
+            prep.setString(3,type);
+            prep.setString(4,phone);
+            int res = prep.executeUpdate();
+            if(res > 0){
+                try(ResultSet rs = prep.getGeneratedKeys()){
+                    if(rs.next()){
+                        int resumeID = rs.getInt(1);
+                        return addJobApplicationFromAccount(companyID,jobID,resumeID,candidateId,phone);
                     }
                 }
-                return res > 0;
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
             }
+            return res > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
     public List<JobApplication> getAll() {
@@ -105,4 +106,3 @@ public class JobApplicationDao {
         System.out.println(dao.getAll());
     }
 }
-

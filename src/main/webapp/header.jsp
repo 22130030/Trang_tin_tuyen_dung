@@ -34,7 +34,7 @@
                 </li>
 
                 <li class="nav__item">
-                    <a href="career_handbook.jsp" class="nav__item-link">
+                    <a href="html/career_handbook.html" class="nav__item-link">
                         <i class="nav-item__icon fa-solid fa-book-open"></i>
                         Cẩm nang việc làm
                     </a>
@@ -63,8 +63,8 @@
                         </c:if>
                             <div class="nav__dropdown-menu">
                                 <div style="display: ${sessionScope.user == null ? 'flex' : 'none'}"  class="menu__buttons">
-                                    <button class="btn menu__register" onclick="window.location.href='${pageContext.request.contextPath}/register.jsp'">Đăng ký</button>
-                                    <button class="btn menu__login" onclick="window.location.href='${pageContext.request.contextPath}/login.jsp'">Đăng nhập</button>
+                                    <button class="btn menu__register" onclick="window.location.href='/html/candidate/register.html'">Đăng ký</button>
+                                    <button class="btn menu__login" onclick="window.location.href='/html/candidate/login.html'">Đăng nhập</button>
                                 </div>
                             <ul class="menu__list">
                                 <li class="menu__item">
@@ -85,21 +85,12 @@
                                         <span class="menu__link-title">Việc đã ứng tuyển</span>
                                     </a>
                                 </li>
-                            <c:if  test="${!empty sessionScope.user}">
-
                                 <li class="menu__item">
-                                    <a href="${pageContext.request.contextPath}/account/account_candidate.jsp" class="menu__link">
-                                        <i class="fa-regular fa-user"></i>
-                                        <span class="menu__link-title">Tài khoản của tôi</span>
+                                    <a href="" class="menu__link">
+                                        <i class="menu__link-icon fa-regular fa-bell"></i>
+                                        <span class="menu__link-title">Thông báo việc làm</span>
                                     </a>
                                 </li>
-                                <li class="menu__item">
-                                    <a href="${pageContext.request.contextPath}/account/upgrade_account.jsp" class="menu__link">
-                                        <i class="fa-solid fa-circle-up"></i>
-                                        <span class="menu__link-title">Nâng cấp tài khoản</span>
-                                    </a>
-                                </li>
-                            </c:if>
                             </ul>
                         </div>
 
