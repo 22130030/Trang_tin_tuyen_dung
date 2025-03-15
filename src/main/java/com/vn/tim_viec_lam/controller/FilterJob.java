@@ -30,7 +30,7 @@ public class FilterJob extends HttpServlet {
 
         HttpSession session = request.getSession();
         int companyId = (int) session.getAttribute("companyId");
-            jobList = js.filterJob(companyId,jobName, jobCategory, jobLocation);
+        jobList = js.filterJob(companyId,jobName, jobCategory, jobLocation);
 
         CategoryService cs = new CategoryService();
         List<JobPostCategory> categoryList = cs.getAllCategories();
