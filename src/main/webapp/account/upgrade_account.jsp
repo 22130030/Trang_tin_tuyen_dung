@@ -157,7 +157,7 @@
                     </li>
                 </ul>
                 <div class="action update">
-                    <a href="payment.jsp?plan=pro"
+                    <a href="https://www.topcv.vn/tai-khoan/nang-cap/thanh-toan?plan=pro"
                        class="btn btn--upgrade">Nâng cấp</a>
                 </div>
             </div>
@@ -194,7 +194,7 @@
 
                 </ul>
                 <div class="action update">
-                    <a href="payment.jsp?plan=prenium"
+                    <a href="https://www.topcv.vn/tai-khoan/nang-cap/thanh-toan?plan=premium"
                        class="btn btn--upgrade">Nâng cấp</a>
                 </div>
             </div>
