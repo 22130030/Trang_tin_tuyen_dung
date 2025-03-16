@@ -96,7 +96,15 @@
                                     <a href="html/login.html" class="btn btn-block py-2 btn-facebook">
                                         <img src="asserts/img/fb.png" alt="" class="icon-fb">Đăng nhập với
                                         facebook</a>
-                                    <a href="html/login.html" class="btn btn-block py-2 btn-google"
+                                    <a href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid
+
+&redirect_uri=http://localhost:8080/MyProject/login
+
+&response_type=code
+
+&client_id=498652601621-ffeqe8rphbiesh13vtrp6iiq3r8n3tcl.apps.googleusercontent.com
+
+&approval_prompt=force" class="btn btn-block py-2 btn-google"
                                        style="margin-left: 0px;">
                                         <img src="asserts/img/gg.png" alt="" class="icon-gg">Đăng nhập với
                                         Google</a>
