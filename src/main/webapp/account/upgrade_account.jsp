@@ -194,7 +194,7 @@
 
                 </ul>
                 <div class="action update">
-                    <a href="payment.jsp?plan=prenium"
+                    <a href="payment.jsp?plan=premium"
                        class="btn btn--upgrade">Nâng cấp</a>
                 </div>
             </div>
