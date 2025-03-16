@@ -63,7 +63,7 @@
             </a>
           </div>
           <div class="sidebar__item my__candidates-item">
-            <a class="nav-link bs-tooltip ${relativePath eq "/employer/save_resume.jsp" ? 'active' : ''}" href="${pageContext.request.contextPath}/employer/save_resume.jsp">
+            <a class="nav-link bs-tooltip" href="/html/employer/save_profile.html">
               <span class="item-label text-truncate">Hồ sơ đã lưu</span>
             </a>
           </div>

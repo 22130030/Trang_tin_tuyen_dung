@@ -24,10 +24,8 @@ public class UploadFile extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         ResumesService rs = new ResumesService();
-        int candidateId = (int) session.getAttribute("candidateId");
 
-
-        List<Resumes> resumesList = rs.getResumes(candidateId);
+        List<Resumes> resumesList = rs.getResumes();
         session.setAttribute("jac", resumesList);
         request.getRequestDispatcher("job_application.jsp").forward(request, response);
     }
@@ -44,10 +42,7 @@ public class UploadFile extends HttpServlet {
 
         FileService fs = new FileService();
         HttpSession session = request.getSession();
-        int candidateId = (int) session.getAttribute("candidateId");
-        System.out.println("candidateId: " + candidateId);
         ResumesService rs = new ResumesService();
-
         String filePath = "";
         int resumeId =0;
         try{
@@ -63,10 +58,11 @@ public class UploadFile extends HttpServlet {
                         type = fileName.substring(i + 1).toLowerCase();
                     }
                     part.write(filePath);
-                    resumeId = rs.addResume(candidateId,fName, filePath, type);
+                    resumeId = rs.addResume(fName, filePath, type);
+                    System.out.println("resumeId = " + resumeId);
 
                 }
-                    List<Resumes> updatedList = rs.getResumes(candidateId);
+                    List<Resumes> updatedList = rs.getResumes();
                     session.setAttribute("jac", updatedList);
             }
                     response.setContentType("application/json");

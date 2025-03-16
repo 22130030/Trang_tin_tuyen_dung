@@ -4,7 +4,10 @@ import com.vn.tim_viec_lam.dao.model.Job;
 import com.vn.tim_viec_lam.dao.model.User;
 import com.vn.tim_viec_lam.database.DBconnect;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +16,7 @@ public class UserDao {
     public List<User> getAll() {
         List<User> users = new ArrayList<User>();
         Connection con = DBconnect.getConnection();
-        String sql = "select * from users u" +
-                " join roles r on r.userID = u.userID";
+        String sql = "select * from users";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -29,9 +31,7 @@ public class UserDao {
     }
     public User getUserByEmail(String email) {
         Connection con = DBconnect.getConnection();
-        String sql = "select * from users u" +
-                " join roles r on r.userId = u.userID" +
-                " where email = ?";
+        String sql = "select * from users where email = ?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, email);
@@ -62,13 +62,12 @@ public class UserDao {
     public User excute(ResultSet rs) throws SQLException {
         int id = rs.getInt("userID");
         String email = rs.getString("email");
-        int role = rs.getInt("roleNum");
 //        String password = rs.getString("password");
         String name = rs.getString("name");
         String phoneNumber = rs.getString("phone_number");
         String status = rs.getString("status");
         LocalDateTime date = rs.getTimestamp("created_at").toLocalDateTime();
-        return new User(id,email,"",name,phoneNumber,status,date,role);
+        return new User(id,email,"",name,phoneNumber,status,date,1);
     }
 
     public static void main(String[] args) {
@@ -77,7 +76,6 @@ public class UserDao {
     }
     public List<User> getListUser(){
         List<User> users = new ArrayList<User>();
-
         Connection conn = DBconnect.getConnection();
         String sql = "SELECT u.*, r.roleNum " +
                 "FROM users u " +
@@ -202,39 +200,5 @@ public class UserDao {
     }
 
 
-    public boolean insertUser(String email, String pass, String fullName,String phone) {
-        Connection con = DBconnect.getConnection();
-        String sql = "insert into users(email,password,phone_number,status,created_at,name) values(?,?,?,?,NOW(),?)";
-        try {
-            PreparedStatement prep = con.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
-            prep.setString(1,email);
-            prep.setString(2,pass);
-            prep.setString(3,phone);
-            prep.setString(4,"đang hoạt động");
-            prep.setString(5,fullName);
-            int rowsAffected = prep.executeUpdate();
-            if(rowsAffected>0){
-                ResultSet rs = prep.getGeneratedKeys();
-                if(rs.next()){
-                    int userID = rs.getInt(1);
-                    sql = " insert into roles(userID,roleNum) values(?,?)";
-                    prep = con.prepareStatement(sql);
-                    prep.setInt(1,userID);
-                    prep.setInt(2,1);
-                    prep.executeUpdate();
-                    sql = " insert into candidates(userID,fullName,email,phone) values(?,?,?,?)";
-                    prep = con.prepareStatement(sql);
-                    prep.setInt(1,userID);
-                    prep.setString(2,fullName);
-                    prep.setString(3,email);
-                    prep.setString(4,phone);
-                    prep.executeUpdate();
-                    return true;
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return false;
-    }
+
 }

@@ -14,13 +14,10 @@ public class CandidateLogout extends HttpServlet {
         response.setContentType("text/html");
 
         HttpSession session = request.getSession();
-        int role = (int) session.getAttribute("role");
-        if(session.getAttribute("user") != null && role == 1){
+        if(session.getAttribute("user") != null){
+            session.removeAttribute("user");
             session.removeAttribute("jobAppliedCart");
-        }else if(session.getAttribute("user") != null && role == 2){
         }
-        session.removeAttribute("user");
-        session.removeAttribute("role");
         response.sendRedirect(request.getContextPath() + "/home");
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}

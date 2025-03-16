@@ -18,11 +18,11 @@ public class AddProfileController extends HttpServlet {
         String schoolName = request.getParameter("school-name");
         String salary = request.getParameter("expected-salary");
         String career = request.getParameter("career");
-        String phone = request.getParameter("phone");
 
         ResumesService rs = new ResumesService();
         int fileId = request.getParameter("fileId") != null ?  Integer.parseInt(request.getParameter("fileId")) : 1;
-        rs.updateProfile(fileId,title,birthYear,marital,address,education,schoolName,salary,career,gender,phone);
+        System.out.println(fileId);
+        rs.updateProfile(fileId,title,birthYear,marital,address,education,schoolName,salary,career,gender);
 
 
         request.getRequestDispatcher("job_application.jsp").forward(request, response);

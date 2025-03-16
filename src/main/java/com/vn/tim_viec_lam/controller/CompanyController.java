@@ -25,7 +25,7 @@ public class CompanyController extends HttpServlet {
         request.setAttribute("companies",companies);
         request.setAttribute("size",size);
         request.setAttribute("c",companies);
-
+        System.out.println(companies.size());
         request.getRequestDispatcher("company.jsp").forward(request,response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

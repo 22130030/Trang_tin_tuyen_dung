@@ -18,9 +18,6 @@ public class CandidateService {
     public List<Candidate> findListCandidateStatus(String status)  {
         return candidateDao.FindListCandidateEmail(status);
     }
-    public int getCandidateIdByUserId(int userId)  {
-        return candidateDao.findCandidateIdByUserId(userId);
-    }
     public void deleteUserCandidate(int id)  {
         candidateDao.deleteCandidateById(id);
     }

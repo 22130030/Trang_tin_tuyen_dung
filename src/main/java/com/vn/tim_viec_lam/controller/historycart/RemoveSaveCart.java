@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(name = "removeSaveCart",value = "/account/remove-saveCart")
+@WebServlet(name = "removeSaveCart",value = "/remove-saveCart")
 public class RemoveSaveCart extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
@@ -23,7 +23,7 @@ public class RemoveSaveCart extends HttpServlet {
         if(sc != null){
             session.removeAttribute("hsCart");
         }
-        response.sendRedirect(request.getContextPath() + "home_account.jsp");
+        response.sendRedirect(request.getContextPath() + "/home_account.jsp");
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");

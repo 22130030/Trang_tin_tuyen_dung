@@ -288,10 +288,10 @@
         </div>
 
         <div class="form-group">
-            <label for="phone" >Số điện thoại*</label>
+            <label for="phone">Số điện thoại*</label>
             <div class="phone-input">
                 <span class="phone-icon">📞</span>
-                <input type="text" id="phone" name="phone" placeholder="Nhập số điện thoại của bạn" required>
+                <input type="text" id="phone" name="phone" placeholder="Nhập số điện thoại của bạn">
             </div>
             <p class="contact-note">Nhà tuyển dụng có thể liên hệ với bạn qua số điện thoại này.</p>
         </div>
@@ -327,7 +327,6 @@
 </div>
 
 <script>
-
     const saveButton = document.getElementById('save__button');
     saveButton.addEventListener('click', () => handleSaveButton(saveButton));
 
@@ -407,26 +406,11 @@
 
     // Khi nhấn "Nộp đơn"
     submitBtn.addEventListener("click", async () => {
-        const phone = document.getElementById("phone").value.trim();
-
-        // Check if the phone number is empty
-        if (!phone) {
-            alert("Số điện thoại không được để trống.");
-            return;
-        }
-
-        // Check if a valid phone number format is entered (basic validation)
-        const phoneRegex = /^\d{10}$/; // You can adjust this pattern as needed
-        if (!phoneRegex.test(phone)) {
-            alert("Số điện thoại không hợp lệ. Vui lòng nhập lại.");
-            return;
-        }
         if (!selectedFile && fileId === 0) {
             alert("Bạn chưa chọn file.");
             return;
         }
         const formData = new FormData();
-        formData.append("phone", phone); // Add phone number to form data
         console.log(fileId);
         if(selectedFile) {
             formData.append("file", selectedFile);

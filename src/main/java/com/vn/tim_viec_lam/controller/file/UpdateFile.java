@@ -18,9 +18,8 @@ public class UpdateFile extends HttpServlet {
         response.setContentType("application/json");
 
         HttpSession session = request.getSession();
-        int candidateId = (int) session.getAttribute("candidateId");
         ResumesService rs = new ResumesService();
-        List<Resumes> jac = rs.getResumes(candidateId);
+        List<Resumes> jac = rs.getResumes();
         if(jac != null){
             int size = jac.size();
             String jsonResponse = "{\"items\": " + size + "}";

@@ -10,14 +10,14 @@ public class JobApplicationService {
     public JobApplicationService(){
         jobApplicationDao = new JobApplicationDao();
     }
-    public boolean addJobApplicationFromAccount(int companyID, int jobPostID,int resumesID,int candidateID,String phone){
-        return jobApplicationDao.addJobApplicationFromAccount(companyID, jobPostID, resumesID, candidateID,phone);
+    public boolean addJobApplicationFromAccount(int companyID, int jobPostID,int resumesID,int candidateID){
+        return jobApplicationDao.addJobApplicationFromAccount(companyID, jobPostID, resumesID, candidateID);
     }
     public List<JobApplication> getAll(){
         return jobApplicationDao.getAll();
     }
-    public boolean addJobAppFromComputer(String path, String fileName,String type,int jobID,int companyID,int candidateId,String phone) {
-        return jobApplicationDao.addJobAppFromComputer(path, fileName, type, jobID, companyID, candidateId,phone);
+    public boolean addJobAppFromComputer(String path, String fileName,String type,int jobID,int companyID,int candidateId) {
+        return jobApplicationDao.addJobAppFromComputer(path, fileName, type, jobID, companyID, candidateId);
     }
 
     public static void main(String[] args) {

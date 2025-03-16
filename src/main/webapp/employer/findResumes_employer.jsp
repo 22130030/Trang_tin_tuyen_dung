@@ -156,14 +156,8 @@
                                         <!-- <div class="bookmark">&#9734;</div> -->
                                         <div class="profile-card-content">
                                             <img class="profile-card__img" src="../asserts/img/user.png" alt="Profile Picture">
-                                            <div class="profile-card-container">
-                                                <div class="profile-card__head">
-                                                    <a href="download-file?path=${r.encodingPath}" class="title">${r.title}</a>
-                                                    <a href="#" onclick="return addResume(event, ${r.id})" class="heart">
-                                                        <i id="save_profile" class="fa-regular fa-heart"></i>
-
-                                                    </a>
-                                                </div>
+                                            <div>
+                                                <a href="download-file?path=${r.encodingPath}" class="title">${r.title}</a>
                                                 <div class="location">
                                                     <i class="fa fa-map-marker">
                                                     </i>
@@ -190,30 +184,6 @@
         <%@ include file="../footer.jsp"%>
     </div>
     <script>
-        function addResume(event, resumeId) {
-            event.preventDefault();
-
-            fetch(`add-resume?resumeId=` + resumeId, {
-                method: 'GET'
-            })
-                .then(response => {
-                    if (response.status === 401) {
-                        // Chuyển hướng đến trang đăng nhập
-                    } else if (response.ok) {
-                        const heartIcon = event.target.closest('a').querySelector('i');
-                        heartIcon.classList.remove('fa-regular');
-                        heartIcon.classList.add('fa-solid');
-                    } else {
-                        alert('Có lỗi xảy ra!');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Có lỗi xảy ra!');
-                });
-
-            return false; // Ngừng hành động mặc định (tránh thay đổi trang)
-        }
         $(document).ready(function() {
             // Lưu giá trị ban đầu của các trường
             var previousValues = {

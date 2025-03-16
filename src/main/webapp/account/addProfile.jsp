@@ -35,9 +35,6 @@
     <label for="birth-year">Năm sinh</label>
     <input type="number" id="birth-year" name="birth-year" placeholder="Nhập năm sinh">
 
-    <label for="phone">Nhập số điện thoại</label>
-    <input type="text" id="phone" name="phone" placeholder="Nhập số điện thoại">
-
     <label for="marital-status">Tình trạng hôn nhân</label>
     <select id="marital-status" name="marital-status">
       <option value="single">Độc thân</option>

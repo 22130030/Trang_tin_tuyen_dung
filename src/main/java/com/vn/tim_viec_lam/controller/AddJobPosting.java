@@ -3,8 +3,6 @@ package com.vn.tim_viec_lam.controller;
 import com.vn.tim_viec_lam.service.JobService;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpSession;
-
 @WebServlet(name = "add-job-posting", value = "/employer/add-job-posting")
 public class AddJobPosting extends HttpServlet {
     protected void doGet(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response) throws jakarta.servlet.ServletException, java.io.IOException {
@@ -13,10 +11,6 @@ public class AddJobPosting extends HttpServlet {
     protected void doPost(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response) throws jakarta.servlet.ServletException, java.io.IOException {
         response.setContentType("text/html;charset=utf-8");
         request.setCharacterEncoding("utf-8");
-
-        HttpSession session = request.getSession();
-        int companyId = (int) session.getAttribute("companyId");
-
         String companyName = request.getParameter("companyName");
         String employerSize = request.getParameter("employerSize");
         String website = request.getParameter("website");
@@ -47,8 +41,8 @@ public class AddJobPosting extends HttpServlet {
         String language = request.getParameter("language");
 
         JobService js = new JobService();
-        boolean res = js.addJobPosting(companyId,companyName,employerSize,website,jobName,jobAddress,salaryValue,salaryUnit,educationLevel,experienceLevel,jobType,jobLocation,jobCategory,keywords,age,contactName,contactEmail,contactPhone,contactAddress,jobPostingDate,JobExpiryDate,language);
-
+        boolean res = js.addJobPosting(companyName,employerSize,website,jobName,jobAddress,salaryValue,salaryUnit,educationLevel,experienceLevel,jobType,jobLocation,jobCategory,keywords,age,contactName,contactEmail,contactPhone,contactAddress,jobPostingDate,JobExpiryDate,language);
+        System.out.println(res);
         request.getRequestDispatcher("employer.jsp").forward(request,response);
 
 

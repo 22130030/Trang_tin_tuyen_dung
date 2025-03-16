@@ -22,10 +22,9 @@ public class Resumes implements java.io.Serializable{
     private int status;
     private LocalDateTime created;
     private LocalDateTime updated;
-    private String phone;
     public Resumes() {}
     public Resumes(int id, int candidateId, String path, String title, String type, int birthYear, String marital,String address
-            , String education, String schoolName, String salary, String career, String gender,String phone) {
+            , String education, String schoolName, String salary, String career, String gender) {
         this.id = id;
         this.candidateId = candidateId;
         this.path = path;
@@ -39,7 +38,6 @@ public class Resumes implements java.io.Serializable{
         this.salary = salary;
         this.career = career;
         this.gender = gender;
-        this.phone = phone;
     }
 
     public int getId() {
@@ -64,12 +62,6 @@ public class Resumes implements java.io.Serializable{
 
     public void setPath(String path) {
         this.path = path;
-    }
-    public String getPhone() {
-        return phone;
-    }
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
     public String getEncodingPath(){
         try {

@@ -18,7 +18,7 @@ public class JobDetail extends HttpServlet {
 
         if(request.getParameter("jid") != null) {
             int id = Integer.parseInt(request.getParameter("jid"));
-
+            System.out.println(request.getRequestURI());
             JobService js = new JobService();
             Job job = js.getJobById(id);
 

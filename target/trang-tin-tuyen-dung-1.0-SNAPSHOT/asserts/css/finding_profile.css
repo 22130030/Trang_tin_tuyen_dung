@@ -415,15 +415,13 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
 
 }
-.profile-card-container{
-    flex : 1;
-}
+
 .profile-card .title {
     font-size: 1.4rem;
     font-weight: bold;
     color: #0073b1;
     margin: 8px 0;
-    text-align: left;
+    text-align: start;
 }
 
 .profile-card .location {
@@ -479,14 +477,4 @@
     display: flex;
     align-items: center;
     gap: 16px;
-}
-.profile-card__head{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-#save_profile{
-    margin-left: 15px;
-    font-size: 1.6rem;
-    color : var(--blue-color);
 }
