@@ -1,11 +1,10 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Le Minh Cong, Minh Hiếu
-  Date: 12/20/2024, 03/09/2025
+  User: Le Minh Cong
+  Date: 12/20/2024
   Time: 9:46 AM
   To change this template use File | Settings | File Templates.
 --%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "f" uri = "http://java.sun.com/jsp/jstl/fmt" %>
@@ -20,10 +19,10 @@
     <title>Kiếm việc làm online</title>
 </head>
 <body>
-<div class="application">
+    <div class="application">
     <!-- header -->
     <!-- navigation -->
-    <%@include file="header.jsp"%>
+  <%@include file="header.jsp"%>
 
     <div class="app__container">
         <div class="grid">
@@ -52,21 +51,19 @@
                                     <div class="lj__content-info">
                                         <span class="lj__content-address">${j.city}</span>
                                         <span>Ngày đăng :
-                           
                                                     <span class="lj__content-time">${j.convertCreated}</span>
                                                 </span>
+                                    </div>
+                                    <div class="lj__content-detail">
+                                        <span class="lj__content-salary">${j.salary}</span>
+                                        <div class="lj__detail-save">
+                                            <i class="fa-regular fa-heart"></i>
+                                            <a>Lưu</a>
                                         </div>
                                     </div>
-                                        <div class="lj__content-detail">
-                                            <span class="lj__content-salary">${j.salary}</span>
-                                            <div class="lj__detail-save">
-                                                <i class="fa-regular fa-heart"></i>
-                                                <a>Lưu</a>
-                                            </div>
-                                        </div>
-                                    </a>
                                 </div>
                             </div>
+                        </div>
 
                         </c:forEach>
                     </div>
@@ -81,9 +78,8 @@
     </div>
 
     <!-- footer -->
-    <%@include file="footer.jsp"%>
+        <%@include file="footer.jsp"%>
 </div>
 
 </body>
 </html>
-
