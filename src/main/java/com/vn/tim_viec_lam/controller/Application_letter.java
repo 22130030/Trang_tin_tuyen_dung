@@ -9,6 +9,7 @@ import com.vn.tim_viec_lam.service.JobService;
 import com.vn.tim_viec_lam.service.ReviewService;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +19,13 @@ public class Application_letter extends HttpServlet {
     protected void doGet(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response) throws jakarta.servlet.ServletException, java.io.IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        HttpSession session = request.getSession();
+        int companyId = (int) session.getAttribute("companyId");
+
         ReviewService rs = new ReviewService();
         JobService j = new JobService();
-        List<Job> jobs = j.getJobByCompanyId(1);
+        List<Job> jobs = j.getJobByCompanyId(companyId);
+
         List<Review> files = new ArrayList<>();
         int jobId = 0;
         if(request.getParameter("jobId") == null){
@@ -30,7 +35,7 @@ public class Application_letter extends HttpServlet {
         }
 
             files = rs.getAllReviewByJobId(jobId);
-            System.out.println(jobId);
+
         }
         request.setAttribute("files", files);
         request.setAttribute("jobs", jobs);

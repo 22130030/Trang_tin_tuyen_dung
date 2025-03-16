@@ -8,7 +8,7 @@ public class EditJobApplication extends HttpServlet {
         if(request.getParameter("fileId") != null && request.getParameter("fileName") != null){
             int fileId = Integer.parseInt(request.getParameter("fileId").toString());
             String fileName = request.getParameter("fileName");
-            System.out.println(fileId);
+
             request.setAttribute("fileId", fileId);
             request.setAttribute("fileName", fileName);
             request.getRequestDispatcher("addProfile.jsp").forward(request, response);

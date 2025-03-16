@@ -1,0 +1,82 @@
+h4{margin: 0;}
+.application{
+    background-color: rgba(240,240,240);
+
+}
+.container{
+    max-width: 900px;
+    margin: 0 auto;
+    padding : 15px 0;
+}
+.payment__head h1{
+    text-align: center;
+    font-size: 2.2rem;
+    color : var(--text-color);
+    margin: 0 0 15px 0;
+}
+
+.payment__container{
+    background-color: var(--white-color);
+    padding: 30px;
+}
+.container__step-payment,.payment__method{
+    font-size: 2rem;
+}
+.container__step-payment h4{
+    margin: 15px 0;
+    font-weight: 540;
+}
+.container__step-payment-circle{
+    border: 1px solid var(--blue-color);
+    border-radius: 50%;
+    padding : 5px 10px;
+    margin-right: 5px;
+}
+.step-payment__content label{
+    display: block;
+    margin: 10px 0;
+}
+.step-payment__content{
+    font-size: 1.5rem;
+    padding-left: 10px;
+}
+.step-payment__content sup{
+    font-weight: normal;
+}
+.step-payment__date{
+    font-weight: normal;
+}
+
+.payment__method{
+    margin-top:40px;
+}
+.payment__method h4{
+    font-weight: 540;
+}
+
+
+.payment-method__content{
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.btn-payment{
+    display: flex;
+    align-items: center;
+    width : 49%;
+    height: 80px;
+    padding : 20px;
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,0.2);
+    font-size: 1.8rem;
+}
+.btn-payment:hover{
+    cursor: pointer;
+}
+.payment-method__img{
+    width : 60px;
+    height : 60px;
+    background-size:  contain;
+    margin-right: 10px;
+}

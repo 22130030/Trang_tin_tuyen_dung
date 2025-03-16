@@ -30,6 +30,7 @@ public class ReviewDao {
                 String status = resultSet.getString("rating");
                 LocalDateTime created = resultSet.getTimestamp("created_at").toLocalDateTime();
                 Review r = new Review(id,companyID,applicationID,type,path,title,status,created);
+                r.setPhone(resultSet.getString("phone"));
                 reviews.add(r);
             }
             return reviews;
@@ -57,8 +58,10 @@ public class ReviewDao {
                 String path = resultSet.getString("fileCv");
                 String title = resultSet.getString("title");
                 String status = resultSet.getString("rating");
+                String phone = resultSet.getString("phone");
                 LocalDateTime created = resultSet.getTimestamp("created_at").toLocalDateTime();
                 Review r = new Review(id,companyID,applicationID,type,path,title,status,created);
+                r.setPhone(phone);
                 reviews.add(r);
             }
             return reviews;
