@@ -32,7 +32,9 @@
                 </h4>
                 <div class="step-payment__content">
                     <label for="" class="step-payment__content--pro">
-                        <input type="radio">
+                        <input type="radio" name="group__payment" id="pro-inp"
+                               <c:if test="${'pro' eq param.plan}">checked</c:if>
+                        >
                         <strong class="">Tài khoản Pro
                             -
                             </strong>
@@ -41,9 +43,11 @@
                             <span class="step-payment__date"> / 1 tháng sử dụng</span>
                     </label>
 
-                    <label for="" class="step-payment__content--prenium">
-                        <input type="radio">
-                        <strong class="">Tài khoản Prenium
+                    <label for="" class="step-payment__content--premium">
+                        <input type="radio" name="group__payment" id="premium-inp"
+                            <c:if test="${'premium' eq param.plan}">checked</c:if>
+                        >
+                        <strong class="">Tài khoản premium
                             -
                             </strong>
                             <strong>500.000</strong>
@@ -58,7 +62,7 @@
                     Chọn hình thức thanh toán
                 </h4>
                 <div class="payment-method__content">
-                    <button style="margin-bottom: 10px" class="btn-payment" id="">
+                    <button  style="margin-bottom: 10px" class="btn-payment" id="btn-momo__payment">
                         <img class="payment-method__img" src="../asserts/img/payments/momo.webp">
                         Thanh toán bằng Ví MoMo
                     </button>
@@ -73,5 +77,26 @@
     </div>
     <%@include file="../footer.jsp"%>
 </div>
+<script>
+    document.getElementById("btn-momo__payment").addEventListener("click", function() {
+        const proRadio = document.getElementById("pro-inp");
+        const amount = proRadio.checked ? 50000 : 500000;
+
+        fetch("${pageContext.request.contextPath}/account/momo-payment", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: "amount=" + amount
+        })
+            .then(response => response.text())
+            .then(data => {
+                if (data.startsWith("http")) {
+                    window.location.href = data; // Redirect to MoMo payment page
+                } else {
+                    alert("Thanh toán thất bại: " + data);
+                }
+            })
+            .catch(error => alert("Lỗi kết nối: " + error));
+    });
+</script>
 </body>
 </html>
