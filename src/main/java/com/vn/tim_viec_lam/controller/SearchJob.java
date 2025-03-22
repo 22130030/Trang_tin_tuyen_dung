@@ -1,5 +1,6 @@
 package com.vn.tim_viec_lam.controller;
 
+import com.google.gson.Gson;
 import com.vn.tim_viec_lam.dao.model.Job;
 import com.vn.tim_viec_lam.service.JobService;
 import jakarta.servlet.ServletException;
@@ -9,9 +10,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "search-job", value = "/search-job")
 public class SearchJob extends HttpServlet {
@@ -19,10 +22,39 @@ public class SearchJob extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(SearchJob.class.getName());
     private final JobService jobService = new JobService(); // Có thể thay bằng DI
 
+    // Danh sách gợi ý tìm kiếm tổng quát
+    private final List<String> allSuggestions = Arrays.asList(
+            "lập trình viên",
+            "kế toán",
+            "bán hàng",
+            "marketing",
+            "thiết kế đồ họa",
+            "quản lý dự án",
+            "nhân sự",
+            "kỹ sư",
+            "chăm sóc khách hàng",
+            "nhân viên kế toán",
+            "nhân viên bán hàng",
+            "nhân viên marketing",
+            "nhân viên IT",
+            "nhân viên kho",
+            "trưởng phòng kinh doanh",
+            "kỹ sư phần mềm",
+            "chuyên viên tuyển dụng",
+            "thực tập sinh marketing",
+            "nhân viên chăm sóc khách hàng"
+    );
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
+
+        String query = request.getParameter("searchName");
+        if (query != null && !query.isEmpty()) {
+            handleSuggestions(request, response, query);
+            return; // Dừng xử lý nếu là yêu cầu gợi ý
+        }
 
         String title = "";
         List<Job> jobList = null;
@@ -86,5 +118,28 @@ public class SearchJob extends HttpServlet {
             return " cho ngành " + request.getParameter("jcname");
         }
         return "";
+    }
+
+    // Xử lý gợi ý tìm kiếm
+    private void handleSuggestions(HttpServletRequest request, HttpServletResponse response, String query) throws IOException {
+        List<String> suggestions = allSuggestions.stream()
+                .filter(suggestion -> suggestion.toLowerCase().contains(query.toLowerCase()))
+                .sorted((s1, s2) -> {
+                    boolean s1ContainsNhanVien = s1.toLowerCase().contains("nhân viên");
+                    boolean s2ContainsNhanVien = s2.toLowerCase().contains("nhân viên");
+
+                    // Nếu nhập "n" hoặc bắt đầu bằng "n", ưu tiên hiển thị các gợi ý có "nhân viên"
+                    if (query.equalsIgnoreCase("nhân") || query.toLowerCase().startsWith("nhân")) {
+                        if (s1ContainsNhanVien && !s2ContainsNhanVien) return -1;
+                        if (!s1ContainsNhanVien && s2ContainsNhanVien) return 1;
+                    }
+                    return s1.compareToIgnoreCase(s2);
+                })
+                .collect(Collectors.toList());
+
+        String json = new Gson().toJson(suggestions);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
     }
 }

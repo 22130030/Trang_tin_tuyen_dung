@@ -20,153 +20,156 @@
     <title>Kiếm việc làm online</title>
 </head>
 <body>
-    <div class="application">
+<div class="application">
     <!-- header -->
     <!-- navigation -->
-        <%@include file="header.jsp" %>
+    <%@include file="header.jsp" %>
 
-        <div class="header">
+    <div class="header">
 
-            <!-- banner -->
-            <div class="banner">
-                <div class="banner__slide">
-                    <div class="banner__list">
+        <!-- banner -->
+        <div class="banner">
+            <div class="banner__slide">
+                <div class="banner__list">
 
-                        <div class="banner__img">
-                            <img src="asserts/img/banner_home/ViecLamHCD.png" alt="">
-                        </div>
-                        <div class="banner__img">
-                            <img src="asserts/img/banner_home/OIP.jpg" alt="">
-                        </div>
-                        <div class="banner__img">
-                            <img src="asserts/img/banner_home/fpt.jpg" alt="">
-                        </div>
-                        <div class="banner__img">
-                            <img src="asserts/img/banner_home/thuan_duc.jpg" alt="">
-                        </div>
-                        <div class="banner__img">
-                            <img src="asserts/img/banner_home/tokyolife.jpg" alt="">
-                        </div>
+                    <div class="banner__img">
+                        <img src="asserts/img/banner_home/ViecLamHCD.png" alt="">
+                    </div>
+                    <div class="banner__img">
+                        <img src="asserts/img/banner_home/OIP.jpg" alt="">
+                    </div>
+                    <div class="banner__img">
+                        <img src="asserts/img/banner_home/fpt.jpg" alt="">
+                    </div>
+                    <div class="banner__img">
+                        <img src="asserts/img/banner_home/thuan_duc.jpg" alt="">
+                    </div>
+                    <div class="banner__img">
+                        <img src="asserts/img/banner_home/tokyolife.jpg" alt="">
                     </div>
                 </div>
+            </div>
 
 
-                <div class="grid">
-                    <form action="search-job" method="post" class="banner__header">
+            <div class="grid">
+                <form action="search-job" method="post" class="banner__header">
+                    <div class="banner-search">
                         <div class="banner-search">
-                            <div class="search__info search__city">
+                            <div class="search__info search__city" style="display: flex; align-items: center; width:700px">
                                 <i class="search__icon nav-item__icon fa-solid fa-magnifying-glass"></i>
-                                <input type="text" name="searchName" class="banner__search-input search__city-info" placeholder="Nhập tên vị trí,công ty,từ khóa">
+                                <input type="text" name="searchName" id="searchInput" class="banner__search-input search__city-info" placeholder="Nhập tên vị trí,công ty,từ khóa" style="flex: 1; margin-left: 5px;">
+                                <div id="suggestionList" style="position: absolute; background-color: white; border: 1px solid #ccc; width: 100%; display: none; z-index: 1000;"></div>
                             </div>
+
                             <div class="search__info search__address">
-                                <i class="search__icon fa-solid fa-location-dot"></i>
-                                <input type="text" name="searchAddress" class="banner__search-input search__address-info" placeholder="Nhập tỉnh,Thành phố">
-                            </div>
-                            <button class="banner__search-btn">
-                                <i class="search-btn__icon fa-solid fa-magnifying-glass"></i>
-                                <span class="search__label">Tìm kiếm</span>
-                            </button>
+                            <i class="search__icon fa-solid fa-location-dot"></i>
+                            <input type="text" name="searchAddress" class="banner__search-input search__address-info" placeholder="Nhập tỉnh,Thành phố">
                         </div>
-                    </form>
-                </div>
-                <div class="slick_action__buttons">
-                    <button class="left_icon slick__action" id="banner__prev"> < </button>
-                    <button class="right__icon slick__action" id="banner__next"> > </button>
-                </div>
-                <ul class="banner__dots">
-                    <li class="dot__active banner__dot"></li>
-                    <li class="banner__dot"></li>
-                    <li class="banner__dot"></li>
-                    <li class="banner__dot"></li>
-                    <li class="banner__dot"></li>
-                </ul>
+                        <button class="banner__search-btn">
+                            <i class="search-btn__icon fa-solid fa-magnifying-glass"></i>
+                            <span class="search__label">Tìm kiếm</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="slick_action__buttons">
+                <button class="left_icon slick__action" id="banner__prev"> < </button>
+                <button class="right__icon slick__action" id="banner__next"> > </button>
+            </div>
+            <ul class="banner__dots">
+                <li class="dot__active banner__dot"></li>
+                <li class="banner__dot"></li>
+                <li class="banner__dot"></li>
+                <li class="banner__dot"></li>
+                <li class="banner__dot"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="content__new-jobs">
+        <div class="grid">
+            <div class="content-head">
+                <h2 class="content__title">Việc làm mới nhất</h2>
+                <a href="search-job?all-newJob" class="content__show-all">
+                    <span class="show-all__lable">Xem tất cả</span>
+                    <span class="show-all__right-icon"> > </span>
+                </a>
             </div>
         </div>
-        <div class="content__new-jobs">
+        <div class="new__jobs-container">
             <div class="grid">
-                <div class="content-head">
-                    <h2 class="content__title">Việc làm mới nhất</h2>
-                    <a href="search-job?all-newJob" class="content__show-all">
-                        <span class="show-all__lable">Xem tất cả</span>
-                        <span class="show-all__right-icon"> > </span>
-                    </a>
-                </div>
-            </div>
-            <div class="new__jobs-container">
-                <div class="grid">
-                    <div class="grid__row jobs">
-<%--                        <div class="new__job-list">--%>
-                                <c:forEach var="nj" items="${newJob}">
-                            <div class="grid__col-3">
-                                <div href="" class="content__job-item">
-                                        <div class="wrapper__logo">
-                                            <a href="company-detail?jid=${nj.companyId}" class="wrapper__logo-link">
-                                                <img src="${nj.img}" alt="" class="wrapper__img">
+                <div class="grid__row jobs">
+                    <%--                        <div class="new__job-list">--%>
+                    <c:forEach var="nj" items="${newJob}">
+                        <div class="grid__col-3">
+                            <div href="" class="content__job-item">
+                                <div class="wrapper__logo">
+                                    <a href="company-detail?jid=${nj.companyId}" class="wrapper__logo-link">
+                                        <img src="${nj.img}" alt="" class="wrapper__img">
+                                    </a>
+                                </div>
+                                <div class="wrapper__info">
+                                    <div class="wrapper__header">
+                                        <div class="job__name">
+                                            <span class="name-status">NEW</span>
+                                            <div class="job__tag">
+
+                                                <a class="name__lable" href="job-detail?jid=${nj.id}">${nj.title}</a>
+                                            </div>
+
+                                            <a href="#" onclick="return addJobToCartAjax(event, ${nj.id});" class="job__icon-like">
+                                                <i class="fa-regular fa-heart"></i>
                                             </a>
+
+
+
                                         </div>
-                                        <div class="wrapper__info">
-                                            <div class="wrapper__header">
-                                                <div class="job__name">
-                                                    <span class="name-status">NEW</span>
-                                                    <div class="job__tag">
-
-                                                        <a class="name__lable" href="job-detail?jid=${nj.id}">${nj.title}</a>
-                                                    </div>
-
-                                                    <a href="#" onclick="return addJobToCartAjax(event, ${nj.id});" class="job__icon-like">
-                                                        <i class="fa-regular fa-heart"></i>
-                                                    </a>
-
-
-
-                                                </div>
-                                                <div class="job__company">
+                                        <div class="job__company">
                                                             <span class="job__company-title">
                                                                 <a href="company-detail?jid=${nj.companyId}" class="job__company-link">${nj.companyName}</a>
                                                             </span>
-                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="wrapper__infomation">
+                                        <div class="infomation__address">
+                                            <i class="infomation__address-icon fa-solid fa-location-dot"></i>
+                                            <span class="infomation__address-lable">${nj.city}</span>
+                                        </div>
+                                        <div class="infomation__bottom">
+                                            <div class="infomation__salary">
+                                                <i class="salary-icon fa-solid fa-coins"></i>
+                                                <span class="salary-lable">${nj.salary}</span>
                                             </div>
-                                            <div class="wrapper__infomation">
-                                                <div class="infomation__address">
-                                                    <i class="infomation__address-icon fa-solid fa-location-dot"></i>
-                                                    <span class="infomation__address-lable">${nj.city}</span>
-                                                </div>
-                                                <div class="infomation__bottom">
-                                                    <div class="infomation__salary">
-                                                        <i class="salary-icon fa-solid fa-coins"></i>
-                                                        <span class="salary-lable">${nj.salary}</span>
-                                                    </div>
-                                                    <div class="infomation__time">
-                                                        <span class="infomation__posing-time">${nj.convertCreated}</span>
-                                                    </div>
-                                                </div>
+                                            <div class="infomation__time">
+                                                <span class="infomation__posing-time">${nj.convertCreated}</span>
                                             </div>
                                         </div>
+                                    </div>
                                 </div>
                             </div>
-                                </c:forEach>
-<%--                        </div>--%>
+                        </div>
+                    </c:forEach>
+                    <%--                        </div>--%>
 
 
-                    </div>
                 </div>
             </div>
-
         </div>
-        <div class="content-main">
-            <div class="grid">
-                <div class="content-head">
-                    <h2 class="content__title">Việc làm hấp dẫn</h2>
-                    <a href="search-job?show-all" class="content__show-all">
-                        <span class="show-all__lable">Xem tất cả</span>
-                        <span class="show-all__right-icon"> > </span>
-                    </a>
-                </div>
+
+    </div>
+    <div class="content-main">
+        <div class="grid">
+            <div class="content-head">
+                <h2 class="content__title">Việc làm hấp dẫn</h2>
+                <a href="search-job?show-all" class="content__show-all">
+                    <span class="show-all__lable">Xem tất cả</span>
+                    <span class="show-all__right-icon"> > </span>
+                </a>
             </div>
-            <div class="content__container">
-                <div class="grid">
-                    <div class="grid__row jobs">
-                        <c:forEach var="j" items="${jobs}">
+        </div>
+        <div class="content__container">
+            <div class="grid">
+                <div class="grid__row jobs">
+                    <c:forEach var="j" items="${jobs}">
                         <div class="grid__col-4">
                             <div class="content__job-item">
                                 <a href="/html/job_description.html" class="content__job-item-link">
@@ -215,65 +218,65 @@
                                 </a>
                             </div>
                         </div>
-                        </c:forEach>
-                    </div>
-
-                    <c:set var="currentPage" value="${param.index != null ? param.index :  1}"/>
-                    <c:set var="startPage" value="${param.index - 3}"/>
-                    <c:set var="endPage" value="${param.index + 4}"/>
-
-                    <c:if test="${startPage < 4}" >
-                        <c:set var="startPage" value="1"/>
-                        <c:set var="endPage" value="8"/>
-                    </c:if>
-                    <c:if test="${endPage > np}" >
-<%--                        <c:set var="startPage" value="${8-(8 -(np - param.index))}"/>--%>
-                        <c:set var="endPage" value="${np}"/>
-                    </c:if>
-
-
-                    <ul class="pagination home__pagination">
-                        <c:forEach begin="${startPage}" end="${endPage}" var="i">
-                            <li class="pagination__item">
-                                <a href="home?index=${i}" class="${currentPage==i?"pagination__link--active":""} pagination__item-link">${i}</a>
-                            </li>
-                        </c:forEach>
-                    </ul>
-                    <div class="slick_action__buttons">
-                        <c:if test="${currentPage > 0}">
-                            <form action="home" method="get">
-                                <button type="submit" name="index" value="${currentPage == 1 ? np : currentPage - 1}" class="right__icon slick__action"> < </button>
-                            </form>
-                        </c:if>
-
-                        <c:if test="${currentPage <= np}">
-                            <form action="home" method="get">
-                                <button type="submit" name="index" value="${currentPage == np ? 1 : currentPage + 1}" class="right__icon slick__action"> > </button>
-                            </form>
-                        </c:if>
-                    </div>
-
-
+                    </c:forEach>
                 </div>
-            </div>
 
+                <c:set var="currentPage" value="${param.index != null ? param.index :  1}"/>
+                <c:set var="startPage" value="${param.index - 3}"/>
+                <c:set var="endPage" value="${param.index + 4}"/>
+
+                <c:if test="${startPage < 4}" >
+                    <c:set var="startPage" value="1"/>
+                    <c:set var="endPage" value="8"/>
+                </c:if>
+                <c:if test="${endPage > np}" >
+                    <%--                        <c:set var="startPage" value="${8-(8 -(np - param.index))}"/>--%>
+                    <c:set var="endPage" value="${np}"/>
+                </c:if>
+
+
+                <ul class="pagination home__pagination">
+                    <c:forEach begin="${startPage}" end="${endPage}" var="i">
+                        <li class="pagination__item">
+                            <a href="home?index=${i}" class="${currentPage==i?"pagination__link--active":""} pagination__item-link">${i}</a>
+                        </li>
+                    </c:forEach>
+                </ul>
+                <div class="slick_action__buttons">
+                    <c:if test="${currentPage > 0}">
+                        <form action="home" method="get">
+                            <button type="submit" name="index" value="${currentPage == 1 ? np : currentPage - 1}" class="right__icon slick__action"> < </button>
+                        </form>
+                    </c:if>
+
+                    <c:if test="${currentPage <= np}">
+                        <form action="home" method="get">
+                            <button type="submit" name="index" value="${currentPage == np ? 1 : currentPage + 1}" class="right__icon slick__action"> > </button>
+                        </form>
+                    </c:if>
+                </div>
+
+
+            </div>
         </div>
 
-        <div class="content-categorys">
-            <div class="grid">
-                <div class="content-head">
-                    <h2 class="content__title">Việc làm theo ngành nghề</h2>
-                    <a href="" class="content__show-all">
-                        <span class="show-all__lable">Xem tất cả</span>
-                        <span class="show-all__right-icon"> > </span>
-                    </a>
-                </div>
-            </div>
-            <div class="category__container">
-                <div class="grid">
-                    <div class="grid__row jobs">
+    </div>
 
-                            <c:forEach var="c" items="${categories}">
+    <div class="content-categorys">
+        <div class="grid">
+            <div class="content-head">
+                <h2 class="content__title">Việc làm theo ngành nghề</h2>
+                <a href="" class="content__show-all">
+                    <span class="show-all__lable">Xem tất cả</span>
+                    <span class="show-all__right-icon"> > </span>
+                </a>
+            </div>
+        </div>
+        <div class="category__container">
+            <div class="grid">
+                <div class="grid__row jobs">
+
+                    <c:forEach var="c" items="${categories}">
                         <div class="grid__col-2">
 
 
@@ -288,42 +291,42 @@
                                 <span class="card__quantity-job">1513 việc làm</span>
                             </div>
                         </div>
-                            </c:forEach>
-                    </div>
-
+                    </c:forEach>
                 </div>
 
-                <div class="slick_action__buttons">
-                    <c:if test="${currentPage > 0}">
-                        <form action="home" method="get">
-                            <button type="submit" name="i" value="${param.i == 1 ? 2 : param.i - 1}" class="right__icon slick__action"> < </button>
-                        </form>
-                    </c:if>
+            </div>
 
-                    <c:if test="${currentPage <= np}">
-                        <form action="home" method="get">
-                            <button type="submit" name="i" value="${param.i == 2 ? 1 : param.i + 1}" class="right__icon slick__action"> > </button>
-                        </form>
-                    </c:if>
-                </div>
+            <div class="slick_action__buttons">
+                <c:if test="${currentPage > 0}">
+                    <form action="home" method="get">
+                        <button type="submit" name="i" value="${param.i == 1 ? 2 : param.i - 1}" class="right__icon slick__action"> < </button>
+                    </form>
+                </c:if>
+
+                <c:if test="${currentPage <= np}">
+                    <form action="home" method="get">
+                        <button type="submit" name="i" value="${param.i == 2 ? 1 : param.i + 1}" class="right__icon slick__action"> > </button>
+                    </form>
+                </c:if>
             </div>
         </div>
-    <!-- footer -->
-        <%@include file="footer.jsp" %>
-
-
     </div>
-    <%
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-        response.setHeader("Pragma", "no-cache");
-        response.setDateHeader("Expires", 0);
-    %>
-    <script>
+    <!-- footer -->
+    <%@include file="footer.jsp" %>
+
+
+</div>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+%>
+<script>
     function addJobToCartAjax(event, jobId) {
-    event.preventDefault();
+        event.preventDefault();
 
         fetch(`account/addJob?jid=` + jobId, {
-        method: 'GET'
+            method: 'GET'
         })
             .then(response => {
                 if (response.status === 401) {
@@ -337,15 +340,15 @@
                     alert('Có lỗi xảy ra!');
                 }
             })
-        .catch(error => {
-        console.error('Error:', error);
-        alert('Có lỗi xảy ra!');
-        });
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra!');
+            });
 
         return false; // Ngừng hành động mặc định (tránh thay đổi trang)
-        }
+    }
 
-//      phân trang dùng AJAX
+    //      phân trang dùng AJAX
     // function getAllJob(event, index) {
     //     event.preventDefault();
     //
@@ -372,6 +375,75 @@
     //
     //     return false; // Ngừng hành động mặc định (tránh thay đổi trang)
     // }
-    </script>
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const suggestionList = document.getElementById('suggestionList');
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value;
+            if (query.trim() === '') {
+                suggestionList.style.display = 'none';
+                return;
+            }
+
+            fetch('search-job?searchName=' + encodeURIComponent(query))
+                .then(response => response.json())
+                .then(suggestions => {
+                    suggestionList.innerHTML = '';
+                    suggestions.forEach(suggestion => {
+                        const suggestionItem = document.createElement('div');
+                        suggestionItem.textContent = suggestion;
+                        suggestionItem.style.padding = '5px';
+                        suggestionItem.style.cursor = 'pointer';
+                        suggestionItem.addEventListener('click', function() {
+                            searchInput.value = suggestion;
+                            suggestionList.style.display = 'none';
+                        });
+                        suggestionList.appendChild(suggestionItem);
+                    });
+                    suggestionList.style.display = suggestions.length > 0 ? 'block' : 'none';
+                });
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('#searchInput') && !event.target.closest('#suggestionList')) {
+                suggestionList.style.display = 'none';
+            }
+        });
+    });
+</script>
+<style>
+#suggestionList {
+position: absolute;
+background-color: white;
+border: 1px solid #ccc;
+width: 100%;
+display: none;
+z-index: 1000;
+max-height: 200px;
+overflow-y: auto;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+font-family: Arial, sans-serif;
+font-size: 14px;
+color: #333;
+}
+
+#suggestionList div {
+padding: 8px 12px;
+cursor: pointer;
+border-bottom: 1px solid #eee;
+}
+
+#suggestionList div:hover {
+background-color: #f0f0f0;
+}
+
+#suggestionList b {
+font-weight: bold;
+background-color: yellow;
+}
+</style>
 </body>
 </html>
