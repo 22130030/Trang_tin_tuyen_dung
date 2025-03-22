@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -20,30 +20,7 @@ import java.util.stream.Collectors;
 public class SearchJob extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(SearchJob.class.getName());
-    private final JobService jobService = new JobService(); // Có thể thay bằng DI
-
-    // Danh sách gợi ý tìm kiếm tổng quát
-    private final List<String> allSuggestions = Arrays.asList(
-            "lập trình viên",
-            "kế toán",
-            "bán hàng",
-            "marketing",
-            "thiết kế đồ họa",
-            "quản lý dự án",
-            "nhân sự",
-            "kỹ sư",
-            "chăm sóc khách hàng",
-            "nhân viên kế toán",
-            "nhân viên bán hàng",
-            "nhân viên marketing",
-            "nhân viên IT",
-            "nhân viên kho",
-            "trưởng phòng kinh doanh",
-            "kỹ sư phần mềm",
-            "chuyên viên tuyển dụng",
-            "thực tập sinh marketing",
-            "nhân viên chăm sóc khách hàng"
-    );
+    private final JobService jobService = new JobService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -53,7 +30,7 @@ public class SearchJob extends HttpServlet {
         String query = request.getParameter("searchName");
         if (query != null && !query.isEmpty()) {
             handleSuggestions(request, response, query);
-            return; // Dừng xử lý nếu là yêu cầu gợi ý
+            return;
         }
 
         String title = "";
@@ -120,18 +97,20 @@ public class SearchJob extends HttpServlet {
         return "";
     }
 
-    // Xử lý gợi ý tìm kiếm
     private void handleSuggestions(HttpServletRequest request, HttpServletResponse response, String query) throws IOException {
-        List<String> suggestions = allSuggestions.stream()
-                .filter(suggestion -> suggestion.toLowerCase().contains(query.toLowerCase()))
+        Set<String> allTitles = jobService.getAllJob().stream()
+                .map(Job::getTitle)
+                .collect(Collectors.toSet()); // Sử dụng Set để loại bỏ trùng lặp
+
+        List<String> suggestions = allTitles.stream()
+                .filter(title -> title.toLowerCase().contains(query.toLowerCase()))
                 .sorted((s1, s2) -> {
                     boolean s1ContainsNhanVien = s1.toLowerCase().contains("nhân viên");
                     boolean s2ContainsNhanVien = s2.toLowerCase().contains("nhân viên");
 
-                    // Nếu nhập "n" hoặc bắt đầu bằng "n", ưu tiên hiển thị các gợi ý có "nhân viên"
-                    if (query.equalsIgnoreCase("nhân") || query.toLowerCase().startsWith("nhân")) {
-                        if (s1ContainsNhanVien && !s2ContainsNhanVien) return -1;
-                        if (!s1ContainsNhanVien && s2ContainsNhanVien) return 1;
+                    if (query.equalsIgnoreCase("nh") || query.toLowerCase().startsWith("nh")) {
+                        if (s1ContainsNhanVien && !s2ContainsNhanVien) return -2;
+                        if (!s1ContainsNhanVien && s2ContainsNhanVien) return 2;
                     }
                     return s1.compareToIgnoreCase(s2);
                 })

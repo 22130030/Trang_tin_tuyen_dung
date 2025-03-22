@@ -1,9 +1,9 @@
 <%@ page import="java.io.PrintWriter" %><%--
-  Created by IntelliJ IDEA.
-  User: PHUC
-  Date: 12/12/2024
-  Time: 10:40 AM
-  To change this template use File | Settings | File Templates.
+ Created by IntelliJ IDEA.
+ User: PHUC
+ Date: 12/12/2024
+ Time: 10:40 AM
+ To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
@@ -25,12 +25,15 @@
     <!-- navigation -->
     <%@include file="header.jsp" %>
 
+
     <div class="header">
+
 
         <!-- banner -->
         <div class="banner">
             <div class="banner__slide">
                 <div class="banner__list">
+
 
                     <div class="banner__img">
                         <img src="asserts/img/banner_home/ViecLamHCD.png" alt="">
@@ -51,25 +54,27 @@
             </div>
 
 
+
+
             <div class="grid">
                 <form action="search-job" method="post" class="banner__header">
                     <div class="banner-search">
-                        <div class="banner-search">
                             <div class="search__info search__city" style="display: flex; align-items: center; width:700px">
                                 <i class="search__icon nav-item__icon fa-solid fa-magnifying-glass"></i>
                                 <input type="text" name="searchName" id="searchInput" class="banner__search-input search__city-info" placeholder="Nhập tên vị trí,công ty,từ khóa" style="flex: 1; margin-left: 5px;">
                                 <div id="suggestionList" style="position: absolute; background-color: white; border: 1px solid #ccc; width: 100%; display: none; z-index: 1000;"></div>
                             </div>
 
+
                             <div class="search__info search__address">
-                            <i class="search__icon fa-solid fa-location-dot"></i>
-                            <input type="text" name="searchAddress" class="banner__search-input search__address-info" placeholder="Nhập tỉnh,Thành phố">
+                                <i class="search__icon fa-solid fa-location-dot"></i>
+                                <input type="text" name="searchAddress" class="banner__search-input search__address-info" placeholder="Nhập tỉnh,Thành phố">
+                            </div>
+                            <button class="banner__search-btn">
+                                <i class="search-btn__icon fa-solid fa-magnifying-glass"></i>
+                                <span class="search__label">Tìm kiếm</span>
+                            </button>
                         </div>
-                        <button class="banner__search-btn">
-                            <i class="search-btn__icon fa-solid fa-magnifying-glass"></i>
-                            <span class="search__label">Tìm kiếm</span>
-                        </button>
-                    </div>
                 </form>
             </div>
             <div class="slick_action__buttons">
@@ -113,8 +118,10 @@
                                             <span class="name-status">NEW</span>
                                             <div class="job__tag">
 
+
                                                 <a class="name__lable" href="job-detail?jid=${nj.id}">${nj.title}</a>
                                             </div>
+
 
                                             <a href="#" onclick="return addJobToCartAjax(event, ${nj.id});" class="job__icon-like">
                                                 <i class="fa-regular fa-heart"></i>
@@ -122,11 +129,14 @@
 
 
 
+
+
+
                                         </div>
                                         <div class="job__company">
-                                                            <span class="job__company-title">
-                                                                <a href="company-detail?jid=${nj.companyId}" class="job__company-link">${nj.companyName}</a>
-                                                            </span>
+                                                           <span class="job__company-title">
+                                                               <a href="company-detail?jid=${nj.companyId}" class="job__company-link">${nj.companyName}</a>
+                                                           </span>
                                         </div>
                                     </div>
                                     <div class="wrapper__infomation">
@@ -151,9 +161,12 @@
                     <%--                        </div>--%>
 
 
+
+
                 </div>
             </div>
         </div>
+
 
     </div>
     <div class="content-main">
@@ -176,6 +189,7 @@
                                     <div class="wrapper__logo">
                                         <a href="company-detail?jid=${j.companyId}" class="wrapper__logo-link">
 
+
                                             <img src="${j.img}" alt="" class="wrapper__img">
                                         </a>
                                     </div>
@@ -185,17 +199,19 @@
                                                 <span class="name-status">HOT</span>
                                                 <div class="job__tag">
 
+
                                                     <a class="name__lable" href="job-detail?jid=${j.id}">${j.title}</a>
                                                 </div>
+
 
                                                 <a  href="#" onclick="return addJobToCartAjax(event,${j.id})" class="job__icon-like">
                                                     <i class="fa-regular fa-heart"></i>
                                                 </a>
                                             </div>
                                             <div class="job__company">
-                                                    <span class="job__company-title">
-                                                        <a href="company-detail?jid=${j.companyId}" class="job__company-link">${j.companyName}</a>
-                                                    </span>
+                                                   <span class="job__company-title">
+                                                       <a href="company-detail?jid=${j.companyId}" class="job__company-link">${j.companyName}</a>
+                                                   </span>
                                             </div>
                                         </div>
                                         <div class="wrapper__infomation">
@@ -215,15 +231,18 @@
                                         </div>
                                     </div>
 
+
                                 </a>
                             </div>
                         </div>
                     </c:forEach>
                 </div>
 
+
                 <c:set var="currentPage" value="${param.index != null ? param.index :  1}"/>
                 <c:set var="startPage" value="${param.index - 3}"/>
                 <c:set var="endPage" value="${param.index + 4}"/>
+
 
                 <c:if test="${startPage < 4}" >
                     <c:set var="startPage" value="1"/>
@@ -233,6 +252,8 @@
                     <%--                        <c:set var="startPage" value="${8-(8 -(np - param.index))}"/>--%>
                     <c:set var="endPage" value="${np}"/>
                 </c:if>
+
+
 
 
                 <ul class="pagination home__pagination">
@@ -249,6 +270,7 @@
                         </form>
                     </c:if>
 
+
                     <c:if test="${currentPage <= np}">
                         <form action="home" method="get">
                             <button type="submit" name="index" value="${currentPage == np ? 1 : currentPage + 1}" class="right__icon slick__action"> > </button>
@@ -257,10 +279,14 @@
                 </div>
 
 
+
+
             </div>
         </div>
 
+
     </div>
+
 
     <div class="content-categorys">
         <div class="grid">
@@ -276,12 +302,16 @@
             <div class="grid">
                 <div class="grid__row jobs">
 
+
                     <c:forEach var="c" items="${categories}">
                         <div class="grid__col-2">
 
 
+
+
                             <div class="category__card">
                                 <div class="card__img">
+
 
                                     <img src="${c.img}" alt="">
                                 </div>
@@ -294,7 +324,9 @@
                     </c:forEach>
                 </div>
 
+
             </div>
+
 
             <div class="slick_action__buttons">
                 <c:if test="${currentPage > 0}">
@@ -302,6 +334,7 @@
                         <button type="submit" name="i" value="${param.i == 1 ? 2 : param.i - 1}" class="right__icon slick__action"> < </button>
                     </form>
                 </c:if>
+
 
                 <c:if test="${currentPage <= np}">
                     <form action="home" method="get">
@@ -315,6 +348,8 @@
     <%@include file="footer.jsp" %>
 
 
+
+
 </div>
 <%
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -324,6 +359,7 @@
 <script>
     function addJobToCartAjax(event, jobId) {
         event.preventDefault();
+
 
         fetch(`account/addJob?jid=` + jobId, {
             method: 'GET'
@@ -345,8 +381,10 @@
                 alert('Có lỗi xảy ra!');
             });
 
+
         return false; // Ngừng hành động mặc định (tránh thay đổi trang)
     }
+
 
     //      phân trang dùng AJAX
     // function getAllJob(event, index) {
@@ -388,6 +426,7 @@
                 return;
             }
 
+            // Gọi API để lấy gợi ý từ server
             fetch('search-job?searchName=' + encodeURIComponent(query))
                 .then(response => response.json())
                 .then(suggestions => {
@@ -407,6 +446,7 @@
                 });
         });
 
+        // Ẩn suggestionList khi click ra ngoài
         document.addEventListener('click', function(event) {
             if (!event.target.closest('#searchInput') && !event.target.closest('#suggestionList')) {
                 suggestionList.style.display = 'none';
@@ -415,35 +455,39 @@
     });
 </script>
 <style>
-#suggestionList {
-position: absolute;
-background-color: white;
-border: 1px solid #ccc;
-width: 100%;
-display: none;
-z-index: 1000;
-max-height: 200px;
-overflow-y: auto;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-font-family: Arial, sans-serif;
-font-size: 14px;
-color: #333;
-}
+    #suggestionList {
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        width: 100%;
+        display: none;
+        z-index: 1000;
+        max-height: 200px;
+        overflow-y: auto;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        color: #333;
+    }
 
-#suggestionList div {
-padding: 8px 12px;
-cursor: pointer;
-border-bottom: 1px solid #eee;
-}
 
-#suggestionList div:hover {
-background-color: #f0f0f0;
-}
+    #suggestionList div {
+        padding: 8px 12px;
+        cursor: pointer;
+        border-bottom: 1px solid #eee;
+    }
 
-#suggestionList b {
-font-weight: bold;
-background-color: yellow;
-}
+
+    #suggestionList div:hover {
+        background-color: #f0f0f0;
+    }
+
+
+    #suggestionList b {
+        font-weight: bold;
+        background-color: yellow;
+    }
 </style>
 </body>
 </html>
+
