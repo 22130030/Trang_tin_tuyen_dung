@@ -46,35 +46,63 @@ public class CandidateLogin extends HttpServlet {
 
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            HttpSession session = request.getSession();
 
-        HttpSession session = request.getSession();
-        List<JobApplication> jobApplicationList = new JobApplicationService().getAll();
-        UserService us = new UserService();
-        if(us.login(email, password)) {
-            User u = us.getUser(email);
-            int role = u.getRoleNum();
-            CandidateService cs = new CandidateService();
-            int candidateId = cs.getCandidateIdByUserId(u.getUserID());
-            List<Resumes> resumesList = new ResumesService().getResumes(candidateId);
-            if(role ==2){
-                response.sendRedirect("home");
-            }
-            session.setAttribute("user", u);
-            session.setAttribute("jobAppliedCart", jobApplicationList);
-            session.setAttribute("jac", resumesList);
-            session.setAttribute("role",role);
-            session.setAttribute("candidateId", candidateId);
-            if(role ==1) {
-                response.sendRedirect("home");
-            }else if(role ==3){
-                response.sendRedirect("admin/report");
+            // Kiểm tra xem tài khoản đã bị khóa chưa
+            Long lockTime = (Long) session.getAttribute("lockTime");
+            Integer failedAttempts = (Integer) session.getAttribute("failedAttempts");
+
+            if (lockTime != null) {
+                long elapsedTime = System.currentTimeMillis() - lockTime;
+                if (elapsedTime < 1 * 60 * 1000) { // 5 phút
+                    response.sendRedirect("login.jsp?error=locked");
+                    return;
+                } else {
+                    // Hết thời gian khóa, reset số lần nhập sai
+                    session.removeAttribute("lockTime");
+                    session.removeAttribute("failedAttempts");
+                }
             }
 
-        }
-        else{
-            response.sendRedirect("login.jsp")  ;
+            UserService us = new UserService();
+            if (us.login(email, password)) {
+                // Đăng nhập thành công, reset bộ đếm
+                session.removeAttribute("failedAttempts");
+                session.removeAttribute("lockTime");
+
+                User u = us.getUser(email);
+                int role = u.getRoleNum();
+                CandidateService cs = new CandidateService();
+                int candidateId = cs.getCandidateIdByUserId(u.getUserID());
+                List<JobApplication> jobApplicationList = new JobApplicationService().getAll();
+                List<Resumes> resumesList = new ResumesService().getResumes(candidateId);
+
+                session.setAttribute("user", u);
+                session.setAttribute("jobAppliedCart", jobApplicationList);
+                session.setAttribute("jac", resumesList);
+                session.setAttribute("role", role);
+                session.setAttribute("candidateId", candidateId);
+
+                if (role == 1) {
+                    response.sendRedirect("home");
+                } else if (role == 3) {
+                    response.sendRedirect("admin/report");
+                } else {
+                    response.sendRedirect("home");
+                }
+            } else {
+                // Đăng nhập thất bại
+                failedAttempts = (failedAttempts == null) ? 1 : failedAttempts + 1;
+                session.setAttribute("failedAttempts", failedAttempts);
+
+                if (failedAttempts >= 1) {
+                    session.setAttribute("lockTime", System.currentTimeMillis());
+                    response.sendRedirect("login.jsp?error=locked");
+                } else {
+                    response.sendRedirect("login.jsp?error=invalid");
+                }
+            }
         }
     }
-}
