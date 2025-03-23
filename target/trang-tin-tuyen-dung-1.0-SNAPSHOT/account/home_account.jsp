@@ -37,9 +37,11 @@
 
                                 </div>
                                 <div class="user__detail-contact">
-
-                                    <span class="user__detail-name">${sessionScope.user.name}</span>
-<%--                                    <span class="user__detail-email">${sessionScope.user.email}</span>--%>
+                                    <div class="user__detail-content">
+                                        <span class="user__detail-name">${sessionScope.user.name}</span>
+                                        <a href="verify_account.jsp" class="user__detail-status user__status--unverified">Chưa xác minh</a>
+                                    </div>
+                                    <span class="user__detail-email">${sessionScope.user.email}</span>
                                 </div>
                             </div>
                             <div class="user__info-edit">
