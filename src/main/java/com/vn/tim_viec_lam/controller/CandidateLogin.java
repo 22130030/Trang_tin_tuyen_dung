@@ -50,6 +50,7 @@ public class CandidateLogin extends HttpServlet {
             String password = request.getParameter("password");
             HttpSession session = request.getSession();
 
+<<<<<<< HEAD
             // Kiểm tra xem tài khoản đã bị khóa chưa
             Long lockTime = (Long) session.getAttribute("lockTime");
             Integer failedAttempts = (Integer) session.getAttribute("failedAttempts");
@@ -64,6 +65,30 @@ public class CandidateLogin extends HttpServlet {
                     session.removeAttribute("lockTime");
                     session.removeAttribute("failedAttempts");
                 }
+=======
+        HttpSession session = request.getSession();
+        List<JobApplication> jobApplicationList = new JobApplicationService().getAll();
+        UserService us = new UserService();
+        if(us.login(email, password)) {
+            User u = us.getUser(email);
+            int role = u.getRoleNum();
+            CandidateService cs = new CandidateService();
+            int candidateId = cs.getCandidateIdByUserId(u.getUserID());
+            List<Resumes> resumesList = new ResumesService().getResumes(candidateId);
+            if(role ==2){
+                response.sendRedirect("home");
+            }
+            session.setAttribute("user", u);
+            session.setAttribute("email",email);
+            session.setAttribute("jobAppliedCart", jobApplicationList);
+            session.setAttribute("jac", resumesList);
+            session.setAttribute("role",role);
+            session.setAttribute("candidateId", candidateId);
+            if(role ==1) {
+                response.sendRedirect("home");
+            }else if(role ==3){
+                response.sendRedirect("admin/report");
+>>>>>>> 2e83e8bcd67bc3ed00481bd453cc66eb03f45665
             }
 
             UserService us = new UserService();
