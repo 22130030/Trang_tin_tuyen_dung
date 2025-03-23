@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -28,8 +30,10 @@ public class SearchJob extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         String query = request.getParameter("searchName");
-        if (query != null && !query.isEmpty()) {
-            handleSuggestions(request, response, query);
+        String addressQuery = request.getParameter("searchAddress");
+
+        if ((query != null && !query.isEmpty()) || (addressQuery != null && !addressQuery.isEmpty())) {
+            handleSuggestions(request, response, query, addressQuery);
             return;
         }
 
@@ -97,26 +101,55 @@ public class SearchJob extends HttpServlet {
         return "";
     }
 
-    private void handleSuggestions(HttpServletRequest request, HttpServletResponse response, String query) throws IOException {
+    private void handleSuggestions(HttpServletRequest request, HttpServletResponse response, String query, String addressQuery) throws IOException {
         Set<String> allTitles = jobService.getAllJob().stream()
                 .map(Job::getTitle)
-                .collect(Collectors.toSet()); // Sử dụng Set để loại bỏ trùng lặp
+                .collect(Collectors.toSet());
 
-        List<String> suggestions = allTitles.stream()
-                .filter(title -> title.toLowerCase().contains(query.toLowerCase()))
-                .sorted((s1, s2) -> {
-                    boolean s1ContainsNhanVien = s1.toLowerCase().contains("nhân viên");
-                    boolean s2ContainsNhanVien = s2.toLowerCase().contains("nhân viên");
+        List<Job> allJobs = jobService.getAllJob(); // Lấy tất cả công việc để kiểm tra
 
-                    if (query.equalsIgnoreCase("nh") || query.toLowerCase().startsWith("nh")) {
-                        if (s1ContainsNhanVien && !s2ContainsNhanVien) return -2;
-                        if (!s1ContainsNhanVien && s2ContainsNhanVien) return 2;
-                    }
-                    return s1.compareToIgnoreCase(s2);
-                })
-                .collect(Collectors.toList());
+        Set<String> allCities = allJobs.stream()
+                .map(Job::getCity) // Sử dụng Job::getCity() thay vì Job::getAddress()
+                .collect(Collectors.toSet());
 
-        String json = new Gson().toJson(suggestions);
+        // Gỡ lỗi: In ra tất cả thành phố và công việc
+        LOGGER.info("All Cities: " + allCities.toString());
+        LOGGER.info("All Jobs: " + allJobs.toString());
+
+        List<String> suggestions = new ArrayList<>();
+
+        if (query != null && !query.isEmpty()) {
+            suggestions.addAll(allTitles.stream()
+                    .filter(title -> title.toLowerCase().contains(query.toLowerCase()))
+                    .sorted((s1, s2) -> {
+                        boolean s1ContainsNhanVien = s1.toLowerCase().contains("nhân viên");
+                        boolean s2ContainsNhanVien = s2.toLowerCase().contains("nhân viên");
+
+                        if (query.equalsIgnoreCase("nh") || query.toLowerCase().startsWith("nh")) {
+                            if (s1ContainsNhanVien && !s2ContainsNhanVien) return -2;
+                            if (!s1ContainsNhanVien && s2ContainsNhanVien) return 2;
+                        }
+                        return s1.compareToIgnoreCase(s2);
+                    })
+                    .collect(Collectors.toList()));
+        }
+
+        if (addressQuery != null && !addressQuery.isEmpty()) {
+            suggestions.addAll(allCities.stream()
+                    .filter(city -> city.toLowerCase().contains(addressQuery.toLowerCase())) // Sử dụng city thay vì address
+                    .sorted(String.CASE_INSENSITIVE_ORDER)
+                    .collect(Collectors.toList()));
+        }
+
+        //Remove duplicates
+        Set<String> uniqueSuggestions = new HashSet<>(suggestions);
+        List<String> finalSuggestions = new ArrayList<>(uniqueSuggestions);
+
+        String json = new Gson().toJson(finalSuggestions);
+
+        // Gỡ lỗi: In ra kết quả cuối cùng
+        LOGGER.info("Final Suggestions: " + finalSuggestions.toString());
+
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(json);

@@ -53,28 +53,25 @@
                 </div>
             </div>
 
-
-
-
             <div class="grid">
                 <form action="search-job" method="post" class="banner__header">
                     <div class="banner-search">
-                            <div class="search__info search__city" style="display: flex; align-items: center; width:700px">
-                                <i class="search__icon nav-item__icon fa-solid fa-magnifying-glass"></i>
-                                <input type="text" name="searchName" id="searchInput" class="banner__search-input search__city-info" placeholder="Nhập tên vị trí,công ty,từ khóa" style="flex: 1; margin-left: 5px;">
-                                <div id="suggestionList" style="position: absolute; background-color: white; border: 1px solid #ccc; width: 100%; display: none; z-index: 1000;"></div>
-                            </div>
-
-
-                            <div class="search__info search__address">
-                                <i class="search__icon fa-solid fa-location-dot"></i>
-                                <input type="text" name="searchAddress" class="banner__search-input search__address-info" placeholder="Nhập tỉnh,Thành phố">
-                            </div>
-                            <button class="banner__search-btn">
-                                <i class="search-btn__icon fa-solid fa-magnifying-glass"></i>
-                                <span class="search__label">Tìm kiếm</span>
-                            </button>
+                        <div class="search__info search__city" style="display: flex; align-items: center; width:700px">
+                            <i class="search__icon nav-item__icon fa-solid fa-magnifying-glass"></i>
+                            <input type="text" name="searchName" id="searchInput" class="banner__search-input search__city-info" placeholder="Nhập tên vị trí,công ty,từ khóa" style="flex: 1; margin-left: 5px;">
+                            <div id="suggestionList" class="suggestion-list"></div>
                         </div>
+
+                        <div class="search__info search__address">
+                            <i class="search__icon fa-solid fa-location-dot"></i>
+                            <input type="text" name="searchAddress" id="addressInput" class="banner__search-input search__address-info" placeholder="Nhập tỉnh,Thành phố">
+                            <div id="addressSuggestionList" class="suggestion-list"></div>
+                        </div>
+                        <button class="banner__search-btn">
+                            <i class="search-btn__icon fa-solid fa-magnifying-glass"></i>
+                            <span class="search__label">Tìm kiếm</span>
+                        </button>
+                    </div>
                 </form>
             </div>
             <div class="slick_action__buttons">
@@ -278,9 +275,6 @@
                     </c:if>
                 </div>
 
-
-
-
             </div>
         </div>
 
@@ -415,79 +409,145 @@
     // }
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const searchInput = document.getElementById('searchInput');
         const suggestionList = document.getElementById('suggestionList');
+        const addressInput = document.getElementById('addressInput');
+        const addressSuggestionList = document.getElementById('addressSuggestionList');
+        const searchForm = document.querySelector('.banner__header'); // Lấy form tìm kiếm
 
-        searchInput.addEventListener('input', function() {
-            const query = this.value;
+        let searchTimeout;
+        let addressTimeout;
+
+        // Throttle API call by introducing debounce
+        function debounce(fn, delay) {
+            return function (...args) {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => fn(...args), delay);
+            };
+        }
+
+        // Throttle API call for address input
+        function debounceAddress(fn, delay) {
+            return function (...args) {
+                clearTimeout(addressTimeout);
+                addressTimeout = setTimeout(() => fn(...args), delay);
+            };
+        }
+
+        // Handle input for search query
+        searchInput.addEventListener('input', debounce(function () {
+            const query = searchInput.value;
+            fetchSuggestions(query, suggestionList, 'searchName');
+        }, 300));
+
+        // Handle input for address query
+        addressInput.addEventListener('input', debounceAddress(function () {
+            const query = addressInput.value;
+            fetchSuggestions(query, addressSuggestionList, 'searchAddress');
+        }, 300));
+
+        function fetchSuggestions(query, suggestionListElement, searchParam) {
             if (query.trim() === '') {
-                suggestionList.style.display = 'none';
+                suggestionListElement.style.display = 'none';
                 return;
             }
 
-            // Gọi API để lấy gợi ý từ server
-            fetch('search-job?searchName=' + encodeURIComponent(query))
+            fetch('search-job?' + searchParam + '=' + encodeURIComponent(query))
                 .then(response => response.json())
                 .then(suggestions => {
-                    suggestionList.innerHTML = '';
+                    suggestionListElement.innerHTML = ''; // Clear old suggestions
                     suggestions.forEach(suggestion => {
                         const suggestionItem = document.createElement('div');
                         suggestionItem.textContent = suggestion;
                         suggestionItem.style.padding = '5px';
                         suggestionItem.style.cursor = 'pointer';
-                        suggestionItem.addEventListener('click', function() {
-                            searchInput.value = suggestion;
-                            suggestionList.style.display = 'none';
-                        });
-                        suggestionList.appendChild(suggestionItem);
-                    });
-                    suggestionList.style.display = suggestions.length > 0 ? 'block' : 'none';
-                });
-        });
+                        suggestionItem.style.background = '#fff';
+                        suggestionItem.style.border = '1px solid #ccc';
 
-        // Ẩn suggestionList khi click ra ngoài
-        document.addEventListener('click', function(event) {
+                        // When clicking a suggestion
+                        suggestionItem.addEventListener('click', function () {
+                            if (searchParam === 'searchName') {
+                                searchInput.value = suggestion;
+                            } else {
+                                addressInput.value = suggestion;
+                            }
+
+                            // Hide suggestion list after selection
+                            suggestionListElement.style.display = 'none';
+                            addressSuggestionList.style.display = 'none';
+
+                            // Wait a bit for input to update, then submit form
+                            setTimeout(() => {
+                                searchForm.submit();
+                            }, 300);
+                        });
+
+                        suggestionListElement.appendChild(suggestionItem);
+                    });
+
+                    // Show suggestion list if there are suggestions
+                    suggestionListElement.style.display = suggestions.length > 0 ? 'block' : 'none';
+                })
+                .catch(error => console.error('Error fetching suggestions:', error));
+        }
+
+        // Hide suggestion lists when clicking outside
+        document.addEventListener('click', function (event) {
             if (!event.target.closest('#searchInput') && !event.target.closest('#suggestionList')) {
                 suggestionList.style.display = 'none';
             }
+            if (!event.target.closest('#addressInput') && !event.target.closest('#addressSuggestionList')) {
+                addressSuggestionList.style.display = 'none';
+            }
         });
     });
+
 </script>
 <style>
-    #suggestionList {
-        position: absolute;
-        background-color: white;
-        border: 1px solid #ccc;
-        width: 100%;
-        display: none;
-        z-index: 1000;
-        max-height: 200px;
-        overflow-y: auto;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        color: #333;
+    /* Tăng kích thước chữ */
+    .banner__search-input {
+        font-size: 16px; /* Tăng kích thước chữ */
+        padding: 10px;
     }
 
+    /* Điều chỉnh danh sách gợi ý */
+    .suggestion-list {
+        position: absolute;
+        width: 600px; /* Độ rộng tương đương ô input */
+        background: white;
+        border-top: none;
+        max-height: 300px;
+        overflow-y: auto;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        font-size: 16px; /* Tăng kích thước chữ trong gợi ý */
+    }
 
-    #suggestionList div {
-        padding: 8px 12px;
+    /* Tùy chỉnh từng mục gợi ý */
+    .suggestion-list div {
+        padding: 10px;
         cursor: pointer;
         border-bottom: 1px solid #eee;
+        transition: background 0.3s ease;
     }
 
-
-    #suggestionList div:hover {
-        background-color: #f0f0f0;
+    /* Hiệu ứng hover */
+    .suggestion-list div:hover {
+        background: #f0f0f0;
     }
 
-
-    #suggestionList b {
-        font-weight: bold;
-        background-color: yellow;
+    /* Định vị danh sách gợi ý cho cả hai input */
+    #suggestionList {
+        top: 50px; /* Khoảng cách dưới ô input */
+        left: 0;
     }
+
+    #addressSuggestionList {
+        top: 50px; /* Khoảng cách dưới ô input */
+        left: 0;
+    }
+
 </style>
-</body>
 </html>
-
+</body>
