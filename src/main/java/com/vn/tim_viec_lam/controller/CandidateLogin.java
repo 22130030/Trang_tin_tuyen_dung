@@ -39,6 +39,7 @@ public class CandidateLogin extends HttpServlet {
                 response.sendRedirect("home");
             }
             session.setAttribute("user", u);
+            session.setAttribute("email",email);
             session.setAttribute("jobAppliedCart", jobApplicationList);
             session.setAttribute("jac", resumesList);
             session.setAttribute("role",role);

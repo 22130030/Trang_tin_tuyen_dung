@@ -13,9 +13,26 @@
     align-items: center;
 }
 .user__detail-avatar{
-  
+
 }
-    
+.user__detail-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.user__detail-status{
+    font-size: 1rem;
+    display: block;
+    padding : 5px;
+    border-radius: 5px;
+    text-decoration: none   ;
+}
+
+.user__status--unverified{
+    color : var(--text-color);
+    background-color: #ccc;
+}
+
 .user__detail-avatar img{
     border-radius: 50%;
     width: 70px;
@@ -24,6 +41,7 @@
 .user__detail-contact{
     display: block;
     padding: 0 15px;
+    width : 100%;
 }
 .user__detail-name{
     display: block;
@@ -43,6 +61,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-decoration: none;
 }
 .user__status-created{
     font-size: 1.2rem;
@@ -60,9 +79,9 @@
     padding: 0 5px;
 }
 .user__status-logout a{
-    text-decoration: none;
     font-size: 1.4rem;
     color : var(--blue-color);
+    text-decoration: none;
 }
 .user__info-edit{
     position: absolute;
@@ -160,7 +179,6 @@
 }
 .recomended__job-remove{
     color : var(--blue-color);
-    text-decoration: none;
 }
 
 .recomended__job-list{
@@ -173,11 +191,4 @@
     border: 1px solid rgba(0,0,0,0.2);
     border-radius: 5px;
     margin-top: 10px;
-    min-height: 130px;
-}
-.recomended__job-item .suggest-company{
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
 }
