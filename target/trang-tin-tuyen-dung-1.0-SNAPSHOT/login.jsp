@@ -96,7 +96,7 @@
                                     <a href="html/login.html" class="btn btn-block py-2 btn-facebook">
                                         <img src="asserts/img/fb.png" alt="" class="icon-fb">Đăng nhập với
                                         facebook</a>
-                                    <a href="html/login.html" class="btn btn-block py-2 btn-google"
+                                    <a href="login" class="btn btn-block py-2 btn-google"
                                        style="margin-left: 0px;">
                                         <img src="asserts/img/gg.png" alt="" class="icon-gg">Đăng nhập với
                                         Google</a>

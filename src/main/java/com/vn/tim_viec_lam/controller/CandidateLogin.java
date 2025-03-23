@@ -1,5 +1,9 @@
 package com.vn.tim_viec_lam.controller;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.vn.tim_viec_lam.dao.model.JobApplication;
 import com.vn.tim_viec_lam.dao.model.Resumes;
 import com.vn.tim_viec_lam.dao.model.User;
@@ -15,11 +19,30 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 @WebServlet(name="login",value = "/login")
 public class CandidateLogin extends HttpServlet {
+    private static final String CLIENT_ID = "m";
+    private static final String CLIENT_SECRET = "m";
+    private static final String REDIRECT_URI = "m";
+
+    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    private static final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+
+    private static GoogleAuthorizationCodeFlow flow;
+
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        flow = new GoogleAuthorizationCodeFlow.Builder(
+                HTTP_TRANSPORT, JSON_FACTORY, CLIENT_ID, CLIENT_SECRET,
+                Arrays.asList("openid", "profile", "email")) // Thêm openid vào scope
+                .build();
+
+
+        String authorizationUrl = flow.newAuthorizationUrl().setRedirectUri(REDIRECT_URI).build();
+        response.sendRedirect(authorizationUrl);
 
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

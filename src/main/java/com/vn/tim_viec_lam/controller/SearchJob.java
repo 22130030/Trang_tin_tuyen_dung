@@ -1,5 +1,6 @@
 package com.vn.tim_viec_lam.controller;
 
+import com.google.gson.Gson;
 import com.vn.tim_viec_lam.dao.model.Job;
 import com.vn.tim_viec_lam.service.JobService;
 import jakarta.servlet.ServletException;
@@ -10,19 +11,27 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "search-job", value = "/search-job")
 public class SearchJob extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(SearchJob.class.getName());
-    private final JobService jobService = new JobService(); // Có thể thay bằng DI
+    private final JobService jobService = new JobService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
+
+        String query = request.getParameter("searchName");
+        if (query != null && !query.isEmpty()) {
+            handleSuggestions(request, response, query);
+            return;
+        }
 
         String title = "";
         List<Job> jobList = null;
@@ -86,5 +95,30 @@ public class SearchJob extends HttpServlet {
             return " cho ngành " + request.getParameter("jcname");
         }
         return "";
+    }
+
+    private void handleSuggestions(HttpServletRequest request, HttpServletResponse response, String query) throws IOException {
+        Set<String> allTitles = jobService.getAllJob().stream()
+                .map(Job::getTitle)
+                .collect(Collectors.toSet()); // Sử dụng Set để loại bỏ trùng lặp
+
+        List<String> suggestions = allTitles.stream()
+                .filter(title -> title.toLowerCase().contains(query.toLowerCase()))
+                .sorted((s1, s2) -> {
+                    boolean s1ContainsNhanVien = s1.toLowerCase().contains("nhân viên");
+                    boolean s2ContainsNhanVien = s2.toLowerCase().contains("nhân viên");
+
+                    if (query.equalsIgnoreCase("nh") || query.toLowerCase().startsWith("nh")) {
+                        if (s1ContainsNhanVien && !s2ContainsNhanVien) return -2;
+                        if (!s1ContainsNhanVien && s2ContainsNhanVien) return 2;
+                    }
+                    return s1.compareToIgnoreCase(s2);
+                })
+                .collect(Collectors.toList());
+
+        String json = new Gson().toJson(suggestions);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
     }
 }
