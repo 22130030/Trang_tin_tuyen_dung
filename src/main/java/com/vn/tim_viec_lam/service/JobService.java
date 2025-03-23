@@ -1,16 +1,20 @@
 package com.vn.tim_viec_lam.service;
 
+
 import com.vn.tim_viec_lam.dao.JobDao;
 import com.vn.tim_viec_lam.dao.model.Job;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class JobService {
     JobDao jobDao = new JobDao();
     public JobService() {}
+
 
     public List<Job> getAllJob(){
         return jobDao.getAll();
@@ -32,14 +36,17 @@ public class JobService {
     }
     public List<Job> getJobByPage(int page){
 
+
         return jobDao.getPaging(page);
     }
     public List<Job> getListSearchJob(String txtName,String txtAddress){
         if((txtName.isBlank() || txtName == null) && (!txtAddress.isBlank() || txtAddress != null) ){
             return jobDao.searchJobByAddress(txtAddress);
 
+
         }else if((txtAddress.isBlank() || txtAddress == null) && (!txtName.isBlank() || txtName != null) ){
             return jobDao.searchEqualsByName(txtName);
+
 
         }else if((!txtAddress.isBlank() || txtAddress != null) && (!txtName.isBlank() || txtName != null)){
             return jobDao.searchJobByNameAndAddress(txtName, txtAddress);
@@ -52,6 +59,7 @@ public class JobService {
     public void deleteJobPosting(int id){
         jobDao.deleteJobPosting(id);
     }
+
 
     public  void editJobPosting(int cid, String img, String titleJob, String companyName,String city,String salary,String status ){
         jobDao.editJobPosting(cid,img,titleJob,companyName,city,salary,status);
@@ -72,6 +80,7 @@ public class JobService {
         Map<Character,List<String>> fristLetterLocation = new HashMap<Character,List<String>>();
         List<String> location = jobDao.getAllLocation();
 
+
         for(String str : location){
             if(fristLetterLocation.containsKey(str.charAt(0))){
                 fristLetterLocation.get(str.charAt(0)).add(str);
@@ -84,17 +93,21 @@ public class JobService {
         return fristLetterLocation;
     }
     public boolean addJobPosting(int companyId,String companyName,String employerSize,String website,String jobName,String jobAddress
-    ,String salaryValue,String salaryUnit,String educationLevel,String experienceLevel,String jobType,String jobLocation,
+            ,String salaryValue,String salaryUnit,String educationLevel,String experienceLevel,String jobType,String jobLocation,
                                  String jobCategory,String keywords,String age,String contactName
-    ,String contactEmail,String contactPhone,String contactAddress ,String jobPostingDate,String JobExpiryDate,String language){
+            ,String contactEmail,String contactPhone,String contactAddress ,String jobPostingDate,String JobExpiryDate,String language){
         return jobDao.addJobPosting(companyId,companyName,employerSize,website,jobName,jobAddress,salaryValue,salaryUnit,educationLevel,experienceLevel,jobType,jobLocation,jobCategory,keywords,age,contactName,contactEmail,contactPhone,contactAddress,jobPostingDate,JobExpiryDate,language);
     }
     public List<Job> filterJob(int companyID,String jobName,String jobCategory,String jobLocation){
         return jobDao.filterJobs(companyID,jobName,jobCategory,jobLocation);
     }
 
+
     public static void main(String[] args) {
         JobService jobService = new JobService();
         System.out.println(jobService.filterJob(1,"giám đốc","",""));
     }
+
+
 }
+
