@@ -1,7 +1,5 @@
 Manifest-Version: 1.0
 Created-By: IntelliJ IDEA
-
-Built-By: Asus
+Built-By: Le Minh Cong
 Build-Jdk: Amazon Corretto 17.0.14
-
 
