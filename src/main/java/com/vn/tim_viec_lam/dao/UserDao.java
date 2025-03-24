@@ -201,14 +201,13 @@ public class UserDao {
 
     public boolean insertUser(String email, String pass, String fullName,String phone) {
         Connection con = DBconnect.getConnection();
-        String sql = "insert into users(email,password,phone_number,status,created_at,name) values(?,?,?,?,NOW(),?)";
+        String sql = "insert into users(email,password,phone_number,status,created_at,name) values(?,?,?,1,NOW(),?)";
         try {
             PreparedStatement prep = con.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
             prep.setString(1,email);
             prep.setString(2,pass);
             prep.setString(3,phone);
-            prep.setString(4,"đang hoạt động");
-            prep.setString(5,fullName);
+            prep.setString(4,fullName);
             int rowsAffected = prep.executeUpdate();
             if(rowsAffected>0){
                 ResultSet rs = prep.getGeneratedKeys();

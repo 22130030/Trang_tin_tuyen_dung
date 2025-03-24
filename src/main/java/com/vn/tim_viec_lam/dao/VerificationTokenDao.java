@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class VerificationTokenDao {
     public int addToken(String email,String token) {
         Connection connnect = DBconnect.getConnection();
-        String sql = "insert into verify_tokens(email,token,created_at) values(?,?,NOW())";
+        String sql = "insert into verify_tokens(email,token,created_at,expires_at) values(?,?,NOW(), DATE_ADD(NOW(), INTERVAL 3 MINUTE))";
         try {
             PreparedStatement prep = connnect.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
             prep.setString(1, email);
@@ -25,7 +25,7 @@ public class VerificationTokenDao {
     }
     public String getToken(int id) {
         Connection connnect = DBconnect.getConnection();
-        String sql = "select token from verify_tokens where id=?";
+        String sql = "select token from verify_tokens where id=? and created_at < expires_at";
         try {
             PreparedStatement prep = connnect.prepareStatement(sql);
             prep.setInt(1, id);

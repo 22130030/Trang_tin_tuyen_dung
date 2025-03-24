@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.UUID;
-@WebServlet(name = "send-mail",value = "/account/send-mail")
+@WebServlet(name = "send-mail",value = "/send-mail")
 public class SendMailController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -42,5 +42,7 @@ public class SendMailController extends HttpServlet {
         String subject = "=?UTF-8?B?" + Base64.getEncoder().encodeToString("Xác thực tài khoản - TimViecHCD".getBytes(StandardCharsets.UTF_8)) + "?=";
         MailService mailService = new MailService();
         mailService.sendMail(email, subject, container);
+
+        request.getRequestDispatcher("verify_account.jsp").forward(request, response);
     }
 }

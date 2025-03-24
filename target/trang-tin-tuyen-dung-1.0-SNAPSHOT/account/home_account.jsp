@@ -14,8 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../asserts/css/candidate/account_main.css">
     <link rel="stylesheet" href="../asserts/css/base.css">
-    <link rel="stylesheet" href="../asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
     <link rel="stylesheet" href="../asserts/css/candidate/account_base.css">
+    <link rel="stylesheet" href="../asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
 
     <title>Quản lý tài khoản</title>
 </head>

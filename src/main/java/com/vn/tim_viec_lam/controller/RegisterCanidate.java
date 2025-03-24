@@ -1,13 +1,20 @@
 package com.vn.tim_viec_lam.controller;
 
+import com.vn.tim_viec_lam.service.EncryptionService;
+import com.vn.tim_viec_lam.service.MailService;
 import com.vn.tim_viec_lam.service.UserService;
+import com.vn.tim_viec_lam.service.VerifycationTokenService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import java.util.UUID;
 
 @WebServlet(name ="register",value = "/register")
 public class RegisterCanidate extends HttpServlet {
@@ -19,11 +26,20 @@ public class RegisterCanidate extends HttpServlet {
         String rePassword = req.getParameter("re-password");
         String phone = req.getParameter("phone");
 
-        UserService userService = new UserService();
-        boolean res =userService.insetUser(mail,password,rePassword,fName,phone);
-        if(res){
 
-        }
-        resp.sendRedirect("login.jsp");
+        HttpSession session = req.getSession(false);
+        session.setAttribute("mail", mail);
+        session.setAttribute("fName", fName);
+        session.setAttribute("password", EncryptionService.hasPasswordToMD5(password));
+        session.setAttribute("rePassword", EncryptionService.hasPasswordToMD5(rePassword));
+        session.setAttribute("phone", phone);
+
+
+
+
+
+
+
+        req.getRequestDispatcher("send-mail").forward(req,resp);
     }
 }
