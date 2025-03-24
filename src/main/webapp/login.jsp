@@ -144,15 +144,14 @@
                 }
             }, 1000);
         } else {
-            form.style.display = "block"; // Hiện form nếu hết thời gian khóa
-            errorMessage.style.display = "none"; // Ẩn thông báo lỗi
+            form.style.display = "block";
+            errorMessage.style.display = "none";
         }
     }
 
     window.onload = function () {
-        <%--let remainingTime = <%= remainingTime %>;--%>
-        <%--startCountdown(remainingTime);--%>
-        <%--var statusRegister = "${statusRegister}"; // Lấy giá trị từ JSP--%>
+        let remainingTime = <%= remainingTime %>;
+        startCountdown(remainingTime);
         const urlParams = new URLSearchParams(window.location.search);
         var status = urlParams.get("status");
 

@@ -5,8 +5,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.OutputStream;
+import org.json.JSONObject;
+
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -14,54 +15,60 @@ import java.nio.charset.StandardCharsets;
 @WebServlet("/account/momo-payment")
 public class PaymentController extends HttpServlet {
     private static final String MOMO_API_URL = "https://test-payment.momo.vn/v2/gateway/api/create";
-    private static final String PARTNER_CODE = "MOMOBKUN20180529";
-    private static final String ACCESS_KEY = "klm05TvNBzhg7h7j";
-    private static final String SECRET_KEY = "at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa";
-    private static final String RETURN_URL = "http://localhost:8080/home";
-    private static final String NOTIFY_URL = "http://localhost:8080/home";
+    private static final String PARTNER_CODE = "MOMOLRJZ2018206";
+    private static final String ACCESS_KEY = "mTCKt9W3eU1m39TW";
+    private static final String SECRET_KEY = "SetA5RDnLHvt51AULf51DyauxUo3kDU6";
+    private static final String RETURN_URL = "http://localhost:8080/trang_tin_tuyen_dung/home";
+    private static final String NOTIFY_URL = "https://88b1-115-73-21-111.ngrok-free.app";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String orderId = "ORDER" + System.currentTimeMillis();
         String requestId = orderId;
         String amount = request.getParameter("amount");
+        if (amount == null || amount.isEmpty()) {
+            response.getWriter().write("Error: Amount is required!");
+            return;
+        }
         String orderInfo = "Thanh toán MoMo - " + orderId;
-        String extraData = ""; // Có thể để trống
+        String extraData = "";
 
-// Tạo chuỗi rawData theo định dạng yêu cầu của MoMo
+        // ✅ Sửa notifyUrl trong rawData
         String rawData = "accessKey=" + ACCESS_KEY +
                 "&amount=" + amount +
                 "&extraData=" + extraData +
-                "&ipnUrl=" + NOTIFY_URL +
+                "&notifyUrl=" + NOTIFY_URL +  // 🔥 Đã sửa lỗi notifyUrl
                 "&orderId=" + orderId +
                 "&orderInfo=" + orderInfo +
                 "&partnerCode=" + PARTNER_CODE +
-                "&redirectUrl=" + RETURN_URL +
+                "&returnUrl=" + RETURN_URL +
                 "&requestId=" + requestId +
                 "&requestType=captureWallet";
 
-// Tạo chữ ký với SECRET_KEY
-        String signature = null;
+        String signature;
         try {
             signature = MoMoUtils.hmacSHA256(rawData, SECRET_KEY);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            response.getWriter().write("Error generating signature: " + e.getMessage());
+            return;
         }
 
-// Xây dựng JSON payload với chữ ký
-        String jsonPayload = "{" +
-                "\"partnerCode\":\"" + PARTNER_CODE + "\"," +
-                "\"accessKey\":\"" + ACCESS_KEY + "\"," +
-                "\"requestId\":\"" + requestId + "\"," +
-                "\"amount\":\"" + amount + "\"," +
-                "\"orderId\":\"" + orderId + "\"," +
-                "\"orderInfo\":\"" + orderInfo + "\"," +
-                "\"returnUrl\":\"" + RETURN_URL + "\"," +
-                "\"notifyUrl\":\"" + NOTIFY_URL + "\"," +
-                "\"extraData\":\"" + extraData + "\"," +
-                "\"requestType\":\"captureWallet\"," +
-                "\"signature\":\"" + signature + "\"" +
-                "}";
+        JSONObject jsonPayload = new JSONObject();
+        jsonPayload.put("partnerCode", PARTNER_CODE);
+        jsonPayload.put("accessKey", ACCESS_KEY);
+        jsonPayload.put("requestId", requestId);
+        jsonPayload.put("amount", amount);
+        jsonPayload.put("orderId", orderId);
+        jsonPayload.put("orderInfo", orderInfo);
+        jsonPayload.put("returnUrl", RETURN_URL);
+        jsonPayload.put("notifyUrl", NOTIFY_URL);  // 🔥 Đảm bảo notifyUrl không rỗng
+        jsonPayload.put("extraData", extraData);
+        jsonPayload.put("requestType", "captureWallet");
+        jsonPayload.put("signature", signature);
+
+        // ✅ Debug JSON Payload
+        System.out.println("Final JSON Payload: " + jsonPayload.toString());
+
         try {
             URL url = new URL(MOMO_API_URL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -70,27 +77,38 @@ public class PaymentController extends HttpServlet {
             conn.setDoOutput(true);
 
             try (OutputStream os = conn.getOutputStream()) {
-                byte[] input = jsonPayload.getBytes(StandardCharsets.UTF_8);
+                byte[] input = jsonPayload.toString().getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
             }
 
             int responseCode = conn.getResponseCode();
-            StringBuilder responseContent = new StringBuilder();
+            System.out.println("Response Code: " + responseCode);
 
-            try (var reader = new java.io.BufferedReader(new java.io.InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+                BufferedReader errorReader = new BufferedReader(new InputStreamReader(conn.getErrorStream(), StandardCharsets.UTF_8));
+                StringBuilder errorResponse = new StringBuilder();
+                String errorLine;
+                while ((errorLine = errorReader.readLine()) != null) {
+                    errorResponse.append(errorLine);
+                }
+                System.out.println("MoMo API Error Response: " + errorResponse.toString());
+                response.getWriter().write("MoMo API Error: " + errorResponse.toString());
+                return;
+            }
+
+            StringBuilder responseContent = new StringBuilder();
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     responseContent.append(line);
                 }
             }
 
-            // In phản hồi từ MoMo
             System.out.println("MoMo API Response: " + responseContent.toString());
 
-            // Parse JSON response để lấy payUrl
-            org.json.JSONObject jsonResponse = new org.json.JSONObject(responseContent.toString());
+            JSONObject jsonResponse = new JSONObject(responseContent.toString());
             if (jsonResponse.has("payUrl")) {
-                response.sendRedirect(jsonResponse.getString("payUrl")); // Chuyển hướng tới trang thanh toán MoMo
+                response.sendRedirect(jsonResponse.getString("payUrl"));
             } else {
                 response.getWriter().write("Payment failed: " + jsonResponse.toString());
             }
@@ -99,5 +117,4 @@ public class PaymentController extends HttpServlet {
             response.getWriter().write("Error: " + e.getMessage());
         }
     }
-
 }
