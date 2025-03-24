@@ -150,9 +150,18 @@
     }
 
     window.onload = function () {
-        let remainingTime = <%= remainingTime %>;
-        startCountdown(remainingTime);
+        <%--let remainingTime = <%= remainingTime %>;--%>
+        <%--startCountdown(remainingTime);--%>
+        <%--var statusRegister = "${statusRegister}"; // Lấy giá trị từ JSP--%>
+        const urlParams = new URLSearchParams(window.location.search);
+        var status = urlParams.get("status");
+
+        if (status === "success") {
+            console.log(status);
+            localStorage.setItem("closeMailTab", "true");
+        }
     };
+
 </script>
 
 </html>
