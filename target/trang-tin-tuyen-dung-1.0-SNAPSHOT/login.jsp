@@ -64,6 +64,9 @@
                             <div class="text-center mb-5">
                                 <h3 class="text-uppercase"><strong>Người tìm việc đăng nhập</strong></h3>
                             </div>
+                            <div id="error-message" style="display: none; text-align: center; color: red; font-size: 18px; font-weight: bold;">
+                                Tài khoản của bạn đã bị khóa trong <span id="countdown"></span>. Vui lòng thử lại sau!
+                            </div>
                             <form id="login-form" action="login" method="post">
                                 <div class="form-group first">
                                     <label for="username">Username</label>
@@ -74,7 +77,6 @@
                                     <input type="password" class="form-control" placeholder="Mật khẩu"
                                            id="password" name="password">
                                 </div>
-
                                 <div class="g-recaptcha" data-sitekey="6Le1O_UqAAAAAJ2e7eQrw35TOiST05hjCmWFk3Fy"></div>
                                 <div style="color: red" id="error"></div>
 
@@ -112,5 +114,45 @@
     <%@include file="footer.jsp" %>
 </div>
 </body>
+
+<%
+    String error = request.getParameter("error");
+    long lockTime = session.getAttribute("lockTime") != null ? (Long) session.getAttribute("lockTime") : 0;
+    long currentTime = System.currentTimeMillis();
+    long remainingTime = (lockTime + (1 * 60 * 1000)) - currentTime; // Thời gian còn lại (1 phút)
+    boolean isLocked = remainingTime > 0;
+%>
+
+<script>
+    function startCountdown(duration) {
+        let countdownElement = document.getElementById("countdown");
+        let form = document.getElementById("login-form");
+        let errorMessage = document.getElementById("error-message");
+
+        if (duration > 0) {
+            form.style.display = "none"; // Ẩn form đăng nhập
+            errorMessage.style.display = "block"; // Hiện thông báo lỗi
+
+            let countdown = duration / 1000;
+            let interval = setInterval(function () {
+                if (countdown <= 0) {
+                    clearInterval(interval);
+                    window.location.reload(); // Reload trang sau khi hết thời gian khóa
+                } else {
+                    countdownElement.innerText = countdown + " giây";
+                    countdown--;
+                }
+            }, 1000);
+        } else {
+            form.style.display = "block"; // Hiện form nếu hết thời gian khóa
+            errorMessage.style.display = "none"; // Ẩn thông báo lỗi
+        }
+    }
+
+    window.onload = function () {
+        let remainingTime = <%= remainingTime %>;
+        startCountdown(remainingTime);
+    };
+</script>
 
 </html>

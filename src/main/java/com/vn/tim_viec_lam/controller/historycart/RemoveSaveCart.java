@@ -23,7 +23,7 @@ public class RemoveSaveCart extends HttpServlet {
         if(sc != null){
             session.removeAttribute("hsCart");
         }
-        response.sendRedirect(request.getContextPath() + "home_account.jsp");
+        response.sendRedirect(request.getContextPath() + "/account/home_account.jsp");
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");

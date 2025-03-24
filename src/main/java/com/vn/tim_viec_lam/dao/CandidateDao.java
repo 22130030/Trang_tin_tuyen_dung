@@ -213,4 +213,5 @@ public class CandidateDao {
             throw new RuntimeException(e);
         }
     }
+
 }

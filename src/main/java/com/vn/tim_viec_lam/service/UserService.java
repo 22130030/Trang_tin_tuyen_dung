@@ -15,7 +15,7 @@ public class UserService {
         userDao = new UserDao();
     }
     public boolean login(String email, String password) {
-        return userDao.getUser(email,hasPasswordToMD5(password));
+        return userDao.getUser(email,EncryptionService.hasPasswordToMD5(password));
     }
     public User getUser(String email) {
         return userDao.getUserByEmail(email);
@@ -23,25 +23,7 @@ public class UserService {
     public List<User> getListAll(){
       return userDao.getListUser();
     }
-    public String hasPasswordToMD5(String password) {
-        try {
 
-            MessageDigest md = MessageDigest.getInstance("MD5");
-
-            byte[] messageDigest = md.digest(password.getBytes());
-
-            BigInteger no = new BigInteger(1, messageDigest);
-
-            String hashtext = no.toString(16);
-            while (hashtext.length() < 32) {
-                hashtext = "0" + hashtext;
-            }
-            return hashtext;
-
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
     public List<User> FindListUserByEmail(String  email){
         return userDao.findListUserbyEmail(email);
     }
@@ -56,10 +38,13 @@ public class UserService {
         userDao.updateUser(id, email, pass, role, status);
     }
     public boolean insetUser(String email,String pass, String rePass,String fName,String phone){
-        if(hasPasswordToMD5(rePass).equals(hasPasswordToMD5(pass))){
-            return userDao.insertUser(email,hasPasswordToMD5(pass),fName,phone);
+        if(EncryptionService.hasPasswordToMD5(rePass).equals(EncryptionService.hasPasswordToMD5(pass))){
+            return userDao.insertUser(email,EncryptionService.hasPasswordToMD5(pass),fName,phone);
         }
         return false;
+    }
+    public boolean updateStatus(int id,int status)  {
+        return userDao.setStatus(id,status);
     }
     public static void main(String[] args) {
         UserService userService = new UserService();
