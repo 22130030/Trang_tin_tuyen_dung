@@ -28,6 +28,11 @@
             <p id="verifyMessage"></p>
         </div>
     </div>
+    <div id="successPopup" class="popup">
+        <h3>Xác thực thành công!</h3>
+        <p>Bạn sẽ được chuyển đến trang đăng nhập trong giây lát...</p>
+        <button onclick="window.location.href='login.jsp'">Đi đến trang đăng nhập ngay</button>
+    </div>
     <%@include file="footer.jsp"%>
 </div>
 <script>
@@ -57,9 +62,15 @@
         if(localStorage.getItem("closeMailTab") === "true") {
             console.log(3)
             localStorage.setItem("closeMailTab","false")
-            window.close();
+            showSuccessPopup();
         }
     }, 1000);
+    function showSuccessPopup() {
+        document.getElementById("successPopup").style.display = "block";
+        setTimeout(function () {
+            window.location.href = "login.jsp";
+        }, 10000);
+    }
 </script>
 </body>
 
