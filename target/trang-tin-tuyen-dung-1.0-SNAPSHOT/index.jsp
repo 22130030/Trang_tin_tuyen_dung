@@ -514,7 +514,7 @@
     /* Điều chỉnh danh sách gợi ý */
     .suggestion-list {
         position: absolute;
-        width: 600px; /* Độ rộng tương đương ô input */
+        width: (100% - 20px); /* Độ rộng tương đương ô input */
         background: white;
         border-top: none;
         max-height: 300px;

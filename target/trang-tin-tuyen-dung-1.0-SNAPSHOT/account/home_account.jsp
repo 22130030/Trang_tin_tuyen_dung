@@ -12,8 +12,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../asserts/css/base.css">
     <link rel="stylesheet" href="../asserts/css/candidate/account_main.css">
+    <link rel="stylesheet" href="../asserts/css/base.css">
     <link rel="stylesheet" href="../asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
     <link rel="stylesheet" href="../asserts/css/candidate/account_base.css">
 
@@ -39,7 +39,15 @@
                                 <div class="user__detail-contact">
                                     <div class="user__detail-content">
                                         <span class="user__detail-name">${sessionScope.user.name}</span>
-                                        <a href="verify_account.jsp" class="user__detail-status user__status--unverified">Chưa xác minh</a>
+                                        <a  class="user__detail-status
+                                            <c:if test='${sessionScope.status eq 0}'> user__status--unverified</c:if>
+                                            <c:if test='${sessionScope.status eq 1}'> user__status--verified</c:if>">
+                                            <c:choose>
+                                                <c:when test="${sessionScope.status eq 0}">Chưa xác thực</c:when>
+                                                <c:when test="${sessionScope.status eq 1}">Đã xác thực</c:when>
+                                                <c:otherwise>Trạng thái không xác định</c:otherwise>
+                                            </c:choose>
+                                        </a>
                                     </div>
                                     <span class="user__detail-email">${sessionScope.user.email}</span>
                                 </div>

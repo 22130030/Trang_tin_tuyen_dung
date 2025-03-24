@@ -71,10 +71,7 @@ public class UserDao {
         return new User(id,email,"",name,phoneNumber,status,date,role);
     }
 
-    public static void main(String[] args) {
-        UserDao dao = new UserDao();
-        System.out.println(dao.getAll());
-    }
+
     public List<User> getListUser(){
         List<User> users = new ArrayList<User>();
 
@@ -236,5 +233,23 @@ public class UserDao {
             throw new RuntimeException(e);
         }
         return false;
+    }
+
+    public boolean setStatus(int userID, int status) {
+        Connection con = DBconnect.getConnection();
+        String sql = "UPDATE users SET status = ? WHERE userID = ?";
+        try {
+            PreparedStatement pre = con.prepareStatement(sql);
+            pre.setInt(1, status);
+            pre.setInt(2, userID);
+            int res = pre.executeUpdate();
+            return res > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void main(String[] args) {
+        UserDao dao = new UserDao();
+        System.out.println(dao.setStatus(1,0));
     }
 }

@@ -17,7 +17,7 @@
 
     <!-- Form gửi email -->
     <div id="emailForm">
-        <form id="emailVerificationForm">
+        <form method="post" action="send-mail" id="emailVerificationForm">
             <label for="email">Nhập email của bạn:</label>
             <input type="email" id="email" name="email" placeholder="Email" required>
             <button type="submit">Gửi mã xác minh</button>

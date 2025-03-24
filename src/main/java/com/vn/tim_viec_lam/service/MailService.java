@@ -29,7 +29,7 @@ public class MailService {
             message.setFrom(new InternetAddress(from));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.setSubject(subject);
-            message.setText(content);
+            message.setContent(content, "text/html;charset=utf-8");
 
             Transport.send(message);
             System.out.println("send success");
@@ -40,6 +40,6 @@ public class MailService {
 
     public static void main(String[] args) {
         MailService mailService = new MailService();
-        mailService.sendMail("22130030@st.hcmuaf.edu.vn","gửi được mail rồi fen ơi","gửi được mail rồi công lờ");
+        mailService.sendMail("ducvan26324@gmail.com","gửi được mail rồi fen ơi","gửi được mail rồi công lờ");
     }
 }
