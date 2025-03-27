@@ -75,15 +75,15 @@
                                 <div class="form-group last mb-3">
                                     <label for="password">Password</label>
                                     <input type="password" class="form-control" placeholder="Mật khẩu"
-                                           id="password" name="password">
+                                           id="password" name="password" required>
                                 </div>
                                 <div class="g-recaptcha" data-sitekey="6Le1O_UqAAAAAJ2e7eQrw35TOiST05hjCmWFk3Fy"></div>
                                 <div style="color: red" id="error"></div>
 
                                 <div class="d-sm-flex mb-5 align-items-center">
                                     <label class="control control--checkbox mb-3 mb-sm-0"><span
-                                            class="caption">Nhớ mật khẩu</span>
-                                        <input type="checkbox" checked="checked">
+                                            class="caption">Hiển thị mật khẩu</span>
+                                        <input type="checkbox"  onclick="togglePassword()">
                                         <div class="control__indicator"></div>
                                     </label>
                                     <span class="ml-auto"><a href="html/login.html" class="forgot-pass">Quên
@@ -124,6 +124,14 @@
 %>
 
 <script>
+    function togglePassword() {
+        var passwordField = document.getElementById("password");
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    }
     function startCountdown(duration) {
         let countdownElement = document.getElementById("countdown");
         let form = document.getElementById("login-form");
