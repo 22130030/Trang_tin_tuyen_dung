@@ -111,6 +111,13 @@
             <artifactId>google-http-client-jackson2</artifactId>
             <version>1.43.3</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.google.auth</groupId>
+            <artifactId>google-auth-library-oauth2-http</artifactId>
+            <version>1.21.0</version> <!-- Cập nhật lên phiên bản mới nhất -->
+        </dependency>
+
     </dependencies>
 
       <build>

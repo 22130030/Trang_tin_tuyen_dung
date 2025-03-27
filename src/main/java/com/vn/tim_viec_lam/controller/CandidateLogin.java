@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @WebServlet(name="login",value = "/login")
@@ -31,15 +32,13 @@ public class CandidateLogin extends HttpServlet {
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 
-    private static GoogleAuthorizationCodeFlow flow;
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        flow = new GoogleAuthorizationCodeFlow.Builder(
+        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 HTTP_TRANSPORT, JSON_FACTORY, CLIENT_ID, CLIENT_SECRET,
-                Arrays.asList("openid", "profile", "email")) // Thêm openid vào scope
+                Arrays.asList("https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email"))
                 .build();
-
 
         String authorizationUrl = flow.newAuthorizationUrl().setRedirectUri(REDIRECT_URI).build();
         response.sendRedirect(authorizationUrl);
@@ -56,7 +55,7 @@ public class CandidateLogin extends HttpServlet {
 
         if (lockTime != null) {
             long elapsedTime = System.currentTimeMillis() - lockTime;
-            if (elapsedTime < 1 * 60 * 1000) { // 5 phút
+            if (elapsedTime < 1 * 60 * 1000) { // 1 phút
                 response.sendRedirect("login.jsp?error=locked");
                 return;
             } else {

@@ -43,6 +43,9 @@ public class UserService {
         }
         return false;
     }
+    public boolean addUser(String email,String pass,String fName,String phone){
+        return userDao.insertUser(email,EncryptionService.hasPasswordToMD5(pass),fName,phone);
+    }
     public boolean updateStatus(int id,int status)  {
         return userDao.setStatus(id,status);
     }
