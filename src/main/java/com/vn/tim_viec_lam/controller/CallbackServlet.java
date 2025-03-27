@@ -1,66 +1,98 @@
-package com.vn.tim_viec_lam.controller;
+    package com.vn.tim_viec_lam.controller;
 
-import com.google.api.client.auth.oauth2.TokenResponse;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+    import com.google.api.client.auth.oauth2.TokenResponse;
+    import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+    import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+    import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+    import com.google.api.client.http.javanet.NetHttpTransport;
+    import com.google.api.client.json.JsonFactory;
+    import com.google.api.client.json.jackson2.JacksonFactory;
+    import com.vn.tim_viec_lam.dao.model.User;
+    import com.vn.tim_viec_lam.service.UserService;
+    import jakarta.servlet.ServletException;
+    import jakarta.servlet.annotation.WebServlet;
+    import jakarta.servlet.http.HttpServlet;
+    import jakarta.servlet.http.HttpServletRequest;
+    import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
-import java.util.Collections;
+    import java.io.IOException;
+    import java.security.GeneralSecurityException;
+    import java.util.Collections;
 
-@WebServlet(name="callback",value = "/callback")
-public class CallbackServlet extends HttpServlet {
-    private static final String CLIENT_ID = "m";
-    private static final String CLIENT_SECRET = "m";
-    private static final String REDIRECT_URI = "m";
+    @WebServlet(name="callback",value = "/callback")
+    public class CallbackServlet extends HttpServlet {
+        private static final String CLIENT_ID = "m";
+        private static final String CLIENT_SECRET = "m";
+        private static final String REDIRECT_URI = "m";
 
-    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    private static final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+        private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+        private static final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String code = req.getParameter("code");
+        @Override
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            String code = req.getParameter("code");
 
-        if (code == null) {
-            resp.sendRedirect("login");
-            return;
-        }
+            if (code == null) {
+                resp.sendRedirect("login?error=google");
+                return;
+            }
 
-        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-                HTTP_TRANSPORT, JSON_FACTORY, CLIENT_ID, CLIENT_SECRET,
-                Collections.singletonList("https://www.googleapis.com/auth/userinfo.profile"))
-                .build();
+            GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+                    HTTP_TRANSPORT, JSON_FACTORY, CLIENT_ID, CLIENT_SECRET,
+                    Collections.singletonList("https://www.googleapis.com/auth/userinfo.profile"))
+                    .build();
 
-        TokenResponse tokenResponse = flow.newTokenRequest(code).setRedirectUri(REDIRECT_URI).execute();
-        String accessToken = tokenResponse.getAccessToken();
-
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(HTTP_TRANSPORT, JSON_FACTORY)
-                .setAudience(Collections.singletonList(CLIENT_ID))
-                .build();
-
-        String idTokenString = tokenResponse.get("id_token").toString();
-        GoogleIdToken idToken = GoogleIdToken.parse(JSON_FACTORY, idTokenString);
+            TokenResponse tokenResponse = flow.newTokenRequest(code).setRedirectUri(REDIRECT_URI).execute();
+            String idTokenString = (String) tokenResponse.get("id_token");
 
 
-        if (idToken != null) {
-            GoogleIdToken.Payload payload = idToken.getPayload();
-            String userId = payload.getSubject();
-            String email = payload.getEmail();
-            String name = (String) payload.get("name");
+            GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(HTTP_TRANSPORT, JSON_FACTORY)
+                    .setAudience(Collections.singletonList(CLIENT_ID))
+                    .build();
 
-            req.getSession().setAttribute("user", name);
-            req.getSession().setAttribute("email", email);
-            resp.sendRedirect("home");
-        } else {
-            resp.sendRedirect("login");
+
+//            GoogleIdToken idToken = verifier.verify(tokenResponse.getIdToken());
+            try {
+                GoogleIdToken idToken = verifier.verify(idTokenString);
+                if (idToken != null) {
+                    GoogleIdToken.Payload payload = idToken.getPayload();
+                    String email = payload.getEmail();
+                    String name = (String) payload.get("name");
+                    String password = (String) payload.get("password");
+                    String phone = (String) payload.get("phone");
+
+
+                    // Tạo đối tượng User (tùy vào hệ thống bạn có thể cần mapping vào DB)
+                    UserService userService = new UserService();
+                    User user = userService.getUser(email);
+
+                    if (user == null) {
+                        // Nếu chưa có trong DB, có thể tự động đăng ký tài khoản mới
+                        user = new User();
+                        user.setEmail(email);
+                        user.setPassword(password);
+                        user.setName(name);
+                        user.setPhone_number(phone);
+
+
+                        user.setRoleNum(1); // Mặc định là user thường
+
+                        userService.addUser(user.getEmail(),user.getPassword(),user.getName(),user.getPhoneNumber()); // Thêm vào DB
+                    }
+
+                    // Lưu vào session giống như đăng nhập bình thường
+                    req.getSession().setAttribute("user", user);
+                    req.getSession().setAttribute("email", email);
+                    req.getSession().setAttribute("name", name);
+
+
+                    resp.sendRedirect("home");
+                } else {
+                    resp.sendRedirect("login?error=google");
+                }
+            } catch (GeneralSecurityException e) {
+                throw new ServletException("Failed to verify token", e);
+            }
+
         }
     }
-}
