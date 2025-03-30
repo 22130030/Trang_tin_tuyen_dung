@@ -149,6 +149,11 @@
 <script>
     document.getElementById("showPassword").addEventListener("change", function () {
         var passwordField = document.getElementById("password");
+        passwordField.style.height = "40px"; // Đảm bảo chiều cao không thay đổi
+        passwordField.style.width = "100%"; // Giữ nguyên chiều rộng
+        passwordField.style.border = "1px solid #ccc";
+        passwordField.style.borderRadius = "5px";
+        passwordField.style.padding = "10px";
         passwordField.type = this.checked ? "text" : "password";
     });
 

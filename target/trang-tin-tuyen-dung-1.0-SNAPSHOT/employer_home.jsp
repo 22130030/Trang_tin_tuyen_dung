@@ -91,7 +91,7 @@
                      <form id="loginForm" action="employer-login" method="post" onsubmit="return validateForm()">
                          <input type="email" id="email" name="email" placeholder="email@example.com" >
                          <input type="password" id="password" name="password" placeholder="Mật khẩu" >
-                      
+
                          <% if (request.getAttribute("errorMessage") != null) { %>
                          <p id="error-message" style="color: red; font-size: 14px;">
                              <%= request.getAttribute("errorMessage") %>
@@ -149,6 +149,11 @@
 <script>
     document.getElementById("showPassword").addEventListener("change", function () {
         var passwordField = document.getElementById("password");
+        passwordField.style.height = "40px"; // Đảm bảo chiều cao không thay đổi
+        passwordField.style.width = "100%"; // Giữ nguyên chiều rộng
+        passwordField.style.border = "1px solid #ccc";
+        passwordField.style.borderRadius = "5px";
+        passwordField.style.padding = "10px";
         passwordField.type = this.checked ? "text" : "password";
     });
 
