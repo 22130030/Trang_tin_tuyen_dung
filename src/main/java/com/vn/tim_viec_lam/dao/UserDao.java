@@ -233,7 +233,20 @@ public class UserDao {
         }
         return false;
     }
-
+    public boolean isEmailExists(String email) {
+        String query = "SELECT COUNT(*) FROM users WHERE email = ?";
+        try (Connection conn = DBconnect.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, email.trim().toLowerCase()); // Chuẩn hóa email
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public boolean setStatus(int userID, int status) {
         Connection con = DBconnect.getConnection();
         String sql = "UPDATE users SET status = ? WHERE userID = ?";
@@ -249,6 +262,7 @@ public class UserDao {
     }
     public static void main(String[] args) {
         UserDao dao = new UserDao();
-        System.out.println(dao.setStatus(1,0));
+//        System.out.println(dao.setStatus(1,0));
+        System.out.println(dao.isEmailExists("caominhhieunq@gmail.com"));
     }
 }
