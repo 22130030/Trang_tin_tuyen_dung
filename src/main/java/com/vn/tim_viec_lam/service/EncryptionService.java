@@ -24,4 +24,8 @@ public class EncryptionService {
             throw new RuntimeException(e);
         }
     }
+
+    public static void main(String[] args) {
+        System.out.println(hasPasswordToMD5("1234"));
+    }
 }

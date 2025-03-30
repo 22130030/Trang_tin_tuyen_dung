@@ -38,8 +38,8 @@ public class UserService {
         userDao.updateUser(id, email, pass, role, status);
     }
     public boolean insetUser(String email,String pass, String rePass,String fName,String phone){
-        if(EncryptionService.hasPasswordToMD5(rePass).equals(EncryptionService.hasPasswordToMD5(pass))){
-            return userDao.insertUser(email,EncryptionService.hasPasswordToMD5(pass),fName,phone);
+        if(rePass.equals(pass)){
+            return userDao.insertUser(email,pass,fName,phone);
         }
         return false;
     }
