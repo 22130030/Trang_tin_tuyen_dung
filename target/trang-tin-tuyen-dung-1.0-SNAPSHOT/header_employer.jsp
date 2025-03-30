@@ -48,7 +48,7 @@
                                         </li>
                                         <li class="ne__info-item ne__info-logout">
                                             <i class="fa-solid fa-right-from-bracket"></i>
-                                            <a href="${pageContext.request.contextPath}/logout.jsp" class="ne__info-link">Đăng xuất</a>
+                                            <a href="${pageContext.request.contextPath}/employer_logout" class="ne__info-link">Đăng xuất</a>
                                         </li>
                                     </ul>
                                 </div>

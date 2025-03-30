@@ -3,6 +3,7 @@ package com.vn.tim_viec_lam.service;
 
 import com.vn.tim_viec_lam.dao.UserDao;
 import com.vn.tim_viec_lam.dao.model.User;
+import io.github.cdimascio.dotenv.Dotenv;
 
 
 import java.math.BigInteger;
@@ -62,8 +63,11 @@ public class UserService {
         return userDao.updatePasswordByEmail(email, newPassword);
     }
     public static void main(String[] args) {
-        UserService userService = new UserService();
-        System.out.println(userService.insetUser("email@gmail.com","1","1","van duc","03545162839"));
+           Dotenv dotenv = Dotenv.load();
+           String clientId = dotenv.get("GOOGLE_CLIENT_ID");
+           String clientSecret = dotenv.get("GOOGLE_CLIENT_SECRET");
+           String REDIRECT_URI = dotenv.get("REDIRECT_URI");
+           System.out.println(REDIRECT_URI);
     }
 }
 
