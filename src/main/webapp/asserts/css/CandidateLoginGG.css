@@ -36,13 +36,16 @@
 .container__title {
     color: #333;
     margin-bottom: 5px;
+    font-size: 2rem;
 }
 .container__name {
     color: #007bff;
     margin-bottom: 10px;
+    font-size: 1.8rem;
 }
 .container__email {
     color: #555;
+    font-size: 1.6rem;
 }
 .container__password,.container__rePass {
     width: calc(100% - 20px);

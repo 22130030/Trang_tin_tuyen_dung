@@ -7,18 +7,22 @@
     import com.google.api.client.http.javanet.NetHttpTransport;
     import com.google.api.client.json.JsonFactory;
     import com.google.api.client.json.jackson2.JacksonFactory;
+    import com.vn.tim_viec_lam.dao.model.JobApplication;
+    import com.vn.tim_viec_lam.dao.model.Resumes;
     import com.vn.tim_viec_lam.dao.model.User;
-    import com.vn.tim_viec_lam.service.UserService;
+    import com.vn.tim_viec_lam.service.*;
     import io.github.cdimascio.dotenv.Dotenv;
     import jakarta.servlet.ServletException;
     import jakarta.servlet.annotation.WebServlet;
     import jakarta.servlet.http.HttpServlet;
     import jakarta.servlet.http.HttpServletRequest;
     import jakarta.servlet.http.HttpServletResponse;
+    import jakarta.servlet.http.HttpSession;
 
     import java.io.IOException;
     import java.security.GeneralSecurityException;
     import java.util.Collections;
+    import java.util.List;
 
     @WebServlet(name="callback",value = "/callback")
     public class CallbackServlet extends HttpServlet {
@@ -60,36 +64,41 @@
                 if (idToken != null) {
                     GoogleIdToken.Payload payload = idToken.getPayload();
                     String email = payload.getEmail();
-                    String name = (String) payload.get("name");
-                    String password = (String) payload.get("password");
-                    String phone = (String) payload.get("phone");
 
-
-                    // Tạo đối tượng User (tùy vào hệ thống bạn có thể cần mapping vào DB)
                     UserService userService = new UserService();
                     User user = userService.getUser(email);
+                    HttpSession session = req.getSession();
+                    if(user == null) {
 
-                    if (user == null) {
-                        // Nếu chưa có trong DB, có thể tự động đăng ký tài khoản mới
-                        user = new User();
-                        user.setEmail(email);
-                        user.setPassword(password);
-                        user.setName(name);
-                        user.setPhone_number(phone);
+                        String name = (String) payload.get("name");
+                        String picture = (String) payload.get("picture");
+                        session.setAttribute("email", email);
+                        session.setAttribute("fName", name);
+                        req.setAttribute("picture", picture);
+                        req.getRequestDispatcher("CandidateLoginGG.jsp").forward(req, resp);
+                    }else{
+                        int role = user.getRoleNum();
+                        CandidateService cs = new CandidateService();
+                        int candidateId = cs.getCandidateIdByUserId(user.getUserID());
+                        List<JobApplication> jobApplicationList = new JobApplicationService().getAll();
+                        List<Resumes> resumesList = new ResumesService().getResumes(candidateId);
 
-
-                        user.setRoleNum(1); // Mặc định là user thường
-
-                        userService.addUser(user.getEmail(),user.getPassword(),user.getName(),user.getPhoneNumber()); // Thêm vào DB
+                        session.setAttribute("user", user);
+                        session.setAttribute("email",user.getEmail());
+                        session.setAttribute("jobAppliedCart", jobApplicationList);
+                        session.setAttribute("jac", resumesList);
+                        session.setAttribute("role", role);
+                        session.setAttribute("status",user.getStatus());
+                        session.setAttribute("userID",user.getUserID());
+                        session.setAttribute("candidateId", candidateId);
+                        resp.sendRedirect("home");
                     }
 
-                    // Lưu vào session giống như đăng nhập bình thường
-                    req.getSession().setAttribute("user", user);
-                    req.getSession().setAttribute("email", email);
-                    req.getSession().setAttribute("name", name);
-                    req.getSession().setAttribute("role", 1);
 
-                    resp.sendRedirect("home");
+
+
+
+
                 } else {
                     resp.sendRedirect("login?error=google");
                 }

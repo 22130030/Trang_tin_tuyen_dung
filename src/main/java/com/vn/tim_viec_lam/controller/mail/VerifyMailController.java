@@ -35,7 +35,7 @@ public class VerifyMailController extends HttpServlet {
             if(res){
                 session.invalidate();
                 System.out.println("Đăng ký thành công");
-                resp.sendRedirect("login.jsp?status=success");
+                resp.sendRedirect("home");
             }
         }else{
             System.out.println("mã không đúng");
