@@ -49,6 +49,9 @@ public class UserService {
     public boolean updateStatus(int id,int status)  {
         return userDao.setStatus(id,status);
     }
+    public boolean isEmailExists(String email){
+        return userDao.isEmailExists(email);
+    }
     public static void main(String[] args) {
         UserService userService = new UserService();
         System.out.println(userService.insetUser("email@gmail.com","1","1","van duc","03545162839"));

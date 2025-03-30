@@ -91,7 +91,7 @@
                      <form id="loginForm" action="employer-login" method="post" onsubmit="return validateForm()">
                          <input type="email" id="email" name="email" placeholder="email@example.com" >
                          <input type="password" id="password" name="password" placeholder="Mật khẩu" >
-                      
+
                          <% if (request.getAttribute("errorMessage") != null) { %>
                          <p id="error-message" style="color: red; font-size: 14px;">
                              <%= request.getAttribute("errorMessage") %>
