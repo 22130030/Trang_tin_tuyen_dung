@@ -1,16 +1,20 @@
 package com.vn.tim_viec_lam.service;
 
+
 import com.vn.tim_viec_lam.dao.UserDao;
 import com.vn.tim_viec_lam.dao.model.User;
 import io.github.cdimascio.dotenv.Dotenv;
+
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+
 public class UserService {
     private UserDao userDao;
+
 
     public UserService() {
         userDao = new UserDao();
@@ -22,8 +26,9 @@ public class UserService {
         return userDao.getUserByEmail(email);
     }
     public List<User> getListAll(){
-      return userDao.getListUser();
+        return userDao.getListUser();
     }
+
 
     public List<User> FindListUserByEmail(String  email){
         return userDao.findListUserbyEmail(email);
@@ -31,6 +36,7 @@ public class UserService {
     public User FindListUserByID(int  id){
         return userDao.findListUserbyID(id);
     }
+
 
     public void deleteUserByID(int id){
         userDao.deleteUser(id);
@@ -50,6 +56,12 @@ public class UserService {
     public boolean updateStatus(int id,int status)  {
         return userDao.setStatus(id,status);
     }
+    public boolean isEmailExists(String email){
+        return userDao.isEmailExists(email);
+    }
+    public boolean updatePassword(String email, String newPassword) {
+        return userDao.updatePasswordByEmail(email, newPassword);
+    }
     public static void main(String[] args) {
            Dotenv dotenv = Dotenv.load();
            String clientId = dotenv.get("GOOGLE_CLIENT_ID");
@@ -58,3 +70,4 @@ public class UserService {
            System.out.println(REDIRECT_URI);
     }
 }
+
