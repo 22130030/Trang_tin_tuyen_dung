@@ -11,6 +11,7 @@ import com.vn.tim_viec_lam.service.CandidateService;
 import com.vn.tim_viec_lam.service.JobApplicationService;
 import com.vn.tim_viec_lam.service.ResumesService;
 import com.vn.tim_viec_lam.service.UserService;
+import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,9 +26,9 @@ import java.util.List;
 
 @WebServlet(name="login",value = "/login")
 public class CandidateLogin extends HttpServlet {
-    private static final String CLIENT_ID = "m";
-    private static final String CLIENT_SECRET = "m";
-    private static final String REDIRECT_URI = "m";
+    private Dotenv dotenv = Dotenv.load();
+    private String clientId = dotenv.get("GOOGLE_CLIENT_ID");
+    private  final String REDIRECT_URI = dotenv.get("REDIRECT_URI");
 
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -35,13 +36,14 @@ public class CandidateLogin extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-                HTTP_TRANSPORT, JSON_FACTORY, CLIENT_ID, CLIENT_SECRET,
-                Arrays.asList("https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email"))
-                .build();
+        String authURL = "https://accounts.google.com/o/oauth2/auth" +
+                "?client_id=" + clientId +
+                "&redirect_uri=" + REDIRECT_URI +
+                "&response_type=code" +
+                "&scope=email profile" +
+                "&access_type=online";
 
-        String authorizationUrl = flow.newAuthorizationUrl().setRedirectUri(REDIRECT_URI).build();
-        response.sendRedirect(authorizationUrl);
+        response.sendRedirect(authURL);
 
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -9,6 +9,7 @@
     import com.google.api.client.json.jackson2.JacksonFactory;
     import com.vn.tim_viec_lam.dao.model.User;
     import com.vn.tim_viec_lam.service.UserService;
+    import io.github.cdimascio.dotenv.Dotenv;
     import jakarta.servlet.ServletException;
     import jakarta.servlet.annotation.WebServlet;
     import jakarta.servlet.http.HttpServlet;
@@ -21,9 +22,11 @@
 
     @WebServlet(name="callback",value = "/callback")
     public class CallbackServlet extends HttpServlet {
-        private static final String CLIENT_ID = "m";
-        private static final String CLIENT_SECRET = "m";
-        private static final String REDIRECT_URI = "m";
+
+        private Dotenv dotenv = Dotenv.load();
+        private String clientId = dotenv.get("GOOGLE_CLIENT_ID");
+        private String clientSecret = dotenv.get("GOOGLE_CLIENT_SECRET");
+        private  final String REDIRECT_URI = dotenv.get("REDIRECT_URI");
 
         private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
         private static final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -38,7 +41,7 @@
             }
 
             GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-                    HTTP_TRANSPORT, JSON_FACTORY, CLIENT_ID, CLIENT_SECRET,
+                    HTTP_TRANSPORT, JSON_FACTORY,clientId, clientSecret,
                     Collections.singletonList("https://www.googleapis.com/auth/userinfo.profile"))
                     .build();
 
@@ -47,7 +50,7 @@
 
 
             GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(HTTP_TRANSPORT, JSON_FACTORY)
-                    .setAudience(Collections.singletonList(CLIENT_ID))
+                    .setAudience(Collections.singletonList(clientId))
                     .build();
 
 
@@ -84,7 +87,7 @@
                     req.getSession().setAttribute("user", user);
                     req.getSession().setAttribute("email", email);
                     req.getSession().setAttribute("name", name);
-
+                    req.getSession().setAttribute("role", 1);
 
                     resp.sendRedirect("home");
                 } else {
