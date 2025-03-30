@@ -1,4 +1,4 @@
-    package com.vn.tim_viec_lam.controller;
+    package com.vn.tim_viec_lam.controller.google;
 
     import com.google.api.client.auth.oauth2.TokenResponse;
     import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
