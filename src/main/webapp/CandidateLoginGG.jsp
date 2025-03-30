@@ -18,16 +18,16 @@
 <div class="application">
     <%@include file="header.jsp"%>
     <div class="login__google-content">
-        <div class="container">
+        <form action="login-by-google" class="container" method="post">
             <h2 class="container__title">Người tìm việc đăng ký</h2>
-            <img class="container__avatar" src="asserts/img/anh_logo_congty/cong_ty_nextdoor.png"></img>
+            <img src="${picture}" class="container__avatar"></img>
             <h3 class="container__name">Đức Ngô Văn</h3>
             <p class="container__email">cartoonreview0@gmail.com</p>
-            <input class="container__password" type="password" placeholder="Mật khẩu">
-            <input class="container__rePass" type="password" placeholder="Nhập lại mật khẩu">
+            <input name="password" class="container__password" type="password" placeholder="Mật khẩu">
+            <input name="repassword" class="container__rePass" type="password" placeholder="Nhập lại mật khẩu">
             <p class="terms">Tôi đồng ý với việc xử lý và cung cấp thông tin dữ liệu cá nhân, đồng thời đã đọc và đồng ý với <a href="#">Thỏa thuận sử dụng</a> và <a href="#">Quy định bảo mật</a> của TimviecDCH.</p>
-            <button>Xác nhận</button>
-        </div>
+            <button type="submit">Xác nhận</button>
+        </form>
     </div>
     <%@include file="footer.jsp"%>
 </div>
