@@ -46,6 +46,26 @@
 </head>
 
 <body>
+<%
+    String error = request.getParameter("error");
+    long lockTime = session.getAttribute("lockTime") != null ? (Long) session.getAttribute("lockTime") : 0;
+    long currentTime = System.currentTimeMillis();
+    long remainingTime = (lockTime + (1 * 60 * 1000)) - currentTime; // Thời gian còn lại (1 phút)
+    boolean isLocked = remainingTime > 0;
+    String errorMessage = "";
+
+    if ("empty_username_password".equals(error)) {
+        errorMessage = "Vui lòng điền thông tin!";
+    } else if ("empty_username".equals(error)) {
+        errorMessage = "Vui lòng nhập tài khoản!";
+    } else if ("empty_password".equals(error)) {
+        errorMessage = "Vui lòng nhập mật khẩu!";
+    } else if ("invalid".equals(error)) {
+        errorMessage = "Sai tài khoản hoặc mật khẩu!";
+    } else if ("locked".equals(error)) {
+        errorMessage = "Tài khoản của bạn đã bị khóa! Vui lòng thử lại sau.";
+    }
+%>
 <div class="application">
     <!-- header -->
     <%@include file="header.jsp" %>
@@ -76,6 +96,9 @@
                                     <label for="password">Password</label>
                                     <input type="password" class="form-control" placeholder="Mật khẩu"
                                            id="password" name="password" required>
+                                </div>
+                                <div id="errormessage" style="color: red; font-weight: bold; text-align: center;">
+                                    <%= errorMessage %>
                                 </div>
                                 <div class="g-recaptcha" data-sitekey="6Le1O_UqAAAAAJ2e7eQrw35TOiST05hjCmWFk3Fy"></div>
                                 <div style="color: red" id="error"></div>
@@ -115,13 +138,7 @@
 </div>
 </body>
 
-<%
-    String error = request.getParameter("error");
-    long lockTime = session.getAttribute("lockTime") != null ? (Long) session.getAttribute("lockTime") : 0;
-    long currentTime = System.currentTimeMillis();
-    long remainingTime = (lockTime + (1 * 60 * 1000)) - currentTime; // Thời gian còn lại (1 phút)
-    boolean isLocked = remainingTime > 0;
-%>
+
 
 <script>
     function togglePassword() {
