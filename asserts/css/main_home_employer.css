@@ -204,11 +204,21 @@
 
 .login-panel input[type="email"],
 .login-panel input[type="password"] {
+    font-family: inherit;
+    font-size: inherit;
     padding: 10px;
-    margin-bottom: 10px;
+    width: 100%;
+    height: 40px;  /* Điều chỉnh chiều cao để giống nhau */
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 14px;
+    outline: none;
+    box-sizing: border-box; /* Tránh bị thay đổi kích thước */
+}
+
+/* Khi input được focus */
+input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .login-panel button {
