@@ -1,13 +1,16 @@
 package com.vn.tim_viec_lam.dao;
 
+
 import com.vn.tim_viec_lam.dao.model.Job;
 import com.vn.tim_viec_lam.dao.model.User;
 import com.vn.tim_viec_lam.database.DBconnect;
+
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class UserDao {
     public List<User> getAll() {
@@ -72,8 +75,11 @@ public class UserDao {
     }
 
 
+
+
     public List<User> getListUser(){
         List<User> users = new ArrayList<User>();
+
 
         Connection conn = DBconnect.getConnection();
         String sql = "SELECT u.*, r.roleNum " +
@@ -87,6 +93,7 @@ public class UserDao {
                 users.add(user);
             }
             return users;
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -124,12 +131,13 @@ public class UserDao {
             ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                 user = getResultSet(rs);
+                user = getResultSet(rs);
             }
             return user;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
 
     }
     public boolean deleteUser(int userId) {
@@ -137,16 +145,20 @@ public class UserDao {
         String deleteRolesSQL = "DELETE FROM roles WHERE userID = ?";
         String deleteUserSQL = "DELETE FROM users WHERE userID = ?";
 
+
         try (PreparedStatement deleteRolesStmt = conn.prepareStatement(deleteRolesSQL);
              PreparedStatement deleteUserStmt = conn.prepareStatement(deleteUserSQL)) {
+
 
             // Xóa dữ liệu trong bảng roles
             deleteRolesStmt.setInt(1, userId);
             deleteRolesStmt.executeUpdate();
 
+
             // Xóa dữ liệu trong bảng users
             deleteUserStmt.setInt(1, userId);
             int rowsAffected = deleteUserStmt.executeUpdate();
+
 
             return rowsAffected > 0;
         } catch (SQLException e) {
@@ -159,6 +171,7 @@ public class UserDao {
         String updateUserSQL = "UPDATE users SET email = ?, password = ?, status = ? WHERE userID = ?";
         String updateRoleSQL = "UPDATE roles SET roleNum = ? WHERE userID = ?";
 
+
         try {
             // Cập nhật bảng users
             try (PreparedStatement userStmt = conn.prepareStatement(updateUserSQL)) {
@@ -169,6 +182,7 @@ public class UserDao {
                 userStmt.executeUpdate();
             }
 
+
             // Cập nhật bảng roles
             try (PreparedStatement roleStmt = conn.prepareStatement(updateRoleSQL)) {
                 roleStmt.setInt(1, role);
@@ -176,12 +190,16 @@ public class UserDao {
                 roleStmt.executeUpdate();
             }
 
+
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
+
+
+
 
 
 
@@ -197,6 +215,8 @@ public class UserDao {
         user = new User(id, email, password, phone,status, created);
         return user;
     }
+
+
 
 
     public boolean insertUser(String email, String pass, String fullName,String phone) {
@@ -260,9 +280,25 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
+    public boolean updatePasswordByEmail(String email, String newPassword) {
+        Connection connection = DBconnect.getConnection();
+        String sql = "UPDATE users SET password = ? WHERE email = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, newPassword);
+            stmt.setString(2, email);
+            int rowsUpdated = stmt.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     public static void main(String[] args) {
         UserDao dao = new UserDao();
 //        System.out.println(dao.setStatus(1,0));
         System.out.println(dao.isEmailExists("caominhhieunq@gmail.com"));
     }
 }
+

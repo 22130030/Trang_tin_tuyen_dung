@@ -1,15 +1,16 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: Asus
-  Date: 3/30/2025
-  Time: 3:40 PM
-  To change this template use File | Settings | File Templates.
+ Created by IntelliJ IDEA.
+ User: Asus
+ Date: 3/30/2025
+ Time: 3:40 PM
+ To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "f" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
+
 
 <head>
   <meta charset="UTF-8">
@@ -36,22 +37,41 @@
   <%@include file="header.jsp" %>
 
 
+
+
   <!-- navigation -->
   <!-- content -->
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6 p-4">
         <h2 class="mb-4 text-center">Đặt lại mật khẩu</h2>
-        <form id="reset_password_form" action="" method="">
+
+
+        <c:if test="${param.status == 'invalid'}">
+          <div class="alert alert-danger text-center">Liên kết không hợp lệ!</div>
+        </c:if>
+        <c:if test="${param.status == 'expired'}">
+          <div class="alert alert-danger text-center">Liên kết đã hết hạn!</div>
+        </c:if>
+
+
+
+
+        <form id="reset_password_form" action="${pageContext.request.contextPath}/update-password" method="post">
+          <input type="hidden" name="token" value="${requestScope.token}">
+
+
           <div class="form-group">
-            <input type="password" class="form-control" required placeholder="Mật khẩu mới"
-                   name="password">
+            <input type="password" class="form-control" id="password" required placeholder="Mật khẩu mới" name="password">
           </div>
+
+
           <div class="form-group">
-            <input type="password" class="form-control" required placeholder="Nhập lại mật khẩu"
-                   name="retypePassword">
-            <div class="invalid-feedback">Mật khẩu không khớp. Hãy nhập lại</div>
+            <input type="password" class="form-control" id="retypePassword" required placeholder="Nhập lại mật khẩu" name="retypePassword">
+            <div class="invalid-feedback" id="passwordError" style="display: none; color: red; font-size: 14px;">Mật khẩu không khớp. Hãy nhập lại!</div>
           </div>
+
+
           <button class="btn btn-primary w-100" type="submit">Xác nhận</button>
         </form>
       </div>
@@ -62,54 +82,57 @@
   <!-- footer -->
   <%@include file="footer.jsp" %>
 </div>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const navUser = document.querySelector('.nav__has--form-login');
-        const dropdownMenu = document.querySelector('.nav__dropdown-menu');
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const navUser = document.querySelector('.nav__has--form-login');
+    const dropdownMenu = document.querySelector('.nav__dropdown-menu');
 
 
-        navUser.addEventListener('click', function (event) {
-          event.stopPropagation();
-          dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-        });
 
 
-        document.addEventListener('click', function (event) {
-          if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {
-            dropdownMenu.style.display = 'none';
-          }
-        });
-      });
-    </script>
-    <script>
+    navUser.addEventListener('click', function (event) {
+      event.stopPropagation();
+      dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    });
 
-      document.addEventListener("DOMContentLoaded", function () {
-        const form = document.getElementById("reset_password_form");
-        const password = document.querySelector('input[name="password"]');
-        const retypePassword = document.querySelector('input[name="retypePassword"]');
-        const errorFeedback = retypePassword.nextElementSibling;
 
-        form.addEventListener("submit", function (event) {
-          if (password.value !== retypePassword.value) {
-            event.preventDefault();
-            retypePassword.classList.add("is-invalid");
-            errorFeedback.style.display = "block";
-          } else {
-            retypePassword.classList.remove("is-invalid");
-            errorFeedback.style.display = "none";
-          }
-        });
 
-        retypePassword.addEventListener("input", function () {
-          if (password.value === retypePassword.value) {
-            retypePassword.classList.remove("is-invalid");
-            errorFeedback.style.display = "none";
-          }
-        });
-      });
 
-    </script>
+    document.addEventListener('click', function (event) {
+      if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {
+        dropdownMenu.style.display = 'none';
+      }
+    });
+  });
+</script>
+<script>
 
-  </body>
 
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("reset_password_form");
+    const password = document.getElementById("password");
+    const retypePassword = document.getElementById("retypePassword");
+    const passwordError = document.getElementById("passwordError");
+
+
+    form.addEventListener("submit", function (event) {
+      if (password.value !== retypePassword.value) {
+        event.preventDefault(); // Ngăn form gửi đi nếu mật khẩu không khớp
+        passwordError.style.display = "block";
+        retypePassword.classList.add("is-invalid");
+      } else {
+        passwordError.style.display = "none";
+        retypePassword.classList.remove("is-invalid");
+      }
+    });
+    retypePassword.addEventListener("input", function () {
+      if (password.value === retypePassword.value) {
+        passwordError.style.display = "none";
+        retypePassword.classList.remove("is-invalid");
+      }
+    });
+  });
+</script>
+</body>
 </html>
+
