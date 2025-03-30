@@ -117,7 +117,11 @@
             <artifactId>google-auth-library-oauth2-http</artifactId>
             <version>1.21.0</version> <!-- Cập nhật lên phiên bản mới nhất -->
         </dependency>
-
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>2.2.0</version>
+        </dependency>
     </dependencies>
 
       <build>
