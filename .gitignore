@@ -2,3 +2,4 @@
 /target
 .gitigngit ore
 src/main/resources/.env
+.env

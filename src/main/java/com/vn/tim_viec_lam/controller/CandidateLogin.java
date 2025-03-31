@@ -28,7 +28,7 @@ import java.util.List;
 public class CandidateLogin extends HttpServlet {
     private Dotenv dotenv = Dotenv.load();
     private String clientId = dotenv.get("GOOGLE_CLIENT_ID");
-    private  final String REDIRECT_URI = "";
+    private  final String REDIRECT_URI = dotenv.get("REDIRECT_URI");
 
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
