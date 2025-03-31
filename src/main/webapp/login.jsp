@@ -118,7 +118,7 @@
                                 <span class="text-center my-3 d-block">hoặc</span>
 
                                 <div class="icon">
-                                    <a href="html/login.html" class="btn btn-block py-2 btn-facebook">
+                                    <a href="login-facebook" class="btn btn-block py-2 btn-facebook">
                                         <img src="asserts/img/fb.png" alt="" class="icon-fb">Đăng nhập với
                                         facebook</a>
                                     <a href="login" class="btn btn-block py-2 btn-google"
