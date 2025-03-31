@@ -28,7 +28,7 @@ import java.util.List;
 public class CandidateLogin extends HttpServlet {
     private Dotenv dotenv = Dotenv.load();
     private String clientId = dotenv.get("GOOGLE_CLIENT_ID");
-    private  final String REDIRECT_URI = dotenv.get("REDIRECT_URI");
+    private  final String REDIRECT_URI = "";
 
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -36,6 +36,7 @@ public class CandidateLogin extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println(REDIRECT_URI);
         String authURL = "https://accounts.google.com/o/oauth2/auth" +
                 "?client_id=" + clientId +
                 "&redirect_uri=" + REDIRECT_URI +

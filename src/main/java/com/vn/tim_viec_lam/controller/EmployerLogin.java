@@ -21,13 +21,31 @@ public class EmployerLogin extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        HttpSession session = request.getSession();
+        if (email == null || email.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "Vui lòng điền tên tài khoản.");
+            request.getRequestDispatcher("employer_home.jsp").forward(request, response);
+            return;
+        }
+        if (password == null || password.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "Vui lòng nhập mật khẩu.");
+            request.getRequestDispatcher("employer_home.jsp").forward(request, response);
+            return;
+        }
+
+
 
         CompanyUserService us = new CompanyUserService();
         if(us.login(email, password)) {
             CompanyUser u = us.getUser(email);
+            if (u == null) {
+                request.setAttribute("errorMessage", "Tài khoản không tồn tại.");
+                request.getRequestDispatcher("employer_home.jsp").forward(request, response);
+                return;
+            }
             int companyID = u.getCompanyID();
             int role = u.getRoleNum();
+
+            HttpSession session = request.getSession();
             session.setAttribute("companyUser", u);
             session.setAttribute("companyRole",role);
             session.setAttribute("companyId", companyID);
@@ -37,7 +55,8 @@ public class EmployerLogin extends HttpServlet {
 
         }
         else{
-            response.sendRedirect("employer_home.jsp")  ;
+            request.setAttribute("errorMessage", "Bạn đã nhập sai tài khoản hoặc mật khẩu");
+            request.getRequestDispatcher("employer_home.jsp").forward(request, response);
         }
     }
 }
