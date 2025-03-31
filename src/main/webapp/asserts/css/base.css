@@ -150,9 +150,14 @@ html,body{
     justify-content: center;
     align-items: center;
     margin-right: 5px;
-    border : 1px solid rgba(0,0,0,0.2);
 }
-
+.nav__user-img{
+    width : 30px;
+    height : 30px;
+    object-fit: contain;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+}
 /* nav menu */
 
 .nav__dropdown-menu{

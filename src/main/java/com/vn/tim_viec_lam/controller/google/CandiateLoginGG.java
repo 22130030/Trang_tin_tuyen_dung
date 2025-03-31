@@ -27,9 +27,12 @@ public class CandiateLoginGG extends HttpServlet {
         System.out.println("fname : "+fname);
         UserService userService = new UserService();
         boolean res = userService.insetUser(mail, EncryptionService.hasPasswordToMD5(password),EncryptionService.hasPasswordToMD5(rePassword),fname,"003939394");
+        s.invalidate();
         if(res){
-            s.invalidate();
-            HttpSession session = req.getSession();
+            HttpSession session = req.getSession(true);
+            if(session == null){
+                System.out.println("session is null");
+            }
             User u = userService.getUser(mail);
             int role = u.getRoleNum();
             CandidateService cs = new CandidateService();

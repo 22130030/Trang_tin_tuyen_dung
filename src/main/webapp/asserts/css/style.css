@@ -33,7 +33,7 @@ body {
    
   .half, .half .container > .row {
     height: 100vh;
-    min-height: 700px; }
+    min-height: 900px; }
   
   .half .contents {
     background: #f6f7fc; }

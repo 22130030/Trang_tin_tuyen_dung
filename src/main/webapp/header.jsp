@@ -57,7 +57,7 @@
                         </c:if>
                         <c:if test="${not empty sessionScope.user}">
                             <div class="nav__user-icon">
-                                <i class="fa-regular fa-user"></i>
+                                <img class="nav__user-img" src="" alt="">
                             </div>
                             ${sessionScope.user.name}
                         </c:if>
