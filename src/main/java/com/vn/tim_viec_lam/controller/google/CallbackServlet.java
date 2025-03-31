@@ -67,7 +67,7 @@
 
                     UserService userService = new UserService();
                     User user = userService.getUser(email);
-                    HttpSession session = req.getSession();
+                    HttpSession session = req.getSession(true);
                     if(user == null) {
 
                         String name = (String) payload.get("name");

@@ -50,7 +50,7 @@ public class CandidateLogin extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(true);
 
         // Kiểm tra xem tài khoản đã bị khóa chưa
         Long lockTime = (Long) session.getAttribute("lockTime");
