@@ -23,7 +23,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
-import java.util.StringTokenizer;
 
 @WebServlet(name = "callback-facebook",value = "/callback-facebook")
 public class CallbackFacebook extends HttpServlet {
@@ -53,8 +52,6 @@ public class CallbackFacebook extends HttpServlet {
 
             String userId = getJsonValue(userInfoUrl, "id");
             String userName = getJsonValue(userInfoUrl, "name");
-            String picture = (getJsonValue(userInfoUrl, "picture"));
-            String url = getPictureUrl(picture);
             String userEmail = getJsonValue(userInfoUrl, "email");
             if (userEmail == null) {
                 System.out.println("Không thể lấy email từ Facebook!");
@@ -62,6 +59,7 @@ public class CallbackFacebook extends HttpServlet {
                 return;
             }
 
+            System.out.println(userName + " " + userEmail);
             UserService userService = new UserService();
             User user = userService.getUser(userEmail);
             HttpSession session = req.getSession(true);
@@ -82,15 +80,6 @@ public class CallbackFacebook extends HttpServlet {
                 session.setAttribute("candidateId", candidateId);
                 resp.sendRedirect("home");
                 return;
-            }
-            if(user == null) {
-                System.out.println("fb is null");
-                session.setAttribute("email", userEmail);
-                session.setAttribute("fName", userName);
-                session.setAttribute("auth_provider", "facebook");
-                session.setAttribute("providerId", userId);
-                req.setAttribute("picture", url);
-                req.getRequestDispatcher("CandidateLoginGG.jsp").forward(req, resp);
             }
         }else{
 //            resp.sendRedirect("login.jsp");
@@ -116,17 +105,5 @@ public class CallbackFacebook extends HttpServlet {
 
         JSONObject jsonObject = new JSONObject(response.toString());
         return jsonObject.optString(key, null);
-    }
-    private String getPictureUrl(String userInfoJson) {
-        StringTokenizer stringTokenizer = new StringTokenizer(userInfoJson,"\",");
-        String url = "";
-        while (stringTokenizer.hasMoreTokens()) {
-            String token = stringTokenizer.nextToken().trim();
-
-            if (token.startsWith("https://")) {
-                url  = token;
-            }
-        }
-        return url;
     }
 }
