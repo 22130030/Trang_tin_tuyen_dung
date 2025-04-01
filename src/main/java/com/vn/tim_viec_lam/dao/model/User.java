@@ -12,12 +12,13 @@ public class User implements Serializable {
     private String name;
     private String phone_number;
     private String status;
+    private String provider_id;
     private LocalDateTime created_at;
     private int roleNum;
     public User() {
     }
 
-    public User(int userID, String email, String password, String status, String phone_number, LocalDateTime created_at) {
+    public User(int userID, String email, String password, String status, String phone_number, LocalDateTime created_at,String provider_id) {
         this.userID = userID;
         this.email = email;
         this.password = password;
@@ -26,6 +27,7 @@ public class User implements Serializable {
         this.status = status;
         this.created_at = created_at;
         this.roleNum = roleNum;
+        this.provider_id = provider_id;
     }
     public User(int userID, String email, String password, String name, String phone_number, String status, LocalDateTime created_at, int roleNum) {
         this.userID = userID;
@@ -113,6 +115,18 @@ public class User implements Serializable {
         return created_at.format(formatter);
     }
 
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public String getProvider_id() {
+        return provider_id;
+    }
+
+    public void setProvider_id(String provider_id) {
+
+        this.provider_id = provider_id;
+    }
 
     @Override
     public String toString() {
