@@ -74,7 +74,6 @@
                         String picture = (String) payload.get("picture");
                         session.setAttribute("email", email);
                         session.setAttribute("fName", name);
-                        session.setAttribute("auth_provider", "google");
                         req.setAttribute("picture", picture);
                         req.getRequestDispatcher("CandidateLoginGG.jsp").forward(req, resp);
                     }else{
