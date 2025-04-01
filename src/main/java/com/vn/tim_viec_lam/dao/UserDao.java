@@ -51,7 +51,9 @@ public class UserDao {
     }
     public boolean getUser(String email,String password) {
         Connection con = DBconnect.getConnection();
-        String sql = "select * from users where email = ? and password = ?";
+        String sql = "select * from users u" +
+                " join user_auth ua on ua.userID = u.userID" +
+                " where email = ? and password = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, email);
@@ -82,9 +84,10 @@ public class UserDao {
 
 
         Connection conn = DBconnect.getConnection();
-        String sql = "SELECT u.*, r.roleNum " +
+        String sql = "SELECT u.*, r.roleNum,ua.password,ua.provider_id " +
                 "FROM users u " +
-                "JOIN roles r ON u.userId = r.userId";
+                " join user_auth ua on ua.userID = u.userID" +
+                " JOIN roles r ON u.userId = r.userId";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -102,10 +105,11 @@ public class UserDao {
     public List<User> findListUserbyEmail(String email){
         List<User> users = new ArrayList<User>();
         Connection conn = DBconnect.getConnection();
-        String sql = "SELECT u.*, r.roleNum " +
+        String sql = "SELECT u.*, r.roleNum,ua.password,ua.provider_id  " +
                 "FROM users u " +
                 "JOIN roles r ON u.userId = r.userId " +
-                "WHERE u.email LIKE ? ";
+                " join user_auth ua on ua.userID = u.userID" +
+                " WHERE u.email LIKE ? ";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,"%" + email + "%");
@@ -122,10 +126,11 @@ public class UserDao {
     public User findListUserbyID(int id){
         User user = new User();
         Connection conn = DBconnect.getConnection();
-        String sql = "SELECT u.*, r.roleNum " +
-                "FROM users u " +
-                "JOIN roles r ON u.userId = r.userId " +
-                "WHERE u.userID = ? ";
+        String sql = "SELECT u.*, r.roleNum,ua.password,ua.provider_id  " +
+                " FROM users u " +
+                " JOIN roles r ON u.userId = r.userId " +
+                " join user_auth ua on ua.userID = u.userID" +
+                 "WHERE u.userID = ? ";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,id);
@@ -144,21 +149,24 @@ public class UserDao {
         Connection conn = DBconnect.getConnection();
         String deleteRolesSQL = "DELETE FROM roles WHERE userID = ?";
         String deleteUserSQL = "DELETE FROM users WHERE userID = ?";
+        String deleteUserAuthSQL = "DELETE FROM user_auth WHERE userID = ?";
 
-
-        try (PreparedStatement deleteRolesStmt = conn.prepareStatement(deleteRolesSQL);
-             PreparedStatement deleteUserStmt = conn.prepareStatement(deleteUserSQL)) {
-
-
+        try (
+                PreparedStatement deleteRolesStmt = conn.prepareStatement(deleteRolesSQL);
+                PreparedStatement deleteUserAuthStmt = conn.prepareStatement(deleteUserAuthSQL);
+                PreparedStatement deleteUserStmt = conn.prepareStatement(deleteUserSQL)
+        ) {
             // Xóa dữ liệu trong bảng roles
             deleteRolesStmt.setInt(1, userId);
             deleteRolesStmt.executeUpdate();
 
+            // Xóa dữ liệu trong bảng user_auth
+            deleteUserAuthStmt.setInt(1, userId);
+            deleteUserAuthStmt.executeUpdate();
 
             // Xóa dữ liệu trong bảng users
             deleteUserStmt.setInt(1, userId);
             int rowsAffected = deleteUserStmt.executeUpdate();
-
 
             return rowsAffected > 0;
         } catch (SQLException e) {
@@ -166,19 +174,19 @@ public class UserDao {
         }
         return false;
     }
+
     public boolean updateUser(int id, String email, String pass, int role, String status) {
         Connection conn = DBconnect.getConnection();
-        String updateUserSQL = "UPDATE users SET email = ?, password = ?, status = ? WHERE userID = ?";
+        String updateUserSQL = "UPDATE users SET email = ?, status = ? WHERE userID = ?";
         String updateRoleSQL = "UPDATE roles SET roleNum = ? WHERE userID = ?";
-
+        String updatePassSQL = "UPDATE user_auth SET password = ? WHERE userID = ?";
 
         try {
             // Cập nhật bảng users
             try (PreparedStatement userStmt = conn.prepareStatement(updateUserSQL)) {
                 userStmt.setString(1, email);
-                userStmt.setString(2, pass);
-                userStmt.setString(3, status);
-                userStmt.setInt(4, id);
+                userStmt.setString(2, status);
+                userStmt.setInt(3, id);
                 userStmt.executeUpdate();
             }
 
@@ -189,7 +197,11 @@ public class UserDao {
                 roleStmt.setInt(2, id);
                 roleStmt.executeUpdate();
             }
-
+            try (PreparedStatement passStmt = conn.prepareStatement(updatePassSQL)) {
+                passStmt.setString(1, pass);
+                passStmt.setInt(2, id);
+                passStmt.executeUpdate();
+            }
 
             return true;
         } catch (SQLException e) {
@@ -212,22 +224,22 @@ public class UserDao {
         String status = rs.getString("status");
         LocalDateTime created = rs.getTimestamp("created_at").toLocalDateTime();
         int roleNum = rs.getInt("roleNum");
-        user = new User(id, email, password, phone,status, created);
+        String provider_id = rs.getString("provider_id");
+        user = new User(id, email, password, phone,status, created,provider_id);
         return user;
     }
 
 
 
 
-    public boolean insertUser(String email, String pass, String fullName,String phone) {
+    public boolean insertUser(String email, String pass, String fullName,String phone,String auth_provider,String provider_id) {
         Connection con = DBconnect.getConnection();
-        String sql = "insert into users(email,password,phone_number,status,created_at,name) values(?,?,?,1,NOW(),?)";
+        String sql = "insert into users(email,phone_number,status,created_at,name) values(?,?,1,NOW(),?)";
         try {
             PreparedStatement prep = con.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
             prep.setString(1,email);
-            prep.setString(2,pass);
-            prep.setString(3,phone);
-            prep.setString(4,fullName);
+            prep.setString(2,phone);
+            prep.setString(3,fullName);
             int rowsAffected = prep.executeUpdate();
             if(rowsAffected>0){
                 ResultSet rs = prep.getGeneratedKeys();
@@ -239,11 +251,20 @@ public class UserDao {
                     prep.setInt(2,1);
                     prep.executeUpdate();
                     sql = " insert into candidates(userID,fullName,email,phone) values(?,?,?,?)";
+                    int index = 1;
                     prep = con.prepareStatement(sql);
-                    prep.setInt(1,userID);
-                    prep.setString(2,fullName);
-                    prep.setString(3,email);
-                    prep.setString(4,phone);
+                    prep.setInt(index++,userID);
+                    prep.setString(index++,fullName);
+                    prep.setString(index++,email);
+                    prep.setString(index++,phone);
+                    prep.executeUpdate();
+                    sql = " insert into user_auth(userID,auth_provider,provider_id,password,created_at) values(?,?,?,?,NOW())";
+                    prep = con.prepareStatement(sql);
+                    index = 1;
+                    prep.setInt(index++,userID);
+                    prep.setString(index++,auth_provider);
+                    prep.setString(index++,provider_id);
+                    prep.setString(index++,pass);
                     prep.executeUpdate();
                     return true;
                 }
@@ -282,7 +303,11 @@ public class UserDao {
     }
     public boolean updatePasswordByEmail(String email, String newPassword) {
         Connection connection = DBconnect.getConnection();
-        String sql = "UPDATE users SET password = ? WHERE email = ?";
+        String sql = "UPDATE user_auth ua" +
+                " JOIN users u ON ua.user_id = u.id" +
+                " SET ua.password = ?" +
+                " WHERE u.email = ? AND ua.auth_provider = 'local';";
+
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, newPassword);
@@ -294,11 +319,25 @@ public class UserDao {
         }
     }
 
+    public boolean getProviderID(String provider_id) {
+        Connection con = DBconnect.getConnection();
+        String sql = "SELECT provider_id FROM user_auth WHERE provider_id = ? and auth_provider = 'facebook'";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, provider_id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
         UserDao dao = new UserDao();
-//        System.out.println(dao.setStatus(1,0));
-        System.out.println(dao.isEmailExists("caominhhieunq@gmail.com"));
+        System.out.println(dao.insertUser("22","1","vanduc","2222","local","g22"));
     }
 }
 

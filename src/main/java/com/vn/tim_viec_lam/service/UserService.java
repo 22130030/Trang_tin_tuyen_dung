@@ -44,14 +44,14 @@ public class UserService {
     public void editUser(int id, String email, String pass, int role, String status){
         userDao.updateUser(id, email, pass, role, status);
     }
-    public boolean insetUser(String email,String pass, String rePass,String fName,String phone){
+    public boolean insetUser(String email,String pass, String rePass,String fName,String phone,String auth_provider,String provider_id){
         if(rePass.equals(pass)){
-            return userDao.insertUser(email,pass,fName,phone);
+            return userDao.insertUser(email,pass,fName,phone,auth_provider,provider_id);
         }
         return false;
     }
-    public boolean addUser(String email,String pass,String fName,String phone){
-        return userDao.insertUser(email,EncryptionService.hasPasswordToMD5(pass),fName,phone);
+    public boolean addUser(String email,String pass,String fName,String phone,String auth_provider,String provider_id){
+        return userDao.insertUser(email,EncryptionService.hasPasswordToMD5(pass),fName,phone,auth_provider,provider_id);
     }
     public boolean updateStatus(int id,int status)  {
         return userDao.setStatus(id,status);

@@ -26,7 +26,7 @@ public class CandiateLoginGG extends HttpServlet {
         String fname =(String) s.getAttribute("fName");
         System.out.println("fname : "+fname);
         UserService userService = new UserService();
-        boolean res = userService.insetUser(mail, EncryptionService.hasPasswordToMD5(password),EncryptionService.hasPasswordToMD5(rePassword),fname,"003939394");
+        boolean res = userService.insetUser(mail, EncryptionService.hasPasswordToMD5(password),EncryptionService.hasPasswordToMD5(rePassword),fname,"003939394","google","");
         s.invalidate();
         if(res){
             HttpSession session = req.getSession(true);

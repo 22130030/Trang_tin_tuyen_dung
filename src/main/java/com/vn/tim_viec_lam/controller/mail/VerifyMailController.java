@@ -31,7 +31,7 @@ public class VerifyMailController extends HttpServlet {
             String rePaass = (String) session.getAttribute("rePassword");
             String phone = (String) session.getAttribute("phone");
             UserService userService = new UserService();
-            boolean res = userService.insetUser(mail,pass,rePaass,fname,phone);
+            boolean res = userService.insetUser(mail,pass,rePaass,fname,phone,"local",id+"");
             if(res){
                 session.invalidate();
                 System.out.println("Đăng ký thành công");
