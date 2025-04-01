@@ -21,12 +21,21 @@ public class CandiateLoginGG extends HttpServlet {
         String password = req.getParameter("password");
         String rePassword = req.getParameter("repassword");
 
-        HttpSession s = req.getSession(false);
+        HttpSession s = req.getSession(true);
         String mail =(String) s.getAttribute("email");
         String fname =(String) s.getAttribute("fName");
-        System.out.println("fname : "+fname);
+        String auth_provider =(String) s.getAttribute("auth_provider");
         UserService userService = new UserService();
-        boolean res = userService.insetUser(mail, EncryptionService.hasPasswordToMD5(password),EncryptionService.hasPasswordToMD5(rePassword),fname,"003939394","google","");
+        boolean res = false;
+        if(auth_provider.equals("google")){
+            res = userService.insetUser(mail, EncryptionService.hasPasswordToMD5(password),EncryptionService.hasPasswordToMD5(rePassword),fname,"003939394","google","");
+
+        }
+        if(auth_provider.equals("facebook")){
+            String providerId = (String) s.getAttribute("providerId");
+            res = userService.insetUser(mail, EncryptionService.hasPasswordToMD5(password),EncryptionService.hasPasswordToMD5(rePassword),fname,"003939394","facebook",providerId);
+
+        }
         s.invalidate();
         if(res){
             HttpSession session = req.getSession(true);
