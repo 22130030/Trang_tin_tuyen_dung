@@ -338,11 +338,7 @@ public class ResumesDao {
 
         return res;
     }
-    public static void main(String[] args) {
-        ResumesDao dao = new ResumesDao();
-        System.out.println(dao.countResumesByCandidateID(17));
 
-    }
 
     public boolean updateStatus(int resumesId, int status) {
         Connection connection = DBconnect.getConnection();
@@ -408,6 +404,26 @@ public class ResumesDao {
             throw new RuntimeException(e);
         }
     }
+    public int getNumOfView(int resumeId) {
+        Connection con = DBconnect.getConnection();
+        String sql = "SELECT COUNT(*) "+
+                " FROM resume_views rv "+
+                " WHERE resumeID = ? ";
+        try {
+            PreparedStatement prep = con.prepareStatement(sql);
+            prep.setInt(1,resumeId);
+            ResultSet rs = prep.executeQuery();
+            if(rs.next()){
+                return rs.getInt(1);
+            };
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+    public static void main(String[] args) {
+        ResumesDao dao = new ResumesDao();
+        System.out.println(dao.getNumOfView(1));
 
-
+    }
 }

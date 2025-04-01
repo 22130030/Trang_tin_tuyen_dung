@@ -20,6 +20,7 @@ public class Resumes implements java.io.Serializable{
     private String career;
     private String gender;
     private int status;
+    private int numOfView;
     private LocalDateTime created;
     private LocalDateTime updated;
     private String phone;
@@ -199,6 +200,15 @@ public class Resumes implements java.io.Serializable{
         res = formatter.format(this.created);
         return  res;
     }
+
+    public int getNumOfView() {
+        return numOfView;
+    }
+
+    public void setNumOfView(int numOfView) {
+        this.numOfView = numOfView;
+    }
+
     @Override
     public String toString() {
         return "Resumes{" +
