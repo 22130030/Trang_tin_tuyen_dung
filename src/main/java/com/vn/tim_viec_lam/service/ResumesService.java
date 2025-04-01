@@ -25,7 +25,12 @@ public class ResumesService {
         return resumesDao.addResume(candidateId,fileName,path,type);
     }
     public List<Resumes> getResumes(int candidateId){
-        return resumesDao.getResumes(candidateId);
+        List<Resumes> res = resumesDao.getResumes(candidateId);
+        for(Resumes r : res){
+            int numOfView = resumesDao.getNumOfView(r.getId());
+            r.setNumOfView(numOfView);
+        }
+        return res;
     }
     public List<Resumes> getResumesByStatus(){
         return resumesDao.getResumesByStatus();
@@ -44,11 +49,14 @@ public class ResumesService {
 
         return resumesDao.updateStatus(resumesId,status);
     }
+    public int getNumOfView(int resumeId){
+        return resumesDao.getNumOfView(resumeId);
+    }
     public Resumes getById(int id){
         return resumesDao.getById(id);
     }
     public static void main(String[] args) {
         ResumesService rs = new ResumesService();
-        System.out.println(rs.getById(75));
+        System.out.println(rs.getResumes(53));
     }
 }

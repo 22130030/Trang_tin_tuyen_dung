@@ -357,3 +357,24 @@
 .popup-content button:hover {
     background-color: #0056b3;
 }
+
+.file-detail__head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.file-view--total{
+    display: flex;
+    align-items: center;
+    color : var(--blue-color);
+    background-color: rgba(252, 177, 112, 0.7);
+    border-radius: 4px;
+    padding : 2px 4px;
+    margin-right: 10px;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+.file-view--total p{
+    margin: 5px 5px;
+    color : var(--text-color);
+}
