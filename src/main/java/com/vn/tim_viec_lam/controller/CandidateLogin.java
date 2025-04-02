@@ -55,16 +55,22 @@ public class CandidateLogin extends HttpServlet {
         // Kiểm tra xem tài khoản đã bị khóa chưa
         Long lockTime = (Long) session.getAttribute("lockTime");
         Integer failedAttempts = (Integer) session.getAttribute("failedAttempts");
+        Integer lockDuration = (Integer) session.getAttribute("lockDuration");
+
+        if (failedAttempts == null) failedAttempts = 0;
+        if (lockDuration == null) lockDuration = 1;
+
 
         if (lockTime != null) {
             long elapsedTime = System.currentTimeMillis() - lockTime;
-            if (elapsedTime < 1 * 60 * 1000) { // 1 phút
+            if (elapsedTime < lockDuration * 60 * 1000) {
                 response.sendRedirect("login.jsp?error=locked");
                 return;
             } else {
                 // Hết thời gian khóa, reset số lần nhập sai
                 session.removeAttribute("lockTime");
                 session.removeAttribute("failedAttempts");
+                session.setAttribute("lockDuration", 1);
             }
 
                 }
@@ -74,6 +80,7 @@ public class CandidateLogin extends HttpServlet {
                     // Đăng nhập thành công, reset bộ đếm
                     session.removeAttribute("failedAttempts");
                     session.removeAttribute("lockTime");
+                    session.removeAttribute("lockDuration");
 
                     User u = us.getUser(email);
                     int role = u.getRoleNum();
@@ -100,11 +107,12 @@ public class CandidateLogin extends HttpServlet {
                     }
                 } else {
                     // Đăng nhập thất bại
-                    failedAttempts = (failedAttempts == null) ? 1 : failedAttempts + 1;
+                    failedAttempts++;
                     session.setAttribute("failedAttempts", failedAttempts);
 
                     if (failedAttempts >= 1) {
                         session.setAttribute("lockTime", System.currentTimeMillis());
+                        session.setAttribute("lockDuration", Math.min(lockDuration * 2, 16)); // Tăng gấp đôi thời gian khóa, tối đa 16 phút
                         response.sendRedirect("login.jsp?error=locked");
                     } else {
                         response.sendRedirect("login.jsp?error=invalid");
