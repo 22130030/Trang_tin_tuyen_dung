@@ -224,6 +224,9 @@ html,body{
     text-decoration: none;
     color : var(--text-color);
 }
+.menu__link-logout,menu__link-logout i{
+    color : #ff2a2a; !important;
+}
 .nav__item a i{
     color : var(--text-color);
 }
