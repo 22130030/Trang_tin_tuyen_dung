@@ -64,11 +64,15 @@
 <%--                                            <p class="file-name">${f.title}</p>--%>
                                             <div class="file-detail__head">
                                                 <p class="file-name">${f.title}</p>
-                                                <lable class="file-view--total">${f.numOfView}
+                                                <a
+                                                        <c:if test="${f.numOfView > 0}">
+                                                            href="log-resume?resumeId=${f.id}&title=${f.title}"
+                                                        </c:if>
+                                                   class="file-view--total">${f.numOfView}
                                                     <p>
                                                         lượt xem
                                                     </p>
-                                                </lable>
+                                                </a>
 
                                             </div>
                                             <p class="file-date">Chỉnh sửa lần cuối: ${f.convertUpdated}</p>
