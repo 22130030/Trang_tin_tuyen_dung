@@ -373,6 +373,7 @@
     margin-right: 10px;
     font-size: 1.3rem;
     font-weight: bold;
+    text-decoration: none;
 }
 .file-view--total p{
     margin: 5px 5px;
