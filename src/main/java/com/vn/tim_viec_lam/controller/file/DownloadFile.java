@@ -1,5 +1,6 @@
 package com.vn.tim_viec_lam.controller.file;
 
+import com.vn.tim_viec_lam.service.JobApplicationService;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 
@@ -16,9 +17,17 @@ public class DownloadFile extends HttpServlet {
         if(encodedPath != null && !encodedPath.isEmpty()){
             filePath = URLDecoder.decode(encodedPath, "UTF-8");
         }
-        System.out.println(filePath);
+
+
         if(filePath == null || filePath.isEmpty()){
             response.getWriter().write("File not found");
+
+        }
+
+        if(request.getParameter("job_application") != null){
+            int id = Integer.parseInt(request.getParameter("job_application"));
+            JobApplicationService jobApplicationService = new JobApplicationService();
+            jobApplicationService.updateStatus("Đã xem",id);
 
         }
 
