@@ -104,5 +104,18 @@ public class JobApplicationDao {
         JobApplicationDao dao = new JobApplicationDao();
         System.out.println(dao.getAll());
     }
+
+    public boolean updateStatus(String status,int applicationId) {
+        Connection connection = DBconnect.getConnection();
+        String sql = "update job_applications set status = ? where applicationID = ?";
+        try {
+            PreparedStatement prep = connection.prepareStatement(sql);
+            prep.setString(1, status);
+            prep.setInt(2, applicationId);
+            return prep.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 

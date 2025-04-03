@@ -53,8 +53,11 @@
                                                     ${jac.convertCreated}
                                                 </span>
                                             </span>
-                    <div class="job__applied-status">
-                      <span>Đã nộp</span>
+                    <div class="job__applied-status
+                    <c:if test="${jac.status eq 'Đã xem'}">job__applied-status--viewed</c:if>
+                     <c:if test="${jac.status eq 'Đã nộp'}">job__applied-status--sent</c:if>
+">
+                      <span>${jac.status}</span>
                     </div>
                 </div>
 
