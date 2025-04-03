@@ -56,6 +56,7 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f0f7ff;
+    min-inline-size: -webkit-fill-available;
 }
 
 .register-box small {
