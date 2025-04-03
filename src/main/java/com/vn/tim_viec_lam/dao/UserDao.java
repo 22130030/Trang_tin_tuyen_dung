@@ -304,7 +304,7 @@ public class UserDao {
     public boolean updatePasswordByEmail(String email, String newPassword) {
         Connection connection = DBconnect.getConnection();
         String sql = "UPDATE user_auth ua" +
-                " JOIN users u ON ua.user_id = u.id" +
+                " JOIN users u ON ua.userID = u.userID" + // Sửa lại thành userID
                 " SET ua.password = ?" +
                 " WHERE u.email = ? AND ua.auth_provider = 'local';";
 
@@ -318,7 +318,6 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
-
     public boolean getProviderID(String provider_id) {
         Connection con = DBconnect.getConnection();
         String sql = "SELECT provider_id FROM user_auth WHERE provider_id = ? and auth_provider = 'facebook'";
