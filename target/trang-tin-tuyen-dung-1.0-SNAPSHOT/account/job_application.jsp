@@ -61,7 +61,20 @@
                                             <i class="fa-regular fa-file"></i>
                                         </div>
                                         <div class="file-details">
-                                            <p class="file-name">${f.title}</p>
+<%--                                            <p class="file-name">${f.title}</p>--%>
+                                            <div class="file-detail__head">
+                                                <p class="file-name">${f.title}</p>
+                                                <a
+                                                        <c:if test="${f.numOfView > 0}">
+                                                            href="log-resume?resumeId=${f.id}&title=${f.title}"
+                                                        </c:if>
+                                                   class="file-view--total">${f.numOfView}
+                                                    <p>
+                                                        lượt xem
+                                                    </p>
+                                                </a>
+
+                                            </div>
                                             <p class="file-date">Chỉnh sửa lần cuối: ${f.convertUpdated}</p>
 
                                             <div class="file-details__status" style="display : ${f.status >= 1 ? 'flex' :'none'}">

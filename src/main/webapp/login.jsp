@@ -110,7 +110,7 @@
                                         <div class="control__indicator"></div>
                                     </label>
                                     <span class="ml-auto"><a href="login_reset_request.jsp" class="forgot-pass">Quên
-                                                    mật khẩu</a></span>
+                                                     mật khẩu</a></span>
                                 </div>
 
                                 <button
@@ -158,13 +158,16 @@
             form.style.display = "none"; // Ẩn form đăng nhập
             errorMessage.style.display = "block"; // Hiện thông báo lỗi
 
-            let countdown = duration / 1000;
+            let countdown = Math.round(duration / 1000);
             let interval = setInterval(function () {
                 if (countdown <= 0) {
                     clearInterval(interval);
                     window.location.reload(); // Reload trang sau khi hết thời gian khóa
                 } else {
-                    countdownElement.innerText = countdown + " giây";
+                    let minutes = Math.floor(countdown / 60);
+                    let seconds = countdown % 60;
+                    countdownElement.innerText =
+                        (minutes > 0 ? minutes + " phút " : "") + seconds + " giây";
                     countdown--;
                 }
             }, 1000);
@@ -175,7 +178,14 @@
     }
 
     window.onload = function () {
-        let remainingTime = <%= remainingTime %>;
+        <%--let remainingTime = <%= remainingTime %>;--%>
+        <%--startCountdown(remainingTime);--%>
+        let remainingTime = <%= request.getSession().getAttribute("lockTime") != null ?
+                                  "((" + System.currentTimeMillis() + " - " + request.getSession().getAttribute("lockTime") + ") < " +
+                                  request.getSession().getAttribute("lockDuration") + " * 60 * 1000) ? " +
+                                  "(" + request.getSession().getAttribute("lockDuration") + " * 60 * 1000 - (" + System.currentTimeMillis() + " - " +
+                                  request.getSession().getAttribute("lockTime") + ")) : 0"
+                                  : "0" %>;
         startCountdown(remainingTime);
         const urlParams = new URLSearchParams(window.location.search);
         var status = urlParams.get("status");

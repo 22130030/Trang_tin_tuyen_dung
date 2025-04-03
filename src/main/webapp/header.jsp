@@ -99,6 +99,12 @@
                                         <span class="menu__link-title">Nâng cấp tài khoản</span>
                                     </a>
                                 </li>
+                                <li class="menu__item">
+                                    <a href="${pageContext.request.contextPath}/logout" class="menu__link menu__link-logout">
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                        <span class="menu__link-title">Đăng xuất</span>
+                                    </a>
+                                </li>
                             </c:if>
                             </ul>
                         </div>
