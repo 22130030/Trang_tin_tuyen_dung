@@ -88,6 +88,12 @@
                                 Tài khoản của bạn đã bị khóa trong <span id="countdown"></span>. Vui lòng thử lại sau!
                             </div>
                             <form id="login-form" action="login" method="post">
+                                <c:if test="${param.status == 'password_updated'}">
+                                    <div class="alert alert-success mt-3" role="alert">
+                                        Mật khẩu của bạn đã được thay đổi thành công. Vui lòng đăng nhập lại.
+                                    </div>
+                                </c:if>
+
                                 <div class="form-group first">
                                     <label for="username">Username</label>
                                     <input type="text" class="form-control" placeholder="email" id="email" name="email">
