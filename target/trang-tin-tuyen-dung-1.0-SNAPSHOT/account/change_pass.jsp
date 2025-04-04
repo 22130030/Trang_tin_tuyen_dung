@@ -78,59 +78,44 @@
                         Thay đổi mật khẩu
                     </h1>
                     <div class="mt-4">
-                        <form id="change_password_form" class="mt-3" action="/nguoi-tim-viec/config/thay-doi-mat-khau"
-                              accept-charset="UTF-8" method="post">
-                            <input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token"
-                                                                              value="dtLIFTZwUu+umoq80bpeoAlu6QyqV25pfD3tSrd4vBN9mEeBNjswB4Wl3uHc2+j1po3eH4A1nRRXDkFdA4j8rQ==">
+                        <form id="reset_password_form" action="${pageContext.request.contextPath}/change-password" method="post">
+                            <!-- Hiển thị thông báo lỗi nếu có -->
+                            <c:if test="${param.status == 'incorrect_old_password'}">
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    Mật khẩu hiện tại không đúng!
+                                </div>
+                            </c:if>
+
+                            <c:if test="${param.status == 'error'}">
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    Đã xảy ra lỗi. Vui lòng thử lại sau!
+                                </div>
+                            </c:if>
+
                             <div class="form-group">
-                                <label class="font-weight-bold" for="old_password">Mật khẩu hiện tại
-                                </label><span class="text-danger">
-                                *
-                            </span>
+                                <label class="font-weight-bold" for="old_password">Mật khẩu hiện tại</label><span class="text-danger">*</span>
                                 <div class="d-flex flex-wrap align-items-center">
-                                    <input required="required" id="old_password"
-                                           class="form-control fluent-form-control password col-md-9" type="password"
-                                           name="old_password" fdprocessedid="oky9bs">
-                                    <a class="small text-nowrap ml-auto ml-md-2 mt-2 mt-md-0"
-                                       href="/nguoi-tim-viec/reset/reset_request">Quên mật khẩu?</a>
+                                    <input required id="old_password" class="form-control col-md-9" type="password" name="old_password">
+                                    <a class="small text-nowrap ml-auto ml-md-2 mt-2 mt-md-0" href="reset_password.jsp">Quên mật khẩu?</a>
                                 </div>
                             </div>
                             <div class="form-group mt-3">
-                                <label class="font-weight-bold" for="job_seeker_password">Mật khẩu mới
-                                </label><span class="text-danger">
-                                *
-                            </span>
-                                <div class="d-flex flex-wrap align-items-center">
-                                    <input required="required" id="job_seeker_password"
-                                           class="form-control fluent-form-control password col-md-9" type="password"
-                                           name="new_password" fdprocessedid="dptqgj">
-                                </div>
+                                <label class="font-weight-bold" for="new_password">Mật khẩu mới</label><span class="text-danger">*</span>
+                                <input required id="new_password" class="form-control col-md-9" type="password" name="new_password">
                             </div>
                             <div class="form-group mt-3">
-                                <label class="font-weight-bold" for="job_seeker_password_confirmation">Gõ lại mật
-                                    khẩu mới
-                                </label><span class="text-danger">
-                                *
-                            </span>
-                                <div class="d-flex flex-wrap align-items-center">
-                                    <input required="required" id="job_seeker_password_confirmation"
-                                           class="form-control fluent-form-control password col-md-9" type="password"
-                                           name="retype_password" fdprocessedid="xnowi">
-                                    <div class="invalid-feedback col-md-9 p-0" id="invalid_password_feedback">
-                                        Mật khẩu không khớp. Hãy nhập lại
-                                    </div>
-                                </div>
+                                <label class="font-weight-bold" for="confirm_password">Gõ lại mật khẩu mới</label><span class="text-danger">*</span>
+                                <input required id="confirm_password" class="form-control col-md-9" type="password" name="confirm_password">
+                                <small id="password_error" class="text-danger" style="display:none; font-size: 14px; font-weight: bold;">
+                                    Mật khẩu không khớp!
+                                </small>
                             </div>
                             <div class="form-group mt-n2 mb-4">
-                                <label class="d-inline-flex fluent-checkbox mb-0">
-                                    <input class="d-none" data-target=".password" data-toggle="password"
-                                           id="toggle_password" type="checkbox">
-                                    <span class="checkmark"></span>
-                                    Hiển thị mật khẩu
+                                <label class="d-inline-flex mb-0">
+                                    <input type="checkbox" id="toggle_password_visibility"> Hiển thị mật khẩu
                                 </label>
                             </div>
-                            <button class="btn btn-primary" type="submit" fdprocessedid="sc613o"
-                                    style="font-size: 14px;">Cập nhật mật khẩu</button>
+                            <button class="btn btn-primary" type="submit">Cập nhật mật khẩu</button>
                         </form>
                     </div>
                 </div>
@@ -138,5 +123,63 @@
         </div>
         <%@include file="../footer.jsp"%>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let form = document.getElementById("reset_password_form"); // ID sửa thành đúng với form
+            let oldPasswordInput = document.getElementById("old_password");
+            let newPasswordInput = document.getElementById("new_password");
+            let confirmPasswordInput = document.getElementById("confirm_password");
+            let passwordError = document.getElementById("password_error");
+            let togglePasswordCheckbox = document.getElementById("toggle_password_visibility");
+
+            // Kiểm tra khi người dùng nhập vào ô xác nhận mật khẩu
+            confirmPasswordInput.addEventListener("input", function () {
+                checkPasswordMatch();
+            });
+
+            // Kiểm tra khi người dùng thay đổi mật khẩu mới
+            newPasswordInput.addEventListener("input", function () {
+                checkPasswordMatch();
+            });
+
+            // Kiểm tra khi bấm nút "Cập nhật mật khẩu"
+            form.addEventListener("submit", function (event) {
+                if (!checkPasswordMatch()) {
+                    event.preventDefault(); // Ngăn form gửi đi nếu mật khẩu không khớp
+                }
+            });
+
+            // Hàm kiểm tra mật khẩu có trùng khớp không
+            function checkPasswordMatch() {
+                let newPassword = newPasswordInput.value;
+                let confirmPassword = confirmPasswordInput.value;
+
+                // Nếu ô "Gõ lại mật khẩu" trống, ẩn thông báo lỗi
+                if (confirmPassword === "") {
+                    passwordError.style.display = "none";
+                    return false;
+                }
+
+                // Kiểm tra sự khớp giữa mật khẩu mới và mật khẩu xác nhận
+                if (newPassword !== confirmPassword) {
+                    passwordError.style.display = "block"; // Hiển thị lỗi nếu không khớp
+                    return false;
+                } else {
+                    passwordError.style.display = "none"; // Ẩn lỗi nếu mật khẩu khớp
+                    return true;
+                }
+            }
+
+            // Hiển thị/ẩn mật khẩu khi nhấn checkbox
+            togglePasswordCheckbox.addEventListener("change", function () {
+                let passwordFields = [oldPasswordInput, newPasswordInput, confirmPasswordInput];
+                let type = togglePasswordCheckbox.checked ? "text" : "password";
+
+                passwordFields.forEach(field => field.type = type);
+            });
+        });
+
+    </script>
 </body>
 </html>
