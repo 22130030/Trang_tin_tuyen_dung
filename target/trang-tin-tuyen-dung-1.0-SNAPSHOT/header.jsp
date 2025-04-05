@@ -57,7 +57,8 @@
                         </c:if>
                         <c:if test="${not empty sessionScope.user}">
                             <div class="nav__user-icon">
-                                <img class="nav__user-img" src="" alt="">
+                                <img class="nav__user-img"
+                                     src="${sessionScope.image != null ? pageContext.request.contextPath.concat(sessionScope.image) : pageContext.request.contextPath.concat('/assets/img/user.png')}"                                     style="width: 30px; height: 30px;" alt="">
                             </div>
                             ${sessionScope.user.name}
                         </c:if>

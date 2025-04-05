@@ -34,12 +34,6 @@ public class RegisterCanidate extends HttpServlet {
         session.setAttribute("rePassword", EncryptionService.hasPasswordToMD5(rePassword));
         session.setAttribute("phone", phone);
 
-
-
-
-
-
-
         req.getRequestDispatcher("send-mail").forward(req,resp);
     }
 }
