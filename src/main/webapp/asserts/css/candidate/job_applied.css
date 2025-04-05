@@ -74,11 +74,15 @@
     padding: 10px;
     top : 20%;
     right : 20px;
-    background-color: #f5f5f5;
     border-radius: 5px;
-}
-.job__applied-status{
     font-size: 1.4rem;
-    font-weight: 550;
+}
+.job__applied-status--viewed{
+    margin: 0;
+    background-color: var(--blue-color);
+    color : var(--white-color);
+}
+.job__applied-status--sent{
     color : var(--text-color);
+    background-color: #c5c5c5;
 }

@@ -103,7 +103,7 @@
                         <c:forEach items="${files}" var="f">
                         <tr>
                             <td  class="has-data">
-                                <a href="download-file?path=${f.encodingPath}" class="text-truncate">
+                                <a href="download-file?path=${f.encodingPath}&job_application=${f.applicationId}" class="text-truncate">
                                     ${f.title}
                                 </a>
                             </td>

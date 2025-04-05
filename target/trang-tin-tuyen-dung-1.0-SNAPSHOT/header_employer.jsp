@@ -25,7 +25,7 @@
                             <c:if test="${empty sessionScope.companyUser}">
                                 <div class="nav__employer-logged-in">
                                     <div class="menu__buttons">
-                                        <button class="btn menu__register" onclick="window.location.href='${pageContext.request.contextPath}/register.jsp'">Đăng ký</button>
+                                        <button class="btn menu__register" onclick="window.location.href='${pageContext.request.contextPath}/register_for_employer.jsp'">Đăng ký</button>
                                         <button class="btn menu__login" onclick="window.location.href='${pageContext.request.contextPath}/login_employer.jsp'">Đăng nhập</button>
                                     </div>
                                 </div>

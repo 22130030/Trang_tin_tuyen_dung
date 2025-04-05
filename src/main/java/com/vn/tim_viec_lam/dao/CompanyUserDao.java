@@ -55,7 +55,9 @@ public class CompanyUserDao {
     }
     public boolean getUser(String email,String password) {
         Connection con = DBconnect.getConnection();
-        String sql = "select * from users where email = ? and password = ?";
+        String sql = "select * from users u" +
+                " join user_auth ua on ua.userID = u.userID" +
+                " where u.email = ? and ua.password = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, email);

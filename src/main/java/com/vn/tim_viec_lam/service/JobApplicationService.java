@@ -19,7 +19,9 @@ public class JobApplicationService {
     public boolean addJobAppFromComputer(String path, String fileName,String type,int jobID,int companyID,int candidateId,String phone) {
         return jobApplicationDao.addJobAppFromComputer(path, fileName, type, jobID, companyID, candidateId,phone);
     }
-
+    public boolean updateStatus(String status,int applicationId){
+        return jobApplicationDao.updateStatus(status,applicationId);
+    }
     public static void main(String[] args) {
     }
 }
