@@ -97,6 +97,7 @@ public class CandidateLogin extends HttpServlet {
                     session.setAttribute("status",u.getStatus());
                     session.setAttribute("userID",u.getUserID());
                     session.setAttribute("candidateId", candidateId);
+                    session.setAttribute("image", u.getImage());
 
                     if (role == 1) {
                         response.sendRedirect("home");
@@ -110,7 +111,7 @@ public class CandidateLogin extends HttpServlet {
                     failedAttempts++;
                     session.setAttribute("failedAttempts", failedAttempts);
 
-                    if (failedAttempts >= 1) {
+                    if (failedAttempts >= 5) {
                         session.setAttribute("lockTime", System.currentTimeMillis());
                         session.setAttribute("lockDuration", Math.min(lockDuration * 2, 16)); // Tăng gấp đôi thời gian khóa, tối đa 16 phút
                         response.sendRedirect("login.jsp?error=locked");

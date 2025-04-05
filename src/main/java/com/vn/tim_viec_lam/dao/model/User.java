@@ -15,10 +15,12 @@ public class User implements Serializable {
     private String provider_id;
     private LocalDateTime created_at;
     private int roleNum;
+    private String image;
     public User() {
     }
 
-    public User(int userID, String email, String password, String status, String phone_number, LocalDateTime created_at,String provider_id) {
+
+    public User(int userID, String email, String password, String status, String phone_number, LocalDateTime created_at, String provider_id, String image) {
         this.userID = userID;
         this.email = email;
         this.password = password;
@@ -28,6 +30,7 @@ public class User implements Serializable {
         this.created_at = created_at;
         this.roleNum = roleNum;
         this.provider_id = provider_id;
+        this.image = image;
     }
     public User(int userID, String email, String password, String name, String phone_number, String status, LocalDateTime created_at, int roleNum) {
         this.userID = userID;
@@ -38,6 +41,17 @@ public class User implements Serializable {
         this.status = status;
         this.created_at = created_at;
         this.roleNum = roleNum;
+    }
+    public User(int userID, String email, String password, String name, String phone_number, String status, LocalDateTime created_at, int roleNum, String image) {
+        this.userID = userID;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.phone_number = phone_number;
+        this.status = status;
+        this.created_at = created_at;
+        this.roleNum = roleNum;
+        this.image = image;
     }
     public int getRoleNum() {
         return roleNum;
@@ -95,6 +109,10 @@ public class User implements Serializable {
         this.status = status;
     }
 
+    public String getImage() {return image;}
+
+    public void setImage(String image) {this.image = image;}
+
     public LocalDateTime getCreated_at() {
         return created_at;
     }
@@ -139,6 +157,7 @@ public class User implements Serializable {
                 ", status='" + status + '\'' +
                 ", created_at=" + created_at +
                 ", roleNum=" + roleNum +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

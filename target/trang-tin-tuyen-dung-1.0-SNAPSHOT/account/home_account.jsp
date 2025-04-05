@@ -32,7 +32,8 @@
                         <div class="user__info">
                             <div class="user__info-detail">
                                 <div class="user__detail-avatar">
-                                    <img src="https://static.careerlink.vn/web/images/common/avatar_placeholder.png"
+                                    <img
+                                            src="${sessionScope.image != null ? pageContext.request.contextPath.concat(sessionScope.image) : pageContext.request.contextPath.concat('/assets/img/user.png')}"                                         style="width: 100px; height: 100px;"
                                          alt="">
 
                                 </div>

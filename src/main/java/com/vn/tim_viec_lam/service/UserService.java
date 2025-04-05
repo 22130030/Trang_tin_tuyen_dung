@@ -41,8 +41,8 @@ public class UserService {
     public void deleteUserByID(int id){
         userDao.deleteUser(id);
     }
-    public void editUser(int id, String email, String pass, int role, String status){
-        userDao.updateUser(id, email, pass, role, status);
+    public void editUser(int id, String email, String pass, int role, String status, String image){
+        userDao.updateUser(id, email, pass, role, status, image);
     }
     public boolean insetUser(String email,String pass, String rePass,String fName,String phone,String auth_provider,String provider_id){
         if(rePass.equals(pass)){
@@ -62,11 +62,8 @@ public class UserService {
     public boolean updatePassword(String email, String newPassword) {
         return userDao.updatePasswordByEmail(email, newPassword);
     }
-    public String getPasswordByEmail(String email) {
-        return userDao.getPasswordByEmail(email);
-    }
-    public boolean newPasswordByEmail(String email, String newPassword) {
-        return userDao.NewPasswordByEmail(email, newPassword);
+    public boolean updateImage(int id , String image) {
+        return userDao.updateImage(id , image);
     }
     public static void main(String[] args) {
            Dotenv dotenv = Dotenv.load();

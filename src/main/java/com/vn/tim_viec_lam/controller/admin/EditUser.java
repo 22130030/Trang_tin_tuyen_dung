@@ -19,8 +19,9 @@ public class EditUser extends HttpServlet {
         String password = req.getParameter("password");
         int role = Integer.parseInt(req.getParameter("roleNum"));
         String status = req.getParameter("status");
+        String image = req.getParameter("image");
         UserService userService = new UserService();
-        userService.editUser(uid, email, password, role, status);
+        userService.editUser(uid, email, password, role, status, image);
         resp.sendRedirect("manager-user");
     }
 }

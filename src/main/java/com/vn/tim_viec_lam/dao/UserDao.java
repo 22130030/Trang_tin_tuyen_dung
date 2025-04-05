@@ -6,6 +6,7 @@ import com.vn.tim_viec_lam.dao.model.User;
 import com.vn.tim_viec_lam.database.DBconnect;
 
 
+import java.io.InputStream;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,28 +31,26 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
-
     public User getUserByEmail(String email) {
         Connection con = DBconnect.getConnection();
         String sql = "select * from users u" +
                 " join roles r on r.userId = u.userID" +
                 " where email = ?";
-        try {
+        try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             User user = null;
-            if (rs.next()) {
+            if(rs.next()) {
                 user = excute(rs);
             }
             return user;
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
         return null;
     }
-
-    public boolean getUser(String email, String password) {
+    public boolean getUser(String email,String password) {
         Connection con = DBconnect.getConnection();
         String sql = "select * from users u" +
                 " join user_auth ua on ua.userID = u.userID" +
@@ -66,7 +65,6 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
-
     public User excute(ResultSet rs) throws SQLException {
         int id = rs.getInt("userID");
         String email = rs.getString("email");
@@ -76,11 +74,14 @@ public class UserDao {
         String phoneNumber = rs.getString("phone_number");
         String status = rs.getString("status");
         LocalDateTime date = rs.getTimestamp("created_at").toLocalDateTime();
-        return new User(id, email, "", name, phoneNumber, status, date, role);
+        String image = rs.getString("image");
+        return new User(id,email,"",name,phoneNumber,status,date,role,image);
     }
 
 
-    public List<User> getListUser() {
+
+
+    public List<User> getListUser(){
         List<User> users = new ArrayList<User>();
 
 
@@ -92,7 +93,7 @@ public class UserDao {
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next()){
                 User user = getResultSet(rs);
                 users.add(user);
             }
@@ -103,8 +104,7 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
-
-    public List<User> findListUserbyEmail(String email) {
+    public List<User> findListUserbyEmail(String email){
         List<User> users = new ArrayList<User>();
         Connection conn = DBconnect.getConnection();
         String sql = "SELECT u.*, r.roleNum,ua.password,ua.provider_id  " +
@@ -114,9 +114,9 @@ public class UserDao {
                 " WHERE u.email LIKE ? ";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, "%" + email + "%");
+            ps.setString(1,"%" + email + "%");
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            while(rs.next()){
                 User user = getResultSet(rs);
                 users.add(user);
             }
@@ -128,25 +128,24 @@ public class UserDao {
     public User findListUserbyID(int id) {
         User user = new User();
         Connection conn = DBconnect.getConnection();
-        String sql = "SELECT u.*, r.roleNum,ua.password,ua.provider_id  " +
-                " FROM users u " +
-                " JOIN roles r ON u.userId = r.userId " +
-                " join user_auth ua on ua.userID = u.userID" +
-                "WHERE u.userID = ? ";
+        String sql = "SELECT u.*, r.roleNum, ua.password, ua.provider_id " +
+                "FROM `users` u " +
+                "JOIN `roles` r ON u.`userID` = r.`userID` " +
+                "JOIN `user_auth` ua ON ua.`userID` = u.`userID` " +
+                "WHERE u.`userID` = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 user = getResultSet(rs);
             }
             return user;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
     }
+
     public boolean deleteUser(int userId) {
         Connection conn = DBconnect.getConnection();
         String deleteRolesSQL = "DELETE FROM roles WHERE userID = ?";
@@ -177,9 +176,9 @@ public class UserDao {
         return false;
     }
 
-    public boolean updateUser(int id, String email, String pass, int role, String status) {
+    public boolean updateUser(int id, String email, String pass, int role, String status, String image) {
         Connection conn = DBconnect.getConnection();
-        String updateUserSQL = "UPDATE users SET email = ?, status = ? WHERE userID = ?";
+        String updateUserSQL = "UPDATE users SET email = ?, status = ?, image = ? WHERE userID = ?";
         String updateRoleSQL = "UPDATE roles SET roleNum = ? WHERE userID = ?";
         String updatePassSQL = "UPDATE user_auth SET password = ? WHERE userID = ?";
 
@@ -188,7 +187,8 @@ public class UserDao {
             try (PreparedStatement userStmt = conn.prepareStatement(updateUserSQL)) {
                 userStmt.setString(1, email);
                 userStmt.setString(2, status);
-                userStmt.setInt(3, id);
+                userStmt.setString(3, image);
+                userStmt.setInt(4, id);
                 userStmt.executeUpdate();
             }
 
@@ -212,6 +212,8 @@ public class UserDao {
         return false;
     }
 
+
+
     public User getResultSet(ResultSet rs) throws SQLException {
         User user = new User();
         int id = rs.getInt("userID");
@@ -222,43 +224,47 @@ public class UserDao {
         LocalDateTime created = rs.getTimestamp("created_at").toLocalDateTime();
         int roleNum = rs.getInt("roleNum");
         String provider_id = rs.getString("provider_id");
-        user = new User(id, email, password, phone, status, created, provider_id);
+        String image = rs.getString("image");
+        user = new User(id, email, password, phone,status, created,provider_id,image);
         return user;
     }
 
-    public boolean insertUser(String email, String pass, String fullName, String phone, String auth_provider, String provider_id) {
+
+
+
+    public boolean insertUser(String email, String pass, String fullName,String phone,String auth_provider,String provider_id) {
         Connection con = DBconnect.getConnection();
         String sql = "insert into users(email,phone_number,status,created_at,name) values(?,?,1,NOW(),?)";
         try {
-            PreparedStatement prep = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            prep.setString(1, email);
-            prep.setString(2, phone);
-            prep.setString(3, fullName);
+            PreparedStatement prep = con.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+            prep.setString(1,email);
+            prep.setString(2,phone);
+            prep.setString(3,fullName);
             int rowsAffected = prep.executeUpdate();
-            if (rowsAffected > 0) {
+            if(rowsAffected>0){
                 ResultSet rs = prep.getGeneratedKeys();
-                if (rs.next()) {
+                if(rs.next()){
                     int userID = rs.getInt(1);
                     sql = " insert into roles(userID,roleNum) values(?,?)";
                     prep = con.prepareStatement(sql);
-                    prep.setInt(1, userID);
-                    prep.setInt(2, 1);
+                    prep.setInt(1,userID);
+                    prep.setInt(2,1);
                     prep.executeUpdate();
                     sql = " insert into candidates(userID,fullName,email,phone) values(?,?,?,?)";
                     int index = 1;
                     prep = con.prepareStatement(sql);
-                    prep.setInt(index++, userID);
-                    prep.setString(index++, fullName);
-                    prep.setString(index++, email);
-                    prep.setString(index++, phone);
+                    prep.setInt(index++,userID);
+                    prep.setString(index++,fullName);
+                    prep.setString(index++,email);
+                    prep.setString(index++,phone);
                     prep.executeUpdate();
                     sql = " insert into user_auth(userID,auth_provider,provider_id,password,created_at) values(?,?,?,?,NOW())";
                     prep = con.prepareStatement(sql);
                     index = 1;
-                    prep.setInt(index++, userID);
-                    prep.setString(index++, auth_provider);
-                    prep.setString(index++, provider_id);
-                    prep.setString(index++, pass);
+                    prep.setInt(index++,userID);
+                    prep.setString(index++,auth_provider);
+                    prep.setString(index++,provider_id);
+                    prep.setString(index++,pass);
                     prep.executeUpdate();
                     return true;
                 }
@@ -268,7 +274,6 @@ public class UserDao {
         }
         return false;
     }
-
     public boolean isEmailExists(String email) {
         String query = "SELECT COUNT(*) FROM users WHERE email = ?";
         try (Connection conn = DBconnect.getConnection();
@@ -283,7 +288,6 @@ public class UserDao {
         }
         return false;
     }
-
     public boolean setStatus(int userID, int status) {
         Connection con = DBconnect.getConnection();
         String sql = "UPDATE users SET status = ? WHERE userID = ?";
@@ -297,50 +301,10 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
-    public String getPasswordByEmail(String email) {
-        Connection connection = DBconnect.getConnection();
-        String sql = "SELECT ua.password FROM user_auth ua " +
-                "JOIN users u ON ua.userID = u.userID " +
-                "WHERE u.email = ? AND ua.auth_provider = 'local'";
-
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, email);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                return rs.getString("password");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error retrieving password for email: " + email, e);
-        }
-
-        return null; // Nếu không tìm thấy mật khẩu
-    }
-    public boolean NewPasswordByEmail(String email, String newPassword) {
-        Connection connection = DBconnect.getConnection();
-        String sql = "UPDATE user_auth ua " +
-                "JOIN users u ON ua.userID = u.userID " +
-                "SET ua.password = ? " +
-                "WHERE u.email = ? AND ua.auth_provider = 'local'";
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, newPassword);
-            stmt.setString(2, email);
-            int rowsUpdated = stmt.executeUpdate();
-
-            return rowsUpdated > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error updating password for email: " + email, e);
-        }
-    }
     public boolean updatePasswordByEmail(String email, String newPassword) {
         Connection connection = DBconnect.getConnection();
         String sql = "UPDATE user_auth ua" +
-                " JOIN users u ON ua.userID = u.userID" +
+                " JOIN users u ON ua.user_id = u.id" +
                 " SET ua.password = ?" +
                 " WHERE u.email = ? AND ua.auth_provider = 'local';";
 
@@ -354,6 +318,7 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
+
     public boolean getProviderID(String provider_id) {
         Connection con = DBconnect.getConnection();
         String sql = "SELECT provider_id FROM user_auth WHERE provider_id = ? and auth_provider = 'facebook'";
@@ -369,11 +334,40 @@ public class UserDao {
         }
         return false;
     }
-
-            public static void main (String[]args){
-            UserDao dao = new UserDao();
-            System.out.println(dao.insertUser("22", "1", "vanduc", "2222", "local", "g22"));
+    public boolean updateImage (int id, String image) {
+        Connection con = DBconnect.getConnection();
+        String sql = "UPDATE users SET image = ? WHERE userID = ?";
+        try(PreparedStatement stmt = con.prepareStatement(sql)){
+          stmt.setString(1,image);
+          stmt.setInt(2,id);
+          int rowsUpdated = stmt.executeUpdate();
+          return rowsUpdated > 0;
+        }catch (Exception e){
+            e.printStackTrace();
         }
+        return false;
+    }
+//    public InputStream getProfileImage(String userId) throws SQLException {
+//        Connection con = DBconnect.getConnection();
+//        String sql = "SELECT profile_image FROM users WHERE user_id = ?";
+//        try (PreparedStatement ps = con.prepareStatement(sql)) {
+//            ps.setString(1, userId);
+//            try (ResultSet rs = ps.executeQuery()) {
+//                if (rs.next()) {
+//                    Blob imageBlob = rs.getBlob("profile_image");
+//                    return imageBlob.getBinaryStream();
+//                }
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//}
 
+    public static void main(String[] args) {
+        UserDao dao = new UserDao();
+//        System.out.println(dao.insertUser("22","1","vanduc","2222","local","g22"));
+         System.out.println(dao.updateImage(28,"https://moc247.com/wp-content/uploads/2023/12/loa-mat-voi-101-hinh-anh-avatar-meo-cute-dang-yeu-dep-mat_2.jpg"));
+    }
 }
 
