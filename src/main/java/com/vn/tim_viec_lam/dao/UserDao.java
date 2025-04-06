@@ -302,10 +302,50 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
+    public String getPasswordByEmail(String email) {
+        Connection connection = DBconnect.getConnection();
+        String sql = "SELECT ua.password FROM user_auth ua " +
+                "JOIN users u ON ua.userID = u.userID " +
+                "WHERE u.email = ? AND ua.auth_provider = 'local'";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("password");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error retrieving password for email: " + email, e);
+        }
+
+        return null; // Nếu không tìm thấy mật khẩu
+    }
+    public boolean NewPasswordByEmail(String email, String newPassword) {
+        Connection connection = DBconnect.getConnection();
+        String sql = "UPDATE user_auth ua " +
+                "JOIN users u ON ua.userID = u.userID " +
+                "SET ua.password = ? " +
+                "WHERE u.email = ? AND ua.auth_provider = 'local'";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, newPassword);
+            stmt.setString(2, email);
+            int rowsUpdated = stmt.executeUpdate();
+
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error updating password for email: " + email, e);
+        }
+    }
     public boolean updatePasswordByEmail(String email, String newPassword) {
         Connection connection = DBconnect.getConnection();
         String sql = "UPDATE user_auth ua" +
-                " JOIN users u ON ua.user_id = u.id" +
+                " JOIN users u ON ua.userID = u.userID" + // Sửa user_id thành userID
                 " SET ua.password = ?" +
                 " WHERE u.email = ? AND ua.auth_provider = 'local';";
 
@@ -319,7 +359,6 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
-
     public boolean getProviderID(String provider_id) {
         Connection con = DBconnect.getConnection();
         String sql = "SELECT provider_id FROM user_auth WHERE provider_id = ? and auth_provider = 'facebook'";
