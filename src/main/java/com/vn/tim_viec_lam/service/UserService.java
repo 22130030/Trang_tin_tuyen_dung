@@ -65,6 +65,12 @@ public class UserService {
     public boolean updateImage(int id , String image) {
         return userDao.updateImage(id , image);
     }
+    public String getPasswordByEmail(String email) {
+        return userDao.getPasswordByEmail(email);
+    }
+    public boolean newPasswordByEmail(String email, String newPassword) {
+        return userDao.NewPasswordByEmail(email, newPassword);
+    }
     public static void main(String[] args) {
            Dotenv dotenv = Dotenv.load();
            String clientId = dotenv.get("GOOGLE_CLIENT_ID");
