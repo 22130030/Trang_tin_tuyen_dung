@@ -214,6 +214,7 @@ public class UserDao {
 
 
 
+
     public User getResultSet(ResultSet rs) throws SQLException {
         User user = new User();
         int id = rs.getInt("userID");
@@ -373,6 +374,7 @@ public class UserDao {
         }
         return false;
     }
+
     public boolean updateImage (int id, String image) {
         Connection con = DBconnect.getConnection();
         String sql = "UPDATE users SET image = ? WHERE userID = ?";
@@ -386,6 +388,7 @@ public class UserDao {
         }
         return false;
     }
+
 //    public InputStream getProfileImage(String userId) throws SQLException {
 //        Connection con = DBconnect.getConnection();
 //        String sql = "SELECT profile_image FROM users WHERE user_id = ?";
