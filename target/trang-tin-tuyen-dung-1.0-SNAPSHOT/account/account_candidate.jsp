@@ -61,7 +61,7 @@
                                 <label for="upload">
                                 <div class="avatar-0-2-18">
                                     <img id="preview" class="rounded-circle border"
-<%--                                         src="${sessionScope.image != null ? sessionScope.image : '../assets/img/user.png'}"--%>
+                                         data-default-src="${sessionScope.image != null ? pageContext.request.contextPath.concat(sessionScope.image) : pageContext.request.contextPath.concat('/assets/img/user.png')}"
                                          src="${sessionScope.image != null ? pageContext.request.contextPath.concat(sessionScope.image) : pageContext.request.contextPath.concat('/assets/img/user.png')}"                                         style="width: 100px; height: 100px;">
                                     <div class="align-items-center justify-content-center avatar-upload"
                                          id="avatar-upload"><i class="fa fa-camera fa-3x text-white"></i>
@@ -72,7 +72,7 @@
                                     (JPEG/PNG/GIF, ≦ 1MB)</p>
                                 <div class="share_avatar d-flex gap-2" style="margin-top: -12px; font-size: 15px;">
                                     <button class="btn-primary btn-sm font-weight-bold" type="submit">Lưu</button>
-                                    <button class="btn-light btn-sm font-weight-bold text-primary">Huy</button>
+                                    <button class="btn-light btn-sm font-weight-bold text-primary" onclick="cancelPreview()">Huy</button>
                                 </div>
                             </form>
                         </div>
@@ -177,6 +177,12 @@
         const output = document.getElementById('preview');
         output.src = URL.createObjectURL(event.target.files[0]);
         output.onload = () => URL.revokeObjectURL(output.src); // tránh rò rỉ bộ nhớ
-    };
+    }
+    function cancelPreview() {
+        const preview = document.getElementById('preview');
+        const fileInput = document.getElementById('upload');
+        preview.src = preview.dataset.defaultSrc;
+        fileInput.value = ""; // clear input file
+    }
 </script>
 </html>
