@@ -54,18 +54,12 @@
           <div class="alert alert-danger text-center">Liên kết đã hết hạn!</div>
         </c:if>
 
-
-
-
         <form id="reset_password_form" action="${pageContext.request.contextPath}/update-password" method="post">
           <input type="hidden" name="token" value="${requestScope.token}">
-
-
+          <input type="hidden" name="redirectUrl" value="${param.redirectUrl}">
           <div class="form-group">
             <input type="password" class="form-control" id="password" required placeholder="Mật khẩu mới" name="password">
           </div>
-
-
           <div class="form-group">
             <input type="password" class="form-control" id="retypePassword" required placeholder="Nhập lại mật khẩu" name="retypePassword">
             <div class="invalid-feedback" id="passwordError" style="display: none; color: red; font-size: 14px;">Mật khẩu không khớp. Hãy nhập lại!</div>

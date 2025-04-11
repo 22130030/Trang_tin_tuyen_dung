@@ -30,7 +30,7 @@
                         <button onclick="window.location.href='/html/employer/employer.html'" type="submit">
                             Đăng nhập
                         </button>
-                        <a href="#">Quên mật khẩu</a>
+                        <a href="login_reset_request.jsp?redirectUrl=login_employer.jsp">Quên mật khẩu</a>
                     </form>
                 </div>
                 <div class="login-right">

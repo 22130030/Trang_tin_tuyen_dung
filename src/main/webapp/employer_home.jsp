@@ -100,7 +100,7 @@
                          <input type="checkbox" id="showPassword">
                          <label for="showPassword">Hiện mật khẩu</label>
                          <button type="submit">Đăng nhập</button>
-                         <a href="#">Quên mật khẩu</a>
+                         <a href="login_reset_request.jsp?redirectUrl=employer_home.jsp">Quên mật khẩu</a>
                          <a href="#">Đăng kí</a>
                      </form>
                  </aside>
