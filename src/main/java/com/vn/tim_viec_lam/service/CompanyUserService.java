@@ -8,7 +8,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-public class CompanyUserService {
+public class    CompanyUserService {
     private CompanyUserDao userDao;
     public CompanyUserService(){
         userDao = new CompanyUserDao();

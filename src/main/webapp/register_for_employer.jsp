@@ -31,17 +31,17 @@
   <div class="register-box">
     <h2>Nhà tuyển dụng đăng ký</h2>
     <p>Tạo tài khoản để tiếp cận kho ứng viên chất lượng và bắt đầu đăng việc ngay</p>
-    <form>
-      <input type="email" placeholder="Email" required>
+    <form action="register-employer" method="post">
+      <input type="email" name="email" placeholder="Email" required>
       <small>Sử dụng email công việc để xác thực nhanh hơn</small>
-      <input type="password" placeholder="Mật khẩu" required>
-      <input type="password" placeholder="Nhập lại mật khẩu" required>
+      <input type="password" name="password" placeholder="Mật khẩu" required>
+      <input type="password" name="re-password" placeholder="Nhập lại mật khẩu" required>
       <label>
         <input type="checkbox"> Hiển thị mật khẩu
       </label>
 
       <h3>Thông tin công ty</h3>
-      <input type="text" placeholder="Tên công ty" required>
+      <input type="text" name="fName" placeholder="Tên công ty" required>
       <select required>
         <option value="" disabled selected>Số nhân viên</option>
         <option value="1-50">1-50</option>
@@ -50,7 +50,7 @@
         <option value="500+">500+</option>
       </select>
       <input type="text" placeholder="Người liên hệ" required>
-      <input type="tel" placeholder="Điện thoại" required>
+      <input type="tel" name="phone" placeholder="Điện thoại" required>
       <h4>Địa chỉ</h4>
       <div class='form-group'>
         <div class='input-group location-select' required data-select='location' >

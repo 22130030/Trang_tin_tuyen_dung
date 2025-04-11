@@ -83,6 +83,13 @@ public class CandidateLogin extends HttpServlet {
                     session.removeAttribute("lockDuration");
 
                     User u = us.getUser(email);
+
+                    if (u == null) {
+                        // Đề phòng user không tồn tại dù login trả về true
+                        response.sendRedirect("login.jsp?error=nouser");
+                        return;
+                    }
+
                     int role = u.getRoleNum();
                     CandidateService cs = new CandidateService();
                     int candidateId = cs.getCandidateIdByUserId(u.getUserID());
