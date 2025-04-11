@@ -26,6 +26,16 @@ public class RegisterCanidate extends HttpServlet {
         String rePassword = req.getParameter("re-password");
         String phone = req.getParameter("phone");
 
+        // Kiểm tra email đã tồn tại chưa
+        UserService userService = new UserService();
+        if(userService.isEmailExists(mail)){
+            req.setAttribute("emailError", "Email này đã được đăng ký. Vui lòng nhập email khác.");
+            req.setAttribute("fName", fName);
+            req.setAttribute("phone", phone);
+            req.getRequestDispatcher("/register.jsp").forward(req, resp);
+            return;
+        }
+
 
         HttpSession session = req.getSession(false);
         session.setAttribute("mail", mail);
@@ -33,12 +43,6 @@ public class RegisterCanidate extends HttpServlet {
         session.setAttribute("password", EncryptionService.hasPasswordToMD5(password));
         session.setAttribute("rePassword", EncryptionService.hasPasswordToMD5(rePassword));
         session.setAttribute("phone", phone);
-
-
-
-
-
-
 
         req.getRequestDispatcher("send-mail").forward(req,resp);
     }

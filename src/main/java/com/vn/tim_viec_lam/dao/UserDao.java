@@ -6,6 +6,7 @@ import com.vn.tim_viec_lam.dao.model.User;
 import com.vn.tim_viec_lam.database.DBconnect;
 
 
+import java.io.InputStream;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -73,7 +74,8 @@ public class UserDao {
         String phoneNumber = rs.getString("phone_number");
         String status = rs.getString("status");
         LocalDateTime date = rs.getTimestamp("created_at").toLocalDateTime();
-        return new User(id,email,"",name,phoneNumber,status,date,role);
+        String image = rs.getString("image");
+        return new User(id,email,"",name,phoneNumber,status,date,role,image);
     }
 
 
@@ -123,28 +125,27 @@ public class UserDao {
         }
         return users;
     }
-    public User findListUserbyID(int id){
+    public User findListUserbyID(int id) {
         User user = new User();
         Connection conn = DBconnect.getConnection();
-        String sql = "SELECT u.*, r.roleNum,ua.password,ua.provider_id  " +
-                " FROM users u " +
-                " JOIN roles r ON u.userId = r.userId " +
-                " join user_auth ua on ua.userID = u.userID" +
-                 "WHERE u.userID = ? ";
+        String sql = "SELECT u.*, r.roleNum, ua.password, ua.provider_id " +
+                "FROM `users` u " +
+                "JOIN `roles` r ON u.`userID` = r.`userID` " +
+                "JOIN `user_auth` ua ON ua.`userID` = u.`userID` " +
+                "WHERE u.`userID` = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1,id);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            if (rs.next()) {
                 user = getResultSet(rs);
             }
             return user;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
     }
+
     public boolean deleteUser(int userId) {
         Connection conn = DBconnect.getConnection();
         String deleteRolesSQL = "DELETE FROM roles WHERE userID = ?";
@@ -175,9 +176,9 @@ public class UserDao {
         return false;
     }
 
-    public boolean updateUser(int id, String email, String pass, int role, String status) {
+    public boolean updateUser(int id, String email, String pass, int role, String status, String image) {
         Connection conn = DBconnect.getConnection();
-        String updateUserSQL = "UPDATE users SET email = ?, status = ? WHERE userID = ?";
+        String updateUserSQL = "UPDATE users SET email = ?, status = ?, image = ? WHERE userID = ?";
         String updateRoleSQL = "UPDATE roles SET roleNum = ? WHERE userID = ?";
         String updatePassSQL = "UPDATE user_auth SET password = ? WHERE userID = ?";
 
@@ -186,7 +187,8 @@ public class UserDao {
             try (PreparedStatement userStmt = conn.prepareStatement(updateUserSQL)) {
                 userStmt.setString(1, email);
                 userStmt.setString(2, status);
-                userStmt.setInt(3, id);
+                userStmt.setString(3, image);
+                userStmt.setInt(4, id);
                 userStmt.executeUpdate();
             }
 
@@ -213,8 +215,6 @@ public class UserDao {
 
 
 
-
-
     public User getResultSet(ResultSet rs) throws SQLException {
         User user = new User();
         int id = rs.getInt("userID");
@@ -225,7 +225,8 @@ public class UserDao {
         LocalDateTime created = rs.getTimestamp("created_at").toLocalDateTime();
         int roleNum = rs.getInt("roleNum");
         String provider_id = rs.getString("provider_id");
-        user = new User(id, email, password, phone,status, created,provider_id);
+        String image = rs.getString("image");
+        user = new User(id, email, password, phone,status, created,provider_id,image);
         return user;
     }
 
@@ -301,10 +302,50 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
+    public String getPasswordByEmail(String email) {
+        Connection connection = DBconnect.getConnection();
+        String sql = "SELECT ua.password FROM user_auth ua " +
+                "JOIN users u ON ua.userID = u.userID " +
+                "WHERE u.email = ? AND ua.auth_provider = 'local'";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("password");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error retrieving password for email: " + email, e);
+        }
+
+        return null; // Nếu không tìm thấy mật khẩu
+    }
+    public boolean NewPasswordByEmail(String email, String newPassword) {
+        Connection connection = DBconnect.getConnection();
+        String sql = "UPDATE user_auth ua " +
+                "JOIN users u ON ua.userID = u.userID " +
+                "SET ua.password = ? " +
+                "WHERE u.email = ? AND ua.auth_provider = 'local'";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, newPassword);
+            stmt.setString(2, email);
+            int rowsUpdated = stmt.executeUpdate();
+
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error updating password for email: " + email, e);
+        }
+    }
     public boolean updatePasswordByEmail(String email, String newPassword) {
         Connection connection = DBconnect.getConnection();
         String sql = "UPDATE user_auth ua" +
-                " JOIN users u ON ua.userID = u.userID" + // Sửa lại thành userID
+                " JOIN users u ON ua.userID = u.userID" + // Sửa user_id thành userID
                 " SET ua.password = ?" +
                 " WHERE u.email = ? AND ua.auth_provider = 'local';";
 
@@ -334,9 +375,41 @@ public class UserDao {
         return false;
     }
 
+    public boolean updateImage (int id, String image) {
+        Connection con = DBconnect.getConnection();
+        String sql = "UPDATE users SET image = ? WHERE userID = ?";
+        try(PreparedStatement stmt = con.prepareStatement(sql)){
+          stmt.setString(1,image);
+          stmt.setInt(2,id);
+          int rowsUpdated = stmt.executeUpdate();
+          return rowsUpdated > 0;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+//    public InputStream getProfileImage(String userId) throws SQLException {
+//        Connection con = DBconnect.getConnection();
+//        String sql = "SELECT profile_image FROM users WHERE user_id = ?";
+//        try (PreparedStatement ps = con.prepareStatement(sql)) {
+//            ps.setString(1, userId);
+//            try (ResultSet rs = ps.executeQuery()) {
+//                if (rs.next()) {
+//                    Blob imageBlob = rs.getBlob("profile_image");
+//                    return imageBlob.getBinaryStream();
+//                }
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//}
+
     public static void main(String[] args) {
         UserDao dao = new UserDao();
-        System.out.println(dao.insertUser("22","1","vanduc","2222","local","g22"));
+//        System.out.println(dao.insertUser("22","1","vanduc","2222","local","g22"));
+         System.out.println(dao.updateImage(28,"https://moc247.com/wp-content/uploads/2023/12/loa-mat-voi-101-hinh-anh-avatar-meo-cute-dang-yeu-dep-mat_2.jpg"));
     }
 }
 

@@ -70,8 +70,11 @@
                     <div class="col-md-12">
                       <div class="form-group first">
                         <label for="email">Địa chỉ Email</label>
-                        <input type="email" class="form-control" placeholder="xxx@gmail.com"
-                               name="email"id="email">
+                        <input type="email" class="form-control ${emailError != null ? 'is-invalid' : ''}"
+                               placeholder="xxx@gmail.com" name="email" id="email" value="${param.email}">
+                        <c:if test="${emailError != null}">
+                          <div class="text-danger small mt-1">${emailError}</div>
+                        </c:if>
                       </div>
                     </div>
                     <div class="col-md-12">

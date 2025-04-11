@@ -55,23 +55,25 @@
                                     hồ sơ
                                     mới.</p>
                             </div>
-                            <form
+                            <form action="${pageContext.request.contextPath}/update-candidate"  method="post" enctype="multipart/form-data"
                                     class="avatar-container row no-gutters align-items-start justify-content-center position-relative">
-                                <input type="file" name="uploadedImage" id="upload" accept="image/*"
-                                       style="display: none;"><label for="upload">
-                                <div class="avatar-0-2-18"><img class="rounded-circle border"
-                                                                src="../asserts/img/user.png">
+                                    <input type="file" name="uploadedImage" id="upload" accept="image/*" style="display: none;" onchange="loadFile(this)">
+                                <label for="upload">
+                                <div class="avatar-0-2-18">
+                                    <img id="preview" class="rounded-circle border"
+                                         data-default-src="${sessionScope.image != null ? pageContext.request.contextPath.concat(sessionScope.image) : pageContext.request.contextPath.concat('/assets/img/user.png')}"
+                                         src="${sessionScope.image != null ? pageContext.request.contextPath.concat(sessionScope.image) : pageContext.request.contextPath.concat('/assets/img/user.png')}"                                         style="width: 100px; height: 100px;">
                                     <div class="align-items-center justify-content-center avatar-upload"
                                          id="avatar-upload"><i class="fa fa-camera fa-3x text-white"></i>
                                     </div>
                                 </div>
                             </label>
-                                <div class="d-none"><button
-                                        class="btn btn-primary ml-auto font-weight-bold d-flex align-items-center mr-2"
-                                        type="submit">Lưu</button><button
-                                        class="btn btn-light font-weight-bold text-primary">Hủy</button></div>
                                 <p class="text-secondary small mt-2 w-100 text-center" style="font-size: 12px;">
                                     (JPEG/PNG/GIF, ≦ 1MB)</p>
+                                <div class="share_avatar d-flex gap-2" style="margin-top: -12px; font-size: 15px;">
+                                    <button class="btn-primary btn-sm font-weight-bold" type="submit">Lưu</button>
+                                    <button class="btn-light btn-sm font-weight-bold text-primary" onclick="cancelPreview()">Huy</button>
+                                </div>
                             </form>
                         </div>
 
@@ -170,4 +172,17 @@
 </div>
 
 </body>
+<script>
+    function loadFile(e) {
+        const output = document.getElementById('preview');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = () => URL.revokeObjectURL(output.src); // tránh rò rỉ bộ nhớ
+    }
+    function cancelPreview() {
+        const preview = document.getElementById('preview');
+        const fileInput = document.getElementById('upload');
+        preview.src = preview.dataset.defaultSrc;
+        fileInput.value = ""; // clear input file
+    }
+</script>
 </html>
