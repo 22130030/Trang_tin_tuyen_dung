@@ -112,7 +112,7 @@
                     </div>
                 </li>
                 <li class="nav__item nav__item-link--separated">
-                    <a href="employer_home.jsp" class="nav__item-link">
+                    <a href="${pageContext.request.contextPath}/employer_home.jsp" class="nav__item-link">
                         Nhà tuyển dụng
 
                     </a>
