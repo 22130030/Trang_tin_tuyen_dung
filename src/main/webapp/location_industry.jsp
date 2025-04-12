@@ -14,7 +14,7 @@
     <title>search</title>
     <link rel="stylesheet" href="asserts/css/main_search_occupations_locat.css">
     <link rel="stylesheet" href="asserts/css/base.css">
-    <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.min.css">>
+    <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.min.css">
 </head>
 <body>
 <div class="application">
