@@ -46,27 +46,30 @@
         </div>
 
         <div class="chat-body">
-            <div class="date-label">12/2024</div>
+            <c:forEach items="${chatMessages}" var="cm">
+
+            <div class="date-label">${cm.sent}</div>
             <div class="message-box received">
                 <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="" class="avatar">
                 <div class="meassage-container">
-                    <span class="message-date">Đã gửi mail</span>
-                    <p class="message-content">Đã gửi ma sssssssssssss il</p>
+                    <span class="message-date">${cm.sent}</span>
+                    <p class="message-content">${cm.message}</p>
                 </div>
             </div>
 
-            <div class="date-label">chủ nhật , 06/04</div>
-            <div class="message-box sent">
-                <div class="meassage-container">
-                    <span class="message-date message-date--sent">Đã gửi mail</span>
-                    <p class="message-content">Đã gửi ma sssssssssssss il</p>
-                </div>
-                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="avatar" alt="Avatar">
-            </div>
+            </c:forEach>
+<%--            <div class="date-label">chủ nhật , 06/04</div>--%>
+<%--            <div class="message-box sent">--%>
+<%--                <div class="meassage-container">--%>
+<%--                    <span class="message-date message-date--sent">Đã gửi mail</span>--%>
+<%--                    <p class="message-content">Đã gửi ma sssssssssssss il</p>--%>
+<%--                </div>--%>
+<%--                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="avatar" alt="Avatar">--%>
+<%--            </div>--%>
         </div>
 
         <div class="chat-footer">
-            <input type="text" placeholder="Nhập tin nhắn ...">
+            <input id="message-ip" type="text" placeholder="Nhập tin nhắn ...">
             <button>Gửi</button>
         </div>
     </div>
@@ -87,5 +90,17 @@
 </div>
 
 <%@include file="footer.jsp"%>
+<script>
+    const socket = new WebSocket("ws://" + location.host + "/chat")
+
+    socket.onmessage = function (event){
+
+    }
+
+    function sendMessage(){
+        const content = document.getElementById('message-ip').value;
+        socket.send(JSON.stringify(content));
+    }
+</script>
 </body>
 </html>
