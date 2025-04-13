@@ -75,8 +75,10 @@
           <div class="form-group">
             <input type="email" class="form-control" required placeholder="Nhập email của bạn" name="email">
           </div>
+          <input type="hidden" name="redirectUrl" value="${param.redirectUrl}">
           <button class="btn btn-primary btn-block" type="submit">Gửi yêu cầu</button>
         </form>
+
       </div>
     </div>
   </div>
