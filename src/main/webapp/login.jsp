@@ -115,8 +115,8 @@
                                         <input type="checkbox"  onclick="togglePassword()">
                                         <div class="control__indicator"></div>
                                     </label>
-                                    <span class="ml-auto"><a href="login_reset_request.jsp" class="forgot-pass">Quên
-                                                     mật khẩu</a></span>
+                                    <span class="ml-auto"><a href="login_reset_request.jsp?redirectUrl=login">Quên mật khẩu</a>
+                                    </span>
                                 </div>
 
                                 <button

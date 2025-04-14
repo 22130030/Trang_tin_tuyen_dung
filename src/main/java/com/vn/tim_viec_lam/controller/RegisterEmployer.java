@@ -19,15 +19,10 @@ public class RegisterEmployer extends HttpServlet {
         String fName = req.getParameter("fName");
         String password = req.getParameter("password");
         String rePassword = req.getParameter("re-password");
-        String phone = req.getParameter("phone");
 
-        // Kiểm tra email đã tồn tại chưa
-        UserService userService = new UserService();
-        if(userService.isEmailExists(mail)){
-            req.setAttribute("emailError", "Email này đã được đăng ký. Vui lòng nhập email khác.");
-            req.setAttribute("fName", fName);
-            req.setAttribute("phone", phone);
-            req.getRequestDispatcher("/register_for_employer.jsp").forward(req, resp);
+        if (!password.equals(rePassword)) {
+            req.setAttribute("error", "Mật khẩu không khớp!");
+            req.getRequestDispatcher("register.jsp").forward(req, resp);
             return;
         }
         HttpSession session = req.getSession(false);
@@ -35,7 +30,7 @@ public class RegisterEmployer extends HttpServlet {
         session.setAttribute("fName", fName);
         session.setAttribute("password", EncryptionService.hasPasswordToMD5(password));
         session.setAttribute("rePassword", EncryptionService.hasPasswordToMD5(rePassword));
-        session.setAttribute("phone", phone);
+      //  session.setAttribute("phone", phone);
 
         req.getRequestDispatcher("employer_home.jsp").forward(req,resp);
     }
