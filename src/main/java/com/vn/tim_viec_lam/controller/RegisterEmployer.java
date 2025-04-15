@@ -15,23 +15,24 @@ import java.io.IOException;
 public class RegisterEmployer extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String mail = req.getParameter("email");
+        String email = req.getParameter("email");
         String fName = req.getParameter("fName");
         String password = req.getParameter("password");
         String rePassword = req.getParameter("re-password");
+        String companyName = req.getParameter("fName");
+        String phone = req.getParameter("phone");
+        String address = req.getParameter("address_detail");
 
-        if (!password.equals(rePassword)) {
-            req.setAttribute("error", "Mật khẩu không khớp!");
-            req.getRequestDispatcher("register.jsp").forward(req, resp);
-            return;
-        }
         HttpSession session = req.getSession(false);
-        session.setAttribute("mail", mail);
+        session.setAttribute("email", email);
         session.setAttribute("fName", fName);
-        session.setAttribute("password", EncryptionService.hasPasswordToMD5(password));
-        session.setAttribute("rePassword", EncryptionService.hasPasswordToMD5(rePassword));
-      //  session.setAttribute("phone", phone);
+        session.setAttribute("password",password);
+        session.setAttribute("rePassword",rePassword);
+        //session.setAttribute("rePassword", EncryptionService.hasPasswordToMD5(rePassword));
+        session.setAttribute("companyName", companyName);
+        session.setAttribute("phone", phone);
+        session.setAttribute("address", address);
 
-        req.getRequestDispatcher("employer_home.jsp").forward(req,resp);
+        req.getRequestDispatcher("send-mail-employer").forward(req,resp);
     }
 }

@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.vn.tim_viec_lam.service.EncryptionService.hasPasswordToMD5;
+
 public class CompanyUserDao {
     public List<CompanyUser> getAll() {
         List<CompanyUser> users = new ArrayList<CompanyUser>();
@@ -80,5 +82,105 @@ public class CompanyUserDao {
         LocalDateTime date = rs.getTimestamp("created_at").toLocalDateTime();
         return new CompanyUser(id,companyID,email,"",name,phoneNumber,status,date,role);
     }
+    public boolean insertUserEmployer(String email,String name, String password, String rePassword, String companyName, String phone, String address) {
+        if (email == null || password == null || rePassword == null || companyName == null || phone == null || address == null) {
+            return false;
+        }
 
+        if (!password.equals(rePassword)) {
+            return false; // Mật khẩu nhập lại không khớp
+        }
+
+        Connection con = DBconnect.getConnection();
+        PreparedStatement pstUser = null, pstCompany = null, pstCompanyUser = null, pstUserAuth = null, pstRole = null;
+        ResultSet rsUser = null, rsCompany = null;
+
+        try {
+            con.setAutoCommit(false);
+
+            // 1. Insert vào bảng users
+            String sqlUser = "INSERT INTO users (email, phone_number,name, status, created_at) VALUES (?, ?, ?, ?, NOW())";
+            pstUser = con.prepareStatement(sqlUser, PreparedStatement.RETURN_GENERATED_KEYS);
+            pstUser.setString(1, email);
+            pstUser.setString(2, phone);
+            pstUser.setString(3, name);
+            pstUser.setInt(4, 0);
+            pstUser.executeUpdate();
+
+            rsUser = pstUser.getGeneratedKeys();
+            int userID = rsUser.next() ? rsUser.getInt(1) : -1;
+
+            // 2. Insert vào bảng companies
+            String sqlCompany = "INSERT INTO companies (logo, companyName, address, website, city) VALUES (?, ?, ?, ?, ?)";
+            pstCompany = con.prepareStatement(sqlCompany, PreparedStatement.RETURN_GENERATED_KEYS);
+            pstCompany.setString(1, ""); // logo mặc định rỗng
+            pstCompany.setString(2, companyName);
+            pstCompany.setString(3, address);
+            pstCompany.setString(4, ""); // website mặc định rỗng
+            pstCompany.setString(5, ""); // city mặc định rỗng
+            pstCompany.executeUpdate();
+
+            rsCompany = pstCompany.getGeneratedKeys();
+            int companyID = rsCompany.next() ? rsCompany.getInt(1) : -1;
+
+            // 3. Liên kết user và công ty
+            String sqlCompanyUser = "INSERT INTO company_users (companyID, userID) VALUES (?, ?)";
+            pstCompanyUser = con.prepareStatement(sqlCompanyUser);
+            pstCompanyUser.setInt(1, companyID);
+            pstCompanyUser.setInt(2, userID);
+            pstCompanyUser.executeUpdate();
+
+            // 4. Insert vào user_auth
+            String hashedPassword = hasPasswordToMD5(password);
+            String sqlUserAuth = "INSERT INTO user_auth (userID, auth_provider, password, created_at) VALUES (?, ?, ?, NOW())";
+            pstUserAuth = con.prepareStatement(sqlUserAuth);
+            pstUserAuth.setInt(1, userID);
+            pstUserAuth.setString(2, "local");
+            pstUserAuth.setString(3, hashedPassword);
+            pstUserAuth.executeUpdate();
+
+            // 5. Gán role employer = 2
+            String sqlRole = "INSERT INTO roles (userID, roleNum) VALUES (?, ?)";
+            pstRole = con.prepareStatement(sqlRole);
+            pstRole.setInt(1, userID);
+            pstRole.setInt(2, 2); // giả định roleNum = 2 là employer
+            pstRole.executeUpdate();
+
+            con.commit();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                if (con != null) con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            return false;
+        } finally {
+            try {
+                if (rsUser != null) rsUser.close();
+                if (rsCompany != null) rsCompany.close();
+                if (pstUser != null) pstUser.close();
+                if (pstCompany != null) pstCompany.close();
+                if (pstCompanyUser != null) pstCompanyUser.close();
+                if (pstUserAuth != null) pstUserAuth.close();
+                if (pstRole != null) pstRole.close();
+                if (con != null) {
+                    con.setAutoCommit(true);
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public static void main(String[] args) {
+        CompanyUserDao dao = new CompanyUserDao();
+//        System.out.println(dao.insertUser("22","1","vanduc","2222","local","g22"));
+//         System.out.println(dao.updateImage(28,"https://moc247.com/wp-content/uploads/2023/12/loa-mat-voi-101-hinh-anh-avatar-meo-cute-dang-yeu-dep-mat_2.jpg"));
+        System.out.println(dao.insertUserEmployer("company@gmail.com","mailisa","1","1", "mailisa", "12345678", "quốc lộ 80"));
+    }
 }
+
+
