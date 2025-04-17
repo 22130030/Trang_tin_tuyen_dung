@@ -47,6 +47,9 @@ public class EmployerLogin extends HttpServlet {
 
             HttpSession session = request.getSession();
             session.setAttribute("companyUser", u);
+            session.setAttribute("email", u.getEmail());
+            session.setAttribute("companyName", u.getName());
+            session.setAttribute("companyCreateTime", u.getCreated_at());
             session.setAttribute("companyRole",role);
             session.setAttribute("companyId", companyID);
             if(role ==2){
