@@ -31,7 +31,7 @@
   <div class="register-box">
     <h2>Nhà tuyển dụng đăng ký</h2>
     <p>Tạo tài khoản để tiếp cận kho ứng viên chất lượng và bắt đầu đăng việc ngay</p>
-    <form action="register-employer" method="post">
+    <form action="register-employer" method="post" onsubmit="return validateForm()">
       <input type="email"
              class="form-control ${emailError != null ? 'is-invalid' : ''}"
              placeholder="xxx@gmail.com" name="email" id="email" value="${param.email}" required>
@@ -39,10 +39,11 @@
         <small style="color: red; display: block; margin-top: 4px;" >${emailError}</small>
       </c:if>
       <small>Sử dụng email công việc để xác thực nhanh hơn</small>
-      <input type="password" name="password" placeholder="Mật khẩu" required>
-      <input type="password" name="re-password" placeholder="Nhập lại mật khẩu" required>
+      <input type="password" name="password" id="password" placeholder="Mật khẩu" required>
+      <input type="password" name="re-password" id="re-password" placeholder="Nhập lại mật khẩu" required>
+      <small id="pw-error" style="color: red; display: block; margin-top: 4px;"></small>
       <label>
-        <input type="checkbox"> Hiển thị mật khẩu
+        <input type="checkbox" onclick="togglePasswordVisibility()"> Hiển thị mật khẩu
       </label>
 
       <h3>Thông tin công ty</h3>
@@ -401,6 +402,39 @@
 <  <%@include file="footer.jsp"%>
 </div>
 <script>
+  function validateForm() {
+    const pw = document.getElementById("password").value;
+    const repw = document.getElementById("re-password").value;
+
+    // Nếu chưa có <small id="pw-error"> thì bạn có thể tạo thêm (phía dưới input nhập lại mật khẩu)
+    let error = document.getElementById("pw-error");
+
+    if (!error) {
+      error = document.createElement("small");
+      error.id = "pw-error";
+      error.style.color = "red";
+      error.style.display = "block";
+      error.style.marginTop = "4px";
+      document.querySelector('input[name="re-password"]').insertAdjacentElement("afterend", error);
+    }
+
+    if (pw !== repw) {
+      error.textContent = "Mật khẩu không khớp. Vui lòng kiểm tra lại.";
+      return false;
+    } else {
+      error.textContent = "";
+    }
+
+    return true;
+  }
+
+  function togglePasswordVisibility() {
+    const pw1 = document.getElementsByName("password")[0];
+    const pw2 = document.getElementsByName("re-password")[0];
+    const type = pw1.type === "password" ? "text" : "password";
+    pw1.type = type;
+    pw2.type = type;
+  }
   document.addEventListener('DOMContentLoaded', function () {
     const navUser = document.querySelector('.nav__employer-user');
     const dropdownMenu = document.querySelector('.nav__employer-form');
