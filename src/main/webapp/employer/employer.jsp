@@ -71,10 +71,11 @@
                                             </div>
                                             <div class="ml-3 mt-2">
                                                 <h5 class="employer-company-name mb-1">
-                                                    công ty 3 thành viên
+                                                    ${sessionScope.companyUser.name}
                                                 </h5>
                                                 <div class="text-secondary text-line-clamp-1 text-break text-small">
-                                                    leminhcong8323@gmail.com
+<%--                                                    leminhcong8323@gmail.com--%>
+                                                 ${sessionScope.companyUser.email}
                                                 </div>
                                             </div>
                                         </div>
@@ -89,7 +90,8 @@
                                         <span class="text-small d-flex align-items-center">
                                             <i class="mr-1 mt-1 cli-calendar"></i>
                                             <img src="/asserts/img/calendar-check.png" style="width:12px">
-                                            Đăng kí vào: 15 Thg 11, 2024
+<%--                                            Đăng kí vào: 15 Thg 11, 2024--%>
+                                            ${sessionScope.companyUser.created_at}
                                         </span>
                                         </div>
                                     </div>

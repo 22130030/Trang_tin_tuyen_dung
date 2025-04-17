@@ -95,10 +95,10 @@
           </div>
           <div class="user-info d-flex flex-column item-label ml-2">
                                 <span class="d-inline-block m-0 p-0 item-label text-truncate" style="max-width: 170px">
-                                    công ty 3 thành viên
+                                  ${sessionScope.companyUser.name}
                                 </span>
             <div class="email d-inline-block m-0 text-truncate" style="max-width: 170px">
-              leminhcong8323@gmail.com
+              ${sessionScope.companyUser.email}
             </div>
           </div>
         </a>

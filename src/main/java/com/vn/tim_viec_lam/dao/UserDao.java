@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.vn.tim_viec_lam.service.EncryptionService.hasPasswordToMD5;
+
 
 public class UserDao {
     public List<User> getAll() {
@@ -275,6 +277,11 @@ public class UserDao {
         }
         return false;
     }
+
+
+
+
+
     public boolean isEmailExists(String email) {
         String query = "SELECT COUNT(*) FROM users WHERE email = ?";
         try (Connection conn = DBconnect.getConnection();
@@ -389,27 +396,13 @@ public class UserDao {
         return false;
     }
 
-//    public InputStream getProfileImage(String userId) throws SQLException {
-//        Connection con = DBconnect.getConnection();
-//        String sql = "SELECT profile_image FROM users WHERE user_id = ?";
-//        try (PreparedStatement ps = con.prepareStatement(sql)) {
-//            ps.setString(1, userId);
-//            try (ResultSet rs = ps.executeQuery()) {
-//                if (rs.next()) {
-//                    Blob imageBlob = rs.getBlob("profile_image");
-//                    return imageBlob.getBinaryStream();
-//                }
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//}
+
 
     public static void main(String[] args) {
         UserDao dao = new UserDao();
 //        System.out.println(dao.insertUser("22","1","vanduc","2222","local","g22"));
-         System.out.println(dao.updateImage(28,"https://moc247.com/wp-content/uploads/2023/12/loa-mat-voi-101-hinh-anh-avatar-meo-cute-dang-yeu-dep-mat_2.jpg"));
-    }
+//         System.out.println(dao.updateImage(28,"https://moc247.com/wp-content/uploads/2023/12/loa-mat-voi-101-hinh-anh-avatar-meo-cute-dang-yeu-dep-mat_2.jpg")
+
+}
 }
 

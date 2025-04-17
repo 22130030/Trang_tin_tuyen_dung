@@ -22,6 +22,14 @@
         <div class="content">
 
             <h2>Liên kết xác thực đã được gửi!</h2>
+            <c:choose>
+                <c:when test="${role == 'employer'}">
+                    <h2>Email xác thực đã gửi tới <span style="color:#2c3e50;">nhà tuyển dụng</span>!</h2>
+                </c:when>
+                <c:otherwise>
+                    <h2>Email xác thực đã gửi tới <span style="color:#2980b9;">người dùng</span>!</h2>
+                </c:otherwise>
+            </c:choose>
             <p>Chúng tôi đã gửi một email xác thực đến địa chỉ email của bạn.</p>
             <p>Vui lòng kiểm tra hộp thư đến và nhấn vào liên kết để hoàn tất xác thực tài khoản.</p>
             <p>Liên kết sẽ hết hạn sau: <span id="countdown" class="countdown">3 phút</span></p>
@@ -29,10 +37,20 @@
         </div>
     </div>
     <div id="successPopup" class="popup">
-        <h3>Xác thực thành công!</h3>
-        <p>Bạn sẽ được chuyển đến trang đăng nhập trong giây lát...</p>
-        <button onclick="window.location.href='login.jsp'">Đi đến trang đăng nhập ngay</button>
+        <c:choose>
+            <c:when test="${role == 'employer'}">
+                <h3>Nhà tuyển dụng xác thực thành công!</h3>
+                <p>Bạn sẽ được chuyển đến trang đăng nhập nhà tuyển dụng trong giây lát...</p>
+                <button onclick="window.location.href='employer_home.jsp'">Vào trang đăng nhập</button>
+            </c:when>
+            <c:otherwise>
+                <h3>Xác thực thành công!</h3>
+                <p>Bạn sẽ được chuyển đến trang đăng nhập trong giây lát...</p>
+                <button onclick="window.location.href='login.jsp'">Đi đến trang đăng nhập ngay</button>
+            </c:otherwise>
+        </c:choose>
     </div>
+
     <%@include file="footer.jsp"%>
 </div>
 <script>
