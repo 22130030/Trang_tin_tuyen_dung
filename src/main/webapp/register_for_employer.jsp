@@ -32,7 +32,12 @@
     <h2>Nhà tuyển dụng đăng ký</h2>
     <p>Tạo tài khoản để tiếp cận kho ứng viên chất lượng và bắt đầu đăng việc ngay</p>
     <form action="register-employer" method="post">
-      <input type="email" name="email" placeholder="Email" required>
+      <input type="email"
+             class="form-control ${emailError != null ? 'is-invalid' : ''}"
+             placeholder="xxx@gmail.com" name="email" id="email" value="${param.email}" required>
+      <c:if test="${emailError != null}">
+        <small style="color: red; display: block; margin-top: 4px;" >${emailError}</small>
+      </c:if>
       <small>Sử dụng email công việc để xác thực nhanh hơn</small>
       <input type="password" name="password" placeholder="Mật khẩu" required>
       <input type="password" name="re-password" placeholder="Nhập lại mật khẩu" required>

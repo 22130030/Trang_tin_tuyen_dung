@@ -1,6 +1,7 @@
 package com.vn.tim_viec_lam.service;
 
 import com.vn.tim_viec_lam.dao.CompanyUserDao;
+import com.vn.tim_viec_lam.dao.UserDao;
 import com.vn.tim_viec_lam.dao.model.CompanyUser;
 
 import java.math.BigInteger;
@@ -47,6 +48,10 @@ public class    CompanyUserService {
         }
         return false;
     }
+    public boolean isEmailExists(String email){
+       return userCompanyDao.isEmailExistsEmployer(email);
+    }
+
 
     public static void main(String[] args) {
         CompanyUserService companyService = new CompanyUserService();

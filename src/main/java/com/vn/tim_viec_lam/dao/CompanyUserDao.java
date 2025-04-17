@@ -82,6 +82,20 @@ public class CompanyUserDao {
         LocalDateTime date = rs.getTimestamp("created_at").toLocalDateTime();
         return new CompanyUser(id,companyID,email,"",name,phoneNumber,status,date,role);
     }
+    public boolean isEmailExistsEmployer(String email) {
+        String query = "SELECT COUNT(*) FROM users WHERE email = ?";
+        try (Connection conn = DBconnect.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, email.trim().toLowerCase()); // Chuẩn hóa email
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public boolean insertUserEmployer(String email,String name, String password, String rePassword, String companyName, String phone, String address) {
         if (email == null || password == null || rePassword == null || companyName == null || phone == null || address == null) {
             return false;
