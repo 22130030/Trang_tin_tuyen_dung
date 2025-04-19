@@ -9,8 +9,10 @@ import com.vn.tim_viec_lam.database.DBconnect;
 import java.io.InputStream;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class UserDao {
@@ -405,7 +407,29 @@ public class UserDao {
 //        }
 //        return null;
 //}
-
+    public Map.Entry<Integer, Integer> getUserIdAndRole(int jobPostId) {
+        Connection con = DBconnect.getConnection();
+        String sql = "select c.companyId,r.roleNum from job_posting jp " +
+                " join companies c on c.companyID = jp.companyID" +
+                " join company_users cu on cu.companyID = c.companyID " +
+                " join users u on u.userID = cu.userID" +
+                " join roles r on r.userID =  u.userID" +
+                " where jp.jobPostID = ?";
+        int userId = -1;
+        int roleNum = -999;
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, jobPostId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                userId = rs.getInt("companyUserId");
+                roleNum = rs.getInt("roleNum");
+            }
+            return new AbstractMap.SimpleEntry<>(userId,roleNum);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static void main(String[] args) {
         UserDao dao = new UserDao();
 //        System.out.println(dao.insertUser("22","1","vanduc","2222","local","g22"));

@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Map;
 
 
 public class UserService {
@@ -70,6 +71,9 @@ public class UserService {
     }
     public boolean newPasswordByEmail(String email, String newPassword) {
         return userDao.NewPasswordByEmail(email, newPassword);
+    }
+    public Map.Entry<Integer,Integer> getUserIdAndRoleByJobPostId(int jobPostId) {
+        return userDao.getUserIdAndRole(jobPostId);
     }
     public static void main(String[] args) {
            Dotenv dotenv = Dotenv.load();

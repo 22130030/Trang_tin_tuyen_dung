@@ -19,6 +19,12 @@
                         </a>
                     </div>
                     <div class="nav__employer-list">
+                        <li class="nav__item nav__item-link--separated">
+                            <a href="${pageContext.request.contextPath}/chat" class="nav__item-link">
+                                <i class="nav-item__icon fa-regular fa-message"></i>
+                                Chat
+                            </a>
+                        </li>
                         <li class="nav__employer-user">
                             <i class="fa-solid fa-building"></i>
                             <span>${sessionScope.companyUser == null ? 'Đăng ký' : sessionScope.companyUser.name}</span>

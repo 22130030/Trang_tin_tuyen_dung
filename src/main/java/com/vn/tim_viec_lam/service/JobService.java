@@ -39,6 +39,7 @@ public class JobService {
 
         return jobDao.getPaging(page);
     }
+
     public List<Job> getListSearchJob(String txtName,String txtAddress){
         if((txtName.isBlank() || txtName == null) && (!txtAddress.isBlank() || txtAddress != null) ){
             return jobDao.searchJobByAddress(txtAddress);
@@ -105,7 +106,6 @@ public class JobService {
 
     public static void main(String[] args) {
         JobService jobService = new JobService();
-        System.out.println(jobService.filterJob(1,"giám đốc","",""));
     }
 
 
