@@ -39,7 +39,7 @@
                         <div class="navbar p-0">
                             <ul class="navbar-nav w-100">
                                 <li class="nav-item active">
-                                    <a class="nav-link py-lg-4" href="/html/candidate/account.html">
+                                    <a class="nav-link py-lg-4" href="${pageContext.request.contextPath}/account/account_candidate.jsp">
                                         <div class="title-1 font-weight-bold mb-lg-1">
                                             Tài khoản
                                         </div>

@@ -101,7 +101,7 @@
                          <label for="showPassword">Hiện mật khẩu</label>
                          <button type="submit">Đăng nhập</button>
                          <a href="login_reset_request.jsp?redirectUrl=employer_home">Quên mật khẩu?</a>
-                         <a href="#">Đăng kí</a>
+                         <a href="register_for_employer.jsp">Đăng kí</a>
                      </form>
                  </aside>
 
