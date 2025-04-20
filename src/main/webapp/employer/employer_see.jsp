@@ -41,25 +41,22 @@
                     <div class="bg-light py-lg-3">
                         <div class="container px-0">
                             <div class="company-header rounded-sm bg-white">
-                                <div class="company-banner position-relative" id="company-banner-container">
-                                    <div class="company-banner-content overflow-hidden">
-                                        <img class="img-fluid" style="top: 0%"
-                                             src="https://static.careerlink.vn/web/images/default_banner_0.svg"
-                                             alt="Default banner 0">
-                                    </div>
-                                    <div class="dropdown" id="edit-company-banner-dropdown">
-                                        <button class="btn btn-transparent bg-white shadow-sm py-2" data-toggle="dropdown">
-                                            <i class="fas fa-camera mr-lg-2"></i>
-                                            <span class="d-none d-lg-inline">
-                                        Thay đổi ảnh bìa
-                                    </span>
-                                            <div class="dropdown-menu border-0 shadow dropdown-menu-right">
-                                                <div class="dropdown-item px-3" id="edit-company-banner-button">
-                                                    Chọn ảnh bìa
-                                                </div>
-                                            </div>
-                                        </button>
-                                    </div>
+                                <div class="company-banner-content overflow-hidden">
+                                    <img class="img-fluid" id="company-banner-image"
+                                         src="https://static.careerlink.vn/web/images/default_banner_0.svg"
+                                         alt="Default banner 0">
+                                </div>
+
+                                <div class="dropdown" id="edit-company-banner-dropdown">
+                                    <button class="btn btn-transparent bg-white shadow-sm py-2"
+                                            onclick="document.getElementById('banner-image-upload').click();">
+                                        <i class="fas fa-camera mr-lg-2"></i>
+                                        <span class="d-none d-lg-inline">Thay đổi ảnh bìa</span>
+                                    </button>
+                                    <input type="file" name="file" accept="image/*" id="banner-image-upload" style="display:none;" onchange="uploadBannerImage()" />
+                                </div>
+                                <div>
+                                <button class="btn btn-primary mt-3" id="save-banner-button" onclick="saveBannerImage()">Lưu</button>
                                 </div>
                                 <div class="company-summary position-relative d-flex">
                                     <div class="company-logo position-relative d-flex flex-center bg-white overflow-hidden shadow"
@@ -78,6 +75,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
                                     <div class="company-information flex-fill pl-lg-3 pt-3 pt-lg-0">
                                         <div class="d-flex">
                                             <h5 class="company-name d-flex align-items-center" itemprop="name">
@@ -97,7 +95,7 @@
                                                     <div class="d-flex">
                                                         <i class="cli-map-pin-line d-flex mr-2"></i>
                                                         <span class="icon-text">
-                                                    <img src="/asserts/img/marker.png" style="width:16px">
+                                                    <img src="${pageContext.request.contextPath}/asserts/img/marker.png" style="width:16px">
                                                     Ninh Trung, Thành Phố Thủ Đức, Hồ Chí Minh
                                                 </span>
                                                     </div>
@@ -106,7 +104,7 @@
                                                     <div class="d-flex">
                                                         <i class="cli-users d-flex mr-2"></i>
                                                         <span class="icon-text">
-                                                    <img src="/asserts/img/users-alt.png" style="width:16px">
+                                                    <img src="${pageContext.request.contextPath}/asserts/img/users-alt.png" style="width:16px">
                                                     Ít hơn 10 nhân viên
                                                 </span>
                                                     </div>
@@ -274,6 +272,7 @@
                                                 Website
                                             </h6>
                                             <button class="company-edit-button ml-auto rounded-circle" style="width:30px;">
+                                                <img src="${pageContext.request.contextPath}/asserts/img/write.png" style="width:20px">
                                             </button>
                                         </div>
                                     </div>
@@ -335,5 +334,92 @@
                     });
                 });
             </script>
+<script>
+    // Global variable to store the selected file
+    let selectedBannerFile = null;
+
+    // Function to handle file selection
+    function uploadBannerImage() {
+        const fileInput = document.getElementById('banner-image-upload');
+        const bannerImage = document.getElementById('company-banner-image');
+
+        if (fileInput.files && fileInput.files[0]) {
+            // Store the selected file for later upload
+            selectedBannerFile = fileInput.files[0];
+
+            // Show a preview of the selected image
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                bannerImage.src = e.target.result;
+            };
+            reader.readAsDataURL(selectedBannerFile);
+        }
+    }
+
+    // Function to handle saving the banner image
+    function saveBannerImage() {
+        if (!selectedBannerFile) {
+            alert('Vui lòng chọn ảnh trước khi lưu.');
+            return;
+        }
+
+        const bannerImage = document.getElementById('company-banner-image');
+        const saveButton = document.getElementById('save-banner-button');
+
+        // Create FormData object
+        const formData = new FormData();
+        formData.append('file', selectedBannerFile);
+
+        // Show loading state
+        bannerImage.style.opacity = '0.5';
+        saveButton.disabled = true;
+        saveButton.textContent = 'Đang lưu...';
+
+        // Get the contextPath correctly
+        const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf('/', 1));
+
+        // Send the file to server
+        fetch(contextPath + '/upload-banner-img', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                // Check if the response was successful
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Upload response:', data);
+
+                if (data.status === 'success') {
+                    // Update image with new URL
+                    bannerImage.src = data.imageUrl;
+
+                    // Show success message
+                    alert('Tải ảnh lên thành công!');
+
+                    // Clear the selected file
+                    selectedBannerFile = null;
+                    document.getElementById('banner-image-upload').value = '';
+                } else {
+                    // Show error message
+                    alert(data.message || 'Lỗi không xác định khi lưu ảnh.');
+                }
+            })
+            .catch(error => {
+                console.error('Upload error:', error);
+                alert('Có lỗi xảy ra khi lưu ảnh: ' + error.message);
+            })
+            .finally(() => {
+                // Reset opacity and button state
+                bannerImage.style.opacity = '1';
+                saveButton.disabled = false;
+                saveButton.textContent = 'Lưu';
+            });
+    }
+
+</script>
 </body>
 </html>
