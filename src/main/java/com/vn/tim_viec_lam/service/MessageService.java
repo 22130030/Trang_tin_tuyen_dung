@@ -10,8 +10,14 @@ public class MessageService {
     public MessageService() {
         this.messageDao = new MessageDao();
     }
-    public boolean insertMessage(int candidateId,int employerId,int applicationID,int senderId,String message) {
-        int conversationId = messageDao.getConversationById(candidateId, employerId, applicationID);
+    public boolean insertMessage(int candidateId,int employerId,int applicationID,int senderId,String message,String param) {
+        int conversationId = -1;
+        if(param.equals("company")){
+            conversationId = messageDao.getConversationById(employerId, candidateId, applicationID);
+
+        }else if(param.equals("candidate")){
+            conversationId = messageDao.getConversationById(candidateId, employerId, applicationID);
+        }
         if(conversationId > 0){
             return messageDao.insertMessage(conversationId,senderId,message);
         }
@@ -27,4 +33,7 @@ public class MessageService {
         return messageDao.getConversation(candateId,param);
     }
 
+    public static void main(String[] args) {
+        MessageService messageService = new MessageService();
+    }
 }

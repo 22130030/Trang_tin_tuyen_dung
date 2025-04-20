@@ -202,6 +202,7 @@
 
     function sendMessage(jobPostId){
         const input = document.getElementById("message-ip-"+jobPostId);
+
         const content = input.value;
 
         if (socket.readyState === WebSocket.OPEN) {

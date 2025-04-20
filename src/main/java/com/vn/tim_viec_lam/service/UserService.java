@@ -72,15 +72,12 @@ public class UserService {
     public boolean newPasswordByEmail(String email, String newPassword) {
         return userDao.NewPasswordByEmail(email, newPassword);
     }
-    public Map.Entry<Integer,Integer> getUserIdAndRoleByJobPostId(int jobPostId) {
-        return userDao.getUserIdAndRole(jobPostId);
+    public Map.Entry<Integer,Integer> getUserIdAndRoleByJobPostId(int jobPostId,String param) {
+        return userDao.getUserIdAndRole(jobPostId,param);
     }
     public static void main(String[] args) {
-           Dotenv dotenv = Dotenv.load();
-           String clientId = dotenv.get("GOOGLE_CLIENT_ID");
-           String clientSecret = dotenv.get("GOOGLE_CLIENT_SECRET");
-           String REDIRECT_URI = dotenv.get("REDIRECT_URI");
-           System.out.println(REDIRECT_URI);
+        UserService userService = new UserService();
+        System.out.println(userService.getUserIdAndRoleByJobPostId(1,"candidate"));
     }
 }
 
