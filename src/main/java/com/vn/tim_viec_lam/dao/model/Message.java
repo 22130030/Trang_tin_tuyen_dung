@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class Message implements java.io.Serializable {
     private int id;
     private int canidateId;
-    private int employerId;
+    private int companyId;
     private int jobPostId;
     private int senderId;
     private String message;
@@ -15,10 +15,10 @@ public class Message implements java.io.Serializable {
     public Message() {
     }
 
-    public Message(int id, int canidateId, int employerId, int jobPostId,int senderId, String message, LocalDateTime sentDate) {
+    public Message(int id, int canidateId, int companyId, int jobPostId,int senderId, String message, LocalDateTime sentDate) {
         this.id = id;
         this.canidateId = canidateId;
-        this.employerId = employerId;
+        this.companyId = companyId;
         this.jobPostId = jobPostId;
         this.senderId = senderId;
         this.message = message;
@@ -41,12 +41,12 @@ public class Message implements java.io.Serializable {
         this.canidateId = canidateId;
     }
 
-    public int getemployerId() {
-        return employerId;
+    public int getcompanyId() {
+        return companyId;
     }
 
-    public void setemployerId(int employerId) {
-        this.employerId = employerId;
+    public void setcompanyId(int companyId) {
+        this.companyId = companyId;
     }
 
     public int getjobPostId() {

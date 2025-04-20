@@ -16,8 +16,10 @@ public class EmployerHomeController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
         session.setAttribute("currentUrl","/employer-home");
-
-        System.out.println(" currentUrl : "+ session.getAttribute("currentUrl"));
-        resp.sendRedirect(req.getContextPath()+"/employer_home.jsp");
+        if(session.getAttribute("companyUser")!=null && Integer.parseInt(session.getAttribute("companyRole").toString()) == 2){
+            resp.sendRedirect("employer/employer.jsp");
+        }else{
+            resp.sendRedirect(req.getContextPath()+"/employer_home.jsp");
+        }
     }
 }

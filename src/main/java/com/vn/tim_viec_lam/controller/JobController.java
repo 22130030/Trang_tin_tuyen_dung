@@ -50,7 +50,7 @@ public class JobController extends HttpServlet {
             request.setAttribute("categories", categories);
             request.setAttribute("newJob", newJob);
             request.setAttribute("np", numberPage);
-            HttpSession session = request.getSession(false);
+            HttpSession session = request.getSession(true);
             session.setAttribute("currentUrl","/home");
             System.out.println("currentUrl : "+session.getAttribute("currentUrl"));
             request.getRequestDispatcher("index.jsp").forward(request, response);

@@ -17,13 +17,14 @@ public class MessageService {
         }
         return false;
     }
-    public List<Message> getAllMessageByCanidateId(int candateId,int jobPostId) {
-        return messageDao.getMessage(candateId,jobPostId);
+    public List<Message> getAllMessageByCanidateId(int id,String param,int jobPostId) {
+        return messageDao.getMessage(id,param,jobPostId);
     }
     public List<Message> getTopMessageByCanidateId(int candateId) {
         return messageDao.getTopMessage(candateId);
     }
-    public List<Message> getConversationMessageByCanidateId(int candateId) {
-        return messageDao.getConversation( candateId);
+    public List<Message> getConversationMessage(int candateId,String param) {
+        return messageDao.getConversation(candateId,param);
     }
+
 }

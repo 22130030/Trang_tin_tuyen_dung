@@ -25,8 +25,8 @@ public class ChatWebSocketController {
             }
             if(role == 2){
                 userId = (int) httpSession.getAttribute("companyId");
-
             }
+            System.out.println("UserId :" +userId);
             String userType = null;
             if(userId > 0) {
                 userType = role == 1 ? "candidate" : (role == 2 ? "employer" : "unknown");
@@ -66,10 +66,12 @@ public class ChatWebSocketController {
                 users.get(receiverKey).getBasicRemote().sendText(senderKey + ": " + content);
 
                 session.getBasicRemote().sendText("Bạn: " + content);
-
+                System.out.println("người nhận đang online");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }else{
+            System.out.println("người nhận đang offline");
         }
             MessageService messageService = new MessageService();
             messageService.insertMessage(senderId,userId,jobPostId,senderId,content);

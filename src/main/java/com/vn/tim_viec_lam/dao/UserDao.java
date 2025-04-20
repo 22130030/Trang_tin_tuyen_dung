@@ -429,7 +429,7 @@ public class UserDao {
             stmt.setInt(1, jobPostId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                userId = rs.getInt("companyUserId");
+                userId = rs.getInt("companyId");
                 roleNum = rs.getInt("roleNum");
             }
             return new AbstractMap.SimpleEntry<>(userId,roleNum);

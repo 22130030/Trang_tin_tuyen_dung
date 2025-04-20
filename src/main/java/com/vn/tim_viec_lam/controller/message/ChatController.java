@@ -23,13 +23,13 @@ public class ChatController extends HttpServlet {
             System.out.println("candidate" + candidateId);
             MessageService messageService = new MessageService();
 
-            List<Message> conversations = messageService.getConversationMessageByCanidateId(candidateId);
+            List<Message> conversations = messageService.getConversationMessage(candidateId,"candidateId");
             List<Message> messages = new ArrayList<>();
             int jobPostId = -1;
             if(!conversations.isEmpty()){
                 Message message = conversations.get(0);
                 jobPostId = message.getjobPostId();
-                messages = messageService.getAllMessageByCanidateId(candidateId,jobPostId);
+                messages = messageService.getAllMessageByCanidateId(candidateId,"candidateId",jobPostId);
 
             }
 
@@ -56,7 +56,7 @@ public class ChatController extends HttpServlet {
         MessageService messageService = new MessageService();
         if(session.getAttribute("candidateId")!=null){
             int id = (int)session.getAttribute("candidateId");
-            List<Message> messages =messageService.getAllMessageByCanidateId(id,1);
+            List<Message> messages =messageService.getAllMessageByCanidateId(id,"candidateId",1);
             if(messages.size()>0){
                 session.setAttribute("messages",messages);
             }
