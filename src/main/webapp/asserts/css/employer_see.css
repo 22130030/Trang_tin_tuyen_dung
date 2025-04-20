@@ -325,11 +325,11 @@ img.employer-logo {
 
 .company-banner-content {
     width: 100%;
+
 }
 
 .company-banner-content img.img-fluid {
     width: 100%;
-    /* Ảnh rộng 100% */
     object-fit: cover;
     /* Giữ tỷ lệ và lấp đầy vùng chứa */
 }

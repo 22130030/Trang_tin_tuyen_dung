@@ -88,7 +88,7 @@
         </a>
       </div>
       <div class="account overflow-hidden">
-        <a class="d-flex align-items-center mw-100" style="min-height: 48px" href="/html/employer/employer.html">
+        <a class="d-flex align-items-center mw-100" style="min-height: 48px" href="employer_see.jsp">
           <div class="avatar rounded-circle">
             <img alt="avatar" height="32" width="32" class="employer-logo rounded-circle border"
                  src="https://static.careerlink.vn/web/images/common/no-logo.png">
@@ -99,6 +99,7 @@
                                 </span>
             <div class="email d-inline-block m-0 text-truncate" style="max-width: 170px">
               ${sessionScope.companyUser.email}
+
             </div>
           </div>
         </a>
