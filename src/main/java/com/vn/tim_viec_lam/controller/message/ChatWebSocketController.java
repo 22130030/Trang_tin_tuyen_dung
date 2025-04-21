@@ -54,7 +54,6 @@ public class ChatWebSocketController {
         String content = obj.getString("content");
         int jobPostId = obj.getInt("jobPostId");
 
-
         Integer senderId = (Integer) session.getUserProperties().get("userId");
         String senderType = (String) session.getUserProperties().get("userType");
         String senderKey = senderId + "_" + senderType;
@@ -70,21 +69,19 @@ public class ChatWebSocketController {
         if (users.containsKey(receiverKey)) {
             try {
                 users.get(receiverKey).getBasicRemote().sendText(senderKey + ": " + content);
-
-                session.getBasicRemote().sendText("Bạn: " + content);
-                System.out.println("người nhận đang online");
+                System.out.println("Người nhận đang online");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } else {
-            System.out.println("người nhận đang offline");
+            System.out.println("Người nhận đang offline");
         }
+
         MessageService messageService = new MessageService();
-        System.out.println("senderId : " + senderId);
-        messageService.insertMessage(senderId, userId, jobPostId, senderId, content,senderType);
-        System.out.println("da lu tin nhan");
-//        }
+        messageService.insertMessage(senderId, userId, jobPostId, senderId, content, senderType);
+        System.out.println("Đã lưu tin nhắn");
     }
+
     @OnClose
     public void onClose(Session session, CloseReason closeReason) {
         String userKey = (String) session.getUserProperties().get("userKey");

@@ -33,10 +33,9 @@ public class ChatController extends HttpServlet {
 
             }
 
-//            List<Message> chatMessages = messageService.getTopMessageByCanidateId(candidateId);
 
-//            req.setAttribute("chatMessages", chatMessages);
             req.setAttribute("messages", messages);
+            req.setAttribute("conversations", conversations);
             if(jobPostId != -1){
                 req.setAttribute("jobPostId", jobPostId);
             }

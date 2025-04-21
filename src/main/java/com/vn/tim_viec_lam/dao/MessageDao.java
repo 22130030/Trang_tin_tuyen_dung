@@ -25,24 +25,7 @@ public class MessageDao {
             throw new RuntimeException(e);
         }
     }
-    public List<Message> getTopMessage(int candidateId){
-        Connection con = DBconnect.getConnection();
-        String sql = "select * from conversations c ";
 
-        List<Message> messageList = new ArrayList<Message>();
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-//            ps.setInt(1, candidateId);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-            }
-            return messageList;
-        }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-
-        }
-    }
     public List<Message> getMessage(int id,String param,int jobPostId){
         Connection con = DBconnect.getConnection();
         String sql = "select m.conversationId,c.candidateId,c.companyId,c.created_at" +
@@ -85,9 +68,13 @@ public class MessageDao {
     }
     public List<Message> getConversation(int id,String param){
         Connection con = DBconnect.getConnection();
-        String sql = "select * from conversations" +
-                " where "+ param +" = ?" +
-                " group by created_at asc";
+        String sql = "select jp.companyID,cp.companyName,jp.titleJob,c.conversationId,ja.status,ja.created_at" +
+                ",c.jobPostId,c.candidateId,c.companyId from job_posting jp" +
+                " join job_applications ja on ja.jobPostId = jp.jobPostId " +
+                " join conversations c on c.jobPostId = jp.jobPostId " +
+                " join companies cp on cp.companyID = jp.companyID " +
+                " where c."+ param +" = ?" +
+                " group by c.created_at asc";
         List<Message> messages = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -95,9 +82,11 @@ public class MessageDao {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int conversationID = rs.getInt("conversationID");
-
-                int jobPostID = rs.getInt("jobPostID");
+                String companyName = rs.getString("companyName");
+                String titleJob = rs.getString("titleJob");
+                String status = rs.getString("status");
                 LocalDateTime created_at = rs.getTimestamp("created_at").toLocalDateTime();
+                int jobPostID = rs.getInt("jobPostID");
                 Message message = new Message();
                 message.setId(conversationID);
                 if(param.equals("candidateId")){
@@ -110,6 +99,10 @@ public class MessageDao {
                     message.setcanidateId(candidateID);
                     message.setcompanyId(id);
                 }
+                message.setCompanyName(companyName);
+                message.setTitleJob(titleJob);
+                message.setStatus(status);
+                message.setApp_created_at(created_at);
                 message.setjobPostId(jobPostID);
                 messages.add(message);
             }
@@ -140,35 +133,40 @@ public class MessageDao {
             throw new RuntimeException(e);
         }
     }
-    public List<Message> getMessageListByCandidateId(int candidateId){
+
+    public List<Message> getConversationByJobPostId(int jobPostId){
         Connection con = DBconnect.getConnection();
-        String sql = "select * from conversations where candidateID=? order by sent desc ";
-        List<Message> messageList = new ArrayList<Message>();
+        String sql = "select cp.companyName,jp.titleJob,c.conversationId,ja.status,ja.created_at from job_posting jp" +
+                " join job_applications ja on ja.jobPostId = jp.jobPostId " +
+                " join conversations c on c.jobPostId = jp.jobPostId " +
+                " join companies cp on cp.companyID = jp.companyID " +
+                " where jp.jobPostId= ? ";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, candidateId);
+            ps.setInt(1, jobPostId);
             ResultSet rs = ps.executeQuery();
+            List<Message> messages = new ArrayList<>();
+            Message message = new Message();
             while (rs.next()) {
-                int id = rs.getInt(1);
-                int canidateID = rs.getInt(2);
-                int companyId = rs.getInt(3);
-                String content = rs.getString(4);
-                int applicationID = rs.getInt(5);
-                LocalDateTime sentDate = rs.getTimestamp(6).toLocalDateTime();
-//                Message message = new Message(id,canidateID,companyId,applicationID,content,sentDate);
-//                messageList.add(message);
-
+                String companyName = rs.getString("companyName");
+                String titleJob = rs.getString("titleJob");
+                int conversationId = rs.getInt("conversationId");
+                String status = rs.getString("status");
+                LocalDateTime created_at = rs.getTimestamp("created_at").toLocalDateTime();
+                message.setCompanyName(companyName);
+                message.setId(conversationId);
+                message.setApp_created_at(created_at);
+                message.setStatus(status);
+                messages.add(message);
             }
-            return messageList;
+            return messages;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
-
     public static void main(String[] args) {
         MessageDao dao = new MessageDao();
-        System.out.println(dao.getConversation(1,"companyId"));
+        System.out.println(dao.getConversation(53,"candidateId"));
     }
 
 

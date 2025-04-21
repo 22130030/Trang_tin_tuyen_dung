@@ -27,16 +27,19 @@
     <div class="wrapper">
         <div class="sidebar">
             <h2>Cuộc trò chuyện</h2>
-            <div class="conversation">
-                <div class="conversation__img">
-                    <img src="asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
-                </div>
-                <div class="conversation__content">
+            <c:forEach items="${conversations}" var="c">
 
-                    <div class="title">Công Ty Truyền Tải Điện 4 (PTC4)</div>
-                    <div class="preview">This message had been removed</div>
+                <div class="conversation">
+                    <div class="conversation__img">
+                        <img src="asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
+                    </div>
+                    <div class="conversation__content">
+
+                        <div class="title">${c.companyName}</div>
+                        <div class="preview">${c.titleJob}</div>
+                    </div>
                 </div>
-            </div>
+            </c:forEach>
 
         </div>
 
@@ -61,7 +64,7 @@
                             <div class="date-label">${m.sentDate}</div>
                             <div class="message-box received">
                                 <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="" class="avatar">
-                                <div class="meassage-container">
+                                <div class="message-container">
                                     <span class="message-date">${m.converSentDetail}</span>
                                     <p class="message-content">${m.message}</p>
                                 </div>
@@ -72,7 +75,7 @@
 
                             <div class="date-label">${m.sentDate}</div>
                             <div class="message-box sent">
-                                <div class="meassage-container">
+                                <div class="message-container">
                                     <span class="message-date message-date--sent">${m.converSentDetail}</span>
                                     <p class="message-content">${m.message}</p>
                                 </div>
@@ -145,7 +148,7 @@
                             <div class="date-label">${m.sentDate}</div>
                             <div class="message-box received">
                                 <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="" class="avatar">
-                                <div class="meassage-container">
+                                <div class="message-container">
                                     <span class="message-date">${m.converSentDetail}</span>
                                     <p class="message-content">${m.message}</p>
                                 </div>
@@ -156,7 +159,7 @@
 
                             <div class="date-label">${m.sentDate}</div>
                             <div class="message-box sent">
-                                <div class="meassage-container">
+                                <div class="message-container">
                                     <span class="message-date message-date--sent">${m.converSentDetail}</span>
                                     <p class="message-content">${m.message}</p>
                                 </div>
@@ -193,26 +196,75 @@
 
 <%@include file="footer.jsp"%>
 <script>
+    const socket = new WebSocket("ws://" + location.host + "/trang_tin_tuyen_dung/chat-web-socket");
 
-    const socket = new WebSocket("ws://" + location.host + "/trang_tin_tuyen_dung/chat-web-socket")
+    socket.onopen = function () {
+        console.log("WebSocket đã kết nối");
+    };
 
-    socket.onopen = function (event){
-        console.log("web is open")
-    }
+    socket.onmessage = function(event) {
+        const chatBody = document.querySelector(".chat-body");
+
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const messageText = event.data.split(": ").slice(1).join(": "); // Bỏ phần tiền tố id:
+
+        const msgBox = document.createElement("div");
+        msgBox.className = "message-box received";
+
+        msgBox.innerHTML = `
+            <img src="/asserts/img/anh_logo_cong_ty/cong_ty_nextdoor.png" alt="" class="avatar">
+            <div class="message-container">
+                <span class="message-date">`+timeStr+`</span>
+                <p class="message-content">`+messageText+`</p>
+            </div>
+        `;
+
+        chatBody.appendChild(msgBox);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    };
 
     function sendMessage(jobPostId){
-        const input = document.getElementById("message-ip-"+jobPostId);
+        const input = document.getElementById("message-ip-" + jobPostId);
+        const content = input.value.trim();
 
-        const content = input.value;
+        if (!content) return;
 
         if (socket.readyState === WebSocket.OPEN) {
             socket.send(JSON.stringify({content, jobPostId}));
+
+            const chatBody = document.querySelector(".chat-body");
+
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            const msgBox = document.createElement("div");
+            msgBox.className = "message-box sent";
+
+            msgBox.innerHTML = `
+            <div class="message-box sent">
+                <div class="message-container">
+                    <span class="message-date message-date--sent">`+timeStr+`</span>
+                    <p class="message-content">`+content+`</p>
+                </div>
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="avatar" alt="Avatar">
+            </div>`;
+
+            chatBody.appendChild(msgBox);
+            chatBody.scrollTop = chatBody.scrollHeight;
+
             input.value = "";
         } else {
-            console.error("Socket chưa sẵn sàng. Trạng thái:", socket.readyState);
+            console.error("Socket chưa sẵn sàng:", socket.readyState);
             alert("Không thể gửi tin nhắn. Kết nối WebSocket đã đóng.");
         }
     }
+    window.addEventListener("DOMContentLoaded", () => {
+        const chatBody = document.querySelector(".chat-body");
+        if (chatBody) {
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+    });
 </script>
 </body>
 </html>

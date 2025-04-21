@@ -26,13 +26,13 @@ public class MessageService {
     public List<Message> getAllMessageByCanidateId(int id,String param,int jobPostId) {
         return messageDao.getMessage(id,param,jobPostId);
     }
-    public List<Message> getTopMessageByCanidateId(int candateId) {
-        return messageDao.getTopMessage(candateId);
-    }
+
     public List<Message> getConversationMessage(int candateId,String param) {
         return messageDao.getConversation(candateId,param);
     }
-
+    public List<Message> getConversationByJobPostId(int jobPostId) {
+        return messageDao.getConversationByJobPostId(jobPostId);
+    }
     public static void main(String[] args) {
         MessageService messageService = new MessageService();
     }
