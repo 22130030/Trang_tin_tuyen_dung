@@ -1,6 +1,8 @@
 package com.vn.tim_viec_lam.controller.message;
 
+import com.vn.tim_viec_lam.dao.model.Conversation;
 import com.vn.tim_viec_lam.dao.model.Message;
+import com.vn.tim_viec_lam.service.ConversationService;
 import com.vn.tim_viec_lam.service.MessageService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,19 +21,23 @@ public class EmployerChatController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(true);
         if(session.getAttribute("companyUser")!=null){
-            int companyId =(int) session.getAttribute("companyId");
+            int companyUserId =(int) session.getAttribute("companyUserId");
+
+            ConversationService conversationService = new ConversationService();
             MessageService messageService = new MessageService();
 
-            List<Message> conversations = messageService.getConversationMessage(companyId,"companyId");
+            List<Conversation> conversations = conversationService.getAllConversationByUserId(companyUserId);
             List<Message> messages = new ArrayList<>();
             int jobPostId = -1;
             if(!conversations.isEmpty()){
-                Message message = conversations.get(0);
-                jobPostId = message.getjobPostId();
-                messages = messageService.getAllMessageByCanidateId(companyId,"companyId",jobPostId);
+
+                jobPostId = conversations.get(0).getJobPostId();
+                messages = messageService.getAllMessageByCanidateId(companyUserId,jobPostId);
 
             }
+
             req.setAttribute("messages", messages);
+            req.setAttribute("conversations", conversations);
             if(jobPostId != -1){
                 req.setAttribute("jobPostId", jobPostId);
             }

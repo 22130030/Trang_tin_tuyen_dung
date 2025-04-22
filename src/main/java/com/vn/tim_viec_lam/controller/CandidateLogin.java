@@ -36,7 +36,6 @@ public class CandidateLogin extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(REDIRECT_URI);
         String authURL = "https://accounts.google.com/o/oauth2/auth" +
                 "?client_id=" + clientId +
                 "&redirect_uri=" + REDIRECT_URI +

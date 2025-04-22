@@ -45,7 +45,6 @@ public class UploadFile extends HttpServlet {
         FileService fs = new FileService();
         HttpSession session = request.getSession();
         int candidateId = (int) session.getAttribute("candidateId");
-        System.out.println("candidateId: " + candidateId);
         ResumesService rs = new ResumesService();
 
         String filePath = "";
@@ -74,7 +73,6 @@ public class UploadFile extends HttpServlet {
                     response.getWriter().flush();
                     response.getWriter().close();
         }catch (Exception e){
-            System.out.println(1);
             e.printStackTrace();
         }
 

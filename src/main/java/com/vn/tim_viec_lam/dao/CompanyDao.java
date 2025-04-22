@@ -344,7 +344,6 @@ public class CompanyDao {
 //       dao.editUser(3,"CÔNG TY TNHH THẨM MỸ NGỌC DUNG","user33@example.com","+1-800-792-9935","Đã duyệt");
        dao.editUser(17,"CÔNG TY TNHH HOJEONG","user1717@example.com","+1-800-532-1520 ","Đã duyệt","Lô R13, 14, 15 KCN Hải Sơn Xã Đức Hòa Hạ, Huyện Đức Hòa, Long An");
       //  dao.deleteUserCompany(6);
-        System.out.println(dao.getAll());
     }
 
 

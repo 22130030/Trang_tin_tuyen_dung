@@ -1,5 +1,6 @@
 package com.vn.tim_viec_lam.controller.message;
 
+import com.vn.tim_viec_lam.service.ConversationService;
 import com.vn.tim_viec_lam.service.MessageService;
 import com.vn.tim_viec_lam.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -13,36 +14,30 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @ServerEndpoint(value = "/chat-web-socket",configurator = GetHttpSessionConfigurator.class)
 public class ChatWebSocketController {
-    private static Map<String, Session> users = new ConcurrentHashMap<>();
+    private static Map<Integer, Session> users = new ConcurrentHashMap<>();
 
     @OnOpen
     public void onOpen(Session session, EndpointConfig config) {
         HttpSession httpSession = (HttpSession) config.getUserProperties().get("httpSession");
         if (httpSession != null) {
-            int userId = -1;
+
             int role = -999;
             if (httpSession.getAttribute("role") != null) {
                 role = Integer.parseInt(httpSession.getAttribute("role").toString());
-            } else if (httpSession.getAttribute("companyRole") != null) {
-                role = Integer.parseInt(httpSession.getAttribute("companyRole").toString());
             }
 
-            if (role == 1) {
-                userId = (int) httpSession.getAttribute("candidateId");
+            int userId = -1;
+            if(role == 1){
+                userId = (int) httpSession.getAttribute("userID");
             }
-            if (role == 2) {
-                userId = (int) httpSession.getAttribute("companyId");
+            if(role == 2 ){
+                userId = (int) httpSession.getAttribute("companyUserId");
             }
             System.out.println("UserId :" + userId);
-            String userType = null;
             if (userId > 0) {
-                userType = role == 1 ? "candidate" : (role == 2 ? "company" : "unknown");
-                String userKey = userId + "_" + userType;
 
-                users.put(userKey, session);
+                users.put(userId, session);
                 session.getUserProperties().put("userId", userId);
-                session.getUserProperties().put("userType", userType);
-                session.getUserProperties().put("userKey", userKey);
                 System.out.println("Current online users: " + users.keySet());
             }
         }
@@ -55,20 +50,14 @@ public class ChatWebSocketController {
         int jobPostId = obj.getInt("jobPostId");
 
         Integer senderId = (Integer) session.getUserProperties().get("userId");
-        String senderType = (String) session.getUserProperties().get("userType");
-        String senderKey = senderId + "_" + senderType;
 
-        UserService userService = new UserService();
-        Map.Entry<Integer, Integer> keys = userService.getUserIdAndRoleByJobPostId(jobPostId, senderType);
+        ConversationService conversationService = new ConversationService();
+        int receiver = conversationService.getSenderId(jobPostId, senderId);
 
-        int userId = keys.getKey();
-        int role = keys.getValue();
-        String userType = role == 1 ? "candidate" : (role == 2 ? "company" : "unknown");
-        String receiverKey = userId + "_" + userType;
 
-        if (users.containsKey(receiverKey)) {
+        if (users.containsKey(receiver)) {
             try {
-                users.get(receiverKey).getBasicRemote().sendText(senderKey + ": " + content);
+                users.get(receiver).getBasicRemote().sendText(receiver + ": " + content);
                 System.out.println("Người nhận đang online");
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -78,16 +67,16 @@ public class ChatWebSocketController {
         }
 
         MessageService messageService = new MessageService();
-        messageService.insertMessage(senderId, userId, jobPostId, senderId, content, senderType);
+        messageService.insertMessage(receiver, jobPostId, senderId, content);
         System.out.println("Đã lưu tin nhắn");
     }
 
     @OnClose
     public void onClose(Session session, CloseReason closeReason) {
-        String userKey = (String) session.getUserProperties().get("userKey");
-        if (userKey != null) {
-            users.remove(userKey);
-            System.out.println("User " + userKey + " disconnected.");
+        int userId = (int) session.getUserProperties().get("userId");
+        if (userId != 0) {
+            users.remove(userId);
+            System.out.println("User " + userId + " disconnected.");
         }
     }
 }

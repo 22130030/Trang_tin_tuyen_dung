@@ -193,7 +193,6 @@ public class CandidateDao {
 
     public static void main(String[] args) {
         CandidateDao dao = new CandidateDao();
-        System.out.println(dao.getListCandidate());
     }
 
 

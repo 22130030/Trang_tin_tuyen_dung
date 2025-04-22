@@ -40,6 +40,5 @@ public class SavingCart {
 
     public static void main(String[] args) {
         SavingCart savingCart = new SavingCart();
-        System.out.println(savingCart.getSize());
     }
 }

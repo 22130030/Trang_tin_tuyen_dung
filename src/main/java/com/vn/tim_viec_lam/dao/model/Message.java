@@ -5,26 +5,20 @@ import java.time.format.DateTimeFormatter;
 
 public class Message implements java.io.Serializable {
     private int id;
-    private int canidateId;
     private String candidateName;
-    private int companyId;
+    private int senderId;
     private String companyName;
-    private int jobPostId;
     private String titleJob;
     private String status;
     private LocalDateTime app_created_at;
-    private int senderId;
     private String message;
     private LocalDateTime sentDate;
 
     public Message() {
     }
 
-    public Message(int id, int canidateId, int companyId, int jobPostId,int senderId, String message, LocalDateTime sentDate) {
+    public Message(int id,  int userID,int senderId, int jobPostId, String message, LocalDateTime sentDate) {
         this.id = id;
-        this.canidateId = canidateId;
-        this.companyId = companyId;
-        this.jobPostId = jobPostId;
         this.senderId = senderId;
         this.message = message;
         this.sentDate = sentDate;
@@ -38,37 +32,18 @@ public class Message implements java.io.Serializable {
         this.id = id;
     }
 
-    public int getcanidateId() {
-        return canidateId;
+    public int getsenderId() {
+        return senderId;
     }
 
-    public void setcanidateId(int canidateId) {
-        this.canidateId = canidateId;
+    public void setsenderId(int senderId) {
+        this.senderId = senderId;
     }
 
-    public int getcompanyId() {
-        return companyId;
-    }
 
-    public void setcompanyId(int companyId) {
-        this.companyId = companyId;
-    }
 
-    public int getjobPostId() {
-        return jobPostId;
-    }
 
-    public void setjobPostId(int jobPostId) {
-        this.jobPostId = jobPostId;
-    }
 
-    public int getCanidateId() {
-        return canidateId;
-    }
-
-    public void setCanidateId(int canidateId) {
-        this.canidateId = canidateId;
-    }
 
     public String getCandidateName() {
         return candidateName;
@@ -78,13 +53,8 @@ public class Message implements java.io.Serializable {
         this.candidateName = candidateName;
     }
 
-    public int getCompanyId() {
-        return companyId;
-    }
 
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
-    }
+
 
     public String getCompanyName() {
         return companyName;
@@ -94,13 +64,7 @@ public class Message implements java.io.Serializable {
         this.companyName = companyName;
     }
 
-    public int getJobPostId() {
-        return jobPostId;
-    }
 
-    public void setJobPostId(int jobPostId) {
-        this.jobPostId = jobPostId;
-    }
 
     public String getTitleJob() {
         return titleJob;
@@ -126,22 +90,7 @@ public class Message implements java.io.Serializable {
         this.app_created_at = app_created_at;
     }
 
-    public int getSenderId() {
-        return senderId;
-    }
-
-    public void setSenderId(int senderId) {
-        this.senderId = senderId;
-    }
-
-    public int getsenderId() {
-        return senderId;
-    }
-
-    public void setsenderId(int senderId) {
-        this.senderId = senderId;
-    }
-
+  
     public String getMessage() {
         return message;
     }
@@ -157,8 +106,20 @@ public class Message implements java.io.Serializable {
     public void setSentDate(LocalDateTime sentDate) {
         this.sentDate = sentDate;
     }
+
+    public int getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(int senderId) {
+        this.senderId = senderId;
+    }
+
+
     public String getConverSentDetail(){
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         return sentDate.format(dateTimeFormatter);
     }
+
+
 }

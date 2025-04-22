@@ -414,55 +414,6 @@ public class UserDao {
          System.out.println(dao.updateImage(28,"https://moc247.com/wp-content/uploads/2023/12/loa-mat-voi-101-hinh-anh-avatar-meo-cute-dang-yeu-dep-mat_2.jpg"));
     }
 
-    public Map.Entry<Integer, Integer> getUserIdAndRole(int jobPostId,String param) {
-        Connection con = DBconnect.getConnection();
-        String sql = "";
-        int userId = -1;
-        int roleNum = -999;
-        if(param.equals("candidate")){
-            System.out.println("candidate");
-            sql = "select c.companyId,r.roleNum from job_posting jp " +
-                    " join companies c on c.companyID = jp.companyID" +
-                    " join company_users cu on cu.companyID = c.companyID " +
-                    " join users u on u.userID = cu.userID" +
-                    " join roles r on r.userID =  u.userID" +
-                    " where jp.jobPostID = ?";
-
-            try {
-                PreparedStatement stmt = con.prepareStatement(sql);
-                stmt.setInt(1, jobPostId);
-                ResultSet rs = stmt.executeQuery();
-                if (rs.next()) {
-                    userId = rs.getInt("companyId");
-                    roleNum = rs.getInt("roleNum");
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-
-        }else if(param.equals("company")){
-            System.out.println("company");
-            sql = "select c.candidateId,r.roleNum from job_posting jp" +
-                    " join job_applications ja on ja.jobPostId = jp.jobPostId" +
-                    " join candidates c on c.candidateId = ja.candidateId " +
-                    " join users u on u.userId = c.userId" +
-                    " join roles r on r.userId = u.userId" +
-                    " where jp.jobPostID = ?";
-
-            try {
-                PreparedStatement stmt = con.prepareStatement(sql);
-                stmt.setInt(1, jobPostId);
-                ResultSet rs = stmt.executeQuery();
-                if (rs.next()) {
-                    userId = rs.getInt("candidateId");
-                    roleNum = rs.getInt("roleNum");
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return new AbstractMap.SimpleEntry<>(userId,roleNum);
-    }
 
 }
 

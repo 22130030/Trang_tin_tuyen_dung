@@ -10,30 +10,26 @@ public class MessageService {
     public MessageService() {
         this.messageDao = new MessageDao();
     }
-    public boolean insertMessage(int candidateId,int employerId,int applicationID,int senderId,String message,String param) {
+    public boolean insertMessage(int receiverId,int jobPostId,int senderId,String message) {
         int conversationId = -1;
-        if(param.equals("company")){
-            conversationId = messageDao.getConversationById(employerId, candidateId, applicationID);
+        conversationId = messageDao.getConversationById(receiverId,senderId, jobPostId);
 
-        }else if(param.equals("candidate")){
-            conversationId = messageDao.getConversationById(candidateId, employerId, applicationID);
-        }
+
         if(conversationId > 0){
             return messageDao.insertMessage(conversationId,senderId,message);
         }
-        return false;
+        else {
+            return messageDao.insertConversation(receiverId,senderId,jobPostId,message);
+        }
     }
-    public List<Message> getAllMessageByCanidateId(int id,String param,int jobPostId) {
-        return messageDao.getMessage(id,param,jobPostId);
+    public List<Message> getAllMessageByCanidateId(int id,int jobPostId) {
+        return messageDao.getMessage(id,jobPostId);
     }
 
-    public List<Message> getConversationMessage(int candateId,String param) {
-        return messageDao.getConversation(candateId,param);
-    }
-    public List<Message> getConversationByJobPostId(int jobPostId) {
-        return messageDao.getConversationByJobPostId(jobPostId);
-    }
+
+
     public static void main(String[] args) {
-        MessageService messageService = new MessageService();
+        MessageService getConversationMessage = new MessageService();
+        System.out.println(getConversationMessage.getAllMessageByCanidateId(27,1));
     }
 }

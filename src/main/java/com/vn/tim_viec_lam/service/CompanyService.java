@@ -44,7 +44,6 @@ public class CompanyService {
 
     public static void main(String[] args) {
         CompanyService companyService = new CompanyService();
-        System.out.println(companyService.getUserCompany());
     }
 
 

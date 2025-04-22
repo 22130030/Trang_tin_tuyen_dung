@@ -20,7 +20,6 @@ import java.util.Map;
 public class JobController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String url = request.getRequestURI();
-        System.out.println(url);
         if(url.contains("/home")){
 
             response.setContentType("text/html;charset=utf-8");
@@ -52,7 +51,10 @@ public class JobController extends HttpServlet {
             request.setAttribute("np", numberPage);
             HttpSession session = request.getSession(true);
             session.setAttribute("currentUrl","/home");
-            System.out.println("currentUrl : "+session.getAttribute("currentUrl"));
+            if(session.getAttribute("user")!=null){
+                session.setAttribute("role",1);
+            }
+            System.out.println("role : "+session.getAttribute("role"));
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }

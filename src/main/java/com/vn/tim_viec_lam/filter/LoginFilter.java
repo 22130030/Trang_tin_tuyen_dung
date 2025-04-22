@@ -50,7 +50,7 @@ public class LoginFilter implements Filter {
                 return;
             }
             else{
-                int role = (Integer) session.getAttribute("companyRole");
+                int role = (Integer) session.getAttribute("role");
                 if(role != 2) {
                     rsp.sendRedirect(req.getContextPath() + "/employer_home.jsp");
                 }

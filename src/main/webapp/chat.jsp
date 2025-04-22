@@ -36,7 +36,7 @@
                     <div class="conversation__content">
 
                         <div class="title">${c.companyName}</div>
-                        <div class="preview">${c.titleJob}</div>
+                        <div class="preview">${c.jobTitle}</div>
                     </div>
                 </div>
             </c:forEach>
@@ -59,7 +59,7 @@
                 <c:forEach items="${messages}" var="m">
                     <c:choose>
 
-                        <c:when test="${sessionScope.candidateId != m.senderId}">
+                        <c:when test="${sessionScope.userID != m.senderId}">
 
                             <div class="date-label">${m.sentDate}</div>
                             <div class="message-box received">
@@ -71,7 +71,7 @@
                             </div>
 
                         </c:when>
-                        <c:when test="${sessionScope.candidateId == m.senderId}">
+                        <c:when test="${sessionScope.userID == m.senderId}">
 
                             <div class="date-label">${m.sentDate}</div>
                             <div class="message-box sent">
@@ -114,16 +114,19 @@
     <div class="wrapper">
         <div class="sidebar">
             <h2>Cuộc trò chuyện</h2>
+            <c:forEach items="${conversations}" var="c">
+
             <div class="conversation">
                 <div class="conversation__img">
                     <img src="asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
                 </div>
                 <div class="conversation__content">
 
-                    <div class="title">Công Ty Truyền Tải Điện 4 (PTC4)</div>
-                    <div class="preview">This message had been removed</div>
+                    <div class="title">${c.candidateName}</div>
+                    <div class="preview">${c.jobTitle}</div>
                 </div>
             </div>
+            </c:forEach>
 
         </div>
 
@@ -143,7 +146,7 @@
                 <c:forEach items="${messages}" var="m">
                     <c:choose>
 
-                        <c:when test="${sessionScope.companyId != m.senderId}">
+                        <c:when test="${sessionScope.companyUserId != m.senderId}">
 
                             <div class="date-label">${m.sentDate}</div>
                             <div class="message-box received">
@@ -155,7 +158,7 @@
                             </div>
 
                         </c:when>
-                        <c:when test="${sessionScope.companyId == m.senderId}">
+                        <c:when test="${sessionScope.companyUserId == m.senderId}">
 
                             <div class="date-label">${m.sentDate}</div>
                             <div class="message-box sent">

@@ -4,22 +4,24 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class Conversation implements Serializable {
-    int id;
-    int candidateId;
-    int employerId;
-    int jobPostId;
-    String jobTitle;
-    String companyName;
-    LocalDateTime applicationDate;
-    LocalDateTime startDate;
+    private int id;
+    private int userSenderId;
+    private int userReceiverId;
+    private int jobPostId;
+    private String jobTitle;
+    private String companyName;
+    private String candidateName;
+    private String status;
+    private LocalDateTime applicationDate;
+    private LocalDateTime startDate;
 
     public Conversation() {
     }
 
-    public Conversation(int id, int candidateId, int employerId, int jobPostId, String jobTitle, String companyName, LocalDateTime applicationDate, LocalDateTime startDate) {
+    public Conversation(int id, int userSenderId, int userReceiverId, int jobPostId, String jobTitle, String companyName, LocalDateTime applicationDate, LocalDateTime startDate) {
         this.id = id;
-        this.candidateId = candidateId;
-        this.employerId = employerId;
+        this.userSenderId = userSenderId;
+        this.userReceiverId = userReceiverId;
         this.jobPostId = jobPostId;
         this.jobTitle = jobTitle;
         this.companyName = companyName;
@@ -35,20 +37,20 @@ public class Conversation implements Serializable {
         this.id = id;
     }
 
-    public int getCandidateId() {
-        return candidateId;
+    public int getUserSenderId() {
+        return userSenderId;
     }
 
-    public void setCandidateId(int candidateId) {
-        this.candidateId = candidateId;
+    public void setUserSenderId(int userSenderId) {
+        this.userSenderId = userSenderId;
     }
 
-    public int getEmployerId() {
-        return employerId;
+    public int getUserReceiverId() {
+        return userReceiverId;
     }
 
-    public void setEmployerId(int employerId) {
-        this.employerId = employerId;
+    public void setUserReceiverId(int userReceiverId) {
+        this.userReceiverId = userReceiverId;
     }
 
     public int getJobPostId() {
@@ -75,6 +77,14 @@ public class Conversation implements Serializable {
         this.companyName = companyName;
     }
 
+    public String getCandidateName() {
+        return candidateName;
+    }
+
+    public void setCandidateName(String candidateName) {
+        this.candidateName = candidateName;
+    }
+
     public LocalDateTime getApplicationDate() {
         return applicationDate;
     }
@@ -83,11 +93,34 @@ public class Conversation implements Serializable {
         this.applicationDate = applicationDate;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public LocalDateTime getStartDate() {
         return startDate;
     }
 
     public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Conversation{" +
+                "id=" + id +
+                ", userSenderId=" + userSenderId +
+                ", userReceiverId=" + userReceiverId +
+                ", jobPostId=" + jobPostId +
+                ", jobTitle='" + jobTitle + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", status='" + status + '\'' +
+                ", applicationDate=" + applicationDate +
+                ", startDate=" + startDate +
+                '}';
     }
 }
