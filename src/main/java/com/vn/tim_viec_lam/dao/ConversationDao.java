@@ -47,7 +47,7 @@ public class ConversationDao {
                 conversation.setCompanyName(companyName);
                 conversation.setJobTitle(titleJob);
                 conversation.setStatus(status);
-                conversation.setStartDate(created_at);
+                conversation.setApplicationDate(created_at);
                 conversation.setJobPostId(jobPostID);
                 conversations.add(conversation);
             }

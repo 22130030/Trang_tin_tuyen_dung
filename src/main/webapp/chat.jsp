@@ -29,7 +29,7 @@
             <h2>Cuộc trò chuyện</h2>
             <c:forEach items="${conversations}" var="c">
 
-                <div class="conversation">
+                <a href="javascript:void(0);" class="conversation" data-job-id="${c.jobPostId}">
                     <div class="conversation__img">
                         <img src="asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
                     </div>
@@ -38,19 +38,19 @@
                         <div class="title">${c.companyName}</div>
                         <div class="preview">${c.jobTitle}</div>
                     </div>
-                </div>
+                </a>
             </c:forEach>
 
         </div>
 
-        <div class="chat">
+        <div class="chat" id="chat-candidate">
             <div class="chat-header">
                 <div class="conversation__img">
                     <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
                 </div>
                 <div class="conversation__content">
-                    <h3>Công Ty Truyền Tải Điện 4 (PTC4)</h3>
-                    <small>Nhân Viên Vận Hành Trạm Biến Áp 220kV-500kV</small>
+                    <h3>${conversation.companyName}</h3>
+                    <small>${conversation.jobTitle}</small>
                 </div>
             </div>
 
@@ -98,11 +98,11 @@
 
                 <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="Logo">
             </div>
-            <h4>Công Ty Truyền Tải Điện 4 (PTC4)</h4>
-            <p><strong>Vị trí công việc:</strong><br> <a href="#" style="color:#007bff;text-decoration:none;">Nhân Viên
-                Vận Hành Trạm Biến Áp 220kV-500kV</a></p>
-            <p><strong>Ngày ứng tuyển:</strong><br> 02/12/2024</p>
-            <p><strong>Trạng thái:</strong><br> <span class="tag">Đã gửi email</span></p>
+            <h4>${conversation.companyName}</h4>
+            <p><strong>Vị trí công việc:</strong><br> <a href="#" style="color:#007bff;text-decoration:none;">
+                ${conversation.jobTitle}</a></p>
+            <p><strong>Ngày ứng tuyển:</strong><br>${conversation.convertAppDate}</p>
+            <p><strong>Trạng thái:</strong><br> <span class="tag">${conversation.status}</span></p>
         </div>
 
     </div>
@@ -116,7 +116,7 @@
             <h2>Cuộc trò chuyện</h2>
             <c:forEach items="${conversations}" var="c">
 
-            <div class="conversation">
+            <a class="conversation">
                 <div class="conversation__img">
                     <img src="asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
                 </div>
@@ -125,19 +125,19 @@
                     <div class="title">${c.candidateName}</div>
                     <div class="preview">${c.jobTitle}</div>
                 </div>
-            </div>
+            </a>
             </c:forEach>
 
         </div>
 
-        <div class="chat">
+        <div class="chat" id="">
             <div class="chat-header">
                 <div class="conversation__img">
                     <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
                 </div>
                 <div class="conversation__content">
-                    <h3>Công Ty Truyền Tải Điện 4 (PTC4)</h3>
-                    <small>Nhân Viên Vận Hành Trạm Biến Áp 220kV-500kV</small>
+                    <h3>${conversation.candidateName}</h3>
+                    <small>${conversation.jobTitle}</small>
                 </div>
             </div>
 
@@ -185,11 +185,11 @@
 
                 <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="Logo">
             </div>
-            <h4>Công Ty Truyền Tải Điện 4 (PTC4)</h4>
-            <p><strong>Vị trí công việc:</strong><br> <a href="#" style="color:#007bff;text-decoration:none;">Nhân Viên
-                Vận Hành Trạm Biến Áp 220kV-500kV</a></p>
-            <p><strong>Ngày ứng tuyển:</strong><br> 02/12/2024</p>
-            <p><strong>Trạng thái:</strong><br> <span class="tag">Đã gửi email</span></p>
+            <h4>${conversation.candidateName}</h4>
+            <p><strong>Vị trí công việc:</strong><br> <a href="#" style="color:#007bff;text-decoration:none;">
+                ${conversation.jobTitle}</a></p>
+            <p><strong>Ngày ứng tuyển:</strong><br> ${conversation.convertAppDate}</p>
+            <p><strong>Trạng thái:</strong><br> <span class="tag">${conversation.status}</span></p>
         </div>
 
     </div>
@@ -268,6 +268,48 @@
             chatBody.scrollTop = chatBody.scrollHeight;
         }
     });
+    document.querySelectorAll(".conversation").forEach(item => {
+        item.addEventListener("click", function () {
+            const jobPostId = this.dataset.jobId;
+            const chatBody = document.querySelector("#chat-candidate .chat-body");
+
+            chatBody.innerHTML = "";
+
+            fetch(`get-message?jobPostId=`+jobPostId)
+                .then(response => response.json())
+                .then(messages => {
+                    messages.forEach(msg => {
+                        const msgBox = document.createElement("div");
+                        console.log(msg)
+                        const isSender = msg.senderId === ${sessionScope.userID};
+                        msgBox.className = "message-box " + (isSender ? "sent" : "received");
+
+                        msgBox.innerHTML = isSender ? `
+                        <div class="message-container">
+                            <span class="message-date message-date--sent">`+msg.sentDate+`</span>
+                            <p class="message-content">`+msg.message+`</p>
+                        </div>
+                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="avatar" alt="Avatar">
+                    ` : `
+                        <img src="/asserts/img/anh_logo_cong_ty/cong_ty_nextdoor.png" alt="" class="avatar">
+                        <div class="message-container">
+                            <span class="message-date">`+msg.sentDate+`</span>
+                            <p class="message-content">`+msg.message+`</p>
+                        </div>
+                    `;
+
+                        chatBody.appendChild(msgBox);
+                    });
+
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                })
+                .catch(err => {
+                    console.error("Lỗi khi tải tin nhắn:", err);
+                });
+        });
+    });
+
+
 </script>
 </body>
 </html>

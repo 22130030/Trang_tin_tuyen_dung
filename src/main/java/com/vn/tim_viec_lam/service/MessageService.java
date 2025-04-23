@@ -30,6 +30,6 @@ public class MessageService {
 
     public static void main(String[] args) {
         MessageService getConversationMessage = new MessageService();
-        System.out.println(getConversationMessage.getAllMessageByCanidateId(27,1));
+        System.out.println(getConversationMessage.getAllMessageByCanidateId(27,3));
     }
 }

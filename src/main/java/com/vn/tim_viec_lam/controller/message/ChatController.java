@@ -29,15 +29,17 @@ public class ChatController extends HttpServlet {
             List<Conversation> conversations = conversationService.getAllConversationByUserId(userId);
             List<Message> messages = new ArrayList<>();
             int jobPostId = -1;
+            Conversation conversation = null;
             if(!conversations.isEmpty()){
-
-                 jobPostId = conversations.get(0).getJobPostId();
+                conversation = conversations.get(0);
+                jobPostId = conversation.getJobPostId();
                 messages = messageService.getAllMessageByCanidateId(userId,jobPostId);
 
             }
 
 
             req.setAttribute("messages", messages);
+            req.setAttribute("conversation", conversation);
             req.setAttribute("conversations", conversations);
             if(jobPostId != -1){
                 req.setAttribute("jobPostId", jobPostId);

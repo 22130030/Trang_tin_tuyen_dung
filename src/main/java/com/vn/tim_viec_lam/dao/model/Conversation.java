@@ -1,7 +1,10 @@
 package com.vn.tim_viec_lam.dao.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Conversation implements Serializable {
     private int id;
@@ -107,6 +110,10 @@ public class Conversation implements Serializable {
 
     public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
+    }
+    public String getConvertAppDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return applicationDate.format(formatter);
     }
 
     @Override

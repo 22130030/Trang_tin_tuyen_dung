@@ -27,4 +27,9 @@ public class ConversationService {
         }
         return -1;
     }
+
+    public static void main(String[] args) {
+        ConversationService conversationService = new ConversationService();
+        System.out.println(conversationService.getAllConversationByUserId(27));
+    }
 }

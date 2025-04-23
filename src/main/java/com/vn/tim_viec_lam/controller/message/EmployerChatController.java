@@ -28,16 +28,18 @@ public class EmployerChatController extends HttpServlet {
 
             List<Conversation> conversations = conversationService.getAllConversationByUserId(companyUserId);
             List<Message> messages = new ArrayList<>();
+            Conversation conversation = null;
             int jobPostId = -1;
             if(!conversations.isEmpty()){
-
-                jobPostId = conversations.get(0).getJobPostId();
+                conversation = conversations.get(0);
+                jobPostId = conversation.getJobPostId();
                 messages = messageService.getAllMessageByCanidateId(companyUserId,jobPostId);
 
             }
 
             req.setAttribute("messages", messages);
             req.setAttribute("conversations", conversations);
+            req.setAttribute("conversation", conversation);
             if(jobPostId != -1){
                 req.setAttribute("jobPostId", jobPostId);
             }
