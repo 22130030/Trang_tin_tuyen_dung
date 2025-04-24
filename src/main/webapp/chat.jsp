@@ -29,7 +29,7 @@
             <h2>Cuộc trò chuyện</h2>
             <c:forEach items="${conversations}" var="c">
 
-                <a href="javascript:void(0);" class="conversation" data-job-id="${c.jobPostId}">
+                <a href="javascript:void(0);" class="conversation" data-job-id="${c.jobPostId}"  data-conversation-id="${c.id}">
                     <div class="conversation__img">
                         <img src="asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
                     </div>
@@ -49,8 +49,8 @@
                     <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
                 </div>
                 <div class="conversation__content">
-                    <h3>${conversation.companyName}</h3>
-                    <small>${conversation.jobTitle}</small>
+                    <h3 class="conversation__content-header">${conversation.companyName}</h3>
+                    <small class="conversation__content-title"> ${conversation.jobTitle}</small>
                 </div>
             </div>
 
@@ -116,7 +116,7 @@
             <h2>Cuộc trò chuyện</h2>
             <c:forEach items="${conversations}" var="c">
 
-            <a class="conversation">
+                <a href="javascript:void(0);" class="conversation" data-job-id="${c.jobPostId}"  data-conversation-id="${c.id}">
                 <div class="conversation__img">
                     <img src="asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
                 </div>
@@ -130,14 +130,14 @@
 
         </div>
 
-        <div class="chat" id="">
+        <div class="chat" id="company-chat">
             <div class="chat-header">
                 <div class="conversation__img">
                     <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
                 </div>
                 <div class="conversation__content">
-                    <h3>${conversation.candidateName}</h3>
-                    <small>${conversation.jobTitle}</small>
+                    <h3 class="conversation__content-header">${conversation.candidateName}</h3>
+                    <small class="conversation__content-title">${conversation.jobTitle}</small>
                 </div>
             </div>
 
@@ -271,44 +271,62 @@
     document.querySelectorAll(".conversation").forEach(item => {
         item.addEventListener("click", function () {
             const jobPostId = this.dataset.jobId;
-            const chatBody = document.querySelector("#chat-candidate .chat-body");
+            const conversationId = this.dataset.conversationId;
+            const isEmployer = "${sessionScope.role}" === '2';
+            const userId = +("${sessionScope.role}" === '2' ? "${sessionScope.companyUserId}" : "${sessionScope.userID}");
+            const chatSelector = isEmployer ? "#company-chat" : "#chat-candidate";
+            const chatBody = document.querySelector(chatSelector + " .chat-body");
 
             chatBody.innerHTML = "";
 
-            fetch(`get-message?jobPostId=`+jobPostId)
-                .then(response => response.json())
-                .then(messages => {
-                    messages.forEach(msg => {
-                        const msgBox = document.createElement("div");
-                        console.log(msg)
-                        const isSender = msg.senderId === ${sessionScope.userID};
-                        msgBox.className = "message-box " + (isSender ? "sent" : "received");
+            fetch(`get-message?jobPostId=`+jobPostId+`&conversationId=`+conversationId)
+                .then(res => res.json())
+                .then(data => {
+                    const chatHeader = document.querySelector(".chat-header .conversation__content");
+                    chatHeader.innerHTML =
+                        "<h3 class='conversation__content-header'>" + (isEmployer ? data.candidateName : data.companyName) + "</h3>" +
+                        "<small class='conversation__content-title'>" + data.jobTitle + "</small>"
 
-                        msgBox.innerHTML = isSender ? `
-                        <div class="message-container">
-                            <span class="message-date message-date--sent">`+msg.sentDate+`</span>
-                            <p class="message-content">`+msg.message+`</p>
-                        </div>
-                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="avatar" alt="Avatar">
-                    ` : `
-                        <img src="/asserts/img/anh_logo_cong_ty/cong_ty_nextdoor.png" alt="" class="avatar">
-                        <div class="message-container">
-                            <span class="message-date">`+msg.sentDate+`</span>
-                            <p class="message-content">`+msg.message+`</p>
-                        </div>
+                    // Cập nhật info-panel
+                    document.querySelector(".info-panel h4").textContent = isEmployer ? data.candidateName : data.companyName;
+                    document.querySelector(".info-panel p:nth-of-type(1) a").textContent = data.jobTitle;
+                    document.querySelector(".info-panel p:nth-of-type(2)").innerHTML = "<strong>Ngày ứng tuyển:</strong><br>" + data.convertAppDate;
+                    document.querySelector(".info-panel p:nth-of-type(3) .tag").textContent = data.status;
+
+                    // Cập nhật input gửi tin nhắn
+                    document.querySelector(".chat-footer").innerHTML = `
+                        <input id="message-ip-`+jobPostId+`" type="text" placeholder="Nhập tin nhắn ..." />
+                        <button onclick="sendMessage(`+jobPostId+`)">Gửi</button>
                     `;
 
+                    // Cập nhật danh sách tin nhắn
+                    const chatBody = document.querySelector(".chat-body");
+                    chatBody.innerHTML = "";
+
+                    data.messages.forEach(msg => {
+                        const isSender = msg.senderId === userId;
+                        const msgBox = document.createElement("div");
+                        msgBox.className = "message-box " + (isSender ? "sent" : "received");
+                        msgBox.innerHTML = isSender ? `
+                            <div class="message-container">
+                                <span class="message-date message-date--sent">`+msg.sentDate+`</span>
+                                <p class="message-content">`+msg.message+`</p>
+                            </div>
+                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="avatar" alt="Avatar">
+                        ` : `
+                            <img src="/asserts/img/anh_logo_cong_ty/cong_ty_nextdoor.png" alt="" class="avatar">
+                            <div class="message-container">
+                                <span class="message-date">`+msg.sentDate+`</span>
+                                <p class="message-content">`+msg.message+`</p>
+                            </div>
+                        `;
                         chatBody.appendChild(msgBox);
                     });
 
                     chatBody.scrollTop = chatBody.scrollHeight;
-                })
-                .catch(err => {
-                    console.error("Lỗi khi tải tin nhắn:", err);
                 });
         });
     });
-
 
 </script>
 </body>

@@ -116,8 +116,49 @@ public class ConversationDao {
 
 
     }
+    public Conversation getConversationById(int conversationId) {
+        Connection con = DBconnect.getConnection();
+        String sql = "select cp.companyName,jp.titleJob,c.conversationId,ja.status,ja.created_at" +
+                ",c.jobPostId,c.userSenderId,c.userReceiverID,cd.fullName from job_posting jp" +
+                " join job_applications ja on ja.jobPostId = jp.jobPostId " +
+                " join candidates cd on cd.candidateId = ja.candidateId" +
+                " join conversations c on c.jobPostId = jp.jobPostId " +
+                " join companies cp on cp.companyID = jp.companyID " +
+                " where c.conversationId=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            Conversation conversation = new Conversation();
+            ps.setInt(1, conversationId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int conversationID = rs.getInt("conversationID");
+                int userSenderID = rs.getInt("userSenderID");
+                String fullName = rs.getString("fullName");
+                int userReceiverID = rs.getInt("userReceiverID");
+                String companyName = rs.getString("companyName");
+                String titleJob = rs.getString("titleJob");
+                String status = rs.getString("status");
+                LocalDateTime created_at = rs.getTimestamp("created_at").toLocalDateTime();
+                int jobPostID = rs.getInt("jobPostID");
+                conversation.setId(conversationID);
+                conversation.setUserSenderId(userSenderID);
+                conversation.setCandidateName(fullName);
+                conversation.setUserReceiverId(userReceiverID);
+                conversation.setCompanyName(companyName);
+                conversation.setJobTitle(titleJob);
+                conversation.setStatus(status);
+                conversation.setApplicationDate(created_at);
+                conversation.setJobPostId(jobPostID);
+            }
+            return conversation;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static void main(String[] args) {
         ConversationDao dao = new ConversationDao();
         System.out.println(dao.getSenderId(1,2));
     }
+
+
 }

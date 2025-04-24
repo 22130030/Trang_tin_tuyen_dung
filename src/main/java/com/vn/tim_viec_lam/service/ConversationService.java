@@ -16,7 +16,9 @@ public class ConversationService {
     public List<Conversation> getConversationByJobPostId(int jobPostId) {
         return conversationDao.getConversationByJobPostId(jobPostId);
     }
-
+    public Conversation getConversationById(int conversationId) {
+        return conversationDao.getConversationById(conversationId);
+    }
     public int getSenderId(int jobPostId, Integer userId) {
         Conversation conversation = conversationDao.getSenderId(jobPostId, userId);
         if(conversation != null) {
@@ -30,6 +32,6 @@ public class ConversationService {
 
     public static void main(String[] args) {
         ConversationService conversationService = new ConversationService();
-        System.out.println(conversationService.getAllConversationByUserId(27));
+        System.out.println(conversationService.getConversationById(10));
     }
 }
