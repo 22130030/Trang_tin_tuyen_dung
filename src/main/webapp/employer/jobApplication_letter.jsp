@@ -87,7 +87,7 @@
                             <th>Trạng thái</th>
                             <th>Loại</th>
                             <th>Số điện thoại</th>
-<%--                            <th>Thao tác</th>--%>
+                            <th>Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -119,9 +119,12 @@
                             <td class="has-data">
                                 ${f.phone}
                             </td>
-<%--                            <td class="has-data">--%>
-<%--                                ${f.title}--%>
-<%--                            </td>--%>
+                            <td class="has-data">
+                                <a href="${pageContext.request.contextPath}/employer-chat?applicationId=${f.applicationId}" class="application-chat">
+                                    Nhắn tin
+
+                                </a>
+                            </td>
                         </tr>
                         </c:forEach>
                         </tbody>
@@ -138,9 +141,8 @@
 <script>
     function redirectToServlet() {
         const select = document.getElementById("job-title");
-        const jobId = select.value; // Lấy ID của công việc
+        const jobId = select.value;
         if (jobId) {
-            // Redirect đến servlet với jobId
             console.log(jobId);
             window.location.href = `search-job-application?jobId=` + jobId;
         }

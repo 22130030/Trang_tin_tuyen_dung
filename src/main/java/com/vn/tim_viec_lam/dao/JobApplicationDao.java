@@ -3,6 +3,7 @@ package com.vn.tim_viec_lam.dao;
 import com.vn.tim_viec_lam.dao.model.Job;
 import com.vn.tim_viec_lam.dao.model.JobApplication;
 import com.vn.tim_viec_lam.database.DBconnect;
+import jakarta.ws.rs.core.Application;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ public class JobApplicationDao {
             prep.setInt(1, companyID);
             prep.setInt(2, jobPostID);
             prep.setInt(3, resumesID);
-            prep.setInt(4, 1);
+            prep.setInt(4, candidateID);
             prep.setString(5, "Đã nộp");
             int res = prep.executeUpdate();
             if(res > 0){
@@ -113,6 +114,33 @@ public class JobApplicationDao {
             prep.setString(1, status);
             prep.setInt(2, applicationId);
             return prep.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public JobApplication getApplication(int applicationId, int companyID) {
+        Connection con = DBconnect.getConnection();
+        String sql = "select * from job_applications where applicationID = ? and companyID = ?";
+        try {
+            PreparedStatement prep =  con.prepareStatement(sql);
+            prep.setInt(1, applicationId);
+            prep.setInt(2, companyID);
+            ResultSet rs = prep.executeQuery();
+            JobApplication application = new JobApplication();
+            if(rs.next()){
+                int id = rs.getInt("applicationID");
+                int jobPostID = rs.getInt("jobPostID");
+                int resumeID = rs.getInt("resumeID");
+                int candidateID = rs.getInt("candidateID");
+                LocalDateTime createdAt = rs.getTimestamp("created_at").toLocalDateTime();
+                application.setId(id);
+                application.setJobID(jobPostID);
+                application.setCompanyId(companyID);
+                application.setUserID(candidateID);
+                application.setResumesID(resumeID);
+            }
+            return application;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

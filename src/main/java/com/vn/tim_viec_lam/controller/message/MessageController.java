@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,18 +35,25 @@ public class MessageController extends HttpServlet {
                 userId = (int) (session.getAttribute("companyUserId"));
             }
             try {
-                int jobPostId = Integer.parseInt(request.getParameter("jobPostId"));
-                int conversationId = Integer.parseInt(request.getParameter("conversationId"));
+                int jobPostId = -1;
+                int conversationId = -1;
 
                 ConversationService conversationService = new ConversationService();
-                Conversation conversation = conversationService.getConversationById(conversationId);
+                Conversation conversation = new Conversation();
 
                 MessageService messageService = new MessageService();
-                List<Message> messages = messageService.getAllMessageByCanidateId(userId, jobPostId);
+                List<Message> messages = new ArrayList<>();
 
+                    conversationId = Integer.parseInt(request.getParameter("conversationId"));
+
+                    conversationService = new ConversationService();
+                    conversation = conversationService.getConversationById(conversationId);
+                System.out.println("conversation : " +conversation);
+                    messageService = new MessageService();
+                    messages = messageService.getAllMessageByConversationId(conversationId);
                 Map<String, Object> result = new HashMap<>();
                 result.put("conversationId", conversation.getId());
-                result.put("jobPostId", jobPostId);
+                result.put("applicationId", conversation.getApplicationId());
                 result.put("candidateName", conversation.getCandidateName());
                 result.put("companyName", conversation.getCompanyName());
                 result.put("jobTitle", conversation.getJobTitle());

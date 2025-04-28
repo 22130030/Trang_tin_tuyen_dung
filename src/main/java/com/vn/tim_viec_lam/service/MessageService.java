@@ -10,26 +10,30 @@ public class MessageService {
     public MessageService() {
         this.messageDao = new MessageDao();
     }
-    public boolean insertMessage(int receiverId,int jobPostId,int senderId,String message) {
+    public boolean insertMessage(int receiverId,int applicationId,int senderId,String message) {
         int conversationId = -1;
-        conversationId = messageDao.getConversationById(receiverId,senderId, jobPostId);
+        conversationId = messageDao.getConversationById(receiverId,senderId, applicationId);
 
 
         if(conversationId > 0){
             return messageDao.insertMessage(conversationId,senderId,message);
         }
         else {
-            return messageDao.insertConversation(receiverId,senderId,jobPostId,message);
+            return messageDao.insertConversation(receiverId,senderId,applicationId,message);
         }
     }
     public List<Message> getAllMessageByCanidateId(int id,int jobPostId) {
         return messageDao.getMessage(id,jobPostId);
     }
-
-
+    public List<Message> getAllMessageByCompanyId(int companyId,int receiverId,int jobPostId) {
+        return messageDao.getAllMessageByCompanyId(companyId,receiverId,jobPostId);
+    }
+    public List<Message> getAllMessageByConversationId(int conversationId) {
+        return messageDao.getAllMessageByConversationId(conversationId);
+    }
 
     public static void main(String[] args) {
         MessageService getConversationMessage = new MessageService();
-        System.out.println(getConversationMessage.getAllMessageByCanidateId(27,3));
+        System.out.println(getConversationMessage.getAllMessageByConversationId(10));
     }
 }

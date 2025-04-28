@@ -72,7 +72,12 @@ public class UserService {
     public boolean newPasswordByEmail(String email, String newPassword) {
         return userDao.NewPasswordByEmail(email, newPassword);
     }
+    public int getUserIdByCandidateId(int candidateId) {
+        return userDao.getUserIdByCandidateId(candidateId);
+    }
     public static void main(String[] args) {
+        UserService userService = new UserService();
+        System.out.println(userService.getUserIdByCandidateId(53));
     }
 }
 

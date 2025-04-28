@@ -47,12 +47,12 @@ public class ChatWebSocketController {
     public void onMessage(String message, Session session) {
         JSONObject obj = new JSONObject(message);
         String content = obj.getString("content");
-        int jobPostId = obj.getInt("jobPostId");
+        int applicationId = obj.getInt("applicationId");
 
         Integer senderId = (Integer) session.getUserProperties().get("userId");
 
         ConversationService conversationService = new ConversationService();
-        int receiver = conversationService.getSenderId(jobPostId, senderId);
+        int receiver = conversationService.getSenderId(applicationId, senderId);
 
 
         if (users.containsKey(receiver)) {
@@ -67,7 +67,7 @@ public class ChatWebSocketController {
         }
 
         MessageService messageService = new MessageService();
-        messageService.insertMessage(receiver, jobPostId, senderId, content);
+        messageService.insertMessage(receiver, applicationId, senderId, content);
         System.out.println("Đã lưu tin nhắn");
     }
 

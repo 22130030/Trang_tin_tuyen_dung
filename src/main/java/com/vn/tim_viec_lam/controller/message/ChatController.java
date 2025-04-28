@@ -28,12 +28,12 @@ public class ChatController extends HttpServlet {
 
             List<Conversation> conversations = conversationService.getAllConversationByUserId(userId);
             List<Message> messages = new ArrayList<>();
-            int jobPostId = -1;
+            int applicationId = -1;
             Conversation conversation = null;
             if(!conversations.isEmpty()){
                 conversation = conversations.get(0);
-                jobPostId = conversation.getJobPostId();
-                messages = messageService.getAllMessageByCanidateId(userId,jobPostId);
+                applicationId = conversation.getApplicationId();
+                messages = messageService.getAllMessageByCanidateId(userId,applicationId);
 
             }
 
@@ -41,8 +41,8 @@ public class ChatController extends HttpServlet {
             req.setAttribute("messages", messages);
             req.setAttribute("conversation", conversation);
             req.setAttribute("conversations", conversations);
-            if(jobPostId != -1){
-                req.setAttribute("jobPostId", jobPostId);
+            if(applicationId != -1){
+                req.setAttribute("applicationId", applicationId);
             }
 
             req.getRequestDispatcher("chat.jsp").forward(req,resp);

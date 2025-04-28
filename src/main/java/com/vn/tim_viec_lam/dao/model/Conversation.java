@@ -10,7 +10,7 @@ public class Conversation implements Serializable {
     private int id;
     private int userSenderId;
     private int userReceiverId;
-    private int jobPostId;
+    private int applicationId;
     private String jobTitle;
     private String companyName;
     private String candidateName;
@@ -21,11 +21,11 @@ public class Conversation implements Serializable {
     public Conversation() {
     }
 
-    public Conversation(int id, int userSenderId, int userReceiverId, int jobPostId, String jobTitle, String companyName, LocalDateTime applicationDate, LocalDateTime startDate) {
+    public Conversation(int id, int userSenderId, int userReceiverId, int applicationId, String jobTitle, String companyName, LocalDateTime applicationDate, LocalDateTime startDate) {
         this.id = id;
         this.userSenderId = userSenderId;
         this.userReceiverId = userReceiverId;
-        this.jobPostId = jobPostId;
+        this.applicationId = applicationId;
         this.jobTitle = jobTitle;
         this.companyName = companyName;
         this.applicationDate = applicationDate;
@@ -56,12 +56,12 @@ public class Conversation implements Serializable {
         this.userReceiverId = userReceiverId;
     }
 
-    public int getJobPostId() {
-        return jobPostId;
+    public int getApplicationId() {
+        return applicationId;
     }
 
-    public void setJobPostId(int jobPostId) {
-        this.jobPostId = jobPostId;
+    public void setApplicationId(int applicationId) {
+        this.applicationId = applicationId;
     }
 
     public String getJobTitle() {
@@ -122,9 +122,10 @@ public class Conversation implements Serializable {
                 "id=" + id +
                 ", userSenderId=" + userSenderId +
                 ", userReceiverId=" + userReceiverId +
-                ", jobPostId=" + jobPostId +
+                ", applicationId=" + applicationId +
                 ", jobTitle='" + jobTitle + '\'' +
                 ", companyName='" + companyName + '\'' +
+                ", candidateName='" + candidateName + '\'' +
                 ", status='" + status + '\'' +
                 ", applicationDate=" + applicationDate +
                 ", startDate=" + startDate +

@@ -408,6 +408,20 @@ public class UserDao {
 //        return null;
 //}
 
+    public int getUserIdByCandidateId(int candidateId) {
+        Connection connection = DBconnect.getConnection();
+        String sql = "SELECT u.userID FROM users u" +
+                " join candidates c on c.userId = u.userId" +
+                " WHERE c.candidateId = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, candidateId);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next() ? rs.getInt(1) : 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static void main(String[] args) {
         UserDao dao = new UserDao();
 //        System.out.println(dao.insertUser("22","1","vanduc","2222","local","g22"));

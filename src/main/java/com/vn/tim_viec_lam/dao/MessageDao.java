@@ -25,14 +25,14 @@ public class MessageDao {
             throw new RuntimeException(e);
         }
     }
-    public boolean insertConversation(int receiverId,int senderId,int jobPostID,String content){
+    public boolean insertConversation(int receiverId,int senderId,int applicationId,String content){
         Connection con = DBconnect.getConnection();
-        String sql = "insert conversations(userSenderID,userReceiverId,jobPostID,created_at) values(?,?,?,NOW())";
+        String sql = "insert conversations(userSenderID,userReceiverId,applicationId,created_at) values(?,?,?,NOW())";
         try{
             PreparedStatement ps = con.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setInt(1, senderId);
             ps.setInt(2, receiverId);
-            ps.setInt(3, jobPostID);
+            ps.setInt(3, applicationId);
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -52,14 +52,14 @@ public class MessageDao {
             throw new RuntimeException(e);
         }
     }
-    public List<Message> getMessage(int id,int jobPostId){
+    public List<Message> getMessage(int id,int applicationId){
         Connection con = DBconnect.getConnection();
         String sql = "select m.conversationId,c.userSenderId,c.userReceiverId,c.created_at" +
                 ",m.messageId,m.senderId,m.content,m.sent_at,m.is_read from messages m " +
                 " join conversations c on c.conversationID = m.conversationID" +
-                " where m.conversationID = (" +
+                " where m.conversationID in (" +
                 "select conversationID from conversations c " +
-                "where (c.userSenderId = ? Or c.userReceiverId = ?) and c.jobPostID = ?" +
+                "where (c.userSenderId = ? Or c.userReceiverId = ?) and c.applicationId = ?" +
                 ")";
 
         List<Message> messageList = new ArrayList<Message>();
@@ -67,7 +67,7 @@ public class MessageDao {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.setInt(2,id);
-            ps.setInt(3, jobPostId);
+            ps.setInt(3, applicationId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int messageId = rs.getInt("messageId");
@@ -90,18 +90,18 @@ public class MessageDao {
         }
     }
 
-    public int getConversationById(int receiverId,int senderId,int jobPostId){
+    public int getConversationById(int receiverId,int senderId,int applicationId){
         Connection con = DBconnect.getConnection();
         String sql = "select conversationId from conversations" +
                 " where ((userSenderID = ? AND userReceiverID = ?) OR (userSenderID = ? AND userReceiverID = ?))" +
-                " and jobPostId = ?";
+                " and applicationId = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, senderId);
             ps.setInt(2, receiverId);
             ps.setInt(3, receiverId);
             ps.setInt(4, senderId);
-            ps.setInt(5, jobPostId);
+            ps.setInt(5, applicationId);
             ResultSet rs = ps.executeQuery();
             int conversationID = -1;
             if(rs.next()){
@@ -120,4 +120,74 @@ public class MessageDao {
     }
 
 
+    public List<Message> getAllMessageByCompanyId(int companyId,int receiver, int applicationId) {
+        Connection con = DBconnect.getConnection();
+        String sql = "select m.conversationId,c.userSenderId,c.userReceiverId,c.created_at" +
+                ",m.messageId,m.senderId,m.content,m.sent_at,m.is_read from messages m " +
+                " join conversations c on c.conversationID = m.conversationID" +
+                " where m.conversationID = (" +
+                " select conversationID from conversations c " +
+                " where c.userSenderId = ? and c.userReceiverId = ? and c.applicationId = ?" +
+                ")";
+
+        List<Message> messageList = new ArrayList<Message>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, companyId);
+            ps.setInt(2, receiver);
+            ps.setInt(3, applicationId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int messageId = rs.getInt("messageId");
+                int senderID = rs.getInt("senderId");
+                String content = rs.getString("content");
+                LocalDateTime sent_at = rs.getTimestamp("sent_at").toLocalDateTime();
+                Message message = new Message();
+                message.setMessage(content);
+                message.setId(messageId);
+                message.setSenderId(senderID);
+                message.setSentDate(sent_at);
+                messageList.add(message);
+
+            }
+
+        return messageList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Message> getAllMessageByConversationId(int conversationId) {
+        Connection con = DBconnect.getConnection();
+        String sql = "select m.conversationId,c.userSenderId,c.userReceiverId,c.created_at" +
+                ",m.messageId,m.senderId,m.content,m.sent_at,m.is_read from messages m " +
+                " join conversations c on c.conversationID = m.conversationID" +
+                " where m.conversationID = ? ";
+
+
+        List<Message> messageList = new ArrayList<Message>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, conversationId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int messageId = rs.getInt("messageId");
+                int senderID = rs.getInt("senderId");
+                String content = rs.getString("content");
+                LocalDateTime sent_at = rs.getTimestamp("sent_at").toLocalDateTime();
+                Message message = new Message();
+                message.setMessage(content);
+                message.setId(messageId);
+                message.setSenderId(senderID);
+                message.setSentDate(sent_at);
+                messageList.add(message);
+
+            }
+            return messageList;
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+    }
 }

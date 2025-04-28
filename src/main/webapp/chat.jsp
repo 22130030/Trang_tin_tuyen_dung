@@ -29,7 +29,7 @@
             <h2>Cuộc trò chuyện</h2>
             <c:forEach items="${conversations}" var="c">
 
-                <a href="javascript:void(0);" class="conversation" data-job-id="${c.jobPostId}"  data-conversation-id="${c.id}">
+                <a href="javascript:void(0);" class="conversation" data-job-id="${c.applicationId}"  data-conversation-id="${c.id}">
                     <div class="conversation__img">
                         <img src="asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
                     </div>
@@ -87,8 +87,8 @@
             </div>
 
             <div class="chat-footer">
-                <input id="message-ip-${jobPostId}" type="text" placeholder="Nhập tin nhắn ...">
-                <button onclick="sendMessage(${jobPostId})">Gửi</button>
+                <input id="message-ip-${applicationId}" type="text" placeholder="Nhập tin nhắn ...">
+                <button onclick="sendMessage(${applicationId})">Gửi</button>
             </div>
         </div>
 
@@ -116,7 +116,7 @@
             <h2>Cuộc trò chuyện</h2>
             <c:forEach items="${conversations}" var="c">
 
-                <a href="javascript:void(0);" class="conversation" data-job-id="${c.jobPostId}"  data-conversation-id="${c.id}">
+                <a href="javascript:void(0);" class="conversation" data-job-id="${c.applicationId}"  data-conversation-id="${c.id}">
                 <div class="conversation__img">
                     <img src="asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
                 </div>
@@ -174,8 +174,8 @@
             </div>
 
             <div class="chat-footer">
-                <input id="message-ip-${jobPostId}" type="text" placeholder="Nhập tin nhắn ...">
-                <button onclick="sendMessage(${jobPostId})">Gửi</button>
+                <input id="message-ip-${applicationId}" type="text" placeholder="Nhập tin nhắn ...">
+                <button onclick="sendMessage(${applicationId})">Gửi</button>
             </div>
         </div>
 
@@ -227,14 +227,14 @@
         chatBody.scrollTop = chatBody.scrollHeight;
     };
 
-    function sendMessage(jobPostId){
-        const input = document.getElementById("message-ip-" + jobPostId);
+    function sendMessage(applicationId){
+        const input = document.getElementById("message-ip-" + applicationId);
         const content = input.value.trim();
 
         if (!content) return;
 
         if (socket.readyState === WebSocket.OPEN) {
-            socket.send(JSON.stringify({content, jobPostId}));
+            socket.send(JSON.stringify({content, applicationId}));
 
             const chatBody = document.querySelector(".chat-body");
 
@@ -270,7 +270,7 @@
     });
     document.querySelectorAll(".conversation").forEach(item => {
         item.addEventListener("click", function () {
-            const jobPostId = this.dataset.jobId;
+            const applicationId = this.dataset.jobId;
             const conversationId = this.dataset.conversationId;
             const isEmployer = "${sessionScope.role}" === '2';
             const userId = +("${sessionScope.role}" === '2' ? "${sessionScope.companyUserId}" : "${sessionScope.userID}");
@@ -279,7 +279,7 @@
 
             chatBody.innerHTML = "";
 
-            fetch(`get-message?jobPostId=`+jobPostId+`&conversationId=`+conversationId)
+            fetch(`get-message?&conversationId=`+conversationId)
                 .then(res => res.json())
                 .then(data => {
                     const chatHeader = document.querySelector(".chat-header .conversation__content");
@@ -287,7 +287,6 @@
                         "<h3 class='conversation__content-header'>" + (isEmployer ? data.candidateName : data.companyName) + "</h3>" +
                         "<small class='conversation__content-title'>" + data.jobTitle + "</small>"
 
-                    // Cập nhật info-panel
                     document.querySelector(".info-panel h4").textContent = isEmployer ? data.candidateName : data.companyName;
                     document.querySelector(".info-panel p:nth-of-type(1) a").textContent = data.jobTitle;
                     document.querySelector(".info-panel p:nth-of-type(2)").innerHTML = "<strong>Ngày ứng tuyển:</strong><br>" + data.convertAppDate;
@@ -295,11 +294,10 @@
 
                     // Cập nhật input gửi tin nhắn
                     document.querySelector(".chat-footer").innerHTML = `
-                        <input id="message-ip-`+jobPostId+`" type="text" placeholder="Nhập tin nhắn ..." />
-                        <button onclick="sendMessage(`+jobPostId+`)">Gửi</button>
+                        <input id="message-ip-`+applicationId+`" type="text" placeholder="Nhập tin nhắn ..." />
+                        <button onclick="sendMessage(`+applicationId+`)">Gửi</button>
                     `;
 
-                    // Cập nhật danh sách tin nhắn
                     const chatBody = document.querySelector(".chat-body");
                     chatBody.innerHTML = "";
 
