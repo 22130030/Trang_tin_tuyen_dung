@@ -75,6 +75,12 @@ public class UserService {
     public int getUserIdByCandidateId(int candidateId) {
         return userDao.getUserIdByCandidateId(candidateId);
     }
+    public boolean updateIsOnline(int id, int online) {
+        return userDao.updateIsOnline(id,online);
+    }
+    public int getIsOnline(int id) {
+        return userDao.getIsOnlineByUserID(id);
+    }
     public static void main(String[] args) {
         UserService userService = new UserService();
         System.out.println(userService.getUserIdByCandidateId(53));

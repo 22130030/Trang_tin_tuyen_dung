@@ -15,19 +15,31 @@ import java.util.List;
 public class ConversationDao {
     public List<Conversation> getConversation(int id){
         Connection con = DBconnect.getConnection();
-        String sql = "select cp.companyName,jp.titleJob,c.conversationId,ja.status,ja.created_at,c.applicationId,c.userSenderId,c.userReceiverID,cd.fullName" +
-                " from conversations c" +
-                " join job_applications ja on ja.applicationId = c.applicationId " +
-                " join job_posting jp on jp.jobPostID = ja.jobPostId " +
-                " join companies cp on cp.companyID = ja.companyId" +
-                " join candidates cd on cd.candidateId = ja.candidateId"+
-                " where c.userSenderId = ? or c.userReceiverID = ? " +
-                " order by c.created_at asc";
+        String sql = "SELECT cp.companyName, jp.titleJob, c.conversationId, ja.status, ja.created_at, " +
+                "c.applicationId, c.userSenderId, c.userReceiverID, cd.fullName,ou.isOnline,ou.lastActive " +
+                "FROM conversations c " +
+                "JOIN job_applications ja ON ja.applicationId = c.applicationId " +
+                "JOIN job_posting jp ON jp.jobPostID = ja.jobPostId " +
+                "JOIN companies cp ON cp.companyID = ja.companyId " +
+                "JOIN candidates cd ON cd.candidateId = ja.candidateId " +
+                "LEFT JOIN online_users ou ON ou.userId = " +
+                "    CASE " +
+                "        WHEN c.userSenderId = ? THEN c.userReceiverID " +
+                "        ELSE c.userSenderId " +
+                "    END " +
+                "WHERE (c.userSenderId = ? OR c.userReceiverID = ?) " +
+                "AND c.conversationId IN ( " +
+                "    SELECT m.conversationId " +
+                "    FROM messages m " +
+                "    WHERE m.content IS NOT NULL AND TRIM(m.content) != '' " +
+                ") " +
+                "ORDER BY c.created_at ASC";
         List<Conversation> conversations = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.setInt(2, id);
+            ps.setInt(3, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int conversationID = rs.getInt("conversationID");
@@ -37,10 +49,13 @@ public class ConversationDao {
                 String companyName = rs.getString("companyName");
                 String titleJob = rs.getString("titleJob");
                 String status = rs.getString("status");
+                int isOnline = rs.getInt("isOnline");
+                LocalDateTime lastActive = rs.getTimestamp("lastActive").toLocalDateTime();
                 LocalDateTime created_at = rs.getTimestamp("created_at").toLocalDateTime();
                 int applicationId = rs.getInt("applicationId");
                 Conversation conversation = new Conversation();
                 conversation.setId(conversationID);
+                conversation.setLastActive(lastActive);
                 conversation.setUserSenderId(userSenderID);
                 conversation.setCandidateName(fullName);
                 conversation.setUserReceiverId(userReceiverID);
@@ -48,6 +63,7 @@ public class ConversationDao {
                 conversation.setJobTitle(titleJob);
                 conversation.setStatus(status);
                 conversation.setApplicationDate(created_at);
+                conversation.setIsOnline(isOnline);
                 conversation.setApplicationId(applicationId);
                 conversations.add(conversation);
             }
@@ -85,21 +101,32 @@ public class ConversationDao {
 
 
     }
-    public Conversation getConversationById(int conversationId) {
+    public Conversation getConversationById(int conversationId, int role) {
         Connection con = DBconnect.getConnection();
-        String sql = "select cp.companyName,jp.titleJob,c.conversationId,ja.status,ja.created_at" +
-                ",c.applicationId,c.userSenderId,c.userReceiverID,cd.fullName from conversations c" +
-                " join job_applications ja on ja.applicationId = c.applicationId " +
-                " join candidates cd on cd.candidateId = ja.candidateId" +
-                " join job_posting jp on jp.jobPostId = ja.jobPostId " +
-                " join companies cp on cp.companyID = jp.companyID " +
-                " where c.conversationId=?";
+        String sql = "SELECT cp.companyName, jp.titleJob, c.conversationId, ja.status, ja.created_at, " +
+                "c.applicationId, c.userSenderId, c.userReceiverID, cd.fullName, ";
+
+        if (role == 1) {
+            sql += "ou_sender.isOnline AS isOnline,ou_sender.lastActive As lastActive ";
+        } else if (role == 2) {
+            sql += "ou_receiver.isOnline AS isOnline,ou_receiver.lastActive As lastActive ";
+        }
+
+        sql += "FROM conversations c " +
+                "JOIN job_applications ja ON ja.applicationId = c.applicationId " +
+                "JOIN candidates cd ON cd.candidateId = ja.candidateId " +
+                "JOIN job_posting jp ON jp.jobPostId = ja.jobPostId " +
+                "JOIN companies cp ON cp.companyID = jp.companyID " +
+                "LEFT JOIN online_users ou_sender ON ou_sender.userId = c.userSenderId " +
+                "LEFT JOIN online_users ou_receiver ON ou_receiver.userId = c.userReceiverID " +
+                "WHERE c.conversationId = ?";
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            Conversation conversation = new Conversation();
             ps.setInt(1, conversationId);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            Conversation conversation = new Conversation();
+            if (rs.next()) {
                 int conversationID = rs.getInt("conversationID");
                 int userSenderID = rs.getInt("userSenderID");
                 String fullName = rs.getString("fullName");
@@ -107,8 +134,12 @@ public class ConversationDao {
                 String companyName = rs.getString("companyName");
                 String titleJob = rs.getString("titleJob");
                 String status = rs.getString("status");
+                LocalDateTime lastActive = rs.getTimestamp("lastActive").toLocalDateTime();
                 LocalDateTime created_at = rs.getTimestamp("created_at").toLocalDateTime();
                 int applicationId = rs.getInt("applicationId");
+
+                int isOnline = rs.getInt("isOnline");
+
                 conversation.setId(conversationID);
                 conversation.setUserSenderId(userSenderID);
                 conversation.setCandidateName(fullName);
@@ -116,8 +147,10 @@ public class ConversationDao {
                 conversation.setCompanyName(companyName);
                 conversation.setJobTitle(titleJob);
                 conversation.setStatus(status);
+                conversation.setLastActive(lastActive);
                 conversation.setApplicationDate(created_at);
                 conversation.setApplicationId(applicationId);
+                conversation.setIsOnline(isOnline); // Gán trạng thái online vào conversation
             }
             return conversation;
         } catch (SQLException e) {

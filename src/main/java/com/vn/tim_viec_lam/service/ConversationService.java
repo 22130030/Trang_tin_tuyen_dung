@@ -14,8 +14,8 @@ public class ConversationService {
         return conversationDao.getConversation(userId);
     }
 
-    public Conversation getConversationById(int conversationId) {
-        return conversationDao.getConversationById(conversationId);
+    public Conversation getConversationById(int conversationId,int role) {
+        return conversationDao.getConversationById(conversationId,role);
     }
     public int getSenderId(int applicationId, Integer userId) {
         Conversation conversation = conversationDao.getSenderId(applicationId, userId);

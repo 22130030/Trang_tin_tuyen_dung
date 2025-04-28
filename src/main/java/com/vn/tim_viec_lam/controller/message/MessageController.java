@@ -47,8 +47,7 @@ public class MessageController extends HttpServlet {
                     conversationId = Integer.parseInt(request.getParameter("conversationId"));
 
                     conversationService = new ConversationService();
-                    conversation = conversationService.getConversationById(conversationId);
-                System.out.println("conversation : " +conversation);
+                    conversation = conversationService.getConversationById(conversationId,role);
                     messageService = new MessageService();
                     messages = messageService.getAllMessageByConversationId(conversationId);
                 Map<String, Object> result = new HashMap<>();
@@ -58,7 +57,9 @@ public class MessageController extends HttpServlet {
                 result.put("companyName", conversation.getCompanyName());
                 result.put("jobTitle", conversation.getJobTitle());
                 result.put("status", conversation.getStatus());
+                result.put("convertLastActive",conversation.getConvertLastActive());
                 result.put("convertAppDate", conversation.getConvertAppDate());
+                result.put("isOnline",conversation.getIsOnline());
                 result.put("messages", messages);
 
                 response.setContentType("application/json");
