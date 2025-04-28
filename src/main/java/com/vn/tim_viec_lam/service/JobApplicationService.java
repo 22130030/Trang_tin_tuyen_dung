@@ -2,6 +2,7 @@ package com.vn.tim_viec_lam.service;
 
 import com.vn.tim_viec_lam.dao.JobApplicationDao;
 import com.vn.tim_viec_lam.dao.model.JobApplication;
+import jakarta.ws.rs.core.Application;
 
 import java.util.List;
 
@@ -22,7 +23,12 @@ public class JobApplicationService {
     public boolean updateStatus(String status,int applicationId){
         return jobApplicationDao.updateStatus(status,applicationId);
     }
+    public JobApplication getApplication(int applicationId,int companyID){
+        return jobApplicationDao.getApplication(applicationId,companyID);
+    }
     public static void main(String[] args) {
+        JobApplicationService jobApplicationService = new JobApplicationService();
+        System.out.println(jobApplicationService.getApplication(36,53));
     }
 }
 

@@ -27,7 +27,6 @@ public class LogResumeController extends HttpServlet {
 
             req.setAttribute("resumeLogs",resumeLogs);
             req.setAttribute("title",title);
-            System.out.println(resumeLogs + "title" + title);
             req.getRequestDispatcher("resume_log.jsp").forward(req, resp);
         }
     }

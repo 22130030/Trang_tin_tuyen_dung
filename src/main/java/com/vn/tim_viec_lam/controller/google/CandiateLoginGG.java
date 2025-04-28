@@ -39,9 +39,7 @@ public class CandiateLoginGG extends HttpServlet {
         s.invalidate();
         if(res){
             HttpSession session = req.getSession(true);
-            if(session == null){
-                System.out.println("session is null");
-            }
+
             User u = userService.getUser(mail);
             int role = u.getRoleNum();
             CandidateService cs = new CandidateService();
@@ -56,7 +54,6 @@ public class CandiateLoginGG extends HttpServlet {
             session.setAttribute("status",u.getStatus());
             session.setAttribute("userID",u.getUserID());
             session.setAttribute("candidateId", candidateId);
-            System.out.println("đăng ký thành công");
             resp.sendRedirect("home");
 
 

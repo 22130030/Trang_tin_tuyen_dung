@@ -14,11 +14,17 @@
             <div class="grid">
                 <div class="nav__employer-container">
                     <div class="nav__logo">
-                        <a href="${pageContext.request.contextPath}/employer_home.jsp" class="nav__logo-link">
+                        <a href="${pageContext.request.contextPath}/employer-home" class="nav__logo-link">
                             <img src="${pageContext.request.contextPath}/asserts/img/brand-logo@2x.png" alt="Brand Logo" class="nav-logo__img">
                         </a>
                     </div>
                     <div class="nav__employer-list">
+                        <li class="nav__item nav__item-link--separated">
+                            <a href="${pageContext.request.contextPath}/employer-chat" class="nav__item-link nav__item-link--employer">
+                                <i class="nav-item__icon fa-regular fa-message"></i>
+                                Chat
+                            </a>
+                        </li>
                         <li class="nav__employer-user">
                             <i class="fa-solid fa-building"></i>
                             <span>${sessionScope.companyUser == null ? 'Đăng ký' : sessionScope.companyUser.name}</span>

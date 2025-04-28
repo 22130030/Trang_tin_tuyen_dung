@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li class="nav__item nav__item-link--separated">
-                    <a href="" class="nav__item-link">
+                    <a href="${pageContext.request.contextPath}/chat" class="nav__item-link">
                         <i class="nav-item__icon fa-regular fa-message"></i>
                         Chat
                     </a>
@@ -113,7 +113,7 @@
                     </div>
                 </li>
                 <li class="nav__item nav__item-link--separated">
-                    <a href="employer_home.jsp" class="nav__item-link">
+                    <a href="${pageContext.request.contextPath}/employer-home" class="nav__item-link">
                         Nhà tuyển dụng
 
                     </a>

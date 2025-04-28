@@ -22,7 +22,6 @@ public class AddResumes extends HttpServlet {
             }
             savingResume.addResume(resumes);
             session.setAttribute("resumeCart", savingResume);
-            System.out.println(fileId);
         }
     }
 }

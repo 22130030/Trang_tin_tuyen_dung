@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Map;
 
 
 public class UserService {
@@ -71,12 +72,12 @@ public class UserService {
     public boolean newPasswordByEmail(String email, String newPassword) {
         return userDao.NewPasswordByEmail(email, newPassword);
     }
+    public int getUserIdByCandidateId(int candidateId) {
+        return userDao.getUserIdByCandidateId(candidateId);
+    }
     public static void main(String[] args) {
-           Dotenv dotenv = Dotenv.load();
-           String clientId = dotenv.get("GOOGLE_CLIENT_ID");
-           String clientSecret = dotenv.get("GOOGLE_CLIENT_SECRET");
-           String REDIRECT_URI = dotenv.get("REDIRECT_URI");
-           System.out.println(REDIRECT_URI);
+        UserService userService = new UserService();
+        System.out.println(userService.getUserIdByCandidateId(53));
     }
 }
 

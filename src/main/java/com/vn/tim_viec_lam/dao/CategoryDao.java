@@ -121,6 +121,5 @@ public class CategoryDao {
 
     public static void main(String[] args) {
         CategoryDao dao = new CategoryDao();
-        System.out.println(dao.getAllCategories());
     }
 }

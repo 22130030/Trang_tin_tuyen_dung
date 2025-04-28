@@ -84,7 +84,6 @@ public class CallbackFacebook extends HttpServlet {
                 return;
             }
             if(user == null) {
-                System.out.println("fb is null");
                 session.setAttribute("email", userEmail);
                 session.setAttribute("fName", userName);
                 session.setAttribute("auth_provider", "facebook");

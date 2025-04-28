@@ -125,7 +125,6 @@ public class Job extends Company implements Serializable {
 
             res = ChronoUnit.MONTHS.between(created,now) + " tháng trước";
         }
-        System.out.println(res);
         return  res;
     }
     public LocalDateTime getUpdated() {

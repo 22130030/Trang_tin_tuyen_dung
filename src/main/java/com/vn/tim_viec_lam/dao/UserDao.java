@@ -9,10 +9,10 @@ import com.vn.tim_viec_lam.database.DBconnect;
 import java.io.InputStream;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.vn.tim_viec_lam.service.EncryptionService.hasPasswordToMD5;
+import java.util.Map;
 
 
 public class UserDao {
@@ -277,11 +277,6 @@ public class UserDao {
         }
         return false;
     }
-
-
-
-
-
     public boolean isEmailExists(String email) {
         String query = "SELECT COUNT(*) FROM users WHERE email = ?";
         try (Connection conn = DBconnect.getConnection();
@@ -396,13 +391,43 @@ public class UserDao {
         return false;
     }
 
+//    public InputStream getProfileImage(String userId) throws SQLException {
+//        Connection con = DBconnect.getConnection();
+//        String sql = "SELECT profile_image FROM users WHERE user_id = ?";
+//        try (PreparedStatement ps = con.prepareStatement(sql)) {
+//            ps.setString(1, userId);
+//            try (ResultSet rs = ps.executeQuery()) {
+//                if (rs.next()) {
+//                    Blob imageBlob = rs.getBlob("profile_image");
+//                    return imageBlob.getBinaryStream();
+//                }
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//}
 
-
+    public int getUserIdByCandidateId(int candidateId) {
+        Connection connection = DBconnect.getConnection();
+        String sql = "SELECT u.userID FROM users u" +
+                " join candidates c on c.userId = u.userId" +
+                " WHERE c.candidateId = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, candidateId);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next() ? rs.getInt(1) : 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static void main(String[] args) {
         UserDao dao = new UserDao();
 //        System.out.println(dao.insertUser("22","1","vanduc","2222","local","g22"));
-//         System.out.println(dao.updateImage(28,"https://moc247.com/wp-content/uploads/2023/12/loa-mat-voi-101-hinh-anh-avatar-meo-cute-dang-yeu-dep-mat_2.jpg")
+         System.out.println(dao.updateImage(28,"https://moc247.com/wp-content/uploads/2023/12/loa-mat-voi-101-hinh-anh-avatar-meo-cute-dang-yeu-dep-mat_2.jpg"));
+    }
 
-}
+
 }
 
