@@ -32,6 +32,10 @@
                 <a href="javascript:void(0);" class="conversation" data-job-id="${c.applicationId}"  data-conversation-id="${c.id}">
                     <div class="conversation__img">
                         <img src="asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
+                        <c:if test="${c.isOnline == 1}">
+                                <div class="conversation-dot__status">
+                                </div>
+                        </c:if>
                     </div>
                     <div class="conversation__content">
 
@@ -47,10 +51,23 @@
             <div class="chat-header">
                 <div class="conversation__img">
                     <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
+                    <c:if test="${conversation.isOnline == 1}">
+                        <div class="conversation-dot__status">
+                        </div>
+                    </c:if>
                 </div>
                 <div class="conversation__content">
                     <h3 class="conversation__content-header">${conversation.companyName}</h3>
                     <small class="conversation__content-title"> ${conversation.jobTitle}</small>
+                    <c:choose>
+
+                        <c:when test="${conversation.isOnline == 1}">
+                            <h4 class="content--active" >Đang hoạt động</h4>
+                        </c:when>
+                        <c:when test="${conversation.isOnline != 1}">
+                            <h4 class="content--inactive" >Hoạt động lần cuối ${conversation.convertLastActive}</h4>
+                        </c:when>
+                    </c:choose>
                 </div>
             </div>
 
@@ -119,6 +136,10 @@
                 <a href="javascript:void(0);" class="conversation" data-job-id="${c.applicationId}"  data-conversation-id="${c.id}">
                 <div class="conversation__img">
                     <img src="asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
+                    <c:if test="${c.isOnline == 1}">
+                        <div class="conversation-dot__status">
+                        </div>
+                    </c:if>
                 </div>
                 <div class="conversation__content">
 
@@ -134,10 +155,24 @@
             <div class="chat-header">
                 <div class="conversation__img">
                     <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
+                    <c:if test="${conversation.isOnline == 1}">
+                        <div class="conversation-dot__status">
+
+                        </div>
+                    </c:if>
                 </div>
                 <div class="conversation__content">
                     <h3 class="conversation__content-header">${conversation.candidateName}</h3>
                     <small class="conversation__content-title">${conversation.jobTitle}</small>
+                    <c:choose>
+
+                    <c:when test="${conversation.isOnline == 1}">
+                        <h4 class="content--active" >Đang hoạt động</h4>
+                    </c:when>
+                        <c:when test="${conversation.isOnline != 1}">
+                            <h4 class="content--inactive" >Hoạt động lần cuối ${conversation.convertLastActive}</h4>
+                        </c:when>
+                    </c:choose>
                 </div>
             </div>
 
@@ -282,10 +317,24 @@
             fetch(`get-message?&conversationId=`+conversationId)
                 .then(res => res.json())
                 .then(data => {
-                    const chatHeader = document.querySelector(".chat-header .conversation__content");
-                    chatHeader.innerHTML =
-                        "<h3 class='conversation__content-header'>" + (isEmployer ? data.candidateName : data.companyName) + "</h3>" +
-                        "<small class='conversation__content-title'>" + data.jobTitle + "</small>"
+                    const chatHeader = document.querySelector(".chat-header");
+                    const headerImg = chatHeader.querySelector(".conversation__img img");
+                    const headerContent = chatHeader.querySelector(".conversation__content");
+
+                    // Cập nhật ảnh nếu có ảnh mới
+                    // headerImg.src = '/path/to/new-image.jpg';
+
+                    headerContent.querySelector(".conversation__content-header").textContent = isEmployer ? data.candidateName : data.companyName;
+                    headerContent.querySelector(".conversation__content-title").textContent = data.jobTitle;
+
+                    const statusElement = headerContent.querySelector("h4");
+                    if (data.isOnline === 1) {
+                        statusElement.className = "content--active";
+                        statusElement.textContent = "Đang hoạt động";
+                    } else {
+                        statusElement.className = "content--inactive";
+                        statusElement.textContent = "Hoạt động lần cuối " + data.convertLastActive;
+                    }
 
                     document.querySelector(".info-panel h4").textContent = isEmployer ? data.candidateName : data.companyName;
                     document.querySelector(".info-panel p:nth-of-type(1) a").textContent = data.jobTitle;

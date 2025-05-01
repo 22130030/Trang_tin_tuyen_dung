@@ -15,8 +15,10 @@ public class Conversation implements Serializable {
     private String companyName;
     private String candidateName;
     private String status;
+    private int isOnline;
     private LocalDateTime applicationDate;
     private LocalDateTime startDate;
+    private LocalDateTime lastActive;
 
     public Conversation() {
     }
@@ -116,6 +118,25 @@ public class Conversation implements Serializable {
         return applicationDate.format(formatter);
     }
 
+    public int getIsOnline() {
+        return isOnline;
+    }
+
+    public void setIsOnline(int isOnline) {
+        this.isOnline = isOnline;
+    }
+
+    public LocalDateTime getLastActive() {
+        return lastActive;
+    }
+
+    public void setLastActive(LocalDateTime lastActive) {
+        this.lastActive = lastActive;
+    }
+    public String getConvertLastActive() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return lastActive.format(formatter);
+    }
     @Override
     public String toString() {
         return "Conversation{" +
