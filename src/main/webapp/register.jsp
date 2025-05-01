@@ -25,10 +25,10 @@
   <link rel="stylesheet" href="asserts/css/base.css">
   <link rel="stylesheet" href="asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
   <!-- js -->
+  <script src="asserts/fonts/fontawesome-free-6.4.0-web/js/jquery-3.3.1.min.js"></script>
   <script src="asserts/fonts/fontawesome-free-6.4.0-web/js/bootstrap.min.js"></script>
   <script src="asserts/fonts/fontawesome-free-6.4.0-web/js/main.js"></script>
   <script src="asserts/fonts/fontawesome-free-6.4.0-web/js/popper.min.js"></script>
-  <script src="asserts/fonts/fontawesome-free-6.4.0-web/js/jquery-3.3.1.min.js"></script>
   <!-- title -->
   <title>Kiếm việc làm online</title>
 </head>
@@ -55,7 +55,7 @@
               <a class="note">Lưu ý:</a>
               <p class="note-1"> Hãy dùng tên thật. Nhà tuyển dụng có thể thấy tên bạn khi xem hồ sơ
               </p>
-              <form action="register" method="post">
+              <form id="register-form" action="register" method="post">
                 <div class="form-block mx-auto">
                   <div class="row">
                     <div class="col-md-6">
@@ -93,6 +93,7 @@
                         <label for="password">Nhập mật khẩu</label>
                         <input type="password" class="form-control"
                                name="password" placeholder="Mật khẩu của bạn" id="password">
+                        <div id="password-rules" style="margin-top: 8px; font-size: 0.9em;"></div>
                       </div>
                     </div>
                     <div class="col-md-7">
@@ -154,7 +155,46 @@
 <div class="footer-1" style="margin-top: -80px;">
   <%@include file="footer.jsp" %>
 </div>
-</body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const passwordInput = document.getElementById("password");
+    const emailInput = document.getElementById("email");
+    const resultDiv = document.getElementById("password-rules");
 
+    if (!passwordInput || !emailInput || !resultDiv) {
+      console.warn("Không tìm thấy phần tử HTML cần thiết!");
+      return;
+    }
+
+    function kiemTraMatKhau(password, email = "") {
+      const dieuKien = [
+        { test: /.{8,50}/, message: "✓ Ít nhất 8 và không quá 50 ký tự" },
+        { test: /[a-z]/, message: "✓ Ít nhất một chữ thường (a-z)" },
+        { test: /[A-Z]/, message: "✓ Ít nhất một chữ hoa (A-Z)" },
+        { test: /\d/, message: "✓ Ít nhất một chữ số (0-9)" },
+        { test: /[!@#$%^&*(),.?\":{}|<>]/, message: "✓ Ít nhất một ký tự đặc biệt (!@#$...)" },
+        {
+          test: (pw) => !(email && pw.includes(email.substring(0, 3))),
+          message: "✓ Không chứa 3 ký tự liên tiếp trùng email"
+        }
+      ];
+      return dieuKien.map(dk => ({
+        message: dk.message,
+        hopLe: typeof dk.test === "function" ? dk.test(password) : dk.test.test(password)
+      }));
+    }
+
+    passwordInput.addEventListener("input", function () {
+      const password = passwordInput.value;
+      const email = emailInput.value;
+      const ketQua = kiemTraMatKhau(password, email);
+
+      resultDiv.innerHTML = ketQua.map(kq =>
+              `<div style="color: ${kq.hopLe ? 'green' : 'red'}">${kq.message}</div>`
+      ).join('');
+    });
+  });
+</script>
+</body>
 </html>
 

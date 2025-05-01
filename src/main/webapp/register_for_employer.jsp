@@ -40,6 +40,17 @@
       </c:if>
       <small>Sử dụng email công việc để xác thực nhanh hơn</small>
       <input type="password" name="password" id="password" placeholder="Mật khẩu" required>
+      <div style="position: relative;">
+        <div id="criteria-box" style="font-size: 14px; margin-top: 10px; border: 1px solid #ccc; padding: 10px; border-radius: 6px; background-color: #f9f9f9; width: 300px; display: none; position: absolute; right: 105%; top: 0; z-index: 1000;">
+          <p id="check-length">• Mật khẩu phải có độ dài từ 8 đến 50 ký tự</p>
+          <p id="check-lower">• Ít nhất một chữ thường (a-z)</p>
+          <p id="check-upper">• Ít nhất một chữ hoa (A-Z)</p>
+          <p id="check-digit">• Ít nhất một số (0-9)</p>
+          <p id="check-special">• Ít nhất một ký tự đặc biệt (!@#$)</p>
+          <p id="check-repeated">• Không được chứa quá 10 ký tự trùng nhau liên tiếp</p>
+          <p id="check-email">• Không được chứa phần tên email</p>
+        </div>
+      </div>
       <input type="password" name="re-password" id="re-password" placeholder="Nhập lại mật khẩu" required>
       <small id="pw-error" style="color: red; display: block; margin-top: 4px;"></small>
       <label>
@@ -401,16 +412,39 @@
 <!-- footer -->
 <  <%@include file="footer.jsp"%>
 </div>
-<script>
+    <script>
+  function validatePasswordCriteria(password, email) {
+    const criteria = {
+      length: /^.{8,50}$/,
+      lowercase: /[a-z]/,
+      uppercase: /[A-Z]/,
+      number: /[0-9]/,
+      specialChar: /[!@#$]/,
+      repeatedChar: /(.)\1{10,}/,
+      emailPortion: new RegExp(email.split('@')[0], 'i')
+    };
+
+    const result = {
+      length: criteria.length.test(password),
+      lowercase: criteria.lowercase.test(password),
+      uppercase: criteria.uppercase.test(password),
+      number: criteria.number.test(password),
+      specialChar: criteria.specialChar.test(password),
+      repeatedChar: !criteria.repeatedChar.test(password),
+      emailPortion: !criteria.emailPortion.test(password)
+    };
+
+    return result;
+  }
+
   function validateForm() {
-    const pw = document.getElementById("password").value;
-    const repw = document.getElementById("re-password").value;
+    const email = document.getElementById("email").value.trim();
+    const pw = document.getElementById("password").value.trim();
+    const repw = document.getElementById("re-password").value.trim();
+    const criteriaBox = document.getElementById("criteria-box");
+    const error = document.getElementById("pw-error") || document.createElement("small");
 
-    // Nếu chưa có <small id="pw-error"> thì bạn có thể tạo thêm (phía dưới input nhập lại mật khẩu)
-    let error = document.getElementById("pw-error");
-
-    if (!error) {
-      error = document.createElement("small");
+    if (!document.getElementById("pw-error")) {
       error.id = "pw-error";
       error.style.color = "red";
       error.style.display = "block";
@@ -418,13 +452,31 @@
       document.querySelector('input[name="re-password"]').insertAdjacentElement("afterend", error);
     }
 
-    if (pw !== repw) {
-      error.textContent = "Mật khẩu không khớp. Vui lòng kiểm tra lại.";
+    if (pw === "" || repw === "") {
+      error.textContent = "Vui lòng nhập mật khẩu và xác nhận.";
       return false;
-    } else {
-      error.textContent = "";
     }
 
+    const check = validatePasswordCriteria(pw, email);
+    document.getElementById("check-length").style.color = check.length ? "green" : "red";
+    document.getElementById("check-lower").style.color = check.lowercase ? "green" : "red";
+    document.getElementById("check-upper").style.color = check.uppercase ? "green" : "red";
+    document.getElementById("check-digit").style.color = check.number ? "green" : "red";
+    document.getElementById("check-special").style.color = check.specialChar ? "green" : "red";
+    document.getElementById("check-repeated").style.color = check.repeatedChar ? "green" : "red";
+    document.getElementById("check-email").style.color = check.emailPortion ? "green" : "red";
+
+    if (Object.values(check).includes(false)) {
+      error.textContent = "Mật khẩu không đáp ứng đủ điều kiện.";
+      return false;
+    }
+
+    if (pw !== repw) {
+      error.textContent = "Mật khẩu không khớp.";
+      return false;
+    }
+
+    error.textContent = "";
     return true;
   }
 
@@ -435,6 +487,22 @@
     pw1.type = type;
     pw2.type = type;
   }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const passwordInput = document.getElementById("password");
+    const criteriaBox = document.getElementById("criteria-box");
+
+    passwordInput.addEventListener("focus", function () {
+      criteriaBox.style.display = "block";
+    });
+
+    passwordInput.addEventListener("blur", function () {
+      setTimeout(() => {
+        criteriaBox.style.display = "none";
+      }, 200);
+    });
+  });
+
   document.addEventListener('DOMContentLoaded', function () {
     const navUser = document.querySelector('.nav__employer-user');
     const dropdownMenu = document.querySelector('.nav__employer-form');
