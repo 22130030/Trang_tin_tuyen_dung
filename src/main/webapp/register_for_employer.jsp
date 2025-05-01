@@ -41,7 +41,7 @@
       <small>Sử dụng email công việc để xác thực nhanh hơn</small>
       <input type="password" name="password" id="password" placeholder="Mật khẩu" required>
       <div style="position: relative;">
-        <div id="criteria-box" style="font-size: 14px; margin-top: 10px; border: 1px solid #ccc; padding: 10px; border-radius: 6px; background-color: #f9f9f9; width: 300px; display: none; position: absolute; right: 105%; top: 0; z-index: 1000;">
+        <div id="criteria-box" style="font-size: 14px; margin-top: 10px; border: 1px solid #ccc; padding: 10px; border-radius: 6px; background-color: black; width: 300px; display: none; position: absolute; right: 105%; top: 0; z-index: 1000;">
           <p id="check-length">• Mật khẩu phải có độ dài từ 8 đến 50 ký tự</p>
           <p id="check-lower">• Ít nhất một chữ thường (a-z)</p>
           <p id="check-upper">• Ít nhất một chữ hoa (A-Z)</p>
