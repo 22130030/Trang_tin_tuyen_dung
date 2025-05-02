@@ -67,8 +67,8 @@
                         Thanh toán bằng Ví MoMo
                     </button>
                     <button style="margin-bottom: 10px" class="btn-payment" id="btn-momo-transfer">
-                        <img class="payment-method__img" src="../asserts/img/payments/logo_epay.webp">
-                        Thanh toán bằng ATM
+                        <img class="payment-method__img" src="../asserts/img/payments/vnpayqr.webp">
+                        Thanh toán bằng VNPAY-QR
                     </button>
                 </div>
 
