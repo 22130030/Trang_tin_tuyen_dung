@@ -65,26 +65,27 @@
                                     <input type="file" name="file" accept="image/*" id="banner-image-upload" style="display:none;" onchange="uploadBannerImage()" />
                                 </div>
                                 <div>
-                                <button class="btn btn-primary mt-3" id="save-banner-button" onclick="saveBannerImage()">Lưu</button>
+                                <button class="btn btn-primary mt-3" style="height: 30px;" id="save-banner-button" onclick="saveBannerImage()">Lưu</button>
                                 </div>
                                 <div class="company-summary position-relative d-flex">
-                                    <div class="company-logo position-relative d-flex flex-center bg-white overflow-hidden shadow"
-                                         id="company-logo-container">
-                                        <img class="mw-100" src="https://static.careerlink.vn/web/images/common/no-logo.png"
-                                             alt="No logo">
-                                        <div class="flex-center" id="upload-company-logo-container">
-                                            <div class="upload-company-logo-button">
-                                                <input accept="image/*" type="file" class="d-none" value="">
-                                                <div class="upload-file-button">
-                                                    <div class="bg-white rounded-circle d-flex flex-center">
-                                                        <i class="fas fa-camera"></i>
-                                                    </div>
+                                    <div class="company-logo position-relative d-flex flex-center bg-white overflow-hidden shadow" id="company-logo-container">
+                                        <img class="mw-100" id="company-logo-image"
+                                             src="${pageContext.request.contextPath}${sessionScope.companyLogo != null ? sessionScope.companyLogo : '/assets/img/no-logo.png'}"
+                                             alt="Logo công ty">
+
+                                        <!-- Overlay hiện camera khi hover -->
+                                        <div class="flex-center upload-overlay" onclick="document.getElementById('company-logo-upload').click();">
+                                            <div class="upload-file-button">
+                                                <div class="bg-white rounded-circle d-flex flex-center">
+                                                    <i class="fas fa-camera"></i>
                                                 </div>
-                                                <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
+
+                                        <!-- Input file hidden -->
+                                        <input accept="image/*" type="file" class="d-none" id="company-logo-upload" onchange="uploadCompanyLogo()">
                                     </div>
-                                </div>
+
                                     <div class="company-information flex-fill pl-lg-3 pt-3 pt-lg-0">
                                         <div class="d-flex">
                                             <h5 class="company-name d-flex align-items-center" itemprop="name">
@@ -416,6 +417,40 @@
                 saveButton.textContent = 'Lưu';
             });
     }
+</script>
+<script>
+    function uploadCompanyLogo() {
+        const input = document.getElementById('company-logo-upload');
+        const image = document.getElementById('company-logo-image');
+
+        if (input.files.length === 0) return;
+
+        const file = input.files[0];
+        const formData = new FormData();
+        formData.append('uploadedImage', file);
+
+        // Gửi lên servlet để lưu ảnh
+        fetch('<c:url value="/update-candidate-1"/>', {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => {
+                if (!res.ok) throw new Error('Upload lỗi');
+                return res.text(); // servlet đang redirect
+            })
+            .then(() => {
+                // Hiển thị ảnh mới tạm thời
+                const logoUrl = URL.createObjectURL(file);
+                image.src = logoUrl;
+
+                // Reload lại để lấy ảnh thực từ session
+                setTimeout(() => window.location.reload(), 1500);
+            })
+            .catch(err => {
+                alert("❌ Không thể upload logo: " + err.message);
+            });
+    }
+
 </script>
 
 </body>

@@ -1,4 +1,4 @@
-package com.vn.tim_viec_lam.controller;
+package com.vn.tim_viec_lam.controller.image_update;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
