@@ -19,10 +19,23 @@ import java.util.*;
 public class VNPayUtils extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+
         String orderId = String.valueOf(System.currentTimeMillis());
         String vnp_TxnRef = orderId;
         String vnp_OrderInfo = "Thanh toan don hang " + orderId;
-        String vnp_Amount = String.valueOf(100000 * 100); // 100,000 VND
+
+        String amountParam = request.getParameter("amount");
+        long amount = 50000; // sửa từ double -> long
+
+        try {
+            if (amountParam != null && !amountParam.isEmpty()) {
+                amount = Long.parseLong(amountParam);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Lỗi định dạng amount: " + amountParam);
+        }
+        String vnp_Amount = String.valueOf(amount * 100);
 
         String vnp_IpAddr = request.getRemoteAddr();
         Dotenv dotenv = Dotenv.load();
@@ -66,13 +79,19 @@ public class VNPayUtils extends HttpServlet {
 
         String paymentUrl = vnp_Url + "?" + query.toString();
         response.sendRedirect(paymentUrl);
+        System.out.println(">>> [Servlet] amountParam nhận được = " + amountParam);
+        System.out.println(">>> [Servlet] amount xử lý = " + amount);
+        System.out.println(">>> [Servlet] amountParam nhận được = " + amountParam);
     }
 
     public static String hmacSHA512(String key, String data) {
         try {
             Mac hmac512 = Mac.getInstance("HmacSHA512");
-            SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "HmacSHA512");
+            SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "HmacSHA512");
+            hmac512.init(secretKeySpec); //  Phải init trước khi dùng
             byte[] bytes = hmac512.doFinal(data.getBytes(StandardCharsets.UTF_8));
+
+            // Convert to hex
             StringBuilder hash = new StringBuilder();
             for (byte b : bytes) {
                 hash.append(String.format("%02x", b));
@@ -82,6 +101,7 @@ public class VNPayUtils extends HttpServlet {
             throw new RuntimeException("Lỗi tạo mã HMAC", ex);
         }
     }
+
 
 
 }
