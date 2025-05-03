@@ -6,6 +6,60 @@ body {
     height: 100%;
     font-size: 16px;
 }
+#company-logo-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    background-color: #f0f0f0; /* nền xám nhạt */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#company-logo-image {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    opacity: 1;
+    transition: 0.3s ease;
+}
+
+.upload-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#company-logo-container:hover .upload-overlay {
+    opacity: 1;
+}
+
+.upload-file-button {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.upload-file-button i {
+    color: #000;
+    font-size: 14px;
+}
 
 .container {
     width: 100%;
@@ -31,12 +85,8 @@ body {
 }
 
 a.nav__item-link,
-.nav__item-link>i {
-    color: var(--white-color);
-}
-
-div.nav__item-link,
-.nav__item-link>i {
+.nav__item-link > i,
+div.nav__item-link {
     color: var(--white-color);
 }
 
@@ -53,7 +103,6 @@ div.nav__item-link,
     display: flex !important;
 }
 
-
 span {
     color: #b3b3b3;
     font-weight: 300;
@@ -64,18 +113,22 @@ li {
     font-weight: 300;
     font-size: 14px;
 }
-.my-3{
+
+.my-3 {
     color: #b3b3b3;
     font-weight: 300;
     font-size: 16px;
 }
-.px-2{
+
+.px-2 {
     font-weight: 300;
     font-size: 14px;
 }
-.fas{
-    font-size:20px;
+
+.fas {
+    font-size: 20px;
 }
+
 h1,
 h2,
 h3,
@@ -90,6 +143,7 @@ h6,
 .h6 {
     font-family: "Roboto", sans-serif;
 }
+
 h6, .h6 {
     font-size: 16px;
     margin-bottom: 0.5rem;
@@ -97,14 +151,16 @@ h6, .h6 {
     line-height: 1.2;
     color: rgb(0, 19, 63);
 }
-.m-0{
+
+.m-0 {
     font-size: 14px;
     margin-bottom: 0.5rem;
     font-weight: 400;
     line-height: 1.2;
     color: rgb(0, 19, 63);
 }
-.jobs-count-number{
+
+.jobs-count-number {
     font-size: 16px;
     font-weight: 700;
     line-height: 1.2;
@@ -124,8 +180,6 @@ a.btn.btn-primary {
     font-size: 12px;
     font-weight: 500;
 }
-
-
 
 .overflow-hidden {
     overflow: hidden !important;
@@ -163,10 +217,6 @@ a {
 img.employer-logo {
     object-fit: contain !important;
     background-color: #fff;
-}
-
-.rounded-circle {
-    border-radius: 50% !important;
 }
 
 .border {
@@ -207,11 +257,6 @@ img.employer-logo {
     margin-left: 0;
 }
 
-.no-gutters {
-    margin-right: 0;
-    margin-left: 0;
-}
-
 .employer-info {
     margin-top: 20px;
 }
@@ -232,7 +277,7 @@ img.employer-logo {
     height: 100%;
 }
 
-.employer-company-banner .employer-company-banner-content>img {
+.employer-company-banner .employer-company-banner-content > img {
     position: relative;
     width: 100%;
     min-height: 100%;
@@ -285,7 +330,6 @@ img.employer-logo {
 
 .bg-light {
     background-color: #f8f9fa !important;
-    /* Nền xám nhạt */
 }
 
 .py-3 {
@@ -296,470 +340,160 @@ img.employer-logo {
 .container.px-0 {
     padding-left: 0 !important;
     padding-right: 0 !important;
-}
+}.company-banner-content {
+     background: linear-gradient(to right, #0B1F54, #F7A01F);
+     height: 180px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     overflow: hidden;
+ }
 
-.company-header {
-    border-radius: 0.5rem;
-    /* Góc bo tròn hơn */
-    background-color: #fff;
-    /* Nền trắng */
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    /* Thêm bóng đổ nhẹ */
-    margin-bottom: 1rem;
-    /* Tăng khoảng cách với phần tử bên dưới */
-}
-
-.company-banner {
-    position: relative;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
-    overflow: hidden;
-    /* Ẩn nội dung tràn ra ngoài */
-}
-
-#company-banner-container {
-    /* Có thể thiết lập chiều cao tối thiểu hoặc tỷ lệ khung hình nếu cần */
-    min-height: 150px;
-    /* Ví dụ chiều cao tối thiểu */
-}
-
-.company-banner-content {
+.company-banner-content img {
     width: 100%;
-
-}
-
-.company-banner-content img.img-fluid {
-    width: 100%;
+    height: 100%;
     object-fit: cover;
-    /* Giữ tỷ lệ và lấp đầy vùng chứa */
 }
 
 #edit-company-banner-dropdown {
     position: absolute;
-    top: 15px;
-    right: 15px;
-}
-
-#edit-company-banner-dropdown .btn {
-    padding: 0.5rem 1rem;
-    border: none;
-    background-color: rgba(255, 255, 255, 0.8);
-    /* Nền trắng mờ */
-    border-radius: 0.25rem;
-    font-size: 0.9rem;
-}
-
-#edit-company-banner-dropdown .dropdown-menu {
-    right: 0 !important;
-    left: auto !important;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-
-.company-summary {
-    position: relative;
-    display: flex;
-    padding: 1rem;
-    align-items: center;
-    /* Căn giữa theo chiều dọc */
+    top: 16px;
+    right: 16px;
+    z-index: 10;
 }
 
 .company-logo {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    overflow: hidden;
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    background-color: #ffffff;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    /* Bóng đổ nhẹ */
-    width: 100px;
-    /* Kích thước logo */
-    height: 100px;
-    border-radius: 50%;
-    /* Hình tròn */
-    margin-right: 1.5rem;
-    /* Khoảng cách với thông tin */
-    margin-top: -60px;
-    /* Overlap lên banner */
-}
-
-#company-logo-container img.mw-100 {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    /* Hiển thị toàn bộ logo */
-}
-
-#upload-company-logo-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0;
-    /* Ẩn container upload ban đầu */
-    transition: opacity 0.3s ease-in-out;
+    overflow: hidden;
+    position: relative;
 }
 
+/* Ẩn camera ban đầu */
+.fa-camera {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.6); /* Optional mờ nền */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.upload-company-logo-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.6); /* mờ nền */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Hover vào khung → hiện camera */
+.company-logo:hover .upload-company-logo-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Khi hover → hiện camera */
 .company-logo:hover #upload-company-logo-container {
     opacity: 1;
-    /* Hiển thị khi hover */
-    background-color: rgba(0, 0, 0, 0.1);
-    /* Lớp phủ nhẹ */
-    cursor: pointer;
+    visibility: visible;
 }
 
-.upload-company-logo-button {
-    position: relative;
-}
-
-.upload-file-button {
-    background-color: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    /* Kích thước nút upload */
-    height: 30px;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    cursor: pointer;
-}
-
-.upload-file-button i.fas.fa-camera {
-    font-size: 0.8rem;
-    /* Kích thước icon camera */
-    color: #6c757d;
-    /* Màu icon */
-}
-
-.company-information {
-    flex-grow: 1;
-}
-
-.company-name {
-    font-size: 1.75rem;
-    /* Tăng kích thước tên công ty */
-    margin-bottom: 0.25rem;
-    font-weight: bold;
-    /* In đậm tên công ty */
+.company-logo img {
+    width: 80%;
+    height: auto;
 }
 
 .company-edit-button {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    border: 1px solid #d1d5db;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    background-color: rgb(241, 245, 249);
-    padding: 0px 16px;
+}
+
+.company-edit-button:hover {
+    background-color: #e5e7eb;
+}
+
+.btn.btn-primary {
+    background-color: #0066cc;
+    border-color: #0066cc;
     font-size: 14px;
     font-weight: 600;
-    height: 36px;
 }
 
-.company-edit-button.btn i {
-    font-size: 1rem;
-    margin-right: 0.25rem;
+.icon-text {
+    font-size: 14px;
+    color: #6b7280;
 }
 
-.company-edit-button.btn span {
-    display: none;
-}
-
-@media (min-width: 992px) {
-    .company-edit-button.btn span {
-        display: inline;
-    }
-}
-
-.company-information .row.no-gutters {
-    margin-top: 0.5rem;
-}
-
-.company-information .d-flex i {
-    color: #6c757d;
-    /* Màu icon thông tin */
-    margin-right: 0.5rem;
-}
-
-.sticky-top.d-md-none {
-    z-index: 1000;
-    top: 58px;
-    /* Điều chỉnh dựa trên chiều cao navbar */
-}
-
-#portal-navigation {
-    background-color: #fff;
-    overflow-x: auto;
-    /* Cuộn ngang khi cần */
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    /* Thêm bóng đổ nhẹ */
-}
-
-#portal-navigation ul.nav {
-    border-bottom: 1px solid #dee2e6;
-    /* Đường kẻ dưới */
-    height: 50px;
-    /* Tăng chiều cao thanh điều hướng */
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    /* Căn trái các mục */
-}
-
-#portal-navigation ul.nav li.nav-item {
-    flex: 0 0 auto;
-    /* Không co giãn, kích thước tự động */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
-
-#portal-navigation ul.nav li.nav-item .nav-link {
-    padding: 0 1.5rem;
-    /* Thêm padding ngang */
-    color: #6c757d;
-    text-decoration: none;
-    transition: color 0.15s ease-in-out;
-}
-
-#portal-navigation ul.nav li.nav-item.active .nav-link,
-#portal-navigation ul.nav li.nav-item:hover .nav-link {
-    color: #007bff;
-    /* Màu khi active hoặc hover */
-    border-bottom: 2px solid #007bff;
-    /* Thêm gạch chân khi active/hover */
-}
-
-.d-lg-flex.mt-lg-3 {
-    margin-top: 1.5rem !important;
-    display: flex;
-}
-
-@media (min-width: 992px) {
-    .col-lg-8.bg-white.p-0.p-lg-4.rounded-sm {
-        background-color: #fff;
-        padding: 1.5rem !important;
-        border-radius: 0.5rem;
-        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    }
-
-    .col-lg-4.mt-3.mt-lg-0 {
-        margin-top: 0 !important;
-    }
-}
-
-.company-description {
-    color: #6c757d;
-    padding: 1.5rem;
-}
-
-@media (min-width: 992px) {
-    .company-description {
-        padding: 0;
-    }
-}
-
-.company-description .d-flex.align-items-center.mb-3 {
-    margin-bottom: 1.25rem !important;
+.social-icon.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    font-size: 20px;
 }
 
 .company-section-title {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-    color: #084ABC;
-    /* Màu tiêu đề đậm hơn */
-}
-.icon-text{
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 10px;
 }
 
-.text-collapse--content.company-profile {
-    margin-bottom: 0 !important;
-}
-
-.text-collapse--toggle {
-    display: none;
-    /* Ẩn mặc định */
-    padding-left: 0 !important;
-    margin-top: 0.75rem !important;
-    color: #007bff;
-    cursor: pointer;
-}
-
-.mt-3.mt-lg-4.p-2.p-lg-0 {
-    margin-top: 1.5rem !important;
-    padding: 0.75rem;
-}
-
-@media (min-width: 992px) {
-    .mt-3.mt-lg-4.p-2.p-lg-0 {
-        margin-top: 2rem !important;
-        padding: 0 !important;
-    }
-}
-
-.px-2.px-lg-0 {
-    padding-left: 0.75rem !important;
-    padding-right: 0.75rem !important;
-}
-
-@media (min-width: 992px) {
-    .px-2.px-lg-0 {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
-}
-
-.d-flex.flex-wrap.align-items-center {
+/* Đảm bảo layout 2 cột theo đúng chiều rộng như phần banner */
+.d-lg-flex.mt-lg-3 {
+    max-width: 1140px;
+    margin: 0 auto;
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    flex-wrap: nowrap;
 }
 
-.ml-auto {
-    margin-left: auto !important;
+.col-lg-8.bg-white.p-0.p-lg-4.rounded-sm {
+    width: 70%;
 }
 
-.btn.btn-primary.d-flex.align-items-center.mb-2.py-2.px-lg-3 {
-    color: rgb(255, 255, 255);
-    background-color: rgb(0, 105, 219);
-    border-color: rgb(0, 105, 219);
-    border: none;
-    padding: 0.75rem 1.25rem;
-    border-radius: 0.3rem;
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.75rem !important;
-    text-decoration: none;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    transition: background-color 0.15s ease-in-out;
+#company-media {
+    width: 30%;
+    margin-left: 30px;
 }
 
-.btn.btn-primary.d-flex.align-items-center.mb-2.py-2.px-lg-3:hover {
-    background-color: #0056b3;
-    /* Màu đậm hơn khi hover */
-}
-
-.btn.btn-primary.d-flex.align-items-center.mb-2.py-2.px-lg-3 i {
-    font-size: 1.1rem;
-}
-
-.btn.btn-primary.d-flex.align-items-center.mb-2.py-2.px-lg-3 span {
-    display: none;
-}
-
-@media (min-width: 992px) {
-    .btn.btn-primary.d-flex.align-items-center.mb-2.py-2.px-lg-3 span {
-        display: inline;
+@media (max-width: 768px) {
+    .company-summary {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
 
-    .btn.btn-primary.d-flex.align-items-center.mb-2.py-2.px-lg-3 i.mr-lg-2 {
-        margin-right: 0.75rem !important;
+    .company-information {
+        padding-left: 0;
+        margin-top: 1rem;
+    }
+
+    .company-edit-button {
+        margin-top: 10px;
+    }
+
+    .d-lg-flex.mt-lg-3 {
+        flex-direction: column;
+    }
+
+    .col-lg-8.bg-white.p-0.p-lg-4.rounded-sm,
+    #company-media {
+        width: 100%;
+        margin-left: 0;
     }
 }
 
-.d-flex.align-items-center.mt-3 {
-    margin-top: 1.25rem !important;
-}
-
-p.m-0.text-secondary {
-    margin: 0 !important;
-    color: #6c757d !important;
-    font-size: 1rem;
-}
-
-.font-weight-semi-bold {
-    font-weight: 600 !important;
-}
-
-.jobs-sort.d-flex.align-items-center.ml-auto {
-    display: flex;
-    align-items: center;
-    margin-left: auto !important;
-}
-
-.jobs-sort p.m-0.mr-2 {
-    margin: 0 !important;
-    margin-right: 0.75rem !important;
-    font-size: 1rem;
-}
-
-.dropdown a.dropdown-toggle.border.px-2.py-1 {
-    border: 1px solid #ced4da !important;
-    padding: 0.3rem 0.75rem;
-    text-decoration: none;
-    color: #495057;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-.dropdown a.dropdown-toggle.border.px-2.py-1:hover {
-    border-color: #007bff !important;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-.dropdown-menu.sort-content {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1000;
-    display: none;
-    float: left;
-    min-width: 12rem;
-    /* Tăng độ rộng dropdown */
-    padding: 0.5rem 0;
-    margin: 0.125rem 0 0;
-    font-size: 1rem;
-    color: #212529;
-    text-align: left;
-    list-style: none;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 0.25rem;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-
-.dropdown-menu.sort-content a.dropdown-item {
-    display: block;
-    width: 100%;
-    padding: 0.5rem 1.5rem;
-    /* Tăng padding item */
-    clear: both;
-    font-weight: 400;
-    color: #212529;
-    text-align: inherit;
-    white-space: nowrap;
-    background-color: transparent;
-    border: 0;
-    text-decoration: none;
-}
-
-.dropdown-menu.sort-content a.dropdown-item.active,
-.dropdown-menu.sort-content a.dropdown-item:hover {
-    background-color: #e9ecef;
-    color: #212529;
-}
-
-ul.list-group.mt-4 {
-    margin-top: 2rem !important;
-    padding-left: 0;
-    margin-bottom: 0;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-}
-
-ul.list-group.mt-4 .list-group-item {
-    border-left: none;
-}

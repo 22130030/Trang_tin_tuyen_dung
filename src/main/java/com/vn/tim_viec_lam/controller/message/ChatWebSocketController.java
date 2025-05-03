@@ -15,10 +15,11 @@ import java.util.concurrent.ConcurrentHashMap;
 @ServerEndpoint(value = "/chat-web-socket",configurator = GetHttpSessionConfigurator.class)
 public class ChatWebSocketController {
     private static Map<Integer, Session> users = new ConcurrentHashMap<>();
-
+    private static int isOnline = 1;
     @OnOpen
     public void onOpen(Session session, EndpointConfig config) {
         HttpSession httpSession = (HttpSession) config.getUserProperties().get("httpSession");
+        UserService userService = new UserService();
         if (httpSession != null) {
 
             int role = -999;
@@ -38,6 +39,8 @@ public class ChatWebSocketController {
 
                 users.put(userId, session);
                 session.getUserProperties().put("userId", userId);
+                isOnline = 1;
+                userService.updateIsOnline(userId,isOnline);
                 System.out.println("Current online users: " + users.keySet());
             }
         }
@@ -73,8 +76,11 @@ public class ChatWebSocketController {
 
     @OnClose
     public void onClose(Session session, CloseReason closeReason) {
+        UserService userService = new UserService();
         int userId = (int) session.getUserProperties().get("userId");
         if (userId != 0) {
+            isOnline = 0;
+            userService.updateIsOnline(userId,isOnline);
             users.remove(userId);
             System.out.println("User " + userId + " disconnected.");
         }
