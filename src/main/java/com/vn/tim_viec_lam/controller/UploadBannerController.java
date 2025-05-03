@@ -19,50 +19,54 @@ import java.io.IOException;
 )
 public class UploadBannerController extends HttpServlet {
 
-    // Directory to save the uploaded files
-    private static final String SAVE_DIR = "D:\\Trang_tin_tuyen_dung\\src\\main\\webapp\\assets\\img";
+    // ✅ Thư mục lưu file ngoài project (vĩnh viễn)
+    private static final String UPLOAD_DIR = "D:/uploaded_banners";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Set response content type to JSON
         response.setContentType("application/json;charset=UTF-8");
 
-        // Create the directory if it doesn't exist
-        File fileSaveDir = new File(SAVE_DIR);
-        if (!fileSaveDir.exists()) {
-            boolean created = fileSaveDir.mkdirs();
-            if (!created) {
-                System.out.println("Không thể tạo thư mục!");
-            } else {
-                System.out.println("Thư mục đã được tạo!");
-            }
+        File uploadDir = new File(UPLOAD_DIR);
+        if (!uploadDir.exists()) {
+            boolean created = uploadDir.mkdirs();
+            System.out.println(created ? "📁 Đã tạo thư mục: " + UPLOAD_DIR : "❌ Không thể tạo thư mục!");
         }
 
         try {
             boolean fileUploaded = false;
 
-            // Loop through the parts (uploads) in the request
             for (Part part : request.getParts()) {
                 String fileName = extractFileName(part);
 
                 if (fileName != null && !fileName.isEmpty()) {
-                    // Generate a unique filename to avoid conflicts
+                    String extension = getFileExtension(fileName).toLowerCase();
+
+                    if (!extension.matches("png|jpg|jpeg|gif|webp")) {
+                        response.setStatus(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
+                        response.getWriter().write("{\"status\":\"error\",\"message\":\"Chỉ chấp nhận file ảnh PNG, JPG, JPEG, GIF, WEBP!\"}");
+                        return;
+                    }
+
                     String uniqueName = System.currentTimeMillis() + "_" + fileName;
+                    String fullPath = UPLOAD_DIR + File.separator + uniqueName;
 
-                    // Save the file
-                    part.write(SAVE_DIR + File.separator + uniqueName);
-                    System.out.println("✅ Ảnh đã lưu tại: " + SAVE_DIR + "\\" + uniqueName);
+                    part.write(fullPath);
+                    System.out.println("✅ Ảnh đã lưu tại: " + fullPath);
 
-                    // Set response status and send success message with the image path
-                    response.getWriter().write("{\"status\":\"success\",\"imageUrl\":\"/assets/img/" + uniqueName + "\"}");
+                    // ✅ Trả về URL truy cập qua servlet
+                    String imageUrl = request.getContextPath() + "/uploaded-img/" + uniqueName;
+
+                    request.getSession().setAttribute("companyBanner", "/uploaded-img/" + uniqueName);
+
+                    response.getWriter().write("{\"status\":\"success\",\"imageUrl\":\"" + imageUrl + "\"}");
+
                     fileUploaded = true;
-                    break;  // Exit the loop after successful file upload
+                    break;
                 }
             }
 
-            // If no file was uploaded, send an error response
             if (!fileUploaded) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 response.getWriter().write("{\"status\":\"error\",\"message\":\"Không có file nào được gửi lên!\"}");
@@ -75,7 +79,6 @@ public class UploadBannerController extends HttpServlet {
         }
     }
 
-    // Extracts the filename from the content-disposition header of the Part
     private String extractFileName(Part part) {
         String contentDisposition = part.getHeader("content-disposition");
         for (String token : contentDisposition.split(";")) {
@@ -84,5 +87,13 @@ public class UploadBannerController extends HttpServlet {
             }
         }
         return null;
+    }
+
+    private String getFileExtension(String fileName) {
+        int dotIndex = fileName.lastIndexOf('.');
+        if (dotIndex > 0 && dotIndex < fileName.length() - 1) {
+            return fileName.substring(dotIndex + 1);
+        }
+        return "";
     }
 }

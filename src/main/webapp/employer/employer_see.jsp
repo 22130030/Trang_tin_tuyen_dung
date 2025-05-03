@@ -5,6 +5,7 @@
   Time: 12:01 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -42,11 +43,19 @@
                         <div class="container px-0">
                             <div class="company-header rounded-sm bg-white">
                                 <div class="company-banner-content overflow-hidden">
-                                    <img class="img-fluid" id="company-banner-image"
-                                         src="https://static.careerlink.vn/web/images/default_banner_0.svg"
-                                         alt="Default banner 0">
+                                    <c:choose>
+                                        <c:when test="${not empty sessionScope.companyBanner}">
+                                            <img class="img-fluid" id="company-banner-image"
+                                                 src="${pageContext.request.contextPath}${sessionScope.companyBanner}"
+                                                 alt="Ảnh bìa công ty">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img class="img-fluid" id="company-banner-image"
+                                                 src="${pageContext.request.contextPath}/asserts/img/banner_home/1746259408108_png1.png"
+                                                 alt="Ảnh bìa mặc định">
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
-
                                 <div class="dropdown" id="edit-company-banner-dropdown">
                                     <button class="btn btn-transparent bg-white shadow-sm py-2"
                                             onclick="document.getElementById('banner-image-upload').click();">
@@ -335,28 +344,26 @@
                 });
             </script>
 <script>
-    // Global variable to store the selected file
+    // Biến toàn cục lưu file người dùng chọn
     let selectedBannerFile = null;
 
-    // Function to handle file selection
+    // Khi người dùng chọn ảnh → hiển thị xem trước
     function uploadBannerImage() {
         const fileInput = document.getElementById('banner-image-upload');
         const bannerImage = document.getElementById('company-banner-image');
 
         if (fileInput.files && fileInput.files[0]) {
-            // Store the selected file for later upload
             selectedBannerFile = fileInput.files[0];
 
-            // Show a preview of the selected image
             const reader = new FileReader();
-            reader.onload = function(e) {
-                bannerImage.src = e.target.result;
+            reader.onload = function (e) {
+                bannerImage.src = e.target.result; // Hiển thị ảnh xem trước
             };
             reader.readAsDataURL(selectedBannerFile);
         }
     }
 
-    // Function to handle saving the banner image
+    // Khi người dùng nhấn "Lưu"
     function saveBannerImage() {
         if (!selectedBannerFile) {
             alert('Vui lòng chọn ảnh trước khi lưu.');
@@ -366,60 +373,50 @@
         const bannerImage = document.getElementById('company-banner-image');
         const saveButton = document.getElementById('save-banner-button');
 
-        // Create FormData object
         const formData = new FormData();
         formData.append('file', selectedBannerFile);
 
-        // Show loading state
+        // UI trạng thái đang xử lý
         bannerImage.style.opacity = '0.5';
         saveButton.disabled = true;
         saveButton.textContent = 'Đang lưu...';
 
-        // Get the contextPath correctly
-        const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf('/', 1));
+        // Lấy context path (ví dụ: /trang_tin_tuyen_dung)
+        const pathParts = window.location.pathname.split('/');
+        const contextPath = '/' + (pathParts[1] || '');
 
-        // Send the file to server
+        // Gửi file lên server
         fetch(contextPath + '/upload-banner-img', {
             method: 'POST',
             body: formData
         })
-            .then(response => {
-                // Check if the response was successful
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            .then(res => res.json())
             .then(data => {
-                console.log('Upload response:', data);
-
                 if (data.status === 'success') {
-                    // Update image with new URL
-                    bannerImage.src = data.imageUrl;
+                    const baseUrl = data.imageUrl.split('?')[0];
+                    const updatedUrl = baseUrl + '?r=' + Date.now(); // Tránh cache ảnh cũ
 
-                    // Show success message
-                    alert('Tải ảnh lên thành công!');
+                    console.log("✅ Đường dẫn ảnh từ server:", data.imageUrl);
+                    bannerImage.src = data.imageUrl + '?r=' + Date.now();
 
-                    // Clear the selected file
+                    alert('✅ Ảnh đã được cập nhật!');
                     selectedBannerFile = null;
                     document.getElementById('banner-image-upload').value = '';
                 } else {
-                    // Show error message
-                    alert(data.message || 'Lỗi không xác định khi lưu ảnh.');
+                    alert('❌ ' + (data.message || 'Lỗi không xác định khi lưu ảnh.'));
                 }
             })
-            .catch(error => {
-                console.error('Upload error:', error);
-                alert('Có lỗi xảy ra khi lưu ảnh: ' + error.message);
+            .catch(err => {
+                console.error('❌ Lỗi upload:', err);
+                alert('❌ Lỗi kết nối server: ' + err.message);
             })
             .finally(() => {
-                // Reset opacity and button state
                 bannerImage.style.opacity = '1';
                 saveButton.disabled = false;
                 saveButton.textContent = 'Lưu';
             });
     }
-
 </script>
+
 </body>
 </html>
