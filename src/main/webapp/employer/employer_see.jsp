@@ -69,12 +69,15 @@
                                 </div>
                                 <div class="company-summary position-relative d-flex">
                                     <div class="company-logo position-relative d-flex flex-center bg-white overflow-hidden shadow" id="company-logo-container">
-                                        <img class="mw-100" id="company-logo-image"
-                                             src="${pageContext.request.contextPath}${sessionScope.companyLogo != null ? sessionScope.companyLogo : '/assets/img/no-logo.png'}"
+                                        <img class="mw-100"
+                                             id="company-logo-image"
+                                        src="${pageContext.request.contextPath}${sessionScope.image != null ? sessionScope.image : '/assets/img/no-logo.png'}"
                                              alt="Logo công ty">
 
                                         <!-- Overlay hiện camera khi hover -->
-                                        <div class="flex-center upload-overlay" onclick="document.getElementById('company-logo-upload').click();">
+                                        <div class="flex-center upload-overlay"
+                                             onmouseover="this.style.cursor='pointer'"
+                                             onclick="document.getElementById('company-logo-upload').click();">
                                             <div class="upload-file-button">
                                                 <div class="bg-white rounded-circle d-flex flex-center">
                                                     <i class="fas fa-camera"></i>
@@ -85,6 +88,7 @@
                                         <!-- Input file hidden -->
                                         <input accept="image/*" type="file" class="d-none" id="company-logo-upload" onchange="uploadCompanyLogo()">
                                     </div>
+
 
                                     <div class="company-information flex-fill pl-lg-3 pt-3 pt-lg-0">
                                         <div class="d-flex">
@@ -420,38 +424,38 @@
 </script>
 <script>
     function uploadCompanyLogo() {
-        const input = document.getElementById('company-logo-upload');
-        const image = document.getElementById('company-logo-image');
+        const fileInput = document.getElementById('company-logo-upload');
+        const file = fileInput.files[0];
 
-        if (input.files.length === 0) return;
+        if (!file) {
+            alert("Vui lòng chọn ảnh.");
+            return;
+        }
 
-        const file = input.files[0];
         const formData = new FormData();
-        formData.append('uploadedImage', file);
+        formData.append("uploadedImage", file); // 👈 phải đúng với req.getPart("uploadedImage")
 
-        // Gửi lên servlet để lưu ảnh
-        fetch('<c:url value="/update-candidate-1"/>', {
-            method: 'POST',
+        fetch("/upload-avatar", {
+            method: "POST",
             body: formData
         })
-            .then(res => {
-                if (!res.ok) throw new Error('Upload lỗi');
-                return res.text(); // servlet đang redirect
+            .then(async (response) => {
+                // Vì servlet đang redirect nên không trả JSON/text
+                if (response.redirected) {
+                    console.log("Redirected to:", response.url);
+                    window.location.href = response.url; // 👉 theo redirect
+                } else {
+                    const text = await response.text();
+                    console.log("Server response:", text);
+                }
             })
-            .then(() => {
-                // Hiển thị ảnh mới tạm thời
-                const logoUrl = URL.createObjectURL(file);
-                image.src = logoUrl;
-
-                // Reload lại để lấy ảnh thực từ session
-                setTimeout(() => window.location.reload(), 1500);
-            })
-            .catch(err => {
-                alert("❌ Không thể upload logo: " + err.message);
+            .catch((error) => {
+                console.error("Lỗi khi upload logo:", error);
+                alert("Lỗi khi upload logo.");
             });
     }
-
 </script>
+
 
 </body>
 </html>
