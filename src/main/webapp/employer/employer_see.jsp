@@ -5,6 +5,7 @@
   Time: 12:01 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -42,11 +43,19 @@
                         <div class="container px-0">
                             <div class="company-header rounded-sm bg-white">
                                 <div class="company-banner-content overflow-hidden">
-                                    <img class="img-fluid" id="company-banner-image"
-                                         src="https://static.careerlink.vn/web/images/default_banner_0.svg"
-                                         alt="Default banner 0">
+                                    <c:choose>
+                                        <c:when test="${not empty sessionScope.companyBanner}">
+                                            <img class="img-fluid" id="company-banner-image"
+                                                 src="${pageContext.request.contextPath}${sessionScope.companyBanner}"
+                                                 alt="Ảnh bìa công ty">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img class="img-fluid" id="company-banner-image"
+                                                 src="${pageContext.request.contextPath}/asserts/img/banner_home/1746259408108_png1.png"
+                                                 alt="Ảnh bìa mặc định">
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
-
                                 <div class="dropdown" id="edit-company-banner-dropdown">
                                     <button class="btn btn-transparent bg-white shadow-sm py-2"
                                             onclick="document.getElementById('banner-image-upload').click();">
@@ -56,26 +65,31 @@
                                     <input type="file" name="file" accept="image/*" id="banner-image-upload" style="display:none;" onchange="uploadBannerImage()" />
                                 </div>
                                 <div>
-                                <button class="btn btn-primary mt-3" id="save-banner-button" onclick="saveBannerImage()">Lưu</button>
+                                <button class="btn btn-primary mt-3" style="height: 30px;" id="save-banner-button" onclick="saveBannerImage()">Lưu</button>
                                 </div>
                                 <div class="company-summary position-relative d-flex">
-                                    <div class="company-logo position-relative d-flex flex-center bg-white overflow-hidden shadow"
-                                         id="company-logo-container">
-                                        <img class="mw-100" src="https://static.careerlink.vn/web/images/common/no-logo.png"
-                                             alt="No logo">
-                                        <div class="flex-center" id="upload-company-logo-container">
-                                            <div class="upload-company-logo-button">
-                                                <input accept="image/*" type="file" class="d-none" value="">
-                                                <div class="upload-file-button">
-                                                    <div class="bg-white rounded-circle d-flex flex-center">
-                                                        <i class="fas fa-camera"></i>
-                                                    </div>
+                                    <div class="company-logo position-relative d-flex flex-center bg-white overflow-hidden shadow" id="company-logo-container">
+                                        <img class="mw-100"
+                                             id="company-logo-image"
+                                        src="${pageContext.request.contextPath}${sessionScope.image != null ? sessionScope.image : '/assets/img/no-logo.png'}"
+                                             alt="Logo công ty">
+
+                                        <!-- Overlay hiện camera khi hover -->
+                                        <div class="flex-center upload-overlay"
+                                             onmouseover="this.style.cursor='pointer'"
+                                             onclick="document.getElementById('company-logo-upload').click();">
+                                            <div class="upload-file-button">
+                                                <div class="bg-white rounded-circle d-flex flex-center">
+                                                    <i class="fas fa-camera"></i>
                                                 </div>
-                                                <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
+
+                                        <!-- Input file hidden -->
+                                        <input accept="image/*" type="file" class="d-none" id="company-logo-upload" onchange="uploadCompanyLogo()">
                                     </div>
-                                </div>
+
+
                                     <div class="company-information flex-fill pl-lg-3 pt-3 pt-lg-0">
                                         <div class="d-flex">
                                             <h5 class="company-name d-flex align-items-center" itemprop="name">
@@ -335,28 +349,26 @@
                 });
             </script>
 <script>
-    // Global variable to store the selected file
+    // Biến toàn cục lưu file người dùng chọn
     let selectedBannerFile = null;
 
-    // Function to handle file selection
+    // Khi người dùng chọn ảnh → hiển thị xem trước
     function uploadBannerImage() {
         const fileInput = document.getElementById('banner-image-upload');
         const bannerImage = document.getElementById('company-banner-image');
 
         if (fileInput.files && fileInput.files[0]) {
-            // Store the selected file for later upload
             selectedBannerFile = fileInput.files[0];
 
-            // Show a preview of the selected image
             const reader = new FileReader();
-            reader.onload = function(e) {
-                bannerImage.src = e.target.result;
+            reader.onload = function (e) {
+                bannerImage.src = e.target.result; // Hiển thị ảnh xem trước
             };
             reader.readAsDataURL(selectedBannerFile);
         }
     }
 
-    // Function to handle saving the banner image
+    // Khi người dùng nhấn "Lưu"
     function saveBannerImage() {
         if (!selectedBannerFile) {
             alert('Vui lòng chọn ảnh trước khi lưu.');
@@ -366,60 +378,84 @@
         const bannerImage = document.getElementById('company-banner-image');
         const saveButton = document.getElementById('save-banner-button');
 
-        // Create FormData object
         const formData = new FormData();
         formData.append('file', selectedBannerFile);
 
-        // Show loading state
+        // UI trạng thái đang xử lý
         bannerImage.style.opacity = '0.5';
         saveButton.disabled = true;
         saveButton.textContent = 'Đang lưu...';
 
-        // Get the contextPath correctly
-        const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf('/', 1));
+        // Lấy context path (ví dụ: /trang_tin_tuyen_dung)
+        const pathParts = window.location.pathname.split('/');
+        const contextPath = '/' + (pathParts[1] || '');
 
-        // Send the file to server
+        // Gửi file lên server
         fetch(contextPath + '/upload-banner-img', {
             method: 'POST',
             body: formData
         })
-            .then(response => {
-                // Check if the response was successful
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            .then(res => res.json())
             .then(data => {
-                console.log('Upload response:', data);
-
                 if (data.status === 'success') {
-                    // Update image with new URL
-                    bannerImage.src = data.imageUrl;
+                    const baseUrl = data.imageUrl.split('?')[0];
+                    const updatedUrl = baseUrl + '?r=' + Date.now(); // Tránh cache ảnh cũ
 
-                    // Show success message
-                    alert('Tải ảnh lên thành công!');
+                    console.log("✅ Đường dẫn ảnh từ server:", data.imageUrl);
+                    bannerImage.src = data.imageUrl + '?r=' + Date.now();
 
-                    // Clear the selected file
+                    alert('✅ Ảnh đã được cập nhật!');
                     selectedBannerFile = null;
                     document.getElementById('banner-image-upload').value = '';
                 } else {
-                    // Show error message
-                    alert(data.message || 'Lỗi không xác định khi lưu ảnh.');
+                    alert('❌ ' + (data.message || 'Lỗi không xác định khi lưu ảnh.'));
                 }
             })
-            .catch(error => {
-                console.error('Upload error:', error);
-                alert('Có lỗi xảy ra khi lưu ảnh: ' + error.message);
+            .catch(err => {
+                console.error('❌ Lỗi upload:', err);
+                alert('❌ Lỗi kết nối server: ' + err.message);
             })
             .finally(() => {
-                // Reset opacity and button state
                 bannerImage.style.opacity = '1';
                 saveButton.disabled = false;
                 saveButton.textContent = 'Lưu';
             });
     }
-
 </script>
+<script>
+    function uploadCompanyLogo() {
+        const fileInput = document.getElementById('company-logo-upload');
+        const file = fileInput.files[0];
+
+        if (!file) {
+            alert("Vui lòng chọn ảnh.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("uploadedImage", file); // 👈 phải đúng với req.getPart("uploadedImage")
+
+        fetch("/upload-avatar", {
+            method: "POST",
+            body: formData
+        })
+            .then(async (response) => {
+                // Vì servlet đang redirect nên không trả JSON/text
+                if (response.redirected) {
+                    console.log("Redirected to:", response.url);
+                    window.location.href = response.url; // 👉 theo redirect
+                } else {
+                    const text = await response.text();
+                    console.log("Server response:", text);
+                }
+            })
+            .catch((error) => {
+                console.error("Lỗi khi upload logo:", error);
+                alert("Lỗi khi upload logo.");
+            });
+    }
+</script>
+
+
 </body>
 </html>

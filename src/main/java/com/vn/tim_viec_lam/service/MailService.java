@@ -9,7 +9,7 @@ import java.util.Properties;
 public class MailService {
     public void sendMail(String to, String subject, String content) {
         final String from = "22130050@st.hcmuaf.edu.vn";
-        final String password = "ecezeelucoyifyxb";
+        final String password = "fplxvdtuxgzfbmtf";
 
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
