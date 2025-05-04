@@ -106,7 +106,7 @@
                                 <div id="errormessage" style="color: red; font-weight: bold; text-align: center;">
                                     <%= errorMessage %>
                                 </div>
-                                <div class="g-recaptcha" data-sitekey="6Le1O_UqAAAAAJ2e7eQrw35TOiST05hjCmWFk3Fy"></div>
+                                <div class="g-recaptcha" data-sitekey="6LfGAS0rAAAAAH99qyjErt2A3PslBfKpiMg0ZkoD"></div>
                                 <div style="color: red" id="error"></div>
 
                                 <div class="d-sm-flex mb-5 align-items-center">
