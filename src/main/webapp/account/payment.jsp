@@ -32,27 +32,23 @@
                 </h4>
                 <div class="step-payment__content">
                     <label for="" class="step-payment__content--pro">
-                        <input type="radio" name="group__payment" id="pro-inp"
-                               <c:if test="${'pro' eq param.plan}">checked</c:if>
-                        >
+                        <input type="radio" name="group__payment" id="pro-inp" value="50000" <c:if test="${'pro' eq param.plan}">checked</c:if>>
                         <strong class="">Tài khoản Pro
                             -
-                            </strong>
-                            <strong>50.000</strong>
-                            <sup>VND</sup>
-                            <span class="step-payment__date"> / 1 tháng sử dụng</span>
+                        </strong>
+                        <strong>50.000</strong>
+                        <sup>VND</sup>
+                        <span class="step-payment__date"> / 1 tháng sử dụng</span>
                     </label>
 
                     <label for="" class="step-payment__content--premium">
-                        <input type="radio" name="group__payment" id="premium-inp"
-                            <c:if test="${'premium' eq param.plan}">checked</c:if>
-                        >
+                        <input type="radio" name="group__payment" id="premium-inp" value="500000" <c:if test="${'premium' eq param.plan}">checked</c:if>>
                         <strong class="">Tài khoản premium
                             -
-                            </strong>
-                            <strong>500.000</strong>
-                            <sup>VND</sup>
-                            <span class="step-payment__date"> / 1 năm sử dụng</span>
+                        </strong>
+                        <strong>500.000</strong>
+                        <sup>VND</sup>
+                        <span class="step-payment__date"> / 1 năm sử dụng</span>
                     </label>
                 </div>
             </div>
@@ -66,9 +62,9 @@
                         <img class="payment-method__img" src="../asserts/img/payments/momo.webp">
                         Thanh toán bằng Ví MoMo
                     </button>
-                    <button style="margin-bottom: 10px" class="btn-payment" id="btn-momo-transfer">
-                        <img class="payment-method__img" src="../asserts/img/payments/logo_epay.webp">
-                        Thanh toán bằng ATM
+                    <button style="margin-bottom: 10px" class="btn-payment" id="btn-vnpay__payment">
+                        <img class="payment-method__img" src="../asserts/img/payments/vnpayqr.webp">
+                        Thanh toán bằng VNPAY
                     </button>
                 </div>
 
@@ -78,25 +74,34 @@
     <%@include file="../footer.jsp"%>
 </div>
 <script>
-    document.getElementById("btn-momo__payment").addEventListener("click", function() {
+    document.getElementById("btn-vnpay__payment").addEventListener("click", function() {
         const proRadio = document.getElementById("pro-inp");
-        const amount = proRadio.checked ? 50000 : 500000;
+        const premiumRadio = document.getElementById("premium-inp");
 
-        fetch("${pageContext.request.contextPath}/account/momo-payment", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: "amount=" + amount
-        })
-            .then(response => response.text())
-            .then(data => {
-                if (data.startsWith("http")) {
-                    window.location.href = data; // Redirect to MoMo payment page
-                } else {
-                    alert("Thanh toán thất bại: " + data);
-                }
-            })
-            .catch(error => alert("Lỗi kết nối: " + error));
+        let amount = 50000;
+        if (premiumRadio && premiumRadio.checked) {
+            amount = 500000;
+        }
+
+        const url = `${window.location.origin}${pageContext.request.contextPath}/vnpay_payment?amount=${amount}`;
+        window.location.href = url;
     });
+
+    <%--    fetch("${pageContext.request.contextPath}/account/momo-payment", {--%>
+    <%--        method: "POST",--%>
+    <%--        headers: { "Content-Type": "application/x-www-form-urlencoded" },--%>
+    <%--        body: "amount=" + amount--%>
+    <%--    })--%>
+    <%--        .then(response => response.text())--%>
+    <%--        .then(data => {--%>
+    <%--            if (data.startsWith("http")) {--%>
+    <%--                window.location.href = data; // Redirect to MoMo payment page--%>
+    <%--            } else {--%>
+    <%--                alert("Thanh toán thất bại: " + data);--%>
+    <%--            }--%>
+    <%--        })--%>
+    <%--        .catch(error => alert("Lỗi kết nối: " + error));--%>
+    <%--});--%>
 </script>
 </body>
 </html>
