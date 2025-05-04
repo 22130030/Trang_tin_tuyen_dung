@@ -11,6 +11,7 @@
 
 </head>
 <body>
+<script src="${pageContext.request.contextPath}/js/account_lock.js"></script>
     <div class="footer">
     <div class="grid">
         <div class="grid__row">
@@ -43,5 +44,6 @@
 
 
 </div>
+
 </body>
 </html>

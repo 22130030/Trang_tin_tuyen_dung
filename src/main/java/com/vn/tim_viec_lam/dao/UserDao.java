@@ -448,6 +448,18 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
+    public int getLockStatus(int userId) {
+        Connection con = DBconnect.getConnection();
+        String sql = "select status from users where userID = ?";
+        try {
+            PreparedStatement prep = con.prepareStatement(sql);
+            prep.setInt(1, userId);
+            ResultSet rs = prep.executeQuery();
+            return rs.next() ? rs.getInt(1) : -2;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static void main(String[] args) {
         UserDao dao = new UserDao();
 //        System.out.println(dao.insertUser("22","1","vanduc","2222","local","g22"));

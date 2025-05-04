@@ -81,9 +81,14 @@ public class UserService {
     public int getIsOnline(int id) {
         return userDao.getIsOnlineByUserID(id);
     }
+    public boolean getLockStatus(int userId) {
+        int status =  userDao.getLockStatus(userId);
+        return status == -1 ? true : false;
+    }
     public static void main(String[] args) {
         UserService userService = new UserService();
         System.out.println(userService.getUserIdByCandidateId(53));
     }
+
 }
 

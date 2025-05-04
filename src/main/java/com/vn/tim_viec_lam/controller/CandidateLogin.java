@@ -59,7 +59,6 @@ public class CandidateLogin extends HttpServlet {
         if (failedAttempts == null) failedAttempts = 0;
         if (lockDuration == null) lockDuration = 1;
 
-
         if (lockTime != null) {
             long elapsedTime = System.currentTimeMillis() - lockTime;
             if (elapsedTime < lockDuration * 60 * 1000) {
@@ -76,12 +75,19 @@ public class CandidateLogin extends HttpServlet {
 
                 UserService us = new UserService();
                 if (us.login(email, password)) {
-                    // Đăng nhập thành công, reset bộ đếm
+
+                    User u = us.getUser(email);
+                    boolean locked = us.getLockStatus(u.getUserID());
+                    if(locked){
+                        response.sendRedirect("login.jsp?error=locked");
+                        return;
+                    }
+
+
                     session.removeAttribute("failedAttempts");
                     session.removeAttribute("lockTime");
                     session.removeAttribute("lockDuration");
 
-                    User u = us.getUser(email);
 
                     if (u == null) {
                         // Đề phòng user không tồn tại dù login trả về true
