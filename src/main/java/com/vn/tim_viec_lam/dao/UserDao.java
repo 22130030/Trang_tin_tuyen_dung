@@ -178,7 +178,7 @@ public class UserDao {
         return false;
     }
 
-    public boolean updateUser(int id, String email, String pass, int role, String status, String image) {
+    public boolean updateUser(int id, String email, String pass, int role, int status, String image) {
         Connection conn = DBconnect.getConnection();
         String updateUserSQL = "UPDATE users SET email = ?, status = ?, image = ? WHERE userID = ?";
         String updateRoleSQL = "UPDATE roles SET roleNum = ? WHERE userID = ?";
@@ -188,7 +188,7 @@ public class UserDao {
             // Cập nhật bảng users
             try (PreparedStatement userStmt = conn.prepareStatement(updateUserSQL)) {
                 userStmt.setString(1, email);
-                userStmt.setString(2, status);
+                userStmt.setInt(2, status);
                 userStmt.setString(3, image);
                 userStmt.setInt(4, id);
                 userStmt.executeUpdate();
@@ -228,7 +228,7 @@ public class UserDao {
         int roleNum = rs.getInt("roleNum");
         String provider_id = rs.getString("provider_id");
         String image = rs.getString("image");
-        user = new User(id, email, password, phone,status, created,provider_id,image);
+        user = new User(id, email, password, status,phone, created,provider_id,image);
         return user;
     }
 

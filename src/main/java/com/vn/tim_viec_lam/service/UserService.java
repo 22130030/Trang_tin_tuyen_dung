@@ -42,7 +42,7 @@ public class UserService {
     public void deleteUserByID(int id){
         userDao.deleteUser(id);
     }
-    public void editUser(int id, String email, String pass, int role, String status, String image){
+    public void editUser(int id, String email, String pass, int role, int status, String image){
         userDao.updateUser(id, email, pass, role, status, image);
     }
     public boolean insetUser(String email,String pass, String rePass,String fName,String phone,String auth_provider,String provider_id){

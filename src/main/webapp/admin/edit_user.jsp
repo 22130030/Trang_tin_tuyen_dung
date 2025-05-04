@@ -82,7 +82,7 @@
         </div>
         <!--Xác nhân lại Mật khẩu  -->
         <div class="form-group">
-            <label for="password">Xác nhân lại mật khẩu </label>
+            <label for="re-password">Xác nhân lại mật khẩu </label>
             <input type="text" id="password2" name="password" value="" readonly>
         </div>
 
@@ -100,8 +100,8 @@
         <div class="form-group">
             <label for="status">Trạng thái</label>
             <select id="status" name="status" required>
-                <option value="Đang hoạt động" ${load.status == 'Đang hoạt động' ? 'selected' : ''}>Đang hoạt động</option>
-                <option value="Đã bị vô hiệu" ${load.status == 'Đã bị vô hiệu' ? 'selected' : ''}>Đã bị vô hiệu</option>
+                <option value="1" ${load.status == 'Đang hoạt động' ? 'selected' : ''}>Đang hoạt động</option>
+                <option value="-1" ${load.status == 'Đã bị vô hiệu' ? 'selected' : ''}>Đã bị vô hiệu</option>
             </select>
         </div>
 
