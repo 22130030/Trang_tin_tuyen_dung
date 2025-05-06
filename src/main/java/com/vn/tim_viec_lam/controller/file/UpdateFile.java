@@ -1,6 +1,8 @@
 package com.vn.tim_viec_lam.controller.file;
 
+import com.vn.tim_viec_lam.dao.model.AccountLevel;
 import com.vn.tim_viec_lam.dao.model.Resumes;
+import com.vn.tim_viec_lam.service.AccountLevelService;
 import com.vn.tim_viec_lam.service.ResumesService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,12 +20,22 @@ public class UpdateFile extends HttpServlet {
         response.setContentType("application/json");
 
         HttpSession session = request.getSession();
+
+        int status = (int) session.getAttribute("status");
         int candidateId = (int) session.getAttribute("candidateId");
+
         ResumesService rs = new ResumesService();
         List<Resumes> jac = rs.getResumes(candidateId);
+        AccountLevelService accountLevelService = new AccountLevelService();
+        AccountLevel accountLevel = accountLevelService.getAccountLevelById(status);
+        int resumeLimit = accountLevel.getResumeLimit();
+        int applicationLimit = accountLevel.getApplicationLimit();
         if(jac != null){
             int size = jac.size();
-            String jsonResponse = "{\"items\": " + size + "}";
+            String jsonResponse = String.format(
+                    "{\"items\": %d, \"resumeLimit\": %d, \"applicationLimit\": %d}",
+                    size, resumeLimit, applicationLimit
+            );
             response.getWriter().write(jsonResponse);
         }
     }

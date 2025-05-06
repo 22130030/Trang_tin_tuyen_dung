@@ -1,4 +1,4 @@
-<%@ page import="java.util.*, java.text.*" contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Kết quả thanh toán VNPay</title>
@@ -59,49 +59,24 @@
     </style>
 </head>
 <body>
-<%
-    String responseCode = request.getParameter("vnp_ResponseCode");
-    boolean isSuccess = "00".equals(responseCode);
-
-    // Xử lý số tiền
-    int amountInt = 0;
-    String formattedAmount = "";
-    try {
-        amountInt = Integer.parseInt(request.getParameter("vnp_Amount")) / 100;
-        DecimalFormat formatter = new DecimalFormat("#,###");
-        formattedAmount = formatter.format(amountInt);
-    } catch (Exception e) {
-        formattedAmount = "Không xác định";
-    }
-
-    // Xử lý ngày giờ
-    String rawDate = request.getParameter("vnp_PayDate");
-    String formattedDate = rawDate;
-    try {
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-        SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
-        formattedDate = outputFormat.format(inputFormat.parse(rawDate));
-    } catch (Exception e) {
-        formattedDate = "Không xác định";
-    }
-%>
 
 <div class="result-box">
     <h2>Kết quả thanh toán VNPay</h2>
-    <div class="<%= isSuccess ? "status-success" : "status-fail" %>">
-        <%= isSuccess ? "✔ Giao dịch thành công!" : "✘ Giao dịch thất bại hoặc bị huỷ!" %>
+    <div class="${isSuccess ? 'status-success' : 'status-fail'}">
+        ${isSuccess ? '✔ Giao dịch thành công!' : '✘ Giao dịch thất bại hoặc bị huỷ!'}
     </div>
 
     <div class="info">
-        <p><span>Số tiền:</span> <%= formattedAmount %> VNĐ</p>
-        <p><span>Mã giao dịch:</span> <%= request.getParameter("vnp_TxnRef") %></p>
-        <p><span>Nội dung:</span> <%= request.getParameter("vnp_OrderInfo") %></p>
-        <p><span>Thời gian:</span> <%= formattedDate %></p>
+        <p><span>Số tiền:</span> ${formattedAmount} VNĐ</p>
+        <p><span>Mã giao dịch:</span> ${txnRef}</p>
+        <p><span>Nội dung:</span> ${orderInfo}</p>
+        <p><span>Thời gian:</span> ${formattedDate}</p>
     </div>
 
     <div class="btn-home">
-        <a href="<%= request.getContextPath() %>/home">⬅ Về trang chủ</a>
+        <a href="${pageContext.request.contextPath}/home">⬅ Về trang chủ</a>
     </div>
 </div>
+
 </body>
 </html>

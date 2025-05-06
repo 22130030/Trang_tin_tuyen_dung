@@ -27,6 +27,7 @@
     border-radius: 5px;
     font-weight: bold;
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .user__status--unverified{
@@ -36,6 +37,16 @@
 .user__status--verified{
     color: var(--orange-color);
     background-color: #f9f9f9;
+}
+.user__status--pro{
+    color: #006d5b;
+    background-color: #d0f4ef;
+}
+.user__status--premium{
+    background: linear-gradient(45deg, #ff0000, #ff9900, #33cc33, #3399ff, #9900cc); /* gradient cầu vồng */
+    -webkit-background-clip: text;
+    color: transparent;
+    font-weight: bold;
 }
 .user__detail-avatar img{
     border-radius: 50%;

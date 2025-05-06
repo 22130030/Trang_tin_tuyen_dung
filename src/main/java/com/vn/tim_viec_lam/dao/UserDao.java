@@ -74,7 +74,7 @@ public class UserDao {
 //        String password = rs.getString("password");
         String name = rs.getString("name");
         String phoneNumber = rs.getString("phone_number");
-        String status = rs.getString("status");
+        int status = rs.getInt("status");
         LocalDateTime date = rs.getTimestamp("created_at").toLocalDateTime();
         String image = rs.getString("image");
         return new User(id,email,"",name,phoneNumber,status,date,role,image);
@@ -223,7 +223,7 @@ public class UserDao {
         String email = rs.getString("email");
         String password = rs.getString("password");
         String phone = rs.getString("phone_number");
-        String status = rs.getString("status");
+        int status = rs.getInt("status");
         LocalDateTime created = rs.getTimestamp("created_at").toLocalDateTime();
         int roleNum = rs.getInt("roleNum");
         String provider_id = rs.getString("provider_id");
