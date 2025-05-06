@@ -10,7 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ConversationDao {
     public List<Conversation> getConversation(int id){
@@ -69,6 +71,33 @@ public class ConversationDao {
             }
             return conversations;
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Map<Integer,Integer> getMessageIsRead(int conversationID){
+        Connection con = DBconnect.getConnection();
+        String sql = "select m.conversationID,count(m.is_read) as count_is_read from conversations C " +
+                "join messages m on m.conversationID = c.conversationID " +
+                "where c.conversationId = ? AND" +
+                " m.is_read = 0 AND c.conversationId IN (   " +
+                "                    SELECT m.conversationId   " +
+                "                    FROM messages m   " +
+                "                    WHERE m.content IS NOT NULL AND TRIM(m.content) != ''   " +
+                "                )   " +
+                "GROUP BY m.conversationID ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, conversationID);
+            Map<Integer,Integer> messageIsRead = new HashMap<>();
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int conversationId = rs.getInt("conversationID");
+                int numOfRead = rs.getInt("count_is_read");
+                messageIsRead.put(conversationId, numOfRead);
+            }
+            return messageIsRead;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

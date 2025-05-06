@@ -66,6 +66,11 @@ public class CallbackFacebook extends HttpServlet {
             User user = userService.getUser(userEmail);
             HttpSession session = req.getSession(true);
             if(user != null) {
+                boolean locked = userService.getLockStatus(user.getUserID());
+                if(locked){
+                    resp.sendRedirect("login.jsp?error=locked");
+                    return;
+                }
                 int role = user.getRoleNum();
                 CandidateService cs = new CandidateService();
                 int candidateId = cs.getCandidateIdByUserId(user.getUserID());
