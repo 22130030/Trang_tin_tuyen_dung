@@ -58,7 +58,7 @@
                     Chọn hình thức thanh toán
                 </h4>
                 <div class="payment-method__content">
-                    <button  style="margin-bottom: 10px" class="btn-payment" id="btn-momo__payment">
+                    <button  style="margin-bottom: 10px" class="btn-payment" id="btn-zalo__payment">
                         <img class="payment-method__img" src="../asserts/img/payments/momo.webp">
                         Thanh toán bằng ZaloPay
                     </button>
@@ -74,6 +74,7 @@
     <%@include file="../footer.jsp"%>
 </div>
 <script>
+<%--VNPAY--%>
     document.getElementById("btn-vnpay__payment").addEventListener("click", function() {
         const proRadio = document.getElementById("pro-inp");
         const premiumRadio = document.getElementById("premium-inp");
@@ -86,6 +87,20 @@
         const url = `${window.location.origin}${pageContext.request.contextPath}/vnpay_payment?amount=`+amount;
         window.location.href = url;
     });
+    //  ZALO PAY
+    document.getElementById("btn-zalo__payment").addEventListener("click", function () {
+        const proRadio = document.getElementById("pro-inp");
+        const premiumRadio = document.getElementById("premium-inp");
+
+        let amount = 50000;
+        if (premiumRadio && premiumRadio.checked) {
+            amount = 500000;
+        }
+
+        const url = `${window.location.origin}${pageContext.request.contextPath}/zalo_payment?amount=` + amount;
+        window.location.href = url;
+    });
+
 
     <%--    fetch("${pageContext.request.contextPath}/account/momo-payment", {--%>
     <%--        method: "POST",--%>
