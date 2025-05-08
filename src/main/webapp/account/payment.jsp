@@ -60,7 +60,7 @@
                 <div class="payment-method__content">
                     <button  style="margin-bottom: 10px" class="btn-payment" id="btn-momo__payment">
                         <img class="payment-method__img" src="../asserts/img/payments/momo.webp">
-                        Thanh toán bằng Ví MoMo
+                        Thanh toán bằng ZaloPay
                     </button>
                     <button style="margin-bottom: 10px" class="btn-payment" id="btn-vnpay__payment">
                         <img class="payment-method__img" src="../asserts/img/payments/vnpayqr.webp">
