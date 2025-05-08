@@ -18,7 +18,7 @@ public class EditUser extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         int role = Integer.parseInt(req.getParameter("roleNum"));
-        String status = req.getParameter("status");
+        int status = Integer.parseInt(req.getParameter("status"));
         String image = req.getParameter("image");
         UserService userService = new UserService();
         userService.editUser(uid, email, password, role, status, image);

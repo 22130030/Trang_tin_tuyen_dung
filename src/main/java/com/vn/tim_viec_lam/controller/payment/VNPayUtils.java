@@ -79,9 +79,6 @@ public class VNPayUtils extends HttpServlet {
 
         String paymentUrl = vnp_Url + "?" + query.toString();
         response.sendRedirect(paymentUrl);
-        System.out.println(">>> [Servlet] amountParam nhận được = " + amountParam);
-        System.out.println(">>> [Servlet] amount xử lý = " + amount);
-        System.out.println(">>> [Servlet] amountParam nhận được = " + amountParam);
     }
 
     public static String hmacSHA512(String key, String data) {

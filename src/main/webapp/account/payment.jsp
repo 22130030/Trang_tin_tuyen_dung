@@ -83,7 +83,7 @@
             amount = 500000;
         }
 
-        const url = `${window.location.origin}${pageContext.request.contextPath}/vnpay_payment?amount=${amount}`;
+        const url = `${window.location.origin}${pageContext.request.contextPath}/vnpay_payment?amount=`+amount;
         window.location.href = url;
     });
 

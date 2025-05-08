@@ -67,6 +67,7 @@
 
                     UserService userService = new UserService();
                     User user = userService.getUser(email);
+
                     HttpSession session = req.getSession(true);
                     if(user == null) {
 
@@ -78,6 +79,11 @@
                         req.setAttribute("picture", picture);
                         req.getRequestDispatcher("CandidateLoginGG.jsp").forward(req, resp);
                     }else{
+                        boolean locked = userService.getLockStatus(user.getUserID());
+                        if(locked){
+                            resp.sendRedirect("login.jsp?error=locked");
+                            return;
+                        }
                         int role = user.getRoleNum();
                         CandidateService cs = new CandidateService();
                         int candidateId = cs.getCandidateIdByUserId(user.getUserID());

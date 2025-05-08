@@ -498,3 +498,33 @@ html,body{
 .suggest-save{
     font-size: 1.6rem;
 }
+#lockPopup {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+#lockPopup .popup-content {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    width: 400px;
+    font-size: 1.8rem;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+#lockPopup h3 {
+    color: red;
+}
+
+#lockPopup button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
