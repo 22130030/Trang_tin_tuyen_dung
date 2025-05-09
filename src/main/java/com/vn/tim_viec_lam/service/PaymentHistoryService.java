@@ -17,4 +17,9 @@ public class PaymentHistoryService {
     public boolean addPaymentHistory(int userId, String transactionCode, int amount, int status, String method, String description, Timestamp paymentDate){
         return paymentHistoryDao.addPaymentHistory(userId, transactionCode, amount, status, method, description, paymentDate);
     }
+
+    public static void main(String[] args) {
+        PaymentHistoryService paymentHistoryService = new PaymentHistoryService();
+        System.out.println(paymentHistoryService.getPaymentHistory(30));
+    }
 }

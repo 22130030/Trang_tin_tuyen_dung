@@ -22,6 +22,16 @@ h4{margin: 0;}
 .container__step-payment,.payment__method{
     font-size: 2rem;
 }
+.step-payment__head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.step-payment__link{
+    text-decoration: none;
+    font-size: 1.3rem;
+    color: var(--blue-color);
+}
 .container__step-payment h4{
     margin: 15px 0;
     font-weight: 540;

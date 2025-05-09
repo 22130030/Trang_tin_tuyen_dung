@@ -71,10 +71,10 @@ public class VNPayReturn extends HttpServlet {
         int userId = (int) session.getAttribute("userID");
         if(isSuccess){
             us.updateStatus(userId, status);
-            phs.addPaymentHistory(userId,vnp_TxnRef,amountInt,1,"Chuyển khoản",vnp_OrderInfo,sqlTimestamp);
+            phs.addPaymentHistory(userId,vnp_TxnRef,amountInt,1,"VNPay",vnp_OrderInfo,sqlTimestamp);
         }
         if(!isSuccess){
-            phs.addPaymentHistory(userId,vnp_TxnRef,amountInt,0,"Chuyển khoản",vnp_OrderInfo,sqlTimestamp);
+            phs.addPaymentHistory(userId,vnp_TxnRef,amountInt,0,"VNPay",vnp_OrderInfo,sqlTimestamp);
         }
         session.setAttribute("status", status);
         request.setAttribute("isSuccess", isSuccess);

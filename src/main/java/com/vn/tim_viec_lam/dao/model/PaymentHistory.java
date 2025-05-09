@@ -1,6 +1,7 @@
 package com.vn.tim_viec_lam.dao.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class PaymentHistory implements java.io.Serializable {
     private int paymentHistoryId;
@@ -92,7 +93,10 @@ public class PaymentHistory implements java.io.Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    public String getConvertPaymentDate(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return paymentDate.format(formatter);
+    }
     @Override
     public String toString() {
         return "Payment_history{" +

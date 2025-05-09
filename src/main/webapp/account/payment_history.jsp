@@ -30,31 +30,28 @@
                 <th>Ngày thanh toán</th>
                 <th>Số tiền</th>
                 <th>Phương thức</th>
+                <th>Nội dung</th>
                 <th>Trạng thái</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>TXN001</td>
-                <td>2025-05-08</td>
-                <td>500.000₫</td>
-                <td>Momo</td>
-                <td class="status-success">Thành công</td>
-            </tr>
-            <tr>
-                <td>TXN002</td>
-                <td>2025-05-01</td>
-                <td>300.000₫</td>
-                <td>Chuyển khoản</td>
-                <td class="status-success">Thành công</td>
-            </tr>
-            <tr>
-                <td>TXN003</td>
-                <td>2025-04-25</td>
-                <td>700.000₫</td>
-                <td>Thẻ tín dụng</td>
-                <td class="status-failed">Thất bại</td>
-            </tr>
+            <c:forEach items="${paymentHistory}" var="ph">
+                <tr>
+                    <td>${ph.transactionCode}</td>
+                    <td>${ph.convertPaymentDate}</td>
+                    <td>${ph.amount}</td>
+                    <td>${ph.method}</td>
+                    <td>${ph.description}</td>
+                    <c:if test="${ph.status == 1}">
+                        <td class="status-success">Thành công</td>
+
+                    </c:if>
+                    <c:if test="${ph.status == 0}">
+                        <td class="status-failed">Thất bại</td>
+
+                    </c:if>
+                </tr>
+            </c:forEach>
             </tbody>
         </table>
     </div>

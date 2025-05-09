@@ -10,9 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentHistoryDao {
-    public List<PaymentHistory> getPaymentHistory(int userId){
+    public List<PaymentHistory>  getPaymentHistory(int userId){
         Connection con = DBconnect.getConnection();
-        String sql = "select * from payment_historíes where userId=?";
+        String sql = "select * from payment_histories where userId=?" +
+                " order by payment_date desc";
         try {
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, userId);
@@ -23,7 +24,7 @@ public class PaymentHistoryDao {
                 int id = rs.getInt("paymentHistoryId");
                 String transactionCode = rs.getString("transaction_code");
                 int amount = rs.getInt("amount");
-                LocalDateTime paymentDate = rs.getTimestamp("paymentDate").toLocalDateTime();
+                LocalDateTime paymentDate = rs.getTimestamp("payment_Date").toLocalDateTime();
                 String method = rs.getString("method");
                 int status = rs.getInt("status");
                 String description = rs.getString("description");
