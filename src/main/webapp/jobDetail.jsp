@@ -38,7 +38,14 @@
                     <p><strong><i class="fa-solid fa-sack-dollar"></i>Lương:</strong> ${job.salary}</p>
                     <p><strong><i class="fa-solid fa-briefcase"></i>Kinh nghiệm:</strong> 2 - 5 năm kinh nghiệm</p>
                     <p><strong><i class="fa-regular fa-calendar-check"></i>Ngày đăng tuyển:</strong> ${job.convertCreated} | Hết hạn trong: <span class="highlight">5 Ngày tới</span></p>
-                    <button id="applyButton" class="apply-button">Nộp đơn ngay</button>
+                    <c:if  test="${applied == 0}">
+                        <button id="applyButton" class="apply-button">Nộp đơn ngay</button>
+
+                    </c:if>
+                    <c:if  test="${applied == 1}">
+                        <button id="" class="apply-button applied-btn">Đã nộp</button>
+
+                    </c:if>
                     <a href="#" onclick="return addJobToCartAjax(event, ${job.id});"  id="save__button" class="save-button" >
                         <i class="fa-regular fa-heart"></i>
                         Lưu

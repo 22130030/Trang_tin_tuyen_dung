@@ -911,7 +911,12 @@ select {
     display: block;
     text-decoration: none;
 }
-  
+.applied-btn{
+    background-color : #c5c5c5 !important;
+    color : var(--white-color);
+    border: #f5f5f5 solid 1px;
+    cursor: not-allowed;
+}
   
   
   

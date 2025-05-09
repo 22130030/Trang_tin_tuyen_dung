@@ -145,5 +145,20 @@ public class JobApplicationDao {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean getApplicationByJobIdAndCanId(int jobID, int candidateID) {
+        Connection con = DBconnect.getConnection();
+        String sql = "select * from job_applications where jobPostId = ? and candidateId = ?";
+        try {
+            PreparedStatement prep =  con.prepareStatement(sql);
+            prep.setInt(1, jobID);
+            prep.setInt(2, candidateID);
+            ResultSet rs = prep.executeQuery();
+
+            return rs.next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 

@@ -26,9 +26,12 @@ public class JobApplicationService {
     public JobApplication getApplication(int applicationId,int companyID){
         return jobApplicationDao.getApplication(applicationId,companyID);
     }
+    public boolean getApplicationByJobIdAndCanId(int jobID,int candidateID){
+        return jobApplicationDao.getApplicationByJobIdAndCanId(jobID,candidateID);
+    }
     public static void main(String[] args) {
         JobApplicationService jobApplicationService = new JobApplicationService();
-        System.out.println(jobApplicationService.getApplication(36,53));
+        System.out.println(jobApplicationService.getApplicationByJobIdAndCanId(2,53));
     }
 }
 
