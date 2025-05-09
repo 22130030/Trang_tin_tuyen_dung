@@ -1,8 +1,10 @@
 package com.vn.tim_viec_lam.controller;
 
+import com.vn.tim_viec_lam.dao.model.AccountLevel;
 import com.vn.tim_viec_lam.dao.model.Job;
 import com.vn.tim_viec_lam.dao.model.JobApplication;
 import com.vn.tim_viec_lam.dao.model.cart.JobAppliedCart;
+import com.vn.tim_viec_lam.service.AccountLevelService;
 import com.vn.tim_viec_lam.service.FileService;
 import com.vn.tim_viec_lam.service.JobApplicationService;
 import com.vn.tim_viec_lam.service.JobService;
@@ -36,9 +38,30 @@ public class JobApplied extends HttpServlet {
             int companyId = job.getCompanyId();
             HttpSession session = request.getSession();
             JobApplicationService jas = new JobApplicationService();
+
             String phone = request.getParameter("phone");
             int candidateId = session.getAttribute("candidateId")==null?0:Integer.parseInt(session.getAttribute("candidateId").toString());
-            System.out.println("candidate id:"+candidateId);
+            int status = session.getAttribute("status")==null?-2:Integer.parseInt(session.getAttribute("status").toString());
+
+            AccountLevelService accountLevelService = new AccountLevelService();
+            AccountLevel accountLevel = accountLevelService.getAccountLevelById(status);
+
+            int applicationLimit = accountLevel.getApplicationLimit();
+            int applicationInDay = jas.getJobApplicationInDay(candidateId);
+            if (applicationInDay >= applicationLimit) {
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                String json = String.format(
+                        "{\"error\":\"Bạn đã đạt giới hạn nộp đơn trong ngày.\", \"limit\":%d, \"current\":%d}",
+                        applicationLimit,
+                        applicationInDay
+                );
+                response.getWriter().write(json);
+                return;
+            }
+
+
                 if(request.getPart("fileId") == null){
 
                     String uploadDirPath = getServletContext().getRealPath("") + UPLOAD_DIR;
@@ -72,7 +95,7 @@ public class JobApplied extends HttpServlet {
                     int fId = Integer.parseInt(request.getParameter("fileId"));
                     jas.addJobApplicationFromAccount(companyId,id,fId,candidateId,phone);
                     }
-                List<JobApplication> jobApplicationList = jas.getAll();
+                List<JobApplication> jobApplicationList = jas.getAll(candidateId);
                 session.setAttribute("jobAppliedCart",jobApplicationList);
 
         }

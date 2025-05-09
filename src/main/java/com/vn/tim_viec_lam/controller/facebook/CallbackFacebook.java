@@ -74,7 +74,7 @@ public class CallbackFacebook extends HttpServlet {
                 int role = user.getRoleNum();
                 CandidateService cs = new CandidateService();
                 int candidateId = cs.getCandidateIdByUserId(user.getUserID());
-                List<JobApplication> jobApplicationList = new JobApplicationService().getAll();
+                List<JobApplication> jobApplicationList = new JobApplicationService().getAll(candidateId);
                 List<Resumes> resumesList = new ResumesService().getResumes(candidateId);
 
                 session.setAttribute("user", user);

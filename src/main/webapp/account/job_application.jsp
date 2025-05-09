@@ -80,7 +80,7 @@
                                             <div class="file-details__status" style="display : ${f.status >= 1 ? 'flex' :'none'}">
                                                 <span class="file__status-title">chia sẻ thông tin :</span>
                                                 <label class="switch">
-                                                    <input type="checkbox" id="share-social" ${f.status == 1 ? 'checked' :''}>
+                                                    <input type="checkbox" id="share-social" ${f.status == 1 && sessionScope.status >= 2 ? 'checked' :''}>
                                                     <span class="slider"></span>
                                                 </label>
                                             </div>
@@ -135,7 +135,7 @@
     <div id="popupMessage" class="popup">
         <div class="popup-content">
             <p id="popupText">Bạn chỉ được phép tải lên tối đa 2 hồ sơ.</p>
-            <p class="popup__lever">
+            <p id="popupLink" class="popup__lever">
                 <a href="upgrade_account.jsp" class="popup__lever--link">Nâng cấp tài khoản</a>
                 ngay để lưu được nhiều hồ sơ hơn
             </p>
@@ -161,13 +161,20 @@
         const popup = document.getElementById("popupMessage");
         const popupText = document.getElementById("popupText");
         const closePopup = document.getElementById("closePopup");
-
+        const popupLink =  document.getElementById("popupLink")
+        let status = ${sessionScope.status};
 
         uploadBtn.addEventListener("click", () => {
-            fetch('update-file')  // Gửi request lấy số lượng hồ sơ hiện có
+            fetch('update-file')
                 .then(response => response.json())
                 .then(data => {
-                    if (data.items >= 2) {
+                    const items = data.items;
+                    const resumeLimit = data.resumeLimit;
+                    if (items >= resumeLimit) {
+                        popupText.textContent = `Bạn chỉ được phép tải lên tối đa `+resumeLimit+` hồ sơ.`;
+                        if(status === 3){
+                            popupLink.style.display = 'none';
+                        }
                         popup.style.display = 'flex';
 
                     } else {
@@ -281,8 +288,18 @@
         }
         document.querySelectorAll('.switch input').forEach((checkbox) => {
             checkbox.addEventListener('change', (event) => {
+                if (status <= 1) {
+                    event.preventDefault();
+                    popupText.textContent = `Tài khoản của bạn không đủ quyền chia sẻ hồ sơ.`;
+                    popupLink.innerHTML = '<a href="upgrade_account.jsp" class="popup__lever--link">Nâng cấp tài khoản</a> ngay có thể chia sẻ thông tin hồ sơ' +
+                        ' đến với nhà tuyển dụng.';
+
+                    popup.style.display = 'flex';
+                    event.target.checked = !event.target.checked; // Đảo lại checkbox
+                    return;
+                }
                 const fileId = event.target.closest('.file-item').dataset.fileId; // Lấy fileId từ thẻ cha (data attribute)
-                const status = event.target.checked ? 1 : 2; // Trạng thái của checkbox
+                status = event.target.checked ? 1 : 2;
 
                 // Gửi yêu cầu AJAX cập nhật trạng thái chia sẻ
                 fetch('update-application', {

@@ -72,15 +72,17 @@ public class JobApplicationDao {
             }
 
     }
-    public List<JobApplication> getAll() {
+    public List<JobApplication> getAll(int candidateId) {
         List<JobApplication> jobApplications = new ArrayList<>();
         Connection con = DBconnect.getConnection();
         String sql = "select jal.*,c.companyName,jp.titleJob,jp.image from job_applications jal " +
                 " join companies c on jal.companyId = c.companyId" +
-                " join job_posting jp on jal.jobPostId = jp.jobPostId";
+                " join job_posting jp on jal.jobPostId = jp.jobPostId" +
+                " where jal.candidateId = ?";
 
         try {
             PreparedStatement prep = con.prepareStatement(sql);
+            prep.setInt(1, candidateId);
             ResultSet rs = prep.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("applicationID");
@@ -101,10 +103,7 @@ public class JobApplicationDao {
             throw new RuntimeException(e);
         }
     }
-    public static void main(String[] args) {
-        JobApplicationDao dao = new JobApplicationDao();
-        System.out.println(dao.getAll());
-    }
+
 
     public boolean updateStatus(String status,int applicationId) {
         Connection connection = DBconnect.getConnection();
@@ -141,6 +140,34 @@ public class JobApplicationDao {
                 application.setResumesID(resumeID);
             }
             return application;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean getApplicationByJobIdAndCanId(int jobID, int candidateID) {
+        Connection con = DBconnect.getConnection();
+        String sql = "select * from job_applications where jobPostId = ? and candidateId = ?";
+        try {
+            PreparedStatement prep =  con.prepareStatement(sql);
+            prep.setInt(1, jobID);
+            prep.setInt(2, candidateID);
+            ResultSet rs = prep.executeQuery();
+
+            return rs.next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int getJobApplicationInDay(int candidateId) {
+        Connection con = DBconnect.getConnection();
+        String sql = "select * from job_applications where candidateId = ? and DATE(created_at) = CURRENT_DATE";
+        try {
+            PreparedStatement prep = con.prepareStatement(sql);
+            prep.setInt(1, candidateId);
+            ResultSet rs = prep.executeQuery();
+            return rs.next() ? rs.getInt(1) : 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

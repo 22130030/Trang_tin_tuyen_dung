@@ -26,10 +26,16 @@
         </div>
         <div class="payment__container">
             <div class="container__step-payment">
-                <h4>
-                    <span class="container__step-payment-circle">1</span>
-                    Chọn gói nâng cấp
-                </h4>
+                <div class="step-payment__head">
+
+                    <h4>
+                        <span class="container__step-payment-circle">1</span>
+                        Chọn gói nâng cấp
+                    </h4>
+                    <a href="get-payment-history" class="step-payment__link">
+                        Lịch sử đã thanh toán
+                    </a>
+                </div>
                 <div class="step-payment__content">
                     <label for="" class="step-payment__content--pro">
                         <input type="radio" name="group__payment" id="pro-inp" value="50000" <c:if test="${'pro' eq param.plan}">checked</c:if>>

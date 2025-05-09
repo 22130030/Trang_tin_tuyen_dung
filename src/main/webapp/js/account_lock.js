@@ -14,9 +14,8 @@ function showLockPopup() {
     const popup = document.getElementById("lockPopup");
     if (popup) popup.style.display = "flex";
 }
-
 function checkLockStatus() {
-    fetch('check-lock-status')
+    fetch(CONTEXT_PATH+`/check-lock-status`)
         .then(response => response.json())
         .then(data => {
             if (data.locked) {

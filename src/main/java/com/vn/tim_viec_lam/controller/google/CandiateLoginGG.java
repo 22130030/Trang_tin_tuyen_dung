@@ -37,6 +37,7 @@ public class CandiateLoginGG extends HttpServlet {
             res = userService.insetUser(mail, EncryptionService.hasPasswordToMD5(password),EncryptionService.hasPasswordToMD5(rePassword),fname,"003939394","facebook",providerId);
 
         }
+
         s.invalidate();
         if(res){
             HttpSession session = req.getSession(true);
@@ -45,7 +46,7 @@ public class CandiateLoginGG extends HttpServlet {
             int role = u.getRoleNum();
             CandidateService cs = new CandidateService();
             int candidateId = cs.getCandidateIdByUserId(u.getUserID());
-            List<JobApplication> jobApplicationList = new JobApplicationService().getAll();
+            List<JobApplication> jobApplicationList = new JobApplicationService().getAll(candidateId);
             List<Resumes> resumesList = new ResumesService().getResumes(candidateId);
 
             session.setAttribute("user", u);

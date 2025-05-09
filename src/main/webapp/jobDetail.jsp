@@ -38,11 +38,21 @@
                     <p><strong><i class="fa-solid fa-sack-dollar"></i>Lương:</strong> ${job.salary}</p>
                     <p><strong><i class="fa-solid fa-briefcase"></i>Kinh nghiệm:</strong> 2 - 5 năm kinh nghiệm</p>
                     <p><strong><i class="fa-regular fa-calendar-check"></i>Ngày đăng tuyển:</strong> ${job.convertCreated} | Hết hạn trong: <span class="highlight">5 Ngày tới</span></p>
-                    <button id="applyButton" class="apply-button">Nộp đơn ngay</button>
-                    <a href="#" onclick="return addJobToCartAjax(event, ${job.id});"  id="save__button" class="save-button" >
-                        <i class="fa-regular fa-heart"></i>
-                        Lưu
-                    </a>
+                    <div class="job-deltail-action">
+
+                        <c:if  test="${applied == 0}">
+                            <button id="applyButton" class="apply-button">Nộp đơn ngay</button>
+
+                        </c:if>
+                        <c:if  test="${applied == 1}">
+                            <button id="applyButton-applied" class="apply-button applied-btn">Đã nộp</button>
+
+                        </c:if>
+                        <a href="#" onclick="return addJobToCartAjax(event, ${job.id});"  id="save__button" class="save-button" >
+                            <i class="fa-regular fa-heart"></i>
+                            Lưu
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -325,17 +335,33 @@
         <a href="account/job_applied.jsp" target="_blank">Việc đã ứng tuyển</a>. Hãy theo dõi thường xuyên.
     </div>
 </div>
-
+<div id="popupMessage" class="popup">
+    <div class="popup-content">
+        <p id="popupText">Bạn chỉ được phép tải lên tối đa
+            <span class="popup-limit"></span>
+            hồ sơ.</p>
+        <p id="popupLink" class="popup__lever">
+            <a href="upgrade_account.jsp" class="popup__lever--link">Nâng cấp tài khoản</a>
+            ngay để nộp được nhiều hồ sơ hơn
+        </p>
+        <button id="closePopupMessage">Đóng</button>
+    </div>
+</div>
 <script>
 
     const saveButton = document.getElementById('save__button');
     saveButton.addEventListener('click', () => handleSaveButton(saveButton));
-
+    let userId = -1;
+    let status = 0;
+    <c:if test="${sessionScope.userID != null}">
+        userId = ${sessionScope.userID}
+        status = ${sessionScope.status}
+    </c:if>
+    const applyButton = document.getElementById('applyButton'); // Nút mở popup
 
     document.addEventListener('DOMContentLoaded', function () {
         const popupForm = document.getElementById('popupForm'); // Popup form
         const overlay = document.getElementById('overlay'); // Overlay
-        const applyButton = document.getElementById('applyButton'); // Nút mở popup
         const footerApplyButton = document.getElementById('footerApplyButton');
         const closePopup = document.getElementById('closePopup'); // Nút đóng popup
 
@@ -380,6 +406,16 @@
 
     let selectedFile = null; // Biến lưu trữ file đã chọn
 
+    const popup = document.getElementById("popupMessage");
+    const popupText = document.getElementById("popupText");
+    const closePopupMessage = document.getElementById("closePopupMessage");
+    const popupLink =  document.getElementById("popupLink")
+
+    closePopupMessage.addEventListener("click",()=>{
+        popup.style.display = 'none';
+    })
+
+
     // Khi nhấn "Từ máy tính" để chọn file
     uploadBtn.addEventListener("click", () => {
         fileInput.click();
@@ -407,9 +443,11 @@
 
     // Khi nhấn "Nộp đơn"
     submitBtn.addEventListener("click", async () => {
+        if(userId === -1){
+            alert("bạn chưa đăng nhập ! cần đăng nhập ngay để gửi đơn.")
+            return;
+        }
         const phone = document.getElementById("phone").value.trim();
-
-        // Check if the phone number is empty
         if (!phone) {
             alert("Số điện thoại không được để trống.");
             return;
@@ -445,9 +483,31 @@
                 if (response.ok) {
                     popupSuccess.classList.remove('hidden');
                     popupForm.classList.add('hidden');
-                } else {
-                    alert("Lỗi khi nộp đơn.");
+                    if (applyButton) {
+                        const newButton = document.createElement('button');
+                        newButton.id = "applyButton-applied";
+                        newButton.className = "apply-button applied-btn";
+                        newButton.textContent = "Đã nộp";
+
+                        applyButton.parentNode.replaceChild(newButton, applyButton);
+                    }
                 }
+                else {
+                    const errorData = await response.json();
+                    if(errorData != null){
+                    const limit = errorData.limit;
+                        popupText.innerHTML = `Bạn chỉ được phép nộp tối đa
+                            <span class="popup-limit">`+limit+`</span>
+                             công việc trong một ngày.`;
+                        if (status === 3) {
+                            popupLink.style.display = 'none';
+                        }
+                        popup.style.display = 'flex';
+                    }else{
+                        alert("Lỗi khi nộp đơn.");
+                    }
+
+                    }
             } catch (error) {
                 alert("Không thể gửi dữ liệu.");
             }

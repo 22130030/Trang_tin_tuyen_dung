@@ -746,7 +746,7 @@ select {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-height: 70vh;
-    z-index: 1000;
+    z-index: 100;
     overflow-y: scroll; /* Force the scrollbar to always show */
 }
 .form-content {
@@ -792,7 +792,7 @@ select {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Nền đen mờ */
-  z-index: 999; /* Đặt cao hơn nội dung nhưng thấp hơn popup */
+  z-index: 10;
 }
 .head {
   display: flex;
@@ -911,7 +911,59 @@ select {
     display: block;
     text-decoration: none;
 }
-  
-  
-  
-  
+.applied-btn{
+    background-color : #c5c5c5 !important;
+    color : var(--white-color);
+    border: #f5f5f5 solid 1px;
+    cursor: not-allowed;
+}
+
+
+
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width : 40%;
+    height : 30%;
+}
+.popup-content p {
+    font-size: 2rem;
+}
+.popup-limit{
+    color : var(--orange-color);
+}
+.popup-content p a{
+    text-decoration: none;
+    color : var(--green-color);
+}
+.popup-content button {
+    margin-top: 10px;
+    padding: 5px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    min-width: 140px;
+    height : 40px;
+}
+
+.popup-content button:hover {
+    background-color: #0056b3;
+}

@@ -11,7 +11,7 @@ public class User implements Serializable {
     private String password;
     private String name;
     private String phone_number;
-    private String status;
+    private int status;
     private String provider_id;
     private LocalDateTime created_at;
     private int roleNum;
@@ -20,7 +20,7 @@ public class User implements Serializable {
     }
 
 
-    public User(int userID, String email, String password, String status, String phone_number, LocalDateTime created_at, String provider_id, String image) {
+    public User(int userID, String email, String password, int status, String phone_number, LocalDateTime created_at, String provider_id, String image) {
         this.userID = userID;
         this.email = email;
         this.password = password;
@@ -32,7 +32,7 @@ public class User implements Serializable {
         this.provider_id = provider_id;
         this.image = image;
     }
-    public User(int userID, String email, String password, String name, String phone_number, String status, LocalDateTime created_at, int roleNum) {
+    public User(int userID, String email, String password, String name, String phone_number, int status, LocalDateTime created_at, int roleNum) {
         this.userID = userID;
         this.email = email;
         this.password = password;
@@ -42,7 +42,7 @@ public class User implements Serializable {
         this.created_at = created_at;
         this.roleNum = roleNum;
     }
-    public User(int userID, String email, String password, String name, String phone_number, String status, LocalDateTime created_at, int roleNum, String image) {
+    public User(int userID, String email, String password, String name, String phone_number, int status, LocalDateTime created_at, int roleNum, String image) {
         this.userID = userID;
         this.email = email;
         this.password = password;
@@ -101,11 +101,11 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

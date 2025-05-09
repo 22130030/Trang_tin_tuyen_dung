@@ -1,6 +1,8 @@
 package com.vn.tim_viec_lam.controller.file;
 
+import com.vn.tim_viec_lam.dao.model.AccountLevel;
 import com.vn.tim_viec_lam.dao.model.Resumes;
+import com.vn.tim_viec_lam.service.AccountLevelService;
 import com.vn.tim_viec_lam.service.FileService;
 import com.vn.tim_viec_lam.service.ResumesService;
 import jakarta.servlet.ServletException;
@@ -23,11 +25,19 @@ public class UploadFile extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        int status = (int) session.getAttribute("status");
+
         ResumesService rs = new ResumesService();
+        AccountLevelService accountLevelService = new AccountLevelService();
+        AccountLevel accountLevel = accountLevelService.getAccountLevelById(status);
+        int resumeLimit = accountLevel.getResumeLimit();
         int candidateId = (int) session.getAttribute("candidateId");
 
 
         List<Resumes> resumesList = rs.getResumes(candidateId);
+        if(resumesList.size() > resumeLimit){
+            resumesList = resumesList.subList(0, resumeLimit);
+        }
         session.setAttribute("jac", resumesList);
         request.getRequestDispatcher("job_application.jsp").forward(request, response);
     }

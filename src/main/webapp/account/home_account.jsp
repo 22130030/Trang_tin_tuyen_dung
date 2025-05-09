@@ -42,10 +42,14 @@
                                         <span class="user__detail-name">${sessionScope.user.name}</span>
                                         <a  class="user__detail-status
                                             <c:if test='${sessionScope.status eq 0}'> user__status--unverified</c:if>
-                                            <c:if test='${sessionScope.status eq 1}'> user__status--verified</c:if>">
+                                            <c:if test='${sessionScope.status eq 1}'> user__status--verified</c:if>
+                                            <c:if test='${sessionScope.status eq 2}'> user__status--pro</c:if>
+                                            <c:if test='${sessionScope.status eq 3}'> user__status--premium</c:if>">
                                             <c:choose>
                                                 <c:when test="${sessionScope.status eq 0}">Chưa xác thực</c:when>
                                                 <c:when test="${sessionScope.status eq 1}">Đã xác thực</c:when>
+                                                <c:when test="${sessionScope.status eq 2}">Tài khoản Pro</c:when>
+                                                <c:when test="${sessionScope.status eq 3}">Tài khoản premium</c:when>
                                                 <c:otherwise>Trạng thái không xác định</c:otherwise>
                                             </c:choose>
                                         </a>

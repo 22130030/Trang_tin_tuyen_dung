@@ -14,8 +14,11 @@ public class JobApplicationService {
     public boolean addJobApplicationFromAccount(int companyID, int jobPostID,int resumesID,int candidateID,String phone){
         return jobApplicationDao.addJobApplicationFromAccount(companyID, jobPostID, resumesID, candidateID,phone);
     }
-    public List<JobApplication> getAll(){
-        return jobApplicationDao.getAll();
+    public List<JobApplication> getAll(int candidateId){
+        return jobApplicationDao.getAll(candidateId);
+    }
+    public int getJobApplicationInDay(int candidateId){
+        return jobApplicationDao.getJobApplicationInDay(candidateId);
     }
     public boolean addJobAppFromComputer(String path, String fileName,String type,int jobID,int companyID,int candidateId,String phone) {
         return jobApplicationDao.addJobAppFromComputer(path, fileName, type, jobID, companyID, candidateId,phone);
@@ -26,9 +29,12 @@ public class JobApplicationService {
     public JobApplication getApplication(int applicationId,int companyID){
         return jobApplicationDao.getApplication(applicationId,companyID);
     }
+    public boolean getApplicationByJobIdAndCanId(int jobID,int candidateID){
+        return jobApplicationDao.getApplicationByJobIdAndCanId(jobID,candidateID);
+    }
     public static void main(String[] args) {
         JobApplicationService jobApplicationService = new JobApplicationService();
-        System.out.println(jobApplicationService.getApplication(36,53));
+        System.out.println(jobApplicationService.getApplicationByJobIdAndCanId(2,53));
     }
 }
 
