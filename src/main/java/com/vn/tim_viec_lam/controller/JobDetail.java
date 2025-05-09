@@ -27,8 +27,8 @@ public class JobDetail extends HttpServlet {
             String city = job.getCity();
             List<Job> jobs = js.getJobsByAddress(city);
             int applied = 0;
-            if(session != null) {
-                int candidateId = (int)session.getAttribute("candidateId");
+            if(session.getAttribute("user") != null) {
+                int candidateId = (int) session.getAttribute("candidateId");
                 System.out.println("candidate id: " + candidateId);
                 JobApplicationService jobApplicationService = new JobApplicationService();
                 if(jobApplicationService.getApplicationByJobIdAndCanId(id,candidateId)){

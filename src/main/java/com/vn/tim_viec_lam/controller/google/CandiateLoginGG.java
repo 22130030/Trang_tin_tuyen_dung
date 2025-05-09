@@ -46,7 +46,7 @@ public class CandiateLoginGG extends HttpServlet {
             int role = u.getRoleNum();
             CandidateService cs = new CandidateService();
             int candidateId = cs.getCandidateIdByUserId(u.getUserID());
-            List<JobApplication> jobApplicationList = new JobApplicationService().getAll();
+            List<JobApplication> jobApplicationList = new JobApplicationService().getAll(candidateId);
             List<Resumes> resumesList = new ResumesService().getResumes(candidateId);
 
             session.setAttribute("user", u);
