@@ -1,14 +1,14 @@
 .container {
-    margin: 0;
-    padding: 40px;
     background: #f2f6fc;
     color: #333;
+    padding: 60px 40px;
 }
 
 h2 {
     text-align: center;
     margin-bottom: 30px;
     color: #1e3a8a;
+    font-size: 3rem;
 }
 
 .table-container {

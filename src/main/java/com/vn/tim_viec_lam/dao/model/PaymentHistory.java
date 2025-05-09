@@ -13,11 +13,12 @@ public class PaymentHistory implements java.io.Serializable {
 //    2 - prcessing
     private int status;
     private String method;
+    private String description;
     public PaymentHistory() {
 
     }
 
-    public PaymentHistory(int paymentHistoryId, String transactionCode, int userId, LocalDateTime paymentDate, int amount, int status, String method) {
+    public PaymentHistory(int paymentHistoryId, String transactionCode, int userId, LocalDateTime paymentDate, int amount, int status, String method, String description) {
         this.paymentHistoryId = paymentHistoryId;
         this.transactionCode = transactionCode;
         this.userId = userId;
@@ -25,6 +26,7 @@ public class PaymentHistory implements java.io.Serializable {
         this.amount = amount;
         this.status = status;
         this.method = method;
+        this.description = description;
     }
 
     public int getPaymentHistoryId() {
@@ -81,6 +83,14 @@ public class PaymentHistory implements java.io.Serializable {
 
     public void setMethod(String method) {
         this.method = method;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

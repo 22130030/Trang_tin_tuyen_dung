@@ -13,6 +13,7 @@
     <meta charset="UTF-8">
     <title>Lịch sử thanh toán</title>
     <link rel="stylesheet" href="../asserts/css/candidate/payment_history.css">
+    <link rel="stylesheet" href="../asserts/css/base.css">
 </head>
 <body>
 <%@include file="../header.jsp"%>
