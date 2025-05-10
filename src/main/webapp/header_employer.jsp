@@ -44,7 +44,7 @@
                                         </div>
                                         <div class="ne__info-edit">
                                             <span class="ne__info-name">${sessionScope.companyUser.name}</span>
-                                            <a href="${pageContext.request.contextPath}/employer/edit_info.jsp" class="ne__info-edit-info">Chỉnh sửa thông tin công ty</a>
+                                            <a href="${pageContext.request.contextPath}/employer/employer_see.jsp" class="ne__info-edit-info">Chỉnh sửa thông tin công ty</a>
                                         </div>
                                     </div>
                                     <ul class="ne__info-list">

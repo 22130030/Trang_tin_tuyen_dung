@@ -92,9 +92,9 @@
 
                                     <div class="company-information flex-fill pl-lg-3 pt-3 pt-lg-0">
                                         <div class="d-flex">
-                                            <h5 class="company-name d-flex align-items-center" itemprop="name">
-                                                Công ty 3 ae
-                                            </h5>
+                                                 <span class="d-inline-block m-0 p-0 item-label text-truncate" style="font-size:16px;font-weight: bold;">
+                                                     ${sessionScope.companyUser.name}
+                                                 </span>
                                             <button class="company-edit-button btn ml-auto"
                                                     id="edit-employer-information-button">
                                                 <i class="cli-pen-outline d-flex mr-lg-2"></i>
@@ -328,26 +328,6 @@
     <%@include file="../footer.jsp"%>
         </div>
 
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const navUser = document.querySelector('.nav__employer-user');
-                    const dropdownMenu = document.querySelector('.nav__employer-logged-in');
-
-
-                    // Hiển thị menu khi click vào `.nav__has--form-login`
-                    navUser.addEventListener('click', function (event) {
-                        event.stopPropagation();
-                        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-                    });
-
-                    // Đóng menu khi click ra ngoài
-                    document.addEventListener('click', function (event) {
-                        if (!navUser.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                            dropdownMenu.style.display = 'none';
-                        }
-                    });
-                });
-            </script>
 <script>
     // Biến toàn cục lưu file người dùng chọn
     let selectedBannerFile = null;
