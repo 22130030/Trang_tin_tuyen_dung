@@ -10,7 +10,6 @@
 <%@ taglib prefix = "f" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>Title</title>
 </head>
 <body>
 <%
@@ -29,6 +28,7 @@
     <a href="${pageContext.request.contextPath}/admin/job_manager" class="${relativePath eq "/admin/admin_jobs.jsp" ? 'sidebar--active' : ''}">Quản lý bài đăng</a>
     <a href="${pageContext.request.contextPath}/admin/manager-category" class="${relativePath eq "/admin/admin_category.jsp" ? 'sidebar--active' : ''}">Quản lý ngành nghề</a>
     <a href="${pageContext.request.contextPath}/admin/manager-user" class="${relativePath eq "/admin/admin_user.jsp" ? 'sidebar--active' : ''}">Quản lý tài khoản</a>
+    <a href="${pageContext.request.contextPath}/admin/revenue_statistics.jsp" class="${relativePath eq "/admin/revenue_statistics.jsp" ? 'sidebar--active' : ''}">Thống kê doanh thu</a>
 </div>
 </body>
 </html>

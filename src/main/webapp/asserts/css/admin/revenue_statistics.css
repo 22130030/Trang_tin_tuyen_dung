@@ -1,0 +1,45 @@
+.container-statistics{
+    min-height: calc(100vh - 60px);
+    display: flex;
+    width: 100%;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: center;
+    color: #333;
+}
+.statistics-content{
+    width : 100%;
+    background-color: #f4f4f9;
+}
+.revenue-info {
+    font-size: 18px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.revenue-info p {
+    margin: 10px 0;
+}
+
+.revenue-info strong {
+    color: #007bff;
+}
+
+.chart-container {
+    margin : 30px auto;
+    text-align: center;
+    width: 60%;
+}
+.chart-container h3{
+    font-size: 2.2rem
+}
+canvas {
+    max-width: 100%;
+    max-height: 200px;
+}
