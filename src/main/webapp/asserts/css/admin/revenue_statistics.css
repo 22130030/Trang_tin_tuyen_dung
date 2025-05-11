@@ -32,12 +32,19 @@ h1 {
 }
 
 .chart-container {
-    margin : 30px auto;
+    margin : 60px auto;
     text-align: center;
     width: 60%;
 }
 .chart-container h3{
     font-size: 2.2rem
+}
+.chart-circle{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    max-width: 80%;
+    margin: auto;
 }
 canvas {
     max-width: 100%;

@@ -36,11 +36,17 @@
       <canvas id="revenueChart" width="400" height="200"></canvas>
     </div>
 
-    <!-- Biểu đồ giao dịch theo loại -->
-    <div class="chart-container">
-      <h3>Biểu đồ Giao dịch theo Loại Thanh Toán</h3>
-      <canvas id="paymentTypeChart" width="400" height="200"></canvas>
-    </div>
+      <div  class="chart-circle">
+
+        <div class="chart-container">
+          <h3>Biểu đồ Giao dịch theo Loại Thanh Toán</h3>
+          <canvas id="paymentTypeChart" width="400" height="200"></canvas>
+        </div>
+        <div class="chart-container">
+          <h3>Biểu đồ Tỉ lệ Tài khoản Pro và Premium</h3>
+          <canvas id="accountTypeChart" width="400" height="200"></canvas>
+        </div>
+      </div>
 
     <!-- Biểu đồ doanh thu theo thời gian (đường) -->
     <div class="chart-container">
@@ -57,72 +63,98 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  // Giả sử chúng ta có dữ liệu doanh thu
-  var totalRevenue = 10000000; // VND
-  var totalTransactions = 150;
+  fetch('get-revenue-statistic')
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('totalRevenue').textContent = data.totalRevenue.toLocaleString() + " VND";
+            document.getElementById('totalTransactions').textContent = data.totalTransactions;
 
-  // Cập nhật thông tin trên giao diện
-  document.getElementById('totalRevenue').textContent = totalRevenue.toLocaleString() + " VND";
-  document.getElementById('totalTransactions').textContent = totalTransactions;
+            const revenueMonths = Object.keys(data.revenueByMonth).sort();
+            const revenueValues = revenueMonths.map(month => data.revenueByMonth[month]);
 
-  // Biểu đồ Doanh thu theo tháng (Bar Chart)
-  var ctx = document.getElementById('revenueChart').getContext('2d');
-  var revenueChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5'],
-      datasets: [{
-        label: 'Doanh thu theo tháng (VND)',
-        data: [1200000, 1500000, 1800000, 2000000, 2500000],
-        backgroundColor: '#007bff',
-        borderColor: '#0056b3',
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
+            new Chart(document.getElementById('revenueChart').getContext('2d'), {
+              type: 'bar',
+              data: {
+                labels: revenueMonths.map(m => "Tháng " + m.split('-')[1]),
+                datasets: [{
+                  label: 'Doanh thu theo tháng (VND)',
+                  data: revenueValues,
+                  backgroundColor: '#007bff',
+                  borderColor: '#0056b3',
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                scales: {
+                  y: { beginAtZero: true }
+                }
+              }
+            });
 
-  var paymentTypeCtx = document.getElementById('paymentTypeChart').getContext('2d');
-  var paymentTypeChart = new Chart(paymentTypeCtx, {
-    type: 'pie',
-    data: {
-      labels: ['Momo', 'ZaloPay', 'Ngân hàng', 'Khác'],
-      datasets: [{
-        data: [40, 30, 20, 10], // Tỷ lệ giao dịch
-        backgroundColor: ['#ff5733', '#33c1ff', '#28a745', '#ffc107'],
-        borderColor: ['#fff', '#fff', '#fff', '#fff'],
-        borderWidth: 1
-      }]
-    }
-  });
+            // Biểu đồ theo phương thức thanh toán
+            const methodLabels = Object.keys(data.revenueByMethod);
+            const methodData = methodLabels.map(label => data.revenueByMethod[label]);
 
-  var timeRevenueCtx = document.getElementById('timeRevenueChart').getContext('2d');
-  var timeRevenueChart = new Chart(timeRevenueCtx, {
-    type: 'line',
-    data: {
-      labels: ['Ngày 1', 'Ngày 2', 'Ngày 3', 'Ngày 4', 'Ngày 5'],
-      datasets: [{
-        label: 'Doanh thu theo thời gian (VND)',
-        data: [1500000, 1800000, 2000000, 2500000, 3000000],
-        borderColor: '#007bff',
-        fill: false,
-        borderWidth: 2
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
+            new Chart(document.getElementById('paymentTypeChart').getContext('2d'), {
+              type: 'pie',
+              data: {
+                labels: methodLabels,
+                datasets: [{
+                  data: methodData,
+                  backgroundColor: ['#ff5733', '#33c1ff', '#28a745', '#ffc107'],
+                  borderColor: ['#fff', '#fff', '#fff', '#fff'],
+                  borderWidth: 1
+                }]
+              }
+            });
+
+            // Biểu đồ doanh thu 5 ngày gần nhất
+            const dayLabels = Object.keys(data.revenueByDay).sort(); // yyyy-MM-dd
+            const dayData = dayLabels.map(day => data.revenueByDay[day]);
+
+            new Chart(document.getElementById('timeRevenueChart').getContext('2d'), {
+              type: 'line',
+              data: {
+                labels: dayLabels.map(d => "Ngày " + new Date(d).getDate()),
+                datasets: [{
+                  label: 'Doanh thu theo thời gian (VND)',
+                  data: dayData,
+                  borderColor: '#007bff',
+                  fill: false,
+                  borderWidth: 2
+                }]
+              },
+              options: {
+                scales: {
+                  y: { beginAtZero: true }
+                }
+              }
+            });
+
+            // Biểu đồ Tỉ lệ Tài khoản Pro và Premium (Pie Chart)
+            const statusData = data.statisticsAccount;
+            const proCount = statusData["2"] || 0;
+            const premiumCount = statusData["3"] || 0;
+
+            new Chart(document.getElementById('accountTypeChart').getContext('2d'), {
+              type: 'pie',
+              data: {
+                labels: ['Tài khoản Pro', 'Tài khoản Premium'],
+                datasets: [{
+                  data: [proCount, premiumCount],
+                  backgroundColor: ['#28a745', '#ffc107'],
+                  borderColor: ['#fff', '#fff'],
+                  borderWidth: 1
+                }]
+              }
+            });
+
+          })
+
+          .catch(error => {
+            console.error('Lỗi khi lấy thống kê doanh thu:', error);
+          });
 </script>
+
 </body>
 </html>
