@@ -65,7 +65,7 @@
                 </h4>
                 <div class="payment-method__content">
                     <button  style="margin-bottom: 10px" class="btn-payment" id="btn-zalo__payment">
-                        <img class="payment-method__img" src="../asserts/img/payments/momo.webp">
+                        <img class="payment-method__img" src="../asserts/img/payments/zalo-pay.png">
                         Thanh toán bằng ZaloPay
                     </button>
                     <button style="margin-bottom: 10px" class="btn-payment" id="btn-vnpay__payment">

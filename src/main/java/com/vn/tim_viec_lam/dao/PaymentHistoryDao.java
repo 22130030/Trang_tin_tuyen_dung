@@ -6,8 +6,9 @@ import com.vn.tim_viec_lam.database.DBconnect;
 
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.YearMonth;
+import java.util.*;
+import java.util.Date;
 
 public class PaymentHistoryDao {
     public List<PaymentHistory>  getPaymentHistory(int userId){
@@ -57,5 +58,124 @@ public class PaymentHistoryDao {
             e.printStackTrace();
         }
         return false;
+    }
+    public Map.Entry<Integer,Integer> getRevenue(int status){
+        Connection con = DBconnect.getConnection();
+        String sql = "select sum(amount) as revenue,count(*) as totalStatus from payment_histories where status=?";
+        try {
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, status);
+            ResultSet rs = pstmt.executeQuery();
+            int revenue = 0;
+            int totalStatus = 0;
+            if(rs.next()){
+                revenue = rs.getInt("revenue");
+                totalStatus = rs.getInt("totalStatus");
+            }
+            return new AbstractMap.SimpleEntry<>(revenue,totalStatus);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Map<YearMonth,Integer> getRevenueByMonth(){
+        Connection con = DBconnect.getConnection();
+        String sql = "SELECT  " +
+                "  DATE_FORMAT(payment_date, '%Y-%m') AS month, " +
+                "  SUM(amount) AS monthly_revenue " +
+                "FROM payment_histories " +
+                "WHERE status = 1 " +
+                "  AND payment_date >= DATE_SUB(CURDATE(), INTERVAL 5 MONTH) " +
+                "GROUP BY month " +
+                "ORDER BY month";
+        try {
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            Map<YearMonth,Integer> res = new HashMap<>();
+            while(rs.next()){
+                YearMonth yearMonth = YearMonth.parse(rs.getString("month"));
+                int revenue = rs.getInt("monthly_revenue");
+                res.put(yearMonth,revenue);
+            }
+            return res;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Map<String,Integer> getMethod(){
+        Connection con = DBconnect.getConnection();
+        String sql = "SELECT  " +
+                "  method, " +
+                "  count(amount) AS total_method " +
+                "FROM payment_histories " +
+                "WHERE status = 1 " +
+                "GROUP BY method";
+        try {
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            Map<String,Integer> res = new HashMap<>();
+            while(rs.next()){
+                String method = rs.getString("method");
+                res.put(method,rs.getInt("total_method"));
+            }
+            return res;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Map<Date,Integer> getRevenueByDay(){
+        Connection con = DBconnect.getConnection();
+        String sql = "SELECT  " +
+                "  d.date, " +
+                "  COALESCE(SUM(p.amount), 0) AS daily_revenue " +
+                "FROM ( " +
+                "  SELECT CURDATE() AS date " +
+                "  UNION ALL SELECT DATE_SUB(CURDATE(), INTERVAL 1 DAY) " +
+                "  UNION ALL SELECT DATE_SUB(CURDATE(), INTERVAL 2 DAY) " +
+                "  UNION ALL SELECT DATE_SUB(CURDATE(), INTERVAL 3 DAY) " +
+                "  UNION ALL SELECT DATE_SUB(CURDATE(), INTERVAL 4 DAY) " +
+                ") AS d " +
+                "LEFT JOIN payment_histories p " +
+                "  ON DATE(p.payment_date) = d.date AND p.status = 1 " +
+                "GROUP BY d.date " +
+                "ORDER BY d.date ";
+        try {
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            Map<Date,Integer> res = new HashMap<>();
+            while(rs.next()){
+                Date date = rs.getDate("date");
+                int revenue = rs.getInt("daily_revenue");
+                res.put(date,revenue);
+            }
+            return res;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Map<Integer, Integer> getStatusAccount() {
+        Connection con = DBconnect.getConnection();
+        String sql = "SELECT  " +
+                "    status, " +
+                "    COUNT(*) AS total_accounts " +
+                "FROM  " +
+                "    users " +
+                "WHERE  " +
+                "    status IN (2, 3) " +
+                "GROUP BY  " +
+                "    status";
+        try {
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            Map<Integer, Integer> res = new HashMap<>();
+            while(rs.next()){
+                int status = rs.getInt("status");
+                int totalAccounts = rs.getInt("total_accounts");
+                res.put(status,totalAccounts);
+            }
+            return res;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
