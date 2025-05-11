@@ -21,17 +21,17 @@
             <div class="login-box">
                 <div class="login-left">
                     <h2>Nhà tuyển dụng đăng nhập</h2>
-                    <form>
-                        <input type="email" placeholder="Email" required>
-                        <input type="password" placeholder="Mật khẩu" required>
+                    <form id="loginForm" action="employer-login" method="post" onsubmit="return validateForm()">
+                        <input type="email" id="email" name="email" placeholder="email@example.com" fdprocessedid="qvblwm">
+                        <input type="password" id="password" name="password" placeholder="Mật khẩu" fdprocessedid="0nk9c4">
+
+
                         <label>
                             <input type="checkbox"> Hiển thị mật khẩu
                         </label>
-                        <button onclick="window.location.href='/html/employer/employer.html'" type="submit">
-                            Đăng nhập
-                        </button>
-                        <!-- Link quên mật khẩu -->
-                        <a href="login_reset_request.jsp?redirectUrl=login_employer">Quên mật khẩu?</a>
+                        <button type="submit" fdprocessedid="a6xg5e">Đăng nhập</button>
+                        <a href="login_reset_request.jsp?redirectUrl=employer_home">Quên mật khẩu?</a>
+                        <a href="register_for_employer.jsp">Đăng kí</a>
                     </form>
                 </div>
                 <div class="login-right">
@@ -50,4 +50,43 @@
         <%@include file="footer.jsp"%>
     </div>
 </body>
+<script>
+    // Bắt sự kiện checkbox hiển thị mật khẩu
+    document.getElementById("showPassword").addEventListener("change", function () {
+        const passwordField = document.getElementById("password");
+        passwordField.type = this.checked ? "text" : "password";
+
+        // Đảm bảo style nhất quán
+        passwordField.style.height = "40px";
+        passwordField.style.width = "100%";
+        passwordField.style.border = "1px solid #ccc";
+        passwordField.style.borderRadius = "5px";
+        passwordField.style.padding = "10px";
+    });
+
+    // Xác thực form trước khi gửi
+    function validateForm() {
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const errorMessage = document.getElementById("error-message");
+
+        if (email === "" && password === "") {
+            errorMessage.textContent = "Vui lòng điền thông tin.";
+            return false;
+        }
+        if (email === "") {
+            errorMessage.textContent = "Vui lòng điền tên tài khoản.";
+            return false;
+        }
+        if (password === "") {
+            errorMessage.textContent = "Vui lòng nhập mật khẩu.";
+            return false;
+        }
+
+        // Nếu không có lỗi
+        errorMessage.textContent = "";
+        return true;
+    }
+</script>
+
 </html>
