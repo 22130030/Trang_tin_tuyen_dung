@@ -22,8 +22,10 @@ public class EditCandidate extends HttpServlet {
         String cemail = req.getParameter("email");
         String cphone = req.getParameter("phone");
         String cstatus = req.getParameter("status");
+        String gender = req.getParameter("gender");
+        String birthday = req.getParameter("birth");
         CandidateService service = new CandidateService();
-        service.editUserCandidate(cid,cname,cemail,cphone,cstatus);
+        service.editUserCandidate(cid,cname,cemail,cphone,cstatus,gender,birthday);
         resp.sendRedirect("candidate-user-find");
     }
 }

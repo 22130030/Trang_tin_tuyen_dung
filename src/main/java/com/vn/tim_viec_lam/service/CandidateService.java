@@ -27,8 +27,8 @@ public class CandidateService {
     public  Candidate loadUserCandidate(int id)  {
         return candidateDao.getCandidateById(id);
     }
-    public void editUserCandidate(int id , String fullname ,String email, String phone ,String status)  {
-         candidateDao.editUserCandidate(id,fullname,email,phone,status);
+    public void editUserCandidate(int id , String fullname ,String email, String phone ,String status,String gender, String birth)  {
+         candidateDao.editUserCandidate(id,fullname,email,phone,status,gender,birth);
     }
 
 }

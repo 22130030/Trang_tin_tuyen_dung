@@ -13,10 +13,14 @@ public class Candidate implements Serializable {
     private String appliedCompany;
     private LocalDateTime applyDate;
     private String status;
+    private String gender;
+    private String birth;
     public Candidate() {
     }
 
-    public Candidate(int candidateID, String fullName, String address, String email, String phone, String appliedCompany, LocalDateTime applyDate, String status) {
+
+
+    public Candidate(int candidateID, String fullName, String address, String email, String phone, String appliedCompany, LocalDateTime applyDate, String status, String gender, String birth) {
         this.candidateID = candidateID;
         this.fullName = fullName;
         this.address = address;
@@ -25,6 +29,8 @@ public class Candidate implements Serializable {
         this.appliedCompany = appliedCompany;
         this.applyDate = applyDate;
         this.status = status;
+        this.gender = gender;
+        this.birth = birth;
     }
 
     public int getCandidateID() {
@@ -95,6 +101,22 @@ public class Candidate implements Serializable {
         this.status = status;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getBirth() {
+        return birth;
+    }
+
+    public void setBirth(String birth) {
+        this.birth = birth;
+    }
+
     @Override
     public String toString() {
         return "Candidate{" +
@@ -106,6 +128,8 @@ public class Candidate implements Serializable {
                 ", appliedCompany='" + appliedCompany + '\'' +
                 ", applyDate=" + applyDate +
                 ", status='" + status + '\'' +
+                ", gender='" + gender + '\'' +
+                ", birth='" + birth + '\'' +
                 '}';
     }
 }
