@@ -7,10 +7,8 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.vn.tim_viec_lam.dao.model.JobApplication;
 import com.vn.tim_viec_lam.dao.model.Resumes;
 import com.vn.tim_viec_lam.dao.model.User;
-import com.vn.tim_viec_lam.service.CandidateService;
-import com.vn.tim_viec_lam.service.JobApplicationService;
-import com.vn.tim_viec_lam.service.ResumesService;
-import com.vn.tim_viec_lam.service.UserService;
+import com.vn.tim_viec_lam.dao.model.UserProfileDTO;
+import com.vn.tim_viec_lam.service.*;
 import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -101,7 +99,11 @@ public class CandidateLogin extends HttpServlet {
                     List<JobApplication> jobApplicationList = new JobApplicationService().getAll(candidateId);
                     List<Resumes> resumesList = new ResumesService().getResumes(candidateId);
 
+                    UserProfileService userProfileService = new UserProfileService();
+                    UserProfileDTO userProfile = userProfileService.getUserProfile(u.getUserID());
+
                     session.setAttribute("user", u);
+                    session.setAttribute("userProfile", userProfile);
                     session.setAttribute("email",u.getEmail());
                     session.setAttribute("jobAppliedCart", jobApplicationList);
                     session.setAttribute("jac", resumesList);

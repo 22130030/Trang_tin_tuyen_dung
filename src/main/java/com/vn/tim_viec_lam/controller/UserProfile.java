@@ -23,6 +23,10 @@ public class UserProfile extends HttpServlet {
 
         UserProfileDTO profile = userProfileService.getUserProfile(userID);
         request.getSession().setAttribute("userProfile", profile);
+
+        // Dòng debug để kiểm tra dữ liệu userProfile trong session
+        System.out.println("UserProfile in session: " + request.getSession().getAttribute("userProfile"));
+
         request.getRequestDispatcher("/account/account_candidate.jsp").forward(request, response);
     }
 
