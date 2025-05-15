@@ -30,5 +30,11 @@ public class CandidateService {
     public void editUserCandidate(int id , String fullname ,String email, String phone ,String status,String gender, String birth)  {
          candidateDao.editUserCandidate(id,fullname,email,phone,status,gender,birth);
     }
+    public Candidate getCandidateByUserId(int userId) {
+        return candidateDao.getCandidateByUserId(userId);
+    }
+    public boolean updateCandidate(Candidate candidate) {
+        return candidateDao.updateCandidate(candidate);
+    }
 
 }

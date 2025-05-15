@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Candidate implements Serializable {
     private int candidateID;
+    private int userID;
     private String fullName;
     private String address;
     private String email;
@@ -17,11 +18,9 @@ public class Candidate implements Serializable {
     private String birth;
     public Candidate() {
     }
-
-
-
-    public Candidate(int candidateID, String fullName, String address, String email, String phone, String appliedCompany, LocalDateTime applyDate, String status, String gender, String birth) {
+    public Candidate(int candidateID,int userID, String fullName, String address, String email, String phone, String appliedCompany, LocalDateTime applyDate, String status, String gender, String birth) {
         this.candidateID = candidateID;
+        this.userID = userID;
         this.fullName = fullName;
         this.address = address;
         this.email = email;
@@ -39,6 +38,14 @@ public class Candidate implements Serializable {
 
     public void setCandidateID(int candidateID) {
         this.candidateID = candidateID;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getFullName() {
@@ -121,6 +128,7 @@ public class Candidate implements Serializable {
     public String toString() {
         return "Candidate{" +
                 "candidateID=" + candidateID +
+                ", userID=" + userID +
                 ", fullName='" + fullName + '\'' +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
