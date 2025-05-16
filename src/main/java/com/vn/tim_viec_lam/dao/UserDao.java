@@ -79,10 +79,6 @@ public class UserDao {
         String image = rs.getString("image");
         return new User(id,email,"",name,phoneNumber,status,date,role,image);
     }
-
-
-
-
     public List<User> getListUser(){
         List<User> users = new ArrayList<User>();
 
@@ -147,7 +143,6 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
-
     public boolean deleteUser(int userId) {
         Connection conn = DBconnect.getConnection();
         String deleteRolesSQL = "DELETE FROM roles WHERE userID = ?";
@@ -177,7 +172,6 @@ public class UserDao {
         }
         return false;
     }
-
     public boolean updateUser(int id, String email, String pass, int role, int status, String image) {
         Connection conn = DBconnect.getConnection();
         String updateUserSQL = "UPDATE users SET email = ?, status = ?, image = ? WHERE userID = ?";
@@ -213,10 +207,6 @@ public class UserDao {
         }
         return false;
     }
-
-
-
-
     public User getResultSet(ResultSet rs) throws SQLException {
         User user = new User();
         int id = rs.getInt("userID");
@@ -231,10 +221,6 @@ public class UserDao {
         user = new User(id, email, password, status,phone, created,provider_id,image);
         return user;
     }
-
-
-
-
     public boolean insertUser(String email, String pass, String fullName,String phone,String auth_provider,String provider_id) {
         Connection con = DBconnect.getConnection();
         String sql = "insert into users(email,phone_number,status,created_at,name) values(?,?,1,NOW(),?)";
@@ -376,7 +362,6 @@ public class UserDao {
         }
         return false;
     }
-
     public boolean updateImage (int id, String image) {
         Connection con = DBconnect.getConnection();
         String sql = "UPDATE users SET image = ? WHERE userID = ?";
@@ -390,24 +375,6 @@ public class UserDao {
         }
         return false;
     }
-
-//    public InputStream getProfileImage(String userId) throws SQLException {
-//        Connection con = DBconnect.getConnection();
-//        String sql = "SELECT profile_image FROM users WHERE user_id = ?";
-//        try (PreparedStatement ps = con.prepareStatement(sql)) {
-//            ps.setString(1, userId);
-//            try (ResultSet rs = ps.executeQuery()) {
-//                if (rs.next()) {
-//                    Blob imageBlob = rs.getBlob("profile_image");
-//                    return imageBlob.getBinaryStream();
-//                }
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//}
-
     public int getUserIdByCandidateId(int candidateId) {
         Connection connection = DBconnect.getConnection();
         String sql = "SELECT u.userID FROM users u" +
@@ -460,6 +427,76 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
+
+    public User getUserById(int userID) {
+            String sql = "SELECT u.userID, u.email, u.name, u.phone_number, u.status, u.created_at, u.image, " +
+                    "ua.provider_id, ua.password, r.roleNum " +
+                    "FROM users u " +
+                    "LEFT JOIN user_auth ua ON u.userID = ua.userID " +
+                    "LEFT JOIN roles r ON u.userID = r.userID " +
+                    "WHERE u.userID = ?";
+
+            try (Connection con = DBconnect.getConnection();
+                 PreparedStatement stmt = con.prepareStatement(sql)) {
+
+                stmt.setInt(1, userID);
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    User user = new User();
+                    user.setUserID(rs.getInt("userID"));
+                    user.setEmail(rs.getString("email"));
+                    user.setName(rs.getString("name"));
+                    user.setPhone_number(rs.getString("phone_number"));
+                    user.setStatus(rs.getInt("status"));
+                    user.setImage(rs.getString("image"));
+
+                    Timestamp ts = rs.getTimestamp("created_at");
+                    if (ts != null) user.setCreated_at(ts.toLocalDateTime());
+
+                    user.setProvider_id(rs.getString("provider_id"));
+                    user.setRoleNum(rs.getInt("roleNum"));
+                    return user;
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            return null;
+        }
+
+        public boolean updateUser(User user) {
+            String sql = "UPDATE users SET name = ?, phone_number = ?, image = ? WHERE userID = ?";
+
+            try (Connection con = DBconnect.getConnection();
+                 PreparedStatement stmt = con.prepareStatement(sql)) {
+
+                stmt.setString(1, user.getName());
+                stmt.setString(2, user.getPhone_number());
+                stmt.setString(3, user.getImage());
+                stmt.setInt(4, user.getUserID());
+                return stmt.executeUpdate() > 0;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public String getPasswordByUserId(int userID) {
+            String sql = "SELECT password FROM user_auth WHERE userID = ?";
+
+            try (Connection con = DBconnect.getConnection();
+                 PreparedStatement stmt = con.prepareStatement(sql)) {
+
+                stmt.setInt(1, userID);
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    return rs.getString("password");
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            return null;
+        }
+
     public static void main(String[] args) {
         UserDao dao = new UserDao();
 //        System.out.println(dao.insertUser("22","1","vanduc","2222","local","g22"));

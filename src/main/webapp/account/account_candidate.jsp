@@ -10,22 +10,38 @@
 <%@ taglib prefix = "f" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
+<%--    <meta charset="UTF-8">--%>
+<%--    <link rel="stylesheet" href="../asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">--%>
+<%--    <!-- Bootstrap CSS -->--%>
+<%--    <link rel="stylesheet" href="../asserts/fonts/fontawesome-free-6.4.0-web/css/bootstrap.min.css">--%>
+<%--    <!-- Style -->--%>
+<%--    <meta name="viewport" content="width=device-width, initial-scale=1.0">--%>
+<%--    <link rel="stylesheet" href="../asserts/css/candidate/account_base.css">--%>
+<%--    <link rel="stylesheet" href="../asserts/css/account.css">--%>
+<%--    <link rel="stylesheet" href="../asserts/css/base.css">--%>
+<%--    <link rel="stylesheet" href="../asserts/css/main_search_occupations_locat.css">--%>
+<%--    <link rel="stylesheet" href="../asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">--%>
+<%--    <!-- js -->--%>
+<%--    <script src="../asserts/fonts/fontawesome-free-6.4.0-web/js/bootstrap.min.js"></script>--%>
+<%--    <script src="../asserts/fonts/fontawesome-free-6.4.0-web/js/main.js"></script>--%>
+<%--    <script src="../asserts/fonts/fontawesome-free-6.4.0-web/js/popper.min.js"></script>--%>
+<%--    <script src="../asserts/fonts/fontawesome-free-6.4.0-web/js/jquery-3.3.1.min.js"></script>--%>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../asserts/fonts/fontawesome-free-6.4.0-web/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/asserts/fonts/fontawesome-free-6.4.0-web/css/bootstrap.min.css">
     <!-- Style -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../asserts/css/candidate/account_base.css">
-    <link rel="stylesheet" href="../asserts/css/account.css">
-    <link rel="stylesheet" href="../asserts/css/base.css">
-    <link rel="stylesheet" href="../asserts/css/main_search_occupations_locat.css">
-    <link rel="stylesheet" href="../asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/asserts/css/candidate/account_base.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/asserts/css/account.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/asserts/css/base.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/asserts/css/main_search_occupations_locat.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/asserts/fonts/fontawesome-free-6.4.0-web/css/all.css">
     <!-- js -->
-    <script src="../asserts/fonts/fontawesome-free-6.4.0-web/js/bootstrap.min.js"></script>
-    <script src="../asserts/fonts/fontawesome-free-6.4.0-web/js/main.js"></script>
-    <script src="../asserts/fonts/fontawesome-free-6.4.0-web/js/popper.min.js"></script>
-    <script src="../asserts/fonts/fontawesome-free-6.4.0-web/js/jquery-3.3.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/asserts/fonts/fontawesome-free-6.4.0-web/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/asserts/fonts/fontawesome-free-6.4.0-web/js/main.js"></script>
+    <script src="${pageContext.request.contextPath}/asserts/fonts/fontawesome-free-6.4.0-web/js/popper.min.js"></script>
+    <script src="${pageContext.request.contextPath}/asserts/fonts/fontawesome-free-6.4.0-web/js/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 <div class="application">
@@ -56,18 +72,18 @@
                                     mới.</p>
                             </div>
                             <form action="${pageContext.request.contextPath}/update-candidate"  method="post" enctype="multipart/form-data"
-                                    class="avatar-container row no-gutters align-items-start justify-content-center position-relative">
-                                    <input type="file" name="uploadedImage" id="upload" accept="image/*" style="display: none;" onchange="loadFile(this)">
+                                  class="avatar-container row no-gutters align-items-start justify-content-center position-relative">
+                                <input type="file" name="uploadedImage" id="upload" accept="image/*" style="display: none;" onchange="loadFile(this)">
                                 <label for="upload">
-                                <div class="avatar-0-2-18">
-                                    <img id="preview" class="rounded-circle border"
-                                         data-default-src="${sessionScope.image != null ? pageContext.request.contextPath.concat(sessionScope.image) : pageContext.request.contextPath.concat('/assets/img/user.png')}"
-                                         src="${sessionScope.image != null ? pageContext.request.contextPath.concat(sessionScope.image) : pageContext.request.contextPath.concat('/assets/img/user.png')}"                                         style="width: 100px; height: 100px;">
-                                    <div class="align-items-center justify-content-center avatar-upload"
-                                         id="avatar-upload"><i class="fa fa-camera fa-3x text-white"></i>
+                                    <div class="avatar-0-2-18">
+                                        <img id="preview" class="rounded-circle border"
+                                             data-default-src="${sessionScope.image != null ? pageContext.request.contextPath.concat(sessionScope.image) : pageContext.request.contextPath.concat('/assets/img/user.png')}"
+                                             src="${sessionScope.image != null ? pageContext.request.contextPath.concat(sessionScope.image) : pageContext.request.contextPath.concat('/assets/img/user.png')}"                                         style="width: 100px; height: 100px;">
+                                        <div class="align-items-center justify-content-center avatar-upload"
+                                             id="avatar-upload"><i class="fa fa-camera fa-3x text-white"></i>
+                                        </div>
                                     </div>
-                                </div>
-                            </label>
+                                </label>
                                 <p class="text-secondary small mt-2 w-100 text-center" style="font-size: 12px;">
                                     (JPEG/PNG/GIF, ≦ 1MB)</p>
                                 <div class="share_avatar d-flex gap-2" style="margin-top: -12px; font-size: 15px;">
@@ -77,16 +93,15 @@
                             </form>
                         </div>
 
+                       <form>
                         <ul class="list-group list-group-flush mt-4">
                             <li class="list-group-item d-flex flex-wrap no-gutters py-4 px-0">
                                 <div class="col-12 col-lg-3 mb-2 title-0-2-21">Họ và tên<span class="text-danger">
                                         *</span></div>
                                 <div class="d-flex col-lg-9 no-gutters">
                                     <div class="col-lg-9">
-                                        <div class="full-name font-weight-bold">${sessionScope.user.name}</div>
-                                    </div><span role="button" class="btn-link text-primary ml-auto"><i
-                                        class="lni lni-pencil mr-1"></i><span class="d-none d-lg-inline">Chỉnh
-                                            sửa</span></span>
+                                        <div class="full-name font-weight-bold">${sessionScope.userProfile.name}</div>
+                                    </div>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex flex-wrap no-gutters py-3 px-0" data-toggle="modal"
@@ -95,73 +110,58 @@
                                         *</span></div>
                                 <div class="d-flex flex-fill col-lg-9 no-gutters">
                                     <div class="flex-fill col-lg-9">
-                                        <div class="email font-weight-bold">${sessionScope.user.email}</div>
+                                        <div class="email font-weight-bold">${sessionScope.userProfile.email}</div>
                                         <p class="text-secondary mt-2 mb-0">Đây là địa chỉ email để đăng nhập.
                                             Chúng tôi
                                             cũng sẽ gửi thông báo đến địa chỉ này.</p>
-                                    </div><span role="button" class="btn-link text-primary ml-auto"><i
-                                        class="lni lni-pencil mr-1"></i><span class="d-none d-lg-inline">Chỉnh
-                                            sửa</span></span>
+                                    </div>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex flex-wrap no-gutters py-4 px-0">
                                 <div class="col-12 col-lg-3 mb-2 title-0-2-21">Giới tính</div>
                                 <div class="d-flex col-lg-9 no-gutters">
                                     <div class="col-lg-9">
-                                        <div class="gender font-weight-bold">...</div>
-                                    </div><span role="button" class="btn-link text-primary ml-auto"><i
-                                        class="lni lni-pencil mr-1"></i><span class="d-none d-lg-inline">Chỉnh
-                                            sửa</span></span>
+                                        <div class="gender font-weight-bold">${sessionScope.userProfile.gender != null ? sessionScope.userProfile.gender : '...'}</div>
+                                    </div>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex flex-wrap no-gutters py-4 px-0">
                                 <div class="col-12 col-lg-3 mb-2 title-0-2-21">Ngày sinh</div>
                                 <div class="d-flex col-lg-9 no-gutters">
                                     <div class="col-lg-9">
-                                        <div class="birth-date"><span class="text-secondary">Nhập ngày sinh của
-                                                bạn</span></div>
-                                    </div><span role="button" class="btn-link text-primary ml-auto"><i
-                                        class="lni lni-pencil mr-1"></i><span class="d-none d-lg-inline">Chỉnh
-                                            sửa</span></span>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex flex-wrap no-gutters py-4 px-0">
-                                <div class="col-12 col-lg-3 mb-2 title-0-2-21">Tình trạng hôn nhân</div>
-                                <div class="d-flex col-lg-9 no-gutters">
-                                    <div class="col-lg-9">
-                                        <div class="marital-status font-weight-bold">...</div>
-                                    </div><span role="button" class="btn-link text-primary ml-auto"><i
-                                        class="lni lni-pencil mr-1"></i><span class="d-none d-lg-inline">Chỉnh
-                                            sửa</span></span>
+                                        <div class="birth-date"><span class="text-secondary">${sessionScope.userProfile.birth != null ? sessionScope.userProfile.birth : 'Chưa cập nhật'}</span></div>
+                                    </div>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex flex-wrap no-gutters py-4 px-0">
                                 <div class="col-12 col-lg-3 mb-2 title-0-2-21">Số điện thoại</div>
                                 <div class="d-flex col-lg-9 no-gutters">
                                     <div class="col-lg-9">
-                                        <div class="phone"><span class="text-secondary">${sessionScope.user.phoneNumber}</span></div>
-                                    </div><span role="button" class="btn-link text-primary ml-auto"><i
-                                        class="lni lni-pencil mr-1"></i><span class="d-none d-lg-inline">Chỉnh
-                                            sửa</span></span>
+                                        <div class="phone"><span class="text-secondary">${sessionScope.userProfile.phoneNumber}</span></div>
+                                    </div>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex flex-wrap no-gutters py-4 px-0">
                                 <div class="col-12 col-lg-3 mb-2 title-0-2-21">Địa chỉ</div>
                                 <div class="d-flex col-lg-9 no-gutters">
                                     <div class="col-lg-9">
-                                        <div class="address font-weight-bold">, Viet Nam</div>
-                                    </div><span role="button" class="btn-link text-primary ml-auto"><i
-                                        class="lni lni-pencil mr-1"></i><span class="d-none d-lg-inline">Chỉnh
-                                            sửa</span></span>
+                                        <div class="address font-weight-bold">${sessionScope.userProfile.address != null ? sessionScope.userProfile.address : 'Chưa cập nhật'}</div>
+                                    </div>
                                 </div>
                             </li>
+                            <div class="text-center">
+                                <a href="${pageContext.request.contextPath}/editProfile" class="btn" style="background-color: #007bff; color: white; border: none; margin-top: 1rem;">
+                                    Chỉnh sửa thông tin cá nhân
+                                </a>
+                            </div>
                             <p class="text-center bg-light text-muted font-weight-bolder p-2 mt-2">Ngày đăng ký:
-                            ${sessionScope.user.convertCreated}</p><button type="button" data-toggle="modal"
-                                                     data-target="#delete-account-modal" class="btn btn-light d-flex text-danger shadow-none"
-                                                     fdprocessedid="vr79fj" style="width:max-content"><i class="fa fa-minus-circle mr-2"
-                                                                                                         style="font-size: 25px;"></i><span style="font-size: 18px;"> Xóa tài
+                                ${sessionScope.user.convertCreated}</p><button type="button" data-toggle="modal"
+                                                                               data-target="#delete-account-modal" class="btn btn-light d-flex text-danger shadow-none"
+                                                                               fdprocessedid="vr79fj" style="width:max-content"><i class="fa fa-minus-circle mr-2"
+                                                                                                                                   style="font-size: 25px;"></i><span style="font-size: 18px;"> Xóa tài
                                     khoản</span></button>
                         </ul>
+                       </form>
                     </div>
                 </div>
             </div>

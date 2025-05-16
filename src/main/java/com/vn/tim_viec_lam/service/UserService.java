@@ -20,25 +20,35 @@ public class UserService {
     public UserService() {
         userDao = new UserDao();
     }
-    public boolean login(String email, String password) {
-        return userDao.getUser(email,EncryptionService.hasPasswordToMD5(password));
+//    public boolean login(String email, String password) {
+//        return userDao.getUser(email,EncryptionService.hasPasswordToMD5(password));
+//    }
+public boolean login(String email, String password) {
+    User user = userDao.getUserByEmail(email);
+    if (user == null) {
+        return false; // Email không tồn tại
     }
+    String storedHashedPassword = userDao.getPasswordByUserId(user.getUserID());
+    if (storedHashedPassword == null) {
+        return false; // Không có mật khẩu lưu cho user này
+    }
+
+    String hashedInputPassword = EncryptionService.hasPasswordToMD5(password);
+    return storedHashedPassword.equals(hashedInputPassword);
+}
+
     public User getUser(String email) {
         return userDao.getUserByEmail(email);
     }
     public List<User> getListAll(){
         return userDao.getListUser();
     }
-
-
     public List<User> FindListUserByEmail(String  email){
         return userDao.findListUserbyEmail(email);
     }
     public User FindListUserByID(int  id){
         return userDao.findListUserbyID(id);
     }
-
-
     public void deleteUserByID(int id){
         userDao.deleteUser(id);
     }
@@ -84,6 +94,13 @@ public class UserService {
     public boolean getLockStatus(int userId) {
         int status =  userDao.getLockStatus(userId);
         return status == -1 ? true : false;
+    }
+
+    public User getUserById(int userID) {
+        return userDao.getUserById(userID);
+    }
+    public boolean updateUser(User user) {
+        return userDao.updateUser(user);
     }
     public static void main(String[] args) {
         UserService userService = new UserService();
