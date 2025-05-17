@@ -43,7 +43,23 @@
     color : rgb(222,0,0);
 }
 
+.status-success {
+    color: #16a34a;
+    font-weight: 600;
+}
 
+.status-failed {
+    color: #dc2626;
+    font-weight: 600;
+}
+.payment_code{
+    color : var(--blue-color);
+    font-weight: 600;
+}
+.payment_name{
+    color : var(--orange-color);
+    font-weight: 600;
+}
 
 .form__item select{
     font-size: 1.6rem;

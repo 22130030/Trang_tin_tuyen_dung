@@ -9,6 +9,8 @@ public class PaymentHistory implements java.io.Serializable {
     private int userId;
     private LocalDateTime paymentDate;
     private int amount;
+    private String name;
+    private String phone;
 //    0 -fail
 //    1 - success
 //    2 - prcessing
@@ -97,6 +99,23 @@ public class PaymentHistory implements java.io.Serializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return paymentDate.format(formatter);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     public String toString() {
         return "Payment_history{" +

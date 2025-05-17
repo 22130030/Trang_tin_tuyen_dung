@@ -35,6 +35,9 @@ public class PaymentHistoryService {
     public Map<Integer,Integer> getStatusAccount(){
         return paymentHistoryDao.getStatusAccount();
     }
+    public List<PaymentHistory> getAllPaymentHistory(){
+        return paymentHistoryDao.getAllPaymentHistory();
+    }
         public static void main(String[] args) {
         PaymentHistoryService paymentHistoryService = new PaymentHistoryService();
         System.out.println(paymentHistoryService.getRevenueByDay());

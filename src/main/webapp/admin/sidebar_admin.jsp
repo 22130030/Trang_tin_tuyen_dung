@@ -28,7 +28,7 @@
     <a href="${pageContext.request.contextPath}/admin/job_manager" class="${relativePath eq "/admin/admin_jobs.jsp" ? 'sidebar--active' : ''}">Quản lý bài đăng</a>
     <a href="${pageContext.request.contextPath}/admin/manager-category" class="${relativePath eq "/admin/admin_category.jsp" ? 'sidebar--active' : ''}">Quản lý ngành nghề</a>
     <a href="${pageContext.request.contextPath}/admin/manager-user" class="${relativePath eq "/admin/admin_user.jsp" ? 'sidebar--active' : ''}">Quản lý tài khoản</a>
-    <a href="${pageContext.request.contextPath}/admin/admin_payment_history.jsp" class="${relativePath eq "/admin/admin_payment_history.jsp" ? 'sidebar--active' : ''}">Quản lý giao dịch</a>
+    <a href="${pageContext.request.contextPath}/admin/manager-payment" class="${relativePath eq "/admin/admin_payment_history.jsp" ? 'sidebar--active' : ''}">Quản lý giao dịch</a>
     <a href="${pageContext.request.contextPath}/admin/revenue_statistics.jsp" class="${relativePath eq "/admin/revenue_statistics.jsp" ? 'sidebar--active' : ''}">Thống kê doanh thu</a>
 </div>
 </body>

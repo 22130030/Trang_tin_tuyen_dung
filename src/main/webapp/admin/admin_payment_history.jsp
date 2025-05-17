@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -63,16 +65,27 @@
           </tr>
           </thead>
           <tbody>
+          <c:forEach items="${paymentHistories}" var="ph">
+
             <tr>
-              <td>82734848</td>
-              <td class="">1</td>
-              <td>Ngô Văn Đức</td>
-              <td>22-2-2025</td>
-              <td class="">50000</td>
-              <td class="">VNPay</td>
-              <td>Ducdeptrai chuyen khoan</td>
-              <td class = "">Thành công</td>
+              <td class="payment_code">${ph.transactionCode}</td>
+              <td class="">${ph.userId}</td>
+              <td class="payment_name">${ph.name}</td>
+              <td>${ph.convertPaymentDate}</td>
+              <td class="">${ph.amount}</td>
+              <td class="">${ph.method}</td>
+              <td>${ph.description}</td>
+              <c:if test="${ph.status == 1}">
+                <td class="status-success">Thành công</td>
+
+              </c:if>
+              <c:if test="${ph.status == 0}">
+                <td class="status-failed">Thất bại</td>
+
+              </c:if>
             </tr>
+
+          </c:forEach>
           </tbody>
         </table>
       </div>
