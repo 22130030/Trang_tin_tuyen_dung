@@ -178,4 +178,34 @@ public class PaymentHistoryDao {
             throw new RuntimeException(e);
         }
     }
+
+    public List<PaymentHistory> getAllPaymentHistory() {
+        Connection con = DBconnect.getConnection();
+        String sql = "select ph.*,u.name from payment_histories ph" +
+                " join users u on u.userId = ph.userId" +
+                " order by payment_date desc";
+        try {
+            PreparedStatement pstmt = con.prepareStatement(sql);
+
+            ResultSet rs = pstmt.executeQuery();
+            List<PaymentHistory> list = new ArrayList<PaymentHistory>();
+            while(rs.next()){
+                int id = rs.getInt("paymentHistoryId");
+                String transactionCode = rs.getString("transaction_code");
+                int amount = rs.getInt("amount");
+                LocalDateTime paymentDate = rs.getTimestamp("payment_Date").toLocalDateTime();
+                String method = rs.getString("method");
+                int status = rs.getInt("status");
+                int userId = rs.getInt("userId");
+                String name = rs.getString("name");
+                String description = rs.getString("description");
+                PaymentHistory ph = new PaymentHistory(id,transactionCode,userId,paymentDate,amount,status,method,description);
+                ph.setName(name);
+                list.add(ph);
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
