@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Candidate implements Serializable {
     private int candidateID;
+    private int userID;
     private String fullName;
     private String address;
     private String email;
@@ -13,11 +14,13 @@ public class Candidate implements Serializable {
     private String appliedCompany;
     private LocalDateTime applyDate;
     private String status;
+    private String gender;
+    private String birth;
     public Candidate() {
     }
-
-    public Candidate(int candidateID, String fullName, String address, String email, String phone, String appliedCompany, LocalDateTime applyDate, String status) {
+    public Candidate(int candidateID,int userID, String fullName, String address, String email, String phone, String appliedCompany, LocalDateTime applyDate, String status, String gender, String birth) {
         this.candidateID = candidateID;
+        this.userID = userID;
         this.fullName = fullName;
         this.address = address;
         this.email = email;
@@ -25,6 +28,8 @@ public class Candidate implements Serializable {
         this.appliedCompany = appliedCompany;
         this.applyDate = applyDate;
         this.status = status;
+        this.gender = gender;
+        this.birth = birth;
     }
 
     public int getCandidateID() {
@@ -33,6 +38,14 @@ public class Candidate implements Serializable {
 
     public void setCandidateID(int candidateID) {
         this.candidateID = candidateID;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getFullName() {
@@ -95,10 +108,27 @@ public class Candidate implements Serializable {
         this.status = status;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getBirth() {
+        return birth;
+    }
+
+    public void setBirth(String birth) {
+        this.birth = birth;
+    }
+
     @Override
     public String toString() {
         return "Candidate{" +
                 "candidateID=" + candidateID +
+                ", userID=" + userID +
                 ", fullName='" + fullName + '\'' +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
@@ -106,6 +136,8 @@ public class Candidate implements Serializable {
                 ", appliedCompany='" + appliedCompany + '\'' +
                 ", applyDate=" + applyDate +
                 ", status='" + status + '\'' +
+                ", gender='" + gender + '\'' +
+                ", birth='" + birth + '\'' +
                 '}';
     }
 }

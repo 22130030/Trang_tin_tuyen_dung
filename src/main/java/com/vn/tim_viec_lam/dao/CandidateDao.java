@@ -129,7 +129,6 @@ public class CandidateDao {
         return false;
 
     }
-
     public Candidate getCandidateById(int id) {
         Connection con = DBconnect.getConnection();
         String sql = "SELECT " +
@@ -155,16 +154,18 @@ public class CandidateDao {
             throw new RuntimeException(e);
         }
     }
-    public boolean editUserCandidate(int cid, String fullname, String email, String phone,String status ) {
+    public boolean editUserCandidate(int cid, String fullname, String email, String phone,String status, String gender, String birth ) {
         Connection conn = DBconnect.getConnection();
-        String sql = "UPDATE candidates c JOIN job_applications ja ON c.candidateID = ja.candidateID SET c.fullname = ?, c.email = ?, c.phone = ?, ja.status = ? WHERE c.candidateID = ?";
+        String sql = "UPDATE candidates c JOIN job_applications ja ON c.candidateID = ja.candidateID SET c.fullname = ?, c.email = ?, c.phone = ?, ja.status = ?, c.gender = ?, c.birth_date = ? WHERE c.candidateID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, fullname);
             pre.setString(2, email);
             pre.setString(3, phone);
             pre.setString(4, status);
-            pre.setInt(5, cid);
+            pre.setString(5, gender);
+            pre.setString(6, birth);
+            pre.setInt(7, cid);
             if(pre.executeUpdate()>0){
                 return true;
             }
@@ -174,12 +175,55 @@ public class CandidateDao {
         return false;
     }
 
+    public Candidate getCandidateByUserId(int userId) {
+        String sql = "SELECT candidateID, userID, fullname, address, email, phone, gender, birth_date FROM candidates WHERE userID = ?";
 
+        try (Connection con = DBconnect.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
 
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Candidate candidate = new Candidate();
+                candidate.setCandidateID(rs.getInt("candidateID"));
+                candidate.setUserID(rs.getInt("userID"));
+                candidate.setFullName(rs.getString("fullname"));
+                candidate.setAddress(rs.getString("address"));
+                candidate.setEmail(rs.getString("email"));
+                candidate.setPhone(rs.getString("phone"));
+                candidate.setGender(rs.getString("gender"));
+                candidate.setBirth(rs.getString("birth_date"));
+                return candidate;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 
+    public boolean updateCandidate(Candidate candidate) {
+        String sql = "UPDATE candidates SET fullname = ?, address = ?, email = ?, phone = ?, gender = ?, birth_date = ? WHERE userID = ?";
+
+        try (Connection con = DBconnect.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setString(1, candidate.getFullName());
+            stmt.setString(2, candidate.getAddress());
+            stmt.setString(3, candidate.getEmail());
+            stmt.setString(4, candidate.getPhone());
+            stmt.setString(5, candidate.getGender());
+            stmt.setString(6, candidate.getBirth());
+            stmt.setInt(7, candidate.getUserID());
+
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private Candidate executeResult(ResultSet rs) throws SQLException  {
         int candidateID = rs.getInt("candidateID");
+        int userId = rs.getInt("useID");
         String fullName = rs.getString("fullName");
         String address = rs.getString("address");
         String email = rs.getString("email");
@@ -187,7 +231,9 @@ public class CandidateDao {
         String appliedCompany = rs.getString("company_name");
         LocalDateTime applyDate = rs.getTimestamp("application_date").toLocalDateTime();
         String status = rs.getString("application_status");
-        Candidate candidate = new Candidate(candidateID, fullName, address, email, phone, appliedCompany, applyDate, status);
+        String gender = rs.getString("gender");
+        String birthDate = rs.getString("birth");
+        Candidate candidate = new Candidate(candidateID,userId, fullName, address, email, phone, appliedCompany, applyDate, status, gender, birthDate);
         return candidate;
     }
 
