@@ -24,6 +24,20 @@
 
 <div class="candidate">
     <%@include file="header.jsp"%>
+    <c:if test="${empty conversations}">
+        <div class="no-messages-container">
+            <img src="asserts/img/no_message.jpg" alt="No messages" class="no-messages-img" />
+            <h2 class="no-messages-title">Chào mừng bạn đến với phần tin nhắn</h2>
+            <p class="no-messages-text">
+                Hiện tại bạn chưa có tin nhắn nào,hãy tích cực hoạt động nhiều hơn nhé!
+            </p>
+            <div class="no-messages-buttons">
+                <a href="${pageContext.request.contextPath}/home" class="btn-primary">Tìm việc làm</a>
+                <a href="${pageContext.request.contextPath}/account/upload-file" class="btn-outline">Tạo CV của bạn</a>
+            </div>
+        </div>
+    </c:if>
+    <c:if test="${!empty conversations}">
     <div class="wrapper">
         <div class="sidebar">
             <h2>Cuộc trò chuyện</h2>
@@ -123,6 +137,7 @@
         </div>
 
     </div>
+    </c:if>
 </div>
 </c:when>
     <c:when test="${sessionScope.currentUrl eq '/employer-home'}">

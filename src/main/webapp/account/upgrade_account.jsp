@@ -83,8 +83,11 @@
 
                 </ul>
                 <div class="action update">
-                    <a href="javascript:void(0)" class="btn btn--disable"
-                       data-original-title="" title="">Đã xác thực</a>
+                    <c:if test="${sessionScope.status >= 0}">
+                        <a href="javascript:void(0)" class="btn btn--disable"
+                           data-original-title="" title="">Đã xác thực
+                        </a>
+                    </c:if>
                 </div>
             </div>
         </div>
@@ -122,7 +125,10 @@
 
                 </ul>
                 <div class="action update">
-                    <a href="javascript:void(0)" class="btn btn--disable" data-original-title="" title="">Đã xác thực</a>
+                    <c:if test="${sessionScope.status >= 1}">
+                        <a href="javascript:void(0)" class="btn btn--disable" data-original-title="" title="">Đã xác thực</a>
+
+                    </c:if>
                 </div>
             </div>
         </div>
@@ -157,8 +163,19 @@
                     </li>
                 </ul>
                 <div class="action update">
-                    <a href="payment.jsp?plan=pro"
-                       class="btn btn--upgrade">Nâng cấp</a>
+                    <c:choose>
+                        <c:when test="${sessionScope.status >= 2}">
+                            <a href="javascript:void(0)" class="btn btn--disable" data-original-title="" title="">Đã nâng cấp</a>
+
+                        </c:when>
+                        <c:when test="${sessionScope.status < 2}">
+
+                            <a href="payment.jsp?plan=pro"
+                           class="btn btn--upgrade">Nâng cấp
+                            </a>
+                        </c:when>
+                    </c:choose>
+
                 </div>
             </div>
         </div>
@@ -194,8 +211,18 @@
 
                 </ul>
                 <div class="action update">
-                    <a href="payment.jsp?plan=premium"
-                       class="btn btn--upgrade">Nâng cấp</a>
+                    <c:choose>
+                        <c:when test="${sessionScope.status >= 3}">
+                            <a href="javascript:void(0)" class="btn btn--disable" data-original-title="" title="">Đã nâng cấp</a>
+
+                        </c:when>
+                        <c:when test="${sessionScope.status < 3}">
+
+                            <a href="payment.jsp?plan=premium"
+                               class="btn btn--upgrade">Nâng cấp
+                            </a>
+                        </c:when>
+                    </c:choose>
                 </div>
             </div>
         </div>
