@@ -271,3 +271,68 @@ body {
     font-size: 13px;
     margin-top: 4px;
 }
+
+
+/*no message */
+.no-messages-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    color: #333;
+    height : 80%;
+}
+
+.no-messages-img {
+    max-width: 300px;
+    margin: 0 auto 20px;
+    display: block;
+}
+
+.no-messages-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #002F6C;
+}
+
+.no-messages-text {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.no-messages-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-outline {
+    border: 2px solid #007bff;
+    color: #007bff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+.btn-outline:hover {
+    background-color: #e6f0ff;
+}
