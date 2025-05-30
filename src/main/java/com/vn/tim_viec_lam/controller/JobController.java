@@ -61,7 +61,6 @@ public class JobController extends HttpServlet {
             categoryCounts = jobCategoryService.getCategoriesByPage(indexCategory);
 
             request.setAttribute("jobs", jobs);
-//            request.setAttribute("categories", categories);
             request.setAttribute("categoryCounts", categoryCounts);
             request.setAttribute("np", np);
             request.setAttribute("newJob", newJob);
