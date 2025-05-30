@@ -295,27 +295,39 @@
         <div class="category__container">
             <div class="grid">
                 <div class="grid__row jobs">
-
-
-                    <c:forEach var="c" items="${categories}">
+                    <c:forEach var="c" items="${categoryCounts}">
                         <div class="grid__col-2">
-
-
-
-
                             <div class="category__card">
                                 <div class="card__img">
-
-
                                     <img src="${c.img}" alt="">
                                 </div>
                                 <a href="search-job?jcid=${c.id}&jcname=${c.name}" class="card__link">
                                     <span class="card__title">${c.name}</span>
                                 </a>
-                                <span class="card__quantity-job">1513 việc làm</span>
+                                <span class="card__quantity-job">${c.count} việc làm</span>
                             </div>
                         </div>
                     </c:forEach>
+<%--    <c:forEach var="c" items="${categories}">--%>
+<%--        <div class="grid__col-2">--%>
+<%--            <div class="category__card">--%>
+<%--                <div class="card__img">--%>
+<%--                    <img src="${c.img}" alt="">--%>
+<%--                </div>--%>
+<%--                <a href="search-job?jcid=${c.id}&jcname=${c.name}" class="card__link">--%>
+<%--                    <span class="card__title">${c.name}</span>--%>
+<%--                </a>--%>
+<%--                <!-- Vòng lặp thứ 2 để lấy count -->--%>
+<%--                <c:set var="jobCount" value="0"/>--%>
+<%--                <c:forEach var="cc" items="${categoryCounts}">--%>
+<%--                    <c:if test="${cc.id == c.id}">--%>
+<%--                        <c:set var="jobCount" value="${cc.count}"/>--%>
+<%--                    </c:if>--%>
+<%--                </c:forEach>--%>
+<%--                <span class="card__quantity-job">${jobCount} việc làm</span>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </c:forEach>--%>
                 </div>
 
 
