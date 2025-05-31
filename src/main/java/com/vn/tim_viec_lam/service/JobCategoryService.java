@@ -1,12 +1,17 @@
 package com.vn.tim_viec_lam.service;
 
+import com.vn.tim_viec_lam.dao.CategoryDao;
 import com.vn.tim_viec_lam.dao.JobCategoryDao;
+import com.vn.tim_viec_lam.dao.JobPostCategoryDAO;
 import com.vn.tim_viec_lam.dao.model.JobCategory;
+import com.vn.tim_viec_lam.dao.model.JobCategoryCount;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class JobCategoryService {
     JobCategoryDao jobCategoryDao;
+    private JobPostCategoryDAO dao = new JobPostCategoryDAO();
 
     public JobCategoryService() {
         jobCategoryDao = new JobCategoryDao();
@@ -28,5 +33,14 @@ public class JobCategoryService {
     }
     public void addCategory(String jobCategory,String jobCategoryName) {
         jobCategoryDao.addCategory(jobCategory, jobCategoryName);
+    }
+    public List<JobCategoryCount> getJobCategoryCounts() throws SQLException {
+        return dao.getJobCategoryCounts();
+    }
+    public List<JobCategoryCount> getCategoriesByPage(int pageIndex) {
+        return dao.getCategoriesByPage(pageIndex);
+    }
+    public int getNumberPage() {
+        return dao.getNumberPage();
     }
 }

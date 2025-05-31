@@ -295,24 +295,16 @@
         <div class="category__container">
             <div class="grid">
                 <div class="grid__row jobs">
-
-
-                    <c:forEach var="c" items="${categories}">
+                    <c:forEach var="c" items="${categoryCounts}">
                         <div class="grid__col-2">
-
-
-
-
                             <div class="category__card">
                                 <div class="card__img">
-
-
                                     <img src="${c.img}" alt="">
                                 </div>
                                 <a href="search-job?jcid=${c.id}&jcname=${c.name}" class="card__link">
                                     <span class="card__title">${c.name}</span>
                                 </a>
-                                <span class="card__quantity-job">1513 việc làm</span>
+                                <span class="card__quantity-job">${c.count} việc làm</span>
                             </div>
                         </div>
                     </c:forEach>
@@ -511,41 +503,62 @@
         padding: 10px;
     }
 
-    /* Điều chỉnh danh sách gợi ý */
-    .suggestion-list {
+    /* Gợi ý cho tên vị trí, công ty */
+    #suggestionList {
         position: absolute;
-        width: (100% - 20px); /* Độ rộng tương đương ô input */
-        background: white;
+        top: 100%;
+        left: 2%;
+        width: 580px;
+        background-color: white;
+        border: 1px solid #ccc;
         border-top: none;
         max-height: 300px;
         overflow-y: auto;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
         z-index: 1000;
-        font-size: 16px; /* Tăng kích thước chữ trong gợi ý */
+        font-size: 16px;
+        border-radius: 0 0 5px 5px;
     }
 
-    /* Tùy chỉnh từng mục gợi ý */
-    .suggestion-list div {
-        padding: 10px;
+    #suggestionList .suggestion-item {
+        padding: 10px 15px;
         cursor: pointer;
         border-bottom: 1px solid #eee;
-        transition: background 0.3s ease;
+        transition: background-color 0.25s ease;
+        color: #333;
     }
 
-    /* Hiệu ứng hover */
-    .suggestion-list div:hover {
-        background: #f0f0f0;
+    #suggestionList .suggestion-item:hover {
+        background-color: #f0f0f0;
     }
 
-    /* Định vị danh sách gợi ý cho cả hai input */
-    #suggestionList {
-        top: 50px; /* Khoảng cách dưới ô input */
-        left: 0;
-    }
-
+    /* Gợi ý cho địa điểm */
     #addressSuggestionList {
-        top: 50px; /* Khoảng cách dưới ô input */
-        left: 0;
+        position: absolute;
+        top: 100%;
+        left: 48%;
+        width: 580px;
+        background-color: #fefefe;
+        border: 1px solid #aaa;
+        border-top: none;
+        max-height: 250px;
+        overflow-y: auto;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        font-size: 15px;
+        border-radius: 0 0 5px 5px;
+    }
+
+    #addressSuggestionList .suggestion-item {
+        padding: 8px 12px;
+        cursor: pointer;
+        border-bottom: 1px solid #ddd;
+        transition: background-color 0.25s ease;
+        color: #222;
+    }
+
+    #addressSuggestionList .suggestion-item:hover {
+        background-color: #eaeaea;
     }
 
 </style>
