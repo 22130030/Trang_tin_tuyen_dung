@@ -223,7 +223,7 @@ public class CandidateDao {
 
     private Candidate executeResult(ResultSet rs) throws SQLException  {
         int candidateID = rs.getInt("candidateID");
-        int userId = rs.getInt("useID");
+        int userId = rs.getInt("userID");
         String fullName = rs.getString("fullName");
         String address = rs.getString("address");
         String email = rs.getString("email");
@@ -232,7 +232,7 @@ public class CandidateDao {
         LocalDateTime applyDate = rs.getTimestamp("application_date").toLocalDateTime();
         String status = rs.getString("application_status");
         String gender = rs.getString("gender");
-        String birthDate = rs.getString("birth");
+        String birthDate = rs.getString("birth_date");
         Candidate candidate = new Candidate(candidateID,userId, fullName, address, email, phone, appliedCompany, applyDate, status, gender, birthDate);
         return candidate;
     }
