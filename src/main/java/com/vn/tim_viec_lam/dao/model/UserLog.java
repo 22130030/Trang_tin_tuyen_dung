@@ -18,10 +18,11 @@ public class UserLog implements Serializable {
     public UserLog() {
     }
 
-    public UserLog(int id, Integer userId, String username, String role, String action, String loginType, String status, String ipAddress, Date logTime, String description) {
-        this.id = id;
-        this.userId = userId;
-        this.username = username;
+    public UserLog(User user, String role, String action, String loginType, String status, String ipAddress, Date logTime, String description) {
+        if (user != null) {
+            this.userId = user.getUserID();
+            this.username = user.getEmail();
+        }
         this.role = role;
         this.action = action;
         this.loginType = loginType;
