@@ -2,6 +2,7 @@ package com.vn.tim_viec_lam.controller;
 
 import com.vn.tim_viec_lam.service.CompanyUserService;
 import com.vn.tim_viec_lam.service.EncryptionService;
+import com.vn.tim_viec_lam.service.LogService;
 import com.vn.tim_viec_lam.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -25,13 +26,33 @@ public class RegisterEmployer extends HttpServlet {
         String address = req.getParameter("address_detail");
 
         CompanyUserService companyUserService = new CompanyUserService();
+        LogService logService = new LogService();
+        String ip = req.getRemoteAddr();
        if(companyUserService.isEmailExists(email)){
+           logService.addLogCompany(
+                   null,                 // user chưa có
+                   "employer",           // role
+                   "register",           // action
+                   "local",           // loginType
+                   "ERROR",              // status
+                   ip,
+                   "Employer registration Failed"
+           );
            req.setAttribute("emailError", "Email này đã được đăng ký. Vui lòng nhập email khác.");
            req.setAttribute("fName", fName);
            req.setAttribute("phone", phone);
            req.getRequestDispatcher("/register_for_employer.jsp").forward(req, resp);
            return;
        }
+        logService.addLogCompany(
+                null,                 // user chưa có
+                "employer",           // role
+                "register",           // action
+                "local",           // loginType
+                "INFO",              // status
+                ip,
+                "Employer registration Success"
+        );
 
         HttpSession session = req.getSession(false);
         session.setAttribute("email", email);

@@ -48,6 +48,7 @@ public class CandidateLogin extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         HttpSession session = request.getSession(true);
+        String ip = request.getRemoteAddr();
 
         // Kiểm tra xem tài khoản đã bị khóa chưa
         Long lockTime = (Long) session.getAttribute("lockTime");
@@ -72,14 +73,28 @@ public class CandidateLogin extends HttpServlet {
                 }
 
                 UserService us = new UserService();
-                if (us.login(email, password)) {
+                LogService logService = new LogService();
 
+                if (us.login(email, password)) {
                     User u = us.getUser(email);
+
+                    String roleStr = "unknown";
+                    if (u != null) {
+                        int roleNum = u.getRoleNum();
+                        switch (roleNum) {
+                            case 1: roleStr = "candidate"; break;
+                            case 2: roleStr = "employer"; break;
+                            case 3: roleStr = "admin"; break;
+                        }
+                    }
+
                     boolean locked = us.getLockStatus(u.getUserID());
                     if(locked){
+                        logService.addLog(u, "candidate", "login", "local", "ERROR", ip, "Login Failed");
                         response.sendRedirect("login.jsp?error=locked");
                         return;
                     }
+                    logService.addLog(u, roleStr, "login", "local", "INFO", ip, "Login Success");
 
 
                     session.removeAttribute("failedAttempts");
@@ -89,6 +104,7 @@ public class CandidateLogin extends HttpServlet {
 
                     if (u == null) {
                         // Đề phòng user không tồn tại dù login trả về true
+                        logService.addLog(null, "unknown", "login", "local", "ERROR", ip, "Login Failed");
                         response.sendRedirect("login.jsp?error=nouser");
                         return;
                     }
@@ -124,6 +140,17 @@ public class CandidateLogin extends HttpServlet {
                     // Đăng nhập thất bại
                     failedAttempts++;
                     session.setAttribute("failedAttempts", failedAttempts);
+                    User u = us.getUser(email);
+                    String roleStr = "unknown";
+                    if (u != null) {
+                        int roleNum = u.getRoleNum();
+                        switch (roleNum) {
+                            case 1: roleStr = "candidate"; break;
+                            case 2: roleStr = "employer"; break;
+                            case 3: roleStr = "admin"; break;
+                        }
+                    }
+                    logService.addLog(u, roleStr, "login", "local", "ERROR", ip, "Login Failed");
 
                     if (failedAttempts >= 5) {
                         session.setAttribute("lockTime", System.currentTimeMillis());

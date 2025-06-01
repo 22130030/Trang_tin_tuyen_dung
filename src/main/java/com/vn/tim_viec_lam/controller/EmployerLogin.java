@@ -21,6 +21,9 @@ public class EmployerLogin extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
+        String ip = request.getRemoteAddr();
+        LogService logService = new LogService();
+
         if (email == null || email.trim().isEmpty()) {
             request.setAttribute("errorMessage", "Vui lòng điền tên tài khoản.");
             request.getRequestDispatcher("employer_home.jsp").forward(request, response);
@@ -38,10 +41,13 @@ public class EmployerLogin extends HttpServlet {
         if(us.login(email, password)) {
             CompanyUser u = us.getUser(email);
             if (u == null) {
+                logService.addLogCompany(u, "employer", "login", "local", "ERROR", ip, "Login Employer Failed");
                 request.setAttribute("errorMessage", "Tài khoản không tồn tại.");
                 request.getRequestDispatcher("employer_home.jsp").forward(request, response);
                 return;
             }
+            logService.addLogCompany(u, "employer", "login", "local", "INFO", ip, "Login Employer Success");
+
             int companyID = u.getCompanyID();
             int role = u.getRoleNum();
 
@@ -53,12 +59,14 @@ public class EmployerLogin extends HttpServlet {
             session.setAttribute("companyCreateTime", u.getCreated_at());
             session.setAttribute("role",role);
             session.setAttribute("companyId", companyID);
+            session.setAttribute("loginType", "local");
             if(role ==2){
                 response.sendRedirect("employer/employer.jsp");
             }
 
         }
         else{
+            logService.addLog(null, "employer", "login", "local", "ERROR", ip, "Login Employer Failed");
             request.setAttribute("errorMessage", "Bạn đã nhập sai tài khoản hoặc mật khẩu");
             request.getRequestDispatcher("employer_home.jsp").forward(request, response);
         }
