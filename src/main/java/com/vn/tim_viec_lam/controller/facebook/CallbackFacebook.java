@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.vn.tim_viec_lam.dao.model.JobApplication;
 import com.vn.tim_viec_lam.dao.model.Resumes;
 import com.vn.tim_viec_lam.dao.model.User;
+import com.vn.tim_viec_lam.service.LogService;
 import com.vn.tim_viec_lam.service.CandidateService;
 import com.vn.tim_viec_lam.service.JobApplicationService;
 import com.vn.tim_viec_lam.service.ResumesService;
@@ -48,6 +49,8 @@ public class CallbackFacebook extends HttpServlet {
 
 
         String accessToken = getJsonValue(tokenUrl, "access_token");
+        String ip = req.getRemoteAddr();
+
         if (accessToken != null && !accessToken.isEmpty()) {
             String userInfoUrl = "https://graph.facebook.com/me?fields=id,name,email,picture&access_token=" + accessToken;
 
@@ -56,6 +59,9 @@ public class CallbackFacebook extends HttpServlet {
             String picture = (getJsonValue(userInfoUrl, "picture"));
             String url = getPictureUrl(picture);
             String userEmail = getJsonValue(userInfoUrl, "email");
+
+            LogService logService = new LogService();
+
             if (userEmail == null) {
                 System.out.println("Không thể lấy email từ Facebook!");
                 resp.sendRedirect("login?error=email_not_found");
@@ -65,12 +71,16 @@ public class CallbackFacebook extends HttpServlet {
             UserService userService = new UserService();
             User user = userService.getUser(userEmail);
             HttpSession session = req.getSession(true);
+
             if(user != null) {
                 boolean locked = userService.getLockStatus(user.getUserID());
                 if(locked){
+                    logService.addLog(user, "candidate", "login", "facebook", "ERROR", ip, "Login Facebook Failed");
                     resp.sendRedirect("login.jsp?error=locked");
                     return;
                 }
+                logService.addLog(user, "candidate", "login", "facebook", "INFO", ip, "Login Facebook Success");
+
                 int role = user.getRoleNum();
                 CandidateService cs = new CandidateService();
                 int candidateId = cs.getCandidateIdByUserId(user.getUserID());
@@ -85,10 +95,12 @@ public class CallbackFacebook extends HttpServlet {
                 session.setAttribute("status",user.getStatus());
                 session.setAttribute("userID",user.getUserID());
                 session.setAttribute("candidateId", candidateId);
+                session.setAttribute("loginType", "facebook");
                 resp.sendRedirect("home");
                 return;
             }
             if(user == null) {
+                logService.addLog(null, "candidate", "login", "facebook", "ERROR", ip, "Login Facebook Failed");
                 session.setAttribute("email", userEmail);
                 session.setAttribute("fName", userName);
                 session.setAttribute("auth_provider", "facebook");

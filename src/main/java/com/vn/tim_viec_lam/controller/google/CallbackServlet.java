@@ -66,24 +66,31 @@
                     String email = payload.getEmail();
 
                     UserService userService = new UserService();
+                    LogService logService = new LogService();
+                    String ip = req.getRemoteAddr();
                     User user = userService.getUser(email);
 
                     HttpSession session = req.getSession(true);
                     if(user == null) {
-
                         String name = (String) payload.get("name");
                         String picture = (String) payload.get("picture");
+
+                        logService.addLog(null, "candidate", "login", "google", "ERROR", ip, "Login Google Failed:");
+
                         session.setAttribute("email", email);
                         session.setAttribute("fName", name);
                         session.setAttribute("auth_provider", "google");
                         req.setAttribute("picture", picture);
+                        session.setAttribute("auth_provider", "google");
                         req.getRequestDispatcher("CandidateLoginGG.jsp").forward(req, resp);
                     }else{
                         boolean locked = userService.getLockStatus(user.getUserID());
                         if(locked){
+                            logService.addLog(user, "candidate", "login", "google", "ERROR", ip, "Login Google Failed");
                             resp.sendRedirect("login.jsp?error=locked");
                             return;
                         }
+                        logService.addLog(user, "candidate", "login", "google", "INFO", ip, "Login Google Success");
                         int role = user.getRoleNum();
                         CandidateService cs = new CandidateService();
                         int candidateId = cs.getCandidateIdByUserId(user.getUserID());
@@ -98,6 +105,7 @@
                         session.setAttribute("status",user.getStatus());
                         session.setAttribute("userID",user.getUserID());
                         session.setAttribute("candidateId", candidateId);
+                        session.setAttribute("loginType", "google");
                         resp.sendRedirect("home");
                     }
 
