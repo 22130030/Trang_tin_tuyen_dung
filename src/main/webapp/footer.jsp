@@ -720,6 +720,165 @@
 
 
 </div>
+<script>
+    // Enhanced JavaScript functionality
+    const showNotification = (message, type = 'info') => {
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
 
+
+        notificationText.textContent = message;
+        notification.className = `notification ${type} show`;
+
+
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    };
+
+
+    // Message button functionality
+    document.getElementById('messageBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        showNotification('Đang mở cuộc trò chuyện với ${companyName}...', 'info');
+
+
+        // Simulate opening chat after delay
+        setTimeout(() => {
+            window.open('http://zaloapp.com/qr/p/in0vyfbibpbs', '_blank');
+        }, 1000);
+    });
+
+
+    // Follow button functionality
+    document.getElementById('followBtn').addEventListener('click', function() {
+        const icon = this.querySelector('i');
+        const text = this.querySelector('span') || this;
+
+
+        if (icon.classList.contains('fas')) {
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+            showNotification('Đã bỏ theo dõi ${companyName}', 'info');
+        } else {
+            icon.classList.remove('far');
+            icon.classList.add('fas');
+            showNotification('Đã theo dõi ${companyName}', 'success');
+        }
+    });
+
+
+    // QR Code functionality
+    document.getElementById('qrCode').addEventListener('click', function() {
+        showNotification('Quét mã QR bằng ứng dụng Zalo để kết nối', 'info');
+
+
+        // Add visual feedback
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            this.style.transform = 'scale(1)';
+        }, 150);
+    });
+
+
+    // Service items functionality
+    document.querySelectorAll('.service-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const service = this.dataset.service;
+            const serviceName = this.querySelector('.service-name').textContent;
+
+
+            switch(service) {
+                case 'contact':
+                    showNotification(`Đang mở chức năng ${serviceName}...`, 'info');
+                    setTimeout(() => {
+                        alert('Liên hệ: ${phone} hoặc email: contact@lienketvnc.com');
+                    }, 1000);
+                    break;
+                case 'website':
+                    showNotification('Đang chuyển đến trang web...', 'info');
+                    setTimeout(() => {
+                        window.open('${website}', '_blank');
+                    }, 1000);
+                    break;
+                case 'register':
+                    showNotification('Đang chuyển đến trang đăng ký...', 'info');
+                    setTimeout(() => {
+                        window.open('${website}/register', '_blank');
+                    }, 1000);
+                    break;
+                case 'search':
+                    showNotification('Đang mở trang tìm kiếm việc làm...', 'info');
+                    setTimeout(() => {
+                        window.open('${website}/jobs', '_blank');
+                    }, 1000);
+                    break;
+            }
+        });
+    });
+
+
+    // Add smooth scrolling for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+
+    // Add loading states for external links
+    document.querySelectorAll('a[target="_blank"]').forEach(link => {
+        link.addEventListener('click', function() {
+            showNotification('Đang mở liên kết...', 'info');
+        });
+    });
+
+
+    // Intersection Observer for animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+
+    // Observe all service items for scroll animations
+    document.querySelectorAll('.service-item').forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(item);
+    });
+
+
+    // Add typing effect for company name (optional)
+    const companyNameElement = document.querySelector('.profile-info h1');
+    if (companyNameElement) {
+        const originalText = companyNameElement.textContent;
+        // Keep the verification badge
+        const badge = companyNameElement.querySelector('.verified-badge');
+        companyNameElement.innerHTML = '';
+        if (badge) companyNameElement.appendChild(badge);
+
+
+        // Typing effect can be added here if desired
+    }
+</script>
 </body>
 </html>
