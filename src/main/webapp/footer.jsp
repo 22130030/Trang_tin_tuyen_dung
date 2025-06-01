@@ -29,7 +29,8 @@
     </div>
 </div>
     <div class="footer">
-    <div class="grid">
+
+        <div class="grid">
         <div class="grid__row">
             <div class="grid__col-4">
                 <h3 class = "footer__heading">Dành cho ứng viên</h3>
