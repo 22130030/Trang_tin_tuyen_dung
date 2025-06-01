@@ -136,19 +136,35 @@ public boolean insertUserLog(User user, String role, String action, String login
         }
         return false;
     }
+    public List<UserLog> getListLog() {
+        List<UserLog> logs = new ArrayList<>();
+
+        Connection conn = DBconnect.getConnection();
+        String sql = "SELECT * FROM user_log ORDER BY log_time DESC";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                UserLog log = new UserLog();
+                log.setId(rs.getInt("id"));
+                log.setUserId(rs.getInt("userID"));
+                log.setUsername(rs.getString("username"));
+                log.setRole(rs.getString("role"));
+                log.setAction(rs.getString("action"));
+                log.setLoginType(rs.getString("login_type"));
+                log.setStatus(rs.getString("status"));
+                log.setIpAddress(rs.getString("ip_address"));
+                log.setLogTime(rs.getTimestamp("log_time")); // hoặc rs.getDate(...) nếu dùng Date
+                log.setDescription(rs.getString("description"));
+                logs.add(log);
+            }
+            return logs;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static void main(String[] args) {
         LogDao logDao = new LogDao();
-
-        // Test 1: Insert log với user
-        User user = new User();
-        user.setUserID(2);
-        user.setEmail("testuser@gmail.com");
-
-        boolean result1 = logDao.insertUserLog(user, "ung_vien", "login", "password", "success", "127.0.0.1", "Test insert log có user");
-        if (result1) {
-            System.out.println("Thêm log (có user) thành công!");
-        } else {
-            System.out.println("Thêm log (có user) thất bại!");
-        }
+        System.out.println(logDao.getListLog());
     }
 }
