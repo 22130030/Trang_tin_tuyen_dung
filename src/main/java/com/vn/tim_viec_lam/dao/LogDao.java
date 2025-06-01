@@ -140,7 +140,7 @@ public boolean insertUserLog(User user, String role, String action, String login
         List<UserLog> logs = new ArrayList<>();
 
         Connection conn = DBconnect.getConnection();
-        String sql = "SELECT * FROM user_log ORDER BY log_time DESC";
+        String sql = "SELECT * FROM user_log ORDER BY id ASC";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

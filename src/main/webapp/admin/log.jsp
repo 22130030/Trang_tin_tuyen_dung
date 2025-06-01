@@ -70,13 +70,18 @@
 
                     </thead>
                     <tbody>
-<%--                    <c:forEach items="${user}" var="u">--%>
-<%--                        <tr>--%>
-<%--                            <td>${u.userID}</td>--%>
-<%--                            <td>${u.email}</td>--%>
-<%--                            <td>${u.password}</td>--%>
-<%--                            <td>${u.roleNum}</td>--%>
-<%--                            <td>${u.status}</td>--%>
+                    <c:forEach items="${log}" var="l">
+                        <tr>
+                            <td>${l.id}</td>
+                            <td>${l.userId}</td>
+                            <td>${l.username}</td>
+                            <td>${l.role}</td>
+                            <td>${l.action}</td>
+                            <td>${l.loginType}</td>
+                            <td>${l.status}</td>
+                            <td>${l.ipAddress}</td>
+                            <td>${l.logTime}</td>
+                            <td>${l.description}</td>
 <%--                            <td>--%>
 <%--                                <div class="operations">--%>
 <%--                                    <div class="operation operation__edit">--%>
@@ -92,8 +97,8 @@
 <%--                                    </div>--%>
 <%--                                </div>--%>
 <%--                            </td>--%>
-<%--                        </tr>--%>
-<%--                    </c:forEach>--%>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
