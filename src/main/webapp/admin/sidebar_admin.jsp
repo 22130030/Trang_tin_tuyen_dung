@@ -23,6 +23,7 @@
     <h3>Trang chủ admin</h3>
 
     <a href="${pageContext.request.contextPath}/admin/report" class="${relativePath eq "/admin/admin_home.jsp" ? 'sidebar--active' : ''}" href="#">Thống kê và báo cáo</a>
+    <a href="${pageContext.request.contextPath}/admin/log" class="${relativePath eq "/admin/log.jsp" ? 'sidebar--active' : ''}" href="#">Nhật kí hoạt động</a>
     <a href="${pageContext.request.contextPath}/admin/company-user-job" class="${relativePath eq "/admin/admin_employer.jsp" ? 'sidebar--active' : ''}">Quản lý nhà tuyển dụng</a>
     <a href="${pageContext.request.contextPath}/admin/candidate-user-find" class="${relativePath eq "/admin/admin_candidate.jsp" ? 'sidebar--active' : ''}">Quản lý ứng viên</a>
     <a href="${pageContext.request.contextPath}/admin/job_manager" class="${relativePath eq "/admin/admin_jobs.jsp" ? 'sidebar--active' : ''}">Quản lý bài đăng</a>
@@ -30,6 +31,7 @@
     <a href="${pageContext.request.contextPath}/admin/manager-user" class="${relativePath eq "/admin/admin_user.jsp" ? 'sidebar--active' : ''}">Quản lý tài khoản</a>
     <a href="${pageContext.request.contextPath}/admin/manager-payment" class="${relativePath eq "/admin/admin_payment_history.jsp" ? 'sidebar--active' : ''}">Quản lý giao dịch</a>
     <a href="${pageContext.request.contextPath}/admin/revenue_statistics.jsp" class="${relativePath eq "/admin/revenue_statistics.jsp" ? 'sidebar--active' : ''}">Thống kê doanh thu</a>
+
 </div>
 </body>
 </html>
