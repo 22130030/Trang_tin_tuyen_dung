@@ -1,9 +1,6 @@
 package com.vn.tim_viec_lam.controller;
 
-import com.vn.tim_viec_lam.service.EncryptionService;
-import com.vn.tim_viec_lam.service.MailService;
-import com.vn.tim_viec_lam.service.UserService;
-import com.vn.tim_viec_lam.service.VerifycationTokenService;
+import com.vn.tim_viec_lam.service.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -29,12 +26,33 @@ public class RegisterCanidate extends HttpServlet {
         // Kiểm tra email đã tồn tại chưa
         UserService userService = new UserService();
         if(userService.isEmailExists(mail)){
-            req.setAttribute("emailError", "Email này đã được đăng ký. Vui lòng nhập email khác.");
+            LogService logService = new LogService();
+            String ip = req.getRemoteAddr();
+            logService.addLog(
+                    null,                 // user = null vì chưa có tài khoản
+                    "candidate",          // role
+                    "register",           // action
+                    "local",           // loginType
+                    "ERROR",              // status (hoặc "FAILED")
+                    ip,
+                    "Candidate registration Failed"
+            );            req.setAttribute("emailError", "Email này đã được đăng ký. Vui lòng nhập email khác.");
             req.setAttribute("fName", fName);
             req.setAttribute("phone", phone);
             req.getRequestDispatcher("/register.jsp").forward(req, resp);
             return;
         }
+        LogService logService = new LogService();
+        String ip = req.getRemoteAddr();
+        logService.addLog(
+                null,             // user = null vì chưa có user trong db
+                "candidate",      // role
+                "register",       // action
+                "local",       // loginType
+                "INFO",           // status
+                ip,
+                "Candidate Registration Successful"
+        );
 
 
         HttpSession session = req.getSession(false);

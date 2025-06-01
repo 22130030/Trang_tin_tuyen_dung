@@ -1,6 +1,8 @@
 package com.vn.tim_viec_lam.dao;
 
+import com.vn.tim_viec_lam.dao.model.CompanyUser;
 import com.vn.tim_viec_lam.dao.model.Log;
+import com.vn.tim_viec_lam.dao.model.User;
 import com.vn.tim_viec_lam.dao.model.UserLog;
 import com.vn.tim_viec_lam.database.DBconnect;
 
@@ -8,6 +10,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class LogDao {
     public List<Log> getLogs(){
@@ -51,23 +54,81 @@ public class LogDao {
             throw new RuntimeException(e);
         }
     }
-    public boolean insertUserLog(UserLog userlog) {
+//    public boolean insertUserLog(UserLog userlog) {
+//        try {
+//            Connection con = DBconnect.getConnection();
+//            String sql = "INSERT INTO user_log (userID, username, role, action, login_type, status, ip_address, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            if (userlog.getUserId() != null) {
+//                ps.setInt(1, userlog.getUserId());
+//            } else {
+//                ps.setNull(1, Types.INTEGER);
+//            }
+//            ps.setString(2, userlog.getUsername());
+//            ps.setString(3, userlog.getRole());
+//            ps.setString(4, userlog.getAction());
+//            ps.setString(5, userlog.getLoginType());
+//            ps.setString(6, userlog.getStatus());
+//            ps.setString(7, userlog.getIpAddress());
+//            ps.setString(8, userlog.getDescription());
+//            int rows = ps.executeUpdate();
+//            return rows > 0;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
+public boolean insertUserLog(User user, String role, String action, String loginType, String status, String ipAddress, String description) {
+    try {
+        Connection con = DBconnect.getConnection();
+        String sql = "INSERT INTO user_log (userID, username, role, action, login_type, status, ip_address, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement ps = con.prepareStatement(sql);
+
+        // userID và username lấy từ User (nếu có)
+        if (user != null) {
+            ps.setInt(1, user.getUserID());
+            ps.setString(2, user.getEmail());
+        } else {
+            ps.setNull(1, Types.INTEGER);
+            ps.setNull(2, Types.VARCHAR);
+        }
+
+        ps.setString(3, role);
+        ps.setString(4, action);
+        ps.setString(5, loginType);
+        ps.setString(6, status);
+        ps.setString(7, ipAddress);
+        ps.setString(8, description);
+
+        int rows = ps.executeUpdate();
+        return rows > 0;
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+    public boolean insertUserCompanyLog(CompanyUser user, String role, String action, String loginType, String status, String ipAddress, String description) {
         try {
             Connection con = DBconnect.getConnection();
             String sql = "INSERT INTO user_log (userID, username, role, action, login_type, status, ip_address, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql);
-            if (userlog.getUserId() != null) {
-                ps.setInt(1, userlog.getUserId());
+
+            // userID và username lấy từ User (nếu có)
+            if (user != null) {
+                ps.setInt(1, user.getUserID());
+                ps.setString(2, user.getEmail());
             } else {
                 ps.setNull(1, Types.INTEGER);
+                ps.setNull(2, Types.VARCHAR);
             }
-            ps.setString(2, userlog.getUsername());
-            ps.setString(3, userlog.getRole());
-            ps.setString(4, userlog.getAction());
-            ps.setString(5, userlog.getLoginType());
-            ps.setString(6, userlog.getStatus());
-            ps.setString(7, userlog.getIpAddress());
-            ps.setString(8, userlog.getDescription());
+
+            ps.setString(3, role);
+            ps.setString(4, action);
+            ps.setString(5, loginType);
+            ps.setString(6, status);
+            ps.setString(7, ipAddress);
+            ps.setString(8, description);
+
             int rows = ps.executeUpdate();
             return rows > 0;
         } catch (Exception e) {
@@ -77,21 +138,17 @@ public class LogDao {
     }
     public static void main(String[] args) {
         LogDao logDao = new LogDao();
-        UserLog userLog = new UserLog();
-        userLog.setUserId(2);
-        userLog.setUsername("testuser@gmail.com");
-        userLog.setRole("ung_vien");
-        userLog.setAction("login");
-        userLog.setLoginType("password");
-        userLog.setStatus("success");
-        userLog.setIpAddress("127.0.0.1");
-        userLog.setDescription("Test chức năng insert log từ Main");
-        boolean result = logDao.insertUserLog(userLog);
-        if (result) {
-            System.out.println("Thêm log thành công!");
+
+        // Test 1: Insert log với user
+        User user = new User();
+        user.setUserID(2);
+        user.setEmail("testuser@gmail.com");
+
+        boolean result1 = logDao.insertUserLog(user, "ung_vien", "login", "password", "success", "127.0.0.1", "Test insert log có user");
+        if (result1) {
+            System.out.println("Thêm log (có user) thành công!");
         } else {
-            System.out.println("Thêm log thất bại!");
+            System.out.println("Thêm log (có user) thất bại!");
         }
-//        System.out.println(logDao.addLog("login.jsp","mk moi"));
     }
 }
