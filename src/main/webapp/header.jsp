@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li class="nav__item nav__item-link--separated">
-                    <a href="${pageContext.request.contextPath}/chat" class="nav__item-link">
+                    <a href="${pageContext.request.contextPath}/chat" id="chat-btn" class="nav__item-link">
                         <i class="nav-item__icon fa-regular fa-message"></i>
                         Chat
                     </a>

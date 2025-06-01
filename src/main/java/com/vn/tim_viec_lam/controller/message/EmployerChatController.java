@@ -61,9 +61,20 @@ public class EmployerChatController extends HttpServlet {
 
 
             }
-                req.setAttribute("conversations", conversations);
-                req.setAttribute("conversation", conversation);
-                req.setAttribute("messages", messages);
+            req.setAttribute("conversations",conversations);
+            req.setAttribute("conversation",conversation);
+            req.setAttribute("conversationId", conversation.getId());
+            req.setAttribute("applicationId", conversation.getApplicationId());
+            req.setAttribute("candidateName", conversation.getCandidateName());
+            req.setAttribute("companyName", conversation.getCompanyName());
+            req.setAttribute("jobTitle", conversation.getJobTitle());
+            req.setAttribute("status", conversation.getStatus());
+            req.setAttribute("convertLastActive",conversation.getConvertLastActive());
+            req.setAttribute("convertAppDate", conversation.getConvertAppDate());
+            System.out.println(conversation.getIsOnline());
+            req.setAttribute("isOnline",conversation.getIsOnline());
+            req.setAttribute("messages", messages);
+                
                 if (applicationId != -1) {
                     req.setAttribute("applicationId", applicationId);
                 }

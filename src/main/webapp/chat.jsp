@@ -143,7 +143,7 @@
     <c:when test="${sessionScope.currentUrl eq '/employer-home'}">
 <div class="employer">
     <%@include file="header_employer.jsp"%>
-    <c:if test="${!empty conversations }">
+<%--    <c:if test="${!empty conversations }">--%>
         <div class="wrapper">
             <div class="sidebar">
                 <h2>Cuộc trò chuyện</h2>
@@ -185,7 +185,7 @@
                         <c:when test="${conversation.isOnline == 1}">
                             <h4 class="content--active" >Đang hoạt động</h4>
                         </c:when>
-                            <c:when test="${conversation.isOnline != 1 && conversatioxn.lastActive != null}">
+                            <c:when test="${conversation.isOnline != 1 }">
                                 <h4 class="content--inactive" >Hoạt động lần cuối ${conversation.convertLastActive}</h4>
                             </c:when>
                         </c:choose>
@@ -244,7 +244,7 @@
             </div>
 
         </div>
-    </c:if>
+<%--    </c:if>--%>
 
 </div>
     </c:when>
@@ -260,7 +260,8 @@
 
 <%@include file="footer.jsp"%>
 <script>
-    window.addEventListener("DOMContentLoaded", function () {
+    chatBtn = document.getElementById('chat-btn');
+    chatBtn.addEventListener("click", function () {
         const conversationCount = ${conversations == null ? 0 : conversations.size()};
         const currentUrl = '${sessionScope.currentUrl}';
 
@@ -392,12 +393,18 @@
                     headerContent.querySelector(".conversation__content-title").textContent = data.jobTitle;
 
                     const statusElement = headerContent.querySelector("h4");
-                    if (data.isOnline === 1 && data.isOnline != null) {
-                        statusElement.className = "content--active";
-                        statusElement.textContent = "Đang hoạt động";
-                    } else {
-                        statusElement.className = "content--inactive";
-                        statusElement.textContent = "Hoạt động lần cuối " + data.convertLastActive;
+
+                    if(data.isOnline != null){
+                        if (data.isOnline === 1) {
+                            statusElement.className = "content--active";
+                            statusElement.textContent = "Đang hoạt động";
+                        } else {
+                            statusElement.className = "content--inactive";
+                            statusElement.textContent = "Hoạt động lần cuối " + data.convertLastActive;
+                        }
+
+                    }else{
+                        console.log('null')
                     }
 
                     document.querySelector(".info-panel h4").textContent = isEmployer ? data.candidateName : data.companyName;

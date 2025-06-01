@@ -293,19 +293,26 @@ public class ConversationDao {
     }
     public Conversation getConversationId(int senderId, int applicationId) {
         Connection con = DBconnect.getConnection();
-        String sql = "select cp.companyName,jp.titleJob,c.conversationId,ja.status,ja.created_at" +
-                ",c.applicationId,c.userSenderId,c.userReceiverID,cd.fullName from conversations c" +
-                " join job_applications ja on ja.applicationId = c.applicationId " +
-                " join candidates cd on cd.candidateId = ja.candidateId" +
-                " join job_posting jp on jp.jobPostId = ja.jobPostId " +
-                " join companies cp on cp.companyID = jp.companyID " +
+        String sql = "SELECT cp.companyName, jp.titleJob, c.conversationId, ja.status, ja.created_at, " +
+                "c.applicationId, c.userSenderId, c.userReceiverID, cd.fullName,ou.isOnline,ou.lastActive " +
+                "FROM conversations c " +
+                "JOIN job_applications ja ON ja.applicationId = c.applicationId " +
+                "JOIN job_posting jp ON jp.jobPostID = ja.jobPostId " +
+                "JOIN companies cp ON cp.companyID = ja.companyId " +
+                "JOIN candidates cd ON cd.candidateId = ja.candidateId " +
+                "LEFT JOIN online_users ou ON ou.userId = " +
+                "    CASE " +
+                "        WHEN c.userSenderId = ? THEN c.userReceiverID " +
+                "        ELSE c.userSenderId " +
+                "    END " +
                 " where c.userSenderId = ? and c.applicationId = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            Conversation conversation = new Conversation();
             ps.setInt(1, senderId);
-            ps.setInt(2, applicationId);
+            ps.setInt(2, senderId);
+            ps.setInt(3, applicationId);
             ResultSet rs = ps.executeQuery();
+            Conversation conversation = new Conversation();
             while (rs.next()) {
                 int conversationID = rs.getInt("conversationID");
                 int userSenderID = rs.getInt("userSenderID");
@@ -314,8 +321,11 @@ public class ConversationDao {
                 String companyName = rs.getString("companyName");
                 String titleJob = rs.getString("titleJob");
                 String status = rs.getString("status");
+                int isOnline = rs.getInt("isOnline");
+                LocalDateTime lastActive = rs.getTimestamp("lastActive").toLocalDateTime();
                 LocalDateTime created_at = rs.getTimestamp("created_at").toLocalDateTime();
                 conversation.setId(conversationID);
+                conversation.setLastActive(lastActive);
                 conversation.setUserSenderId(userSenderID);
                 conversation.setCandidateName(fullName);
                 conversation.setUserReceiverId(userReceiverID);
@@ -323,6 +333,7 @@ public class ConversationDao {
                 conversation.setJobTitle(titleJob);
                 conversation.setStatus(status);
                 conversation.setApplicationDate(created_at);
+                conversation.setIsOnline(isOnline);
                 conversation.setApplicationId(applicationId);
             }
             return conversation;

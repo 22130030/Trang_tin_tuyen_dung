@@ -59,6 +59,7 @@ public class MessageController extends HttpServlet {
                 result.put("status", conversation.getStatus());
                 result.put("convertLastActive",conversation.getConvertLastActive());
                 result.put("convertAppDate", conversation.getConvertAppDate());
+                System.out.println(conversation.getIsOnline());
                 result.put("isOnline",conversation.getIsOnline());
                 result.put("messages", messages);
 
