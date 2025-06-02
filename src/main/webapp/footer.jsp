@@ -8,6 +8,36 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <style>
+        .zalo-chat-mini {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+
+        .zalo-chat-mini:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+        }
+
+
+        .zalo-chat-mini img {
+            width: 32px;
+            height: 32px;
+        }
+    </style>
 
 </head>
 <body>
@@ -29,7 +59,14 @@
     </div>
 </div>
     <div class="footer">
-    <div class="grid">
+        <!-- Nút mini chat Zalo -->
+        <a href="http://localhost:8080/trang_tin_tuyen_dung/chatbotZalo.jsp"
+           class="zalo-chat-mini"
+           target="_blank"
+           aria-label="Chat với tôi qua Zalo">
+            <img src="./asserts/img/zalo.png" alt="Zalo Icon">
+        </a>
+        <div class="grid">
         <div class="grid__row">
             <div class="grid__col-4">
                 <h3 class = "footer__heading">Dành cho ứng viên</h3>
