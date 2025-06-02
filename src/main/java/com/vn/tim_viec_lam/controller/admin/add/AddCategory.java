@@ -1,4 +1,4 @@
-package com.vn.tim_viec_lam.controller.admin;
+package com.vn.tim_viec_lam.controller.admin.add;
 
 import com.vn.tim_viec_lam.service.JobCategoryService;
 import jakarta.servlet.ServletException;
@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "add-category", value = "/admin/add-category")
+@WebServlet(name = "add-category", value = "/admin/add/add-category")
 public class AddCategory extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,7 +22,7 @@ public class AddCategory extends HttpServlet {
         String category_name = req.getParameter("jobCategoryName");
         JobCategoryService jobCategoryService = new JobCategoryService();
         jobCategoryService.addCategory(category,category_name);
-        resp.sendRedirect("manager-category");
+        resp.sendRedirect(req.getContextPath() +"/admin/manager-category");
 
     }
 }

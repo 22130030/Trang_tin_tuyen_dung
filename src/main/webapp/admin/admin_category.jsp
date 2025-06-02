@@ -75,7 +75,7 @@
                                         </a>
                                     </div>
                                     <div class="operation operation__remove">
-                                       <a href="delete-category?did=${c.jobPostCategoryID}">
+                                       <a href="delete/delete-category?did=${c.jobPostCategoryID}">
                                            <i class="fa-solid fa-trash"></i>
                                        </a>
                                     </div>

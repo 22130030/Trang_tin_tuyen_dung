@@ -85,7 +85,7 @@
                                     </a>
                                 </div>
                                 <div class="operation operation__remove">
-                                   <a href="delete-user-candidate?cid=${cu.candidateID}" class="delete">
+                                   <a href="delete/delete-user-candidate?cid=${cu.candidateID}" class="delete">
                                        <i class="fa-solid fa-trash"></i>
                                    </a>
                                 </div>

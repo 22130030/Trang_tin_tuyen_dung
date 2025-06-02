@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li class="nav__item nav__item-link--separated">
-                    <a href="${pageContext.request.contextPath}/chat" class="nav__item-link">
+                    <a href="${pageContext.request.contextPath}/chat" id="chat-btn" class="nav__item-link">
                         <i class="nav-item__icon fa-regular fa-message"></i>
                         Chat
                     </a>
@@ -98,6 +98,12 @@
                                     <a href="${pageContext.request.contextPath}/account/upgrade_account.jsp" class="menu__link">
                                         <i class="fa-solid fa-circle-up"></i>
                                         <span class="menu__link-title">Nâng cấp tài khoản</span>
+                                    </a>
+                                </li>
+                                <li class="menu__item">
+                                    <a href="${pageContext.request.contextPath}/account/notifi_email.jsp" class="menu__link">
+                                        <i class="fa-solid fa-bell"></i>
+                                        <span class="menu__link-title">Quản lý thông báo</span>
                                     </a>
                                 </li>
                                 <li class="menu__item">

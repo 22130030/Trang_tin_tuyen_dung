@@ -82,7 +82,7 @@
                                         </a>
                                     </div>
                                     <div class="operation operation__remove">
-                                        <a href="delete-user?uid=${u.userID}">
+                                        <a href="delete/delete-user?uid=${u.userID}">
                                             <i class="fa-solid fa-trash"></i>
                                         </a>
                                     </div>

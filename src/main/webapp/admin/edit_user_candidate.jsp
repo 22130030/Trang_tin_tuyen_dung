@@ -64,7 +64,7 @@
 </head>
 <body>
 <h1>Chỉnh sửa thông tin ứng viên</h1>
-<form action="update_candidate" method="post">
+<form action="edit/update_candidate" method="post">
     <label for="name">Tên ứng viên:</label>
     <input value="${load.candidateID}" type="text" id="id" name="id"  readonly>
 

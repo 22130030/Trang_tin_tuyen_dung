@@ -117,7 +117,7 @@
 <body>
 <div class="container">
     <h1 class="title">Chỉnh sửa bài đăng</h1>
-    <form action="edit-job-posting" method="post">
+    <form action="edit/edit-job-posting" method="post">
         <!-- ID -->
         <label for="id">ID:</label>
         <input type="text" id="id" name="id" value="${job.id}" readonly>

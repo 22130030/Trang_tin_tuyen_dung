@@ -93,7 +93,7 @@
                                        </a>
                                     </div>
                                     <div class="operation operation__remove">
-                                        <a href="delete-jobposting?jid=${l.id}">
+                                        <a href="delete/delete-jobposting?jid=${l.id}">
                                             <i class="fa-solid fa-trash"></i>
                                         </a>
                                     </div>

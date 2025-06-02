@@ -76,7 +76,7 @@
 <body>
 <div class="container">
   <h2>Chỉnh sửa thông tin phân loại nghề nghiệp</h2>
-  <form action="edit-category" method="post">
+  <form action="edit/edit-category" method="post">
     <label for="jobCategoryName">ID</label>
     <input type="text" value="${loadcate.jobPostCategoryID}" id="id" name="id" readonly>
 

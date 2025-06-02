@@ -76,7 +76,7 @@
 <body>
 <div class="container">
     <h2>Thêm nghề nghiệp</h2>
-    <form action="add-category" method="post">
+    <form action="add/add-category" method="post">
         <label for="category">Phân loại</label>
         <select id="category" name="category">
             <option value="Công nghệ thông tin" ${loadcate.categoryName == 'Công nghệ thông tin' ? 'selected': ' '}>Công nghệ thông tin</option>

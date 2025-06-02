@@ -1,4 +1,4 @@
-package com.vn.tim_viec_lam.controller.admin;
+package com.vn.tim_viec_lam.controller.admin.edit;
 
 import com.vn.tim_viec_lam.service.JobCategoryService;
 import jakarta.servlet.ServletException;
@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "edit-category", value = "/admin/edit-category")
+@WebServlet(name = "edit-category", value = "/admin/edit/edit-category")
 public class EditCategory extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -18,6 +18,6 @@ public class EditCategory extends HttpServlet {
         String  jobcategoryName = req.getParameter("jobCategoryName");
         JobCategoryService service = new JobCategoryService();
         service.editCategory(id,categoryName,jobcategoryName);
-        resp.sendRedirect("manager-category");
+        resp.sendRedirect(req.getContextPath() + "/admin/manager-category");
     }
 }

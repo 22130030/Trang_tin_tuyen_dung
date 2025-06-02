@@ -24,20 +24,20 @@
 
 <div class="candidate">
     <%@include file="header.jsp"%>
-    <c:if test="${empty conversations}">
-        <div class="no-messages-container">
-            <img src="asserts/img/no_message.jpg" alt="No messages" class="no-messages-img" />
-            <h2 class="no-messages-title">Chào mừng bạn đến với phần tin nhắn</h2>
-            <p class="no-messages-text">
-                Hiện tại bạn chưa có tin nhắn nào,hãy tích cực hoạt động nhiều hơn nhé!
-            </p>
-            <div class="no-messages-buttons">
-                <a href="${pageContext.request.contextPath}/home" class="btn-primary">Tìm việc làm</a>
-                <a href="${pageContext.request.contextPath}/account/upload-file" class="btn-outline">Tạo CV của bạn</a>
-            </div>
-        </div>
-    </c:if>
-    <c:if test="${!empty conversations}">
+<%--    <c:if test="${empty conversations}">--%>
+<%--        <div id="no-messasge" class="no-messages-container">--%>
+<%--            <img src="asserts/img/no_message.jpg" alt="No messages" class="no-messages-img" />--%>
+<%--            <h2 class="no-messages-title">Chào mừng bạn đến với phần tin nhắn</h2>--%>
+<%--            <p class="no-messages-text">--%>
+<%--                Hiện tại bạn chưa có tin nhắn nào,hãy tích cực hoạt động nhiều hơn nhé!--%>
+<%--            </p>--%>
+<%--            <div class="no-messages-buttons">--%>
+<%--                <a href="${pageContext.request.contextPath}/home" class="btn-primary">Tìm việc làm</a>--%>
+<%--                <a href="${pageContext.request.contextPath}/account/upload-file" class="btn-outline">Tạo CV của bạn</a>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </c:if>--%>
+<%--    <c:if test="${!empty conversations}">--%>
     <div class="wrapper">
         <div class="sidebar">
             <h2>Cuộc trò chuyện</h2>
@@ -137,118 +137,168 @@
         </div>
 
     </div>
-    </c:if>
+<%--    </c:if>--%>
 </div>
 </c:when>
     <c:when test="${sessionScope.currentUrl eq '/employer-home'}">
 <div class="employer">
     <%@include file="header_employer.jsp"%>
-    <div class="wrapper">
-        <div class="sidebar">
-            <h2>Cuộc trò chuyện</h2>
-            <c:forEach items="${conversations}" var="c">
+<%--    <c:if test="${!empty conversations }">--%>
+        <div class="wrapper">
+            <div class="sidebar">
+                <h2>Cuộc trò chuyện</h2>
+                <c:forEach items="${conversations}" var="c">
 
-                <a href="javascript:void(0);" class="conversation" data-job-id="${c.applicationId}"  data-conversation-id="${c.id}">
-                <div class="conversation__img">
-                    <img src="asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
-                    <c:if test="${c.isOnline == 1}">
-                        <div class="conversation-dot__status">
-                        </div>
-                    </c:if>
-                </div>
-                <div class="conversation__content">
-
-                    <div class="title">${c.candidateName}</div>
-                    <div class="preview">${c.jobTitle}</div>
-                </div>
-            </a>
-            </c:forEach>
-
-        </div>
-
-        <div class="chat" id="company-chat">
-            <div class="chat-header">
-                <div class="conversation__img">
-                    <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
-                    <c:if test="${conversation.isOnline == 1}">
-                        <div class="conversation-dot__status">
-
-                        </div>
-                    </c:if>
-                </div>
-                <div class="conversation__content">
-                    <h3 class="conversation__content-header">${conversation.candidateName}</h3>
-                    <small class="conversation__content-title">${conversation.jobTitle}</small>
-                    <c:choose>
-
-                    <c:when test="${conversation.isOnline == 1}">
-                        <h4 class="content--active" >Đang hoạt động</h4>
-                    </c:when>
-                        <c:when test="${conversation.isOnline != 1}">
-                            <h4 class="content--inactive" >Hoạt động lần cuối ${conversation.convertLastActive}</h4>
-                        </c:when>
-                    </c:choose>
-                </div>
-            </div>
-
-
-            <div class="chat-body">
-                <c:forEach items="${messages}" var="m">
-                    <c:choose>
-
-                        <c:when test="${sessionScope.companyUserId != m.senderId}">
-
-                            <div class="date-label">${m.sentDate}</div>
-                            <div class="message-box received">
-                                <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="" class="avatar">
-                                <div class="message-container">
-                                    <span class="message-date">${m.converSentDetail}</span>
-                                    <p class="message-content">${m.message}</p>
-                                </div>
+                    <a href="javascript:void(0);" class="conversation" data-job-id="${c.applicationId}"  data-conversation-id="${c.id}">
+                    <div class="conversation__img">
+                        <img src="asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
+                        <c:if test="${c.isOnline == 1}">
+                            <div class="conversation-dot__status">
                             </div>
+                        </c:if>
+                    </div>
+                    <div class="conversation__content">
 
-                        </c:when>
-                        <c:when test="${sessionScope.companyUserId == m.senderId}">
-
-                            <div class="date-label">${m.sentDate}</div>
-                            <div class="message-box sent">
-                                <div class="message-container">
-                                    <span class="message-date message-date--sent">${m.converSentDetail}</span>
-                                    <p class="message-content">${m.message}</p>
-                                </div>
-                                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="avatar" alt="Avatar">
-                            </div>
-                        </c:when>
-                    </c:choose>
+                        <div class="title">${c.candidateName}</div>
+                        <div class="preview">${c.jobTitle}</div>
+                    </div>
+                </a>
                 </c:forEach>
+
             </div>
 
-            <div class="chat-footer">
-                <input id="message-ip-${applicationId}" type="text" placeholder="Nhập tin nhắn ...">
-                <button onclick="sendMessage(${applicationId})">Gửi</button>
+            <div class="chat" id="company-chat">
+                <div class="chat-header">
+                    <div class="conversation__img">
+                        <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="">
+                        <c:if test="${conversation.isOnline == 1}">
+                            <div class="conversation-dot__status">
+
+                            </div>
+                        </c:if>
+                    </div>
+                    <div class="conversation__content">
+                        <h3 class="conversation__content-header">${conversation.candidateName}</h3>
+                        <small class="conversation__content-title">${conversation.jobTitle}</small>
+                        <c:choose>
+
+                        <c:when test="${conversation.isOnline == 1}">
+                            <h4 class="content--active" >Đang hoạt động</h4>
+                        </c:when>
+                            <c:when test="${conversation.isOnline != 1 }">
+                                <h4 class="content--inactive" >Hoạt động lần cuối ${conversation.convertLastActive}</h4>
+                            </c:when>
+                        </c:choose>
+                    </div>
+                </div>
+
+
+                <div class="chat-body">
+                    <c:forEach items="${messages}" var="m">
+                        <c:choose>
+
+                            <c:when test="${sessionScope.companyUserId != m.senderId}">
+
+                                <div class="date-label">${m.sentDate}</div>
+                                <div class="message-box received">
+                                    <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="" class="avatar">
+                                    <div class="message-container">
+                                        <span class="message-date">${m.converSentDetail}</span>
+                                        <p class="message-content">${m.message}</p>
+                                    </div>
+                                </div>
+
+                            </c:when>
+                            <c:when test="${sessionScope.companyUserId == m.senderId}">
+
+                                <div class="date-label">${m.sentDate}</div>
+                                <div class="message-box sent">
+                                    <div class="message-container">
+                                        <span class="message-date message-date--sent">${m.converSentDetail}</span>
+                                        <p class="message-content">${m.message}</p>
+                                    </div>
+                                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="avatar" alt="Avatar">
+                                </div>
+                            </c:when>
+                        </c:choose>
+                    </c:forEach>
+                </div>
+
+                <div class="chat-footer">
+                    <input id="message-ip-${applicationId}" type="text" placeholder="Nhập tin nhắn ...">
+                    <button onclick="sendMessage(${applicationId})">Gửi</button>
+                </div>
             </div>
+
+            <!-- Info panel -->
+            <div class="info-panel">
+                <div class="info-panel__img">
+
+                    <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="Logo">
+                </div>
+                <h4>${conversation.candidateName}</h4>
+                <p><strong>Vị trí công việc:</strong><br> <a href="#" style="color:#007bff;text-decoration:none;">
+                    ${conversation.jobTitle}</a></p>
+                <p><strong>Ngày ứng tuyển:</strong><br> ${conversation.convertAppDate}</p>
+                <p><strong>Trạng thái:</strong><br> <span class="tag">${conversation.status}</span></p>
+            </div>
+
         </div>
+<%--    </c:if>--%>
 
-        <!-- Info panel -->
-        <div class="info-panel">
-            <div class="info-panel__img">
-
-                <img src="/asserts/img/anh_logo_congty/cong_ty_nextdoor.png" alt="Logo">
-            </div>
-            <h4>${conversation.candidateName}</h4>
-            <p><strong>Vị trí công việc:</strong><br> <a href="#" style="color:#007bff;text-decoration:none;">
-                ${conversation.jobTitle}</a></p>
-            <p><strong>Ngày ứng tuyển:</strong><br> ${conversation.convertAppDate}</p>
-            <p><strong>Trạng thái:</strong><br> <span class="tag">${conversation.status}</span></p>
-        </div>
-
-    </div>
 </div>
     </c:when>
+
 </c:choose>
+
+<div id="no-message-template" class="no-messages-container" style="display: none;">
+    <img src="asserts/img/no_message.jpg" alt="No messages" class="no-messages-img" />
+    <h2 class="no-messages-title">Chào mừng bạn đến với phần tin nhắn</h2>
+    <p class="no-messages-text" id="no-message-text"></p>
+    <div class="no-messages-buttons" id="no-message-buttons"></div>
+</div>
 
 <%@include file="footer.jsp"%>
 <script>
+    chatBtn = document.getElementById('chat-btn');
+    chatBtn.addEventListener("click", function () {
+        const conversationCount = ${conversations == null ? 0 : conversations.size()};
+        const currentUrl = '${sessionScope.currentUrl}';
+
+        console.log(currentUrl)
+
+        if (conversationCount === 0) {
+            const container = document.getElementById("no-message-template");
+            const messageText = document.getElementById("no-message-text");
+            const messageButtons = document.getElementById("no-message-buttons");
+
+            if (currentUrl === '/home') {
+                messageText.textContent = 'Hiện tại bạn chưa có tin nhắn nào, hãy tích cực hoạt động nhiều hơn nhé!';
+                messageButtons.innerHTML = `
+                    <a href="${pageContext.request.contextPath}/home" class="btn-primary">Tìm việc làm</a>
+                    <a href="${pageContext.request.contextPath}/account/upload-file" class="btn-outline">Tạo CV của bạn</a>
+                `;
+            } else if (currentUrl === '/employer-home') {
+                messageText.textContent = 'Hiện tại bạn chưa có tin nhắn nào với ứng viên nào. Hãy chủ động đăng tin tuyển dụng để thu hút ứng viên nhé!';
+                messageButtons.innerHTML = `
+                    <a href="${pageContext.request.contextPath}/employer-home" class="btn-primary">Trang chủ</a>
+                    <a href="${pageContext.request.contextPath}/employer/post-job" class="btn-outline">Đăng tin tuyển dụng</a>
+                `;
+            }
+
+            container.style.display = 'block';
+
+            // Ẩn phần giao diện chat
+            const chatWrapper = document.querySelector(".wrapper");
+            if (chatWrapper) {
+                chatWrapper.style.display = "none";
+            }
+        }
+    });
+
+
+
+
     const socket = new WebSocket("ws://" + location.host + "/trang_tin_tuyen_dung/chat-web-socket");
 
     socket.onopen = function () {
@@ -343,12 +393,18 @@
                     headerContent.querySelector(".conversation__content-title").textContent = data.jobTitle;
 
                     const statusElement = headerContent.querySelector("h4");
-                    if (data.isOnline === 1) {
-                        statusElement.className = "content--active";
-                        statusElement.textContent = "Đang hoạt động";
-                    } else {
-                        statusElement.className = "content--inactive";
-                        statusElement.textContent = "Hoạt động lần cuối " + data.convertLastActive;
+
+                    if(data.isOnline != null){
+                        if (data.isOnline === 1) {
+                            statusElement.className = "content--active";
+                            statusElement.textContent = "Đang hoạt động";
+                        } else {
+                            statusElement.className = "content--inactive";
+                            statusElement.textContent = "Hoạt động lần cuối " + data.convertLastActive;
+                        }
+
+                    }else{
+                        console.log('null')
                     }
 
                     document.querySelector(".info-panel h4").textContent = isEmployer ? data.candidateName : data.companyName;

@@ -496,7 +496,19 @@ public class UserDao {
             }
             return null;
         }
+    public int getPermissionIdForAdmin(int userID) {
+        Connection con = DBconnect.getConnection();
+        String sql = "SELECT permission_id FROM user_permissions WHERE userId = ?";
 
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, userID);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next() ? rs.getInt(1) : 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static void main(String[] args) {
         UserDao dao = new UserDao();
 //        System.out.println(dao.insertUser("22","1","vanduc","2222","local","g22"));

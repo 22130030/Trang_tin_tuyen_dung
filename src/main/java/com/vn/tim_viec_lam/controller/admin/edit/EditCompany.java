@@ -1,4 +1,4 @@
-package com.vn.tim_viec_lam.controller.admin;
+package com.vn.tim_viec_lam.controller.admin.edit;
 
 import com.vn.tim_viec_lam.service.CompanyService;
 import jakarta.servlet.ServletException;
@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name="edit",value = "/admin/edit")
+@WebServlet(name="edit",value = "/admin/edit/edit")
 public class EditCompany extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,7 +31,7 @@ public class EditCompany extends HttpServlet {
        String paddress = req.getParameter("address");
        CompanyService service = new CompanyService();
        service.editUserCompany(pid,pname,pemail,pphone,pstatus,paddress);
-       resp.sendRedirect("company-user-job");
+       resp.sendRedirect(req.getContextPath() + "/admin/company-user-job");
 
 
 

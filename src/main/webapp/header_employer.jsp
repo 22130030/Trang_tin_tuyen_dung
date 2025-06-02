@@ -20,7 +20,7 @@
                     </div>
                     <div class="nav__employer-list">
                         <li class="nav__item nav__item-link--separated">
-                            <a href="${pageContext.request.contextPath}/employer-chat" class="nav__item-link nav__item-link--employer">
+                            <a href="${pageContext.request.contextPath}/employer-chat" class="nav__item-link nav__item-link--employer" id="chat-btn">
                                 <i class="nav-item__icon fa-regular fa-message"></i>
                                 Chat
                             </a>

@@ -121,7 +121,7 @@
                                     </a>
                                 </div>
                                 <div class="operation operation__remove">
-                                    <a href="delete-company?pid=${c.id}" class="delete"> <i class="fa-solid fa-trash"></i></a>
+                                    <a href="delete/delete-company?pid=${c.id}" class="delete"> <i class="fa-solid fa-trash"></i></a>
                                 </div>
                             </div>
                         </td>
