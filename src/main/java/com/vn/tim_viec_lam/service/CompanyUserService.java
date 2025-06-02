@@ -55,7 +55,6 @@ public class    CompanyUserService {
 
     public static void main(String[] args) {
         CompanyUserService companyService = new CompanyUserService();
-        System.out.println(EncryptionService.hasPasswordToMD5("1"));
-        System.out.println(companyService.login("company@gmail.com",EncryptionService.hasPasswordToMD5("1")));
+        System.out.println(companyService.getUser("congty@gmail.com"));
     }
 }

@@ -31,14 +31,21 @@ public class ConversationService {
         if(conversationDao.getConversationByALl(senderId, receiverId, applicationId) == null){
             conversationDao.insertConversation(senderId, receiverId, applicationId);
         }
-        return getAllConversationByUserId(senderId);
+        return conversationDao.getConversationNoEmpty(senderId);
     }
     public Conversation getConversationId(int senderId, int applicationId) {
 
         return conversationDao.getConversationId(senderId,applicationId);
     }
+    public List<Integer> getConversationIdsByUserId(int senderId) {
+        return conversationDao.getConversationIdsByUserId(senderId);
+    }
     public static void main(String[] args) {
         ConversationService conversationService = new ConversationService();
-        System.out.println(conversationService.getConversationByAll(2,27,53));
+        System.out.println(conversationService.deleteConversation(41));
+    }
+
+    public boolean deleteConversation(Integer conversationId) {
+        return conversationDao.deleteConversation(conversationId);
     }
 }

@@ -113,4 +113,19 @@ public class CompanyUser implements Serializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return created_at.format(formatter);
     }
+
+    @Override
+    public String toString() {
+        return "CompanyUser{" +
+                "userID=" + userID +
+                ", companyID=" + companyID +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", phone_number='" + phone_number + '\'' +
+                ", status='" + status + '\'' +
+                ", created_at=" + created_at +
+                ", roleNum=" + roleNum +
+                '}';
+    }
 }

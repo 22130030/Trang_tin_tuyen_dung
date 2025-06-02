@@ -175,4 +175,19 @@ public class MessageDao {
             throw new RuntimeException(e);
         }
     }
+
+    public int countMessagesInConversation(Integer conversationId) {
+        Connection con = DBconnect.getConnection();
+
+        String sql = "select count(*) from messages where conversationID=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, conversationId);
+            ResultSet rs = ps.executeQuery();
+            return rs.next() ? rs.getInt(1) : 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

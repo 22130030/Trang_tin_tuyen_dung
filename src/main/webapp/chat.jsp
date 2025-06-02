@@ -24,20 +24,20 @@
 
 <div class="candidate">
     <%@include file="header.jsp"%>
-<%--    <c:if test="${empty conversations}">--%>
-<%--        <div id="no-messasge" class="no-messages-container">--%>
-<%--            <img src="asserts/img/no_message.jpg" alt="No messages" class="no-messages-img" />--%>
-<%--            <h2 class="no-messages-title">Chào mừng bạn đến với phần tin nhắn</h2>--%>
-<%--            <p class="no-messages-text">--%>
-<%--                Hiện tại bạn chưa có tin nhắn nào,hãy tích cực hoạt động nhiều hơn nhé!--%>
-<%--            </p>--%>
-<%--            <div class="no-messages-buttons">--%>
-<%--                <a href="${pageContext.request.contextPath}/home" class="btn-primary">Tìm việc làm</a>--%>
-<%--                <a href="${pageContext.request.contextPath}/account/upload-file" class="btn-outline">Tạo CV của bạn</a>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </c:if>--%>
-<%--    <c:if test="${!empty conversations}">--%>
+    <c:if test="${empty conversations}">
+        <div id="no-messasge" class="no-messages-container">
+            <img src="asserts/img/no_message.jpg" alt="No messages" class="no-messages-img" />
+            <h2 class="no-messages-title">Chào mừng bạn đến với phần tin nhắn</h2>
+            <p class="no-messages-text">
+                Hiện tại bạn chưa có tin nhắn nào,hãy tích cực hoạt động nhiều hơn nhé!
+            </p>
+            <div class="no-messages-buttons">
+                <a href="${pageContext.request.contextPath}/home" class="btn-primary">Tìm việc làm</a>
+                <a href="${pageContext.request.contextPath}/account/upload-file" class="btn-outline">Tạo CV của bạn</a>
+            </div>
+        </div>
+    </c:if>
+    <c:if test="${!empty conversations}">
     <div class="wrapper">
         <div class="sidebar">
             <h2>Cuộc trò chuyện</h2>
@@ -137,13 +137,13 @@
         </div>
 
     </div>
-<%--    </c:if>--%>
+    </c:if>
 </div>
 </c:when>
     <c:when test="${sessionScope.currentUrl eq '/employer-home'}">
 <div class="employer">
     <%@include file="header_employer.jsp"%>
-<%--    <c:if test="${!empty conversations }">--%>
+    <c:if test="${!empty conversations }">
         <div class="wrapper">
             <div class="sidebar">
                 <h2>Cuộc trò chuyện</h2>
@@ -185,7 +185,7 @@
                         <c:when test="${conversation.isOnline == 1}">
                             <h4 class="content--active" >Đang hoạt động</h4>
                         </c:when>
-                            <c:when test="${conversation.isOnline != 1 }">
+                            <c:when test="${conversation.isOnline != 1 && conversation.lastActive != null}">
                                 <h4 class="content--inactive" >Hoạt động lần cuối ${conversation.convertLastActive}</h4>
                             </c:when>
                         </c:choose>
@@ -244,58 +244,28 @@
             </div>
 
         </div>
-<%--    </c:if>--%>
+    </c:if>
+    <c:if test="${empty conversations}">
+
+        <div id="no-message-template" class="no-messages-container">
+            <img src="asserts/img/no_message.jpg" alt="No messages" class="no-messages-img" />
+            <h2 class="no-messages-title">Chào mừng bạn đến với phần tin nhắn</h2>
+            <p class="no-messages-text" id="no-message-text">Hiện tại bạn chưa có tin nhắn nào với ứng viên nào. Hãy chủ động đăng tin tuyển dụng để thu hút ứng viên nhé!</p>
+            <div class="no-messages-buttons" id="no-message-buttons">
+                <a href="${pageContext.request.contextPath}/employer-home" class="btn-primary">Trang chủ</a>
+                <a href="${pageContext.request.contextPath}/employer/post-job" class="btn-outline">Đăng tin tuyển dụng</a>
+            </div>
+        </div>
+    </c:if>
 
 </div>
     </c:when>
 
 </c:choose>
 
-<div id="no-message-template" class="no-messages-container" style="display: none;">
-    <img src="asserts/img/no_message.jpg" alt="No messages" class="no-messages-img" />
-    <h2 class="no-messages-title">Chào mừng bạn đến với phần tin nhắn</h2>
-    <p class="no-messages-text" id="no-message-text"></p>
-    <div class="no-messages-buttons" id="no-message-buttons"></div>
-</div>
 
 <%@include file="footer.jsp"%>
 <script>
-    chatBtn = document.getElementById('chat-btn');
-    chatBtn.addEventListener("click", function () {
-        const conversationCount = ${conversations == null ? 0 : conversations.size()};
-        const currentUrl = '${sessionScope.currentUrl}';
-
-        console.log(currentUrl)
-
-        if (conversationCount === 0) {
-            const container = document.getElementById("no-message-template");
-            const messageText = document.getElementById("no-message-text");
-            const messageButtons = document.getElementById("no-message-buttons");
-
-            if (currentUrl === '/home') {
-                messageText.textContent = 'Hiện tại bạn chưa có tin nhắn nào, hãy tích cực hoạt động nhiều hơn nhé!';
-                messageButtons.innerHTML = `
-                    <a href="${pageContext.request.contextPath}/home" class="btn-primary">Tìm việc làm</a>
-                    <a href="${pageContext.request.contextPath}/account/upload-file" class="btn-outline">Tạo CV của bạn</a>
-                `;
-            } else if (currentUrl === '/employer-home') {
-                messageText.textContent = 'Hiện tại bạn chưa có tin nhắn nào với ứng viên nào. Hãy chủ động đăng tin tuyển dụng để thu hút ứng viên nhé!';
-                messageButtons.innerHTML = `
-                    <a href="${pageContext.request.contextPath}/employer-home" class="btn-primary">Trang chủ</a>
-                    <a href="${pageContext.request.contextPath}/employer/post-job" class="btn-outline">Đăng tin tuyển dụng</a>
-                `;
-            }
-
-            container.style.display = 'block';
-
-            // Ẩn phần giao diện chat
-            const chatWrapper = document.querySelector(".wrapper");
-            if (chatWrapper) {
-                chatWrapper.style.display = "none";
-            }
-        }
-    });
-
 
 
 

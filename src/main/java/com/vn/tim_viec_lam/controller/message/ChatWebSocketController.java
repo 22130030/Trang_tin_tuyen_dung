@@ -83,6 +83,17 @@ public class ChatWebSocketController {
             userService.updateIsOnline(userId,isOnline);
             users.remove(userId);
             System.out.println("User " + userId + " disconnected.");
+
+
+            ConversationService conversationService = new ConversationService();
+            MessageService messageService = new MessageService();
+
+            for (Integer conversationId : conversationService.getConversationIdsByUserId(userId)) {
+                if (messageService.countMessagesInConversation(conversationId) == 0) {
+                    conversationService.deleteConversation(conversationId);
+                    System.out.println("Đã xoá conversation không có tin nhắn: " + conversationId);
+                }
+            }
         }
     }
 }

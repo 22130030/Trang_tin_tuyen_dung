@@ -64,14 +64,14 @@ public class CompanyDao {
     }
     public Company excuteResultSet(ResultSet rs){
         try {
-        int id = rs.getInt("companyID");
-        String companyName = rs.getString("companyName");
-        String logo = rs.getString("logo");
-        String address = rs.getString("address");
-        String website = rs.getString("website");
-        String description = rs.getString("description");
-        String city = rs.getString("city");
-        Company  company = new Company(id, companyName,"","","",null, logo, address,city, website, description);
+            int id = rs.getInt("companyID");
+            String companyName = rs.getString("companyName");
+            String logo = rs.getString("logo");
+            String address = rs.getString("address");
+            String website = rs.getString("website");
+            String description = rs.getString("description");
+            String city = rs.getString("city");
+            Company  company = new Company(id, companyName,"","","",null, logo, address,city, website, description);
             return company;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -394,8 +394,8 @@ public class CompanyDao {
         CompanyDao dao = new CompanyDao();
         //List<String> test = new ArrayList<>();
 //       dao.editUser(3,"CÔNG TY TNHH THẨM MỸ NGỌC DUNG","user33@example.com","+1-800-792-9935","Đã duyệt");
-       dao.editUser(17,"CÔNG TY TNHH HOJEONG","user1717@example.com","+1-800-532-1520 ","Đã duyệt","Lô R13, 14, 15 KCN Hải Sơn Xã Đức Hòa Hạ, Huyện Đức Hòa, Long An");
-      //  dao.deleteUserCompany(6);
+        dao.editUser(17,"CÔNG TY TNHH HOJEONG","user1717@example.com","+1-800-532-1520 ","Đã duyệt","Lô R13, 14, 15 KCN Hải Sơn Xã Đức Hòa Hạ, Huyện Đức Hòa, Long An");
+        //  dao.deleteUserCompany(6);
     }
 
 

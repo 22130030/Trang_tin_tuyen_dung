@@ -112,20 +112,14 @@ public boolean login(String email, String password) {
         return userDao.updateUser(user);
     }
     public boolean updateChanged(int uid,int changed) {
-        if(userDao.getChanged(uid) != -1){
-            return userDao.updateChanged(uid,changed);
-        }
-        return userDao.insertChanged(uid,changed);
+        return userDao.updateChanged(uid,changed);
     }
     public boolean getChanged(int uid) {
-        if(userDao.getChanged(uid) == 1){
-            return true;
-        }
-        return false;
+        return userDao.getChanged(uid) == 1 ? true : false ;
     }
     public static void main(String[] args) {
         UserService userService = new UserService();
-        System.out.println(userService.getChanged(30));
+        System.out.println(userService.getPermissionIdForAdmin(2));
     }
 
 }

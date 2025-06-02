@@ -529,7 +529,6 @@ html,body{
     padding: 10px 20px;
     cursor: pointer;
 }
-
 #changePopup {
     display: none;
     position: fixed;
@@ -560,4 +559,4 @@ html,body{
     margin-top: 15px;
     padding: 10px 20px;
     cursor: pointer;
-}
+}x

@@ -581,7 +581,7 @@ public class UserDao {
     public static void main(String[] args) {
         UserDao dao = new UserDao();
 //        System.out.println(dao.insertUser("22","1","vanduc","2222","local","g22"));
-         System.out.println(dao.updateImage(28,"https://moc247.com/wp-content/uploads/2023/12/loa-mat-voi-101-hinh-anh-avatar-meo-cute-dang-yeu-dep-mat_2.jpg"));
+        System.out.println(dao.updateImage(28,"https://moc247.com/wp-content/uploads/2023/12/loa-mat-voi-101-hinh-anh-avatar-meo-cute-dang-yeu-dep-mat_2.jpg"));
     }
 
 
@@ -601,4 +601,3 @@ public class UserDao {
     }
 
 }
-

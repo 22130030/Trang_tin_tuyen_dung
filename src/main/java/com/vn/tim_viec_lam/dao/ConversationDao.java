@@ -17,111 +17,120 @@ import java.util.Map;
 public class ConversationDao {
     public List<Conversation> getConversation(int id) {
         String sql = "SELECT cp.companyName, jp.titleJob, c.conversationId, ja.status, ja.created_at, " +
-                "c.applicationId, c.userSenderId, c.userReceiverID, cd.fullName, ou.isOnline, ou.lastActive " +
+                "c.applicationId, c.userSenderId, c.userReceiverID, cd.fullName,ou.isOnline,ou.lastActive " +
                 "FROM conversations c " +
                 "JOIN job_applications ja ON ja.applicationId = c.applicationId " +
                 "JOIN job_posting jp ON jp.jobPostID = ja.jobPostId " +
                 "JOIN companies cp ON cp.companyID = ja.companyId " +
                 "JOIN candidates cd ON cd.candidateId = ja.candidateId " +
                 "LEFT JOIN online_users ou ON ou.userId = " +
-                "    CASE " +
-                "        WHEN c.userSenderId = ? THEN c.userReceiverID " +
-                "        ELSE c.userSenderId " +
-                "    END " +
+                "    CASE WHEN c.userSenderId = ? THEN c.userReceiverID ELSE c.userSenderId END " +
                 "WHERE (c.userSenderId = ? OR c.userReceiverID = ?) " +
-                "AND c.conversationId IN ( " +
-                "    SELECT m.conversationId " +
-                "    FROM messages m " +
-                "    WHERE m.content IS NOT NULL AND TRIM(m.content) != '' " +
-                ") " +
+                "AND c.conversationId IN (SELECT m.conversationId FROM messages m WHERE m.content IS NOT NULL AND TRIM(m.content) != '') " +
                 "ORDER BY c.created_at ASC";
 
         List<Conversation> conversations = new ArrayList<>();
-
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
+        try (
+                Connection con = DBconnect.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
             ps.setInt(1, id);
             ps.setInt(2, id);
             ps.setInt(3, id);
-
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    int conversationID = rs.getInt("conversationId");
-                    int userSenderID = rs.getInt("userSenderId");
-                    String fullName = rs.getString("fullName");
-                    int userReceiverID = rs.getInt("userReceiverID");
-                    String companyName = rs.getString("companyName");
-                    String titleJob = rs.getString("titleJob");
-                    String status = rs.getString("status");
-                    int isOnline = rs.getInt("isOnline");
-
-                    // Xử lý null để tránh lỗi khi getTimestamp trả về null
-                    LocalDateTime lastActive = null;
-                    if (rs.getTimestamp("lastActive") != null) {
-                        lastActive = rs.getTimestamp("lastActive").toLocalDateTime();
-                    }
-
-                    LocalDateTime created_at = null;
-                    if (rs.getTimestamp("created_at") != null) {
-                        created_at = rs.getTimestamp("created_at").toLocalDateTime();
-                    }
-
-                    int applicationId = rs.getInt("applicationId");
-
                     Conversation conversation = new Conversation();
-                    conversation.setId(conversationID);
-                    conversation.setLastActive(lastActive);
-                    conversation.setUserSenderId(userSenderID);
-                    conversation.setCandidateName(fullName);
-                    conversation.setUserReceiverId(userReceiverID);
-                    conversation.setCompanyName(companyName);
-                    conversation.setJobTitle(titleJob);
-                    conversation.setStatus(status);
-                    conversation.setApplicationDate(created_at);
-                    conversation.setIsOnline(isOnline);
-                    conversation.setApplicationId(applicationId);
-
+                    conversation.setId(rs.getInt("conversationID"));
+                    conversation.setLastActive(rs.getTimestamp("lastActive").toLocalDateTime());
+                    conversation.setUserSenderId(rs.getInt("userSenderID"));
+                    conversation.setCandidateName(rs.getString("fullName"));
+                    conversation.setUserReceiverId(rs.getInt("userReceiverID"));
+                    conversation.setCompanyName(rs.getString("companyName"));
+                    conversation.setJobTitle(rs.getString("titleJob"));
+                    conversation.setStatus(rs.getString("status"));
+                    conversation.setApplicationDate(rs.getTimestamp("created_at").toLocalDateTime());
+                    conversation.setIsOnline(rs.getInt("isOnline"));
+                    conversation.setApplicationId(rs.getInt("applicationId"));
                     conversations.add(conversation);
                 }
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return conversations;
     }
-    public Map<Integer,Integer> getMessageIsRead(int conversationID){
-        Connection con = DBconnect.getConnection();
-        String sql = "select m.conversationID,count(m.is_read) as count_is_read from conversations C " +
-                "join messages m on m.conversationID = c.conversationID " +
-                "where c.conversationId = ? AND" +
-                " m.is_read = 0 AND c.conversationId IN (   " +
-                "                    SELECT m.conversationId   " +
-                "                    FROM messages m   " +
-                "                    WHERE m.content IS NOT NULL AND TRIM(m.content) != ''   " +
-                "                )   " +
-                "GROUP BY m.conversationID ";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, conversationID);
-            Map<Integer,Integer> messageIsRead = new HashMap<>();
-            ResultSet rs = ps.executeQuery();
+    public List<Conversation> getConversationNoEmpty(int id) {
+        String sql = "SELECT cp.companyName, jp.titleJob, c.conversationId, ja.status, ja.created_at, " +
+                "c.applicationId, c.userSenderId, c.userReceiverID, cd.fullName,ou.isOnline,ou.lastActive " +
+                "FROM conversations c " +
+                "JOIN job_applications ja ON ja.applicationId = c.applicationId " +
+                "JOIN job_posting jp ON jp.jobPostID = ja.jobPostId " +
+                "JOIN companies cp ON cp.companyID = ja.companyId " +
+                "JOIN candidates cd ON cd.candidateId = ja.candidateId " +
+                "LEFT JOIN online_users ou ON ou.userId = " +
+                "    CASE WHEN c.userSenderId = ? THEN c.userReceiverID ELSE c.userSenderId END " +
+                "WHERE (c.userSenderId = ? OR c.userReceiverID = ?) " +
+                "ORDER BY c.created_at ASC";
 
-            while (rs.next()) {
-                int conversationId = rs.getInt("conversationID");
-                int numOfRead = rs.getInt("count_is_read");
-                messageIsRead.put(conversationId, numOfRead);
+        List<Conversation> conversations = new ArrayList<>();
+        try (
+                Connection con = DBconnect.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setInt(1, id);
+            ps.setInt(2, id);
+            ps.setInt(3, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Conversation conversation = new Conversation();
+                    conversation.setId(rs.getInt("conversationID"));
+                    conversation.setLastActive(rs.getTimestamp("lastActive").toLocalDateTime());
+                    conversation.setUserSenderId(rs.getInt("userSenderID"));
+                    conversation.setCandidateName(rs.getString("fullName"));
+                    conversation.setUserReceiverId(rs.getInt("userReceiverID"));
+                    conversation.setCompanyName(rs.getString("companyName"));
+                    conversation.setJobTitle(rs.getString("titleJob"));
+                    conversation.setStatus(rs.getString("status"));
+                    conversation.setApplicationDate(rs.getTimestamp("created_at").toLocalDateTime());
+                    conversation.setIsOnline(rs.getInt("isOnline"));
+                    conversation.setApplicationId(rs.getInt("applicationId"));
+                    conversations.add(conversation);
+                }
             }
-            return messageIsRead;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return conversations;
     }
+    public Map<Integer, Integer> getMessageIsRead(int conversationID) {
+        String sql = "SELECT m.conversationID, COUNT(m.is_read) AS count_is_read " +
+                "FROM conversations c " +
+                "JOIN messages m ON m.conversationID = c.conversationID " +
+                "WHERE c.conversationId = ? AND m.is_read = 0 AND " +
+                "c.conversationId IN (SELECT m.conversationId FROM messages m WHERE m.content IS NOT NULL AND TRIM(m.content) != '') " +
+                "GROUP BY m.conversationID";
+
+        Map<Integer, Integer> messageIsRead = new HashMap<>();
+        try (
+                Connection con = DBconnect.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setInt(1, conversationID);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    messageIsRead.put(rs.getInt("conversationID"), rs.getInt("count_is_read"));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return messageIsRead;
+    }
+
     public Conversation getSenderId(int jobAppId, int userID) {
-        String sql = "select c.userSenderID,c.userReceiverID from conversations c " +
-                " where c.applicationId = ? and (c.userReceiverID = ? or c.userSenderID = ?)";
+        String sql = "SELECT c.userSenderID, c.userReceiverID " +
+                "FROM conversations c " +
+                "WHERE c.applicationId = ? AND (c.userReceiverID = ? OR c.userSenderID = ?)";
 
         try (Connection con = DBconnect.getConnection();
              PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -131,20 +140,18 @@ public class ConversationDao {
             stmt.setInt(3, userID);
 
             try (ResultSet rs = stmt.executeQuery()) {
-                Conversation conversation = new Conversation();
                 if (rs.next()) {
-                    int senderId = rs.getInt("userSenderID");
-                    int userReceiverID = rs.getInt("userReceiverID");
-                    conversation.setUserSenderId(senderId);
-                    conversation.setUserReceiverId(userReceiverID);
+                    Conversation conversation = new Conversation();
+                    conversation.setUserSenderId(rs.getInt("userSenderID"));
+                    conversation.setUserReceiverId(rs.getInt("userReceiverID"));
+                    return conversation;
                 }
-                return conversation;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
-
     public Conversation getConversationById(int conversationId, int role) {
         String sql = "SELECT cp.companyName, jp.titleJob, c.conversationId, ja.status, ja.created_at, " +
                 "c.applicationId, c.userSenderId, c.userReceiverID, cd.fullName, ";
@@ -170,58 +177,36 @@ public class ConversationDao {
             ps.setInt(1, conversationId);
 
             try (ResultSet rs = ps.executeQuery()) {
-                Conversation conversation = new Conversation();
                 if (rs.next()) {
-                    int conversationID = rs.getInt("conversationId");
-                    int userSenderID = rs.getInt("userSenderId");
-                    String fullName = rs.getString("fullName");
-                    int userReceiverID = rs.getInt("userReceiverID");
-                    String companyName = rs.getString("companyName");
-                    String titleJob = rs.getString("titleJob");
-                    String status = rs.getString("status");
-
-                    LocalDateTime lastActive = null;
-                    if (rs.getTimestamp("lastActive") != null) {
-                        lastActive = rs.getTimestamp("lastActive").toLocalDateTime();
-                    }
-
-                    LocalDateTime created_at = null;
-                    if (rs.getTimestamp("created_at") != null) {
-                        created_at = rs.getTimestamp("created_at").toLocalDateTime();
-                    }
-
-                    int applicationId = rs.getInt("applicationId");
-                    int isOnline = rs.getInt("isOnline");
-
-                    conversation.setId(conversationID);
-                    conversation.setUserSenderId(userSenderID);
-                    conversation.setCandidateName(fullName);
-                    conversation.setUserReceiverId(userReceiverID);
-                    conversation.setCompanyName(companyName);
-                    conversation.setJobTitle(titleJob);
-                    conversation.setStatus(status);
-                    conversation.setLastActive(lastActive);
-                    conversation.setApplicationDate(created_at);
-                    conversation.setApplicationId(applicationId);
-                    conversation.setIsOnline(isOnline);
+                    Conversation conversation = new Conversation();
+                    conversation.setId(rs.getInt("conversationID"));
+                    conversation.setUserSenderId(rs.getInt("userSenderID"));
+                    conversation.setUserReceiverId(rs.getInt("userReceiverID"));
+                    conversation.setCandidateName(rs.getString("fullName"));
+                    conversation.setCompanyName(rs.getString("companyName"));
+                    conversation.setJobTitle(rs.getString("titleJob"));
+                    conversation.setStatus(rs.getString("status"));
+                    conversation.setLastActive(rs.getTimestamp("lastActive").toLocalDateTime());
+                    conversation.setApplicationDate(rs.getTimestamp("created_at").toLocalDateTime());
+                    conversation.setApplicationId(rs.getInt("applicationId"));
+                    conversation.setIsOnline(rs.getInt("isOnline"));
+                    return conversation;
                 }
-                return conversation;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
-
     public Conversation getConversationByALl(int senderId, int receiverId, int applicationId) {
-        String sql = "select cp.companyName, jp.titleJob, c.conversationId, ja.status, ja.created_at, " +
+        String sql = "SELECT cp.companyName, jp.titleJob, c.conversationId, ja.status, ja.created_at, " +
                 "c.applicationId, c.userSenderId, c.userReceiverID, cd.fullName " +
-                "from conversations c " +
-                "join job_applications ja on ja.applicationId = c.applicationId " +
-                "join candidates cd on cd.candidateId = ja.candidateId " +
-                "join job_posting jp on ja.jobPostId = jp.jobPostId " +
-                "join companies cp on cp.companyID = jp.companyID " +
-                "where c.userSenderID = ? AND c.userReceiverID = ? " +
-                "and c.applicationId = ?";
+                "FROM conversations c " +
+                "JOIN job_applications ja ON ja.applicationId = c.applicationId " +
+                "JOIN candidates cd ON cd.candidateId = ja.candidateId " +
+                "JOIN job_posting jp ON ja.jobPostId = jp.jobPostId " +
+                "JOIN companies cp ON cp.companyID = jp.companyID " +
+                "WHERE c.userSenderID = ? AND c.userReceiverID = ? AND c.applicationId = ?";
 
         try (Connection con = DBconnect.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -231,111 +216,92 @@ public class ConversationDao {
             ps.setInt(3, applicationId);
 
             try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    int conversationID = rs.getInt("conversationId");
-                    int userSenderID = rs.getInt("userSenderId");
-                    String fullName = rs.getString("fullName");
-                    int userReceiverID = rs.getInt("userReceiverID");
-                    String companyName = rs.getString("companyName");
-                    String titleJob = rs.getString("titleJob");
-                    String status = rs.getString("status");
-                    LocalDateTime created_at = rs.getTimestamp("created_at").toLocalDateTime();
-
+                if (rs.next()) {
                     Conversation conversation = new Conversation();
-                    conversation.setId(conversationID);
-                    conversation.setUserSenderId(userSenderID);
-                    conversation.setCandidateName(fullName);
-                    conversation.setUserReceiverId(userReceiverID);
-                    conversation.setCompanyName(companyName);
-                    conversation.setJobTitle(titleJob);
-                    conversation.setStatus(status);
-                    conversation.setApplicationDate(created_at);
+                    conversation.setId(rs.getInt("conversationID"));
+                    conversation.setUserSenderId(rs.getInt("userSenderID"));
+                    conversation.setUserReceiverId(rs.getInt("userReceiverID"));
+                    conversation.setCandidateName(rs.getString("fullName"));
+                    conversation.setCompanyName(rs.getString("companyName"));
+                    conversation.setJobTitle(rs.getString("titleJob"));
+                    conversation.setStatus(rs.getString("status"));
+                    conversation.setApplicationDate(rs.getTimestamp("created_at").toLocalDateTime());
                     conversation.setApplicationId(applicationId);
                     return conversation;
                 }
-                return null;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
 
-    public List<Conversation> getConversationsByALl(int senderId,int receiverId,int jobAppId) {
-        Connection con = DBconnect.getConnection();
-        String sql = "select cp.companyName,jp.titleJob,c.conversationId,ja.status,ja.created_at" +
-                ",c.applicationId,c.userSenderId,c.userReceiverID,cd.fullName from conversations c" +
-                " join job_applications ja on ja.applicationId = c.applicationId " +
-                " join candidates cd on cd.candidateId = ja.candidateId" +
-                " join job_posting jp on ja.jobPostId = jp.jobPostId " +
-                " join companies cp on cp.companyID = jp.companyID " +
-                " where c.userSenderID = ? AND c.userReceiverID = ? " +
-                " and c.applicationId = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+    public List<Conversation> getConversationsByALl(int senderId, int receiverId, int jobAppId) {
+        List<Conversation> conversationList = new ArrayList<>();
+        String sql = "SELECT cp.companyName, jp.titleJob, c.conversationId, ja.status, ja.created_at, " +
+                "c.applicationId, c.userSenderId, c.userReceiverID, cd.fullName " +
+                "FROM conversations c " +
+                "JOIN job_applications ja ON ja.applicationId = c.applicationId " +
+                "JOIN candidates cd ON cd.candidateId = ja.candidateId " +
+                "JOIN job_posting jp ON ja.jobPostId = jp.jobPostId " +
+                "JOIN companies cp ON cp.companyID = jp.companyID " +
+                "WHERE c.userSenderID = ? AND c.userReceiverID = ? AND c.applicationId = ?";
+
+        try (Connection con = DBconnect.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
             ps.setInt(1, senderId);
             ps.setInt(2, receiverId);
             ps.setInt(3, jobAppId);
-            ResultSet rs = ps.executeQuery();
-            Conversation conversation = new Conversation();
-            List<Conversation> conversationList = new ArrayList<>();
-            while (rs.next()) {
-                int conversationID = rs.getInt("conversationID");
-                int userSenderID = rs.getInt("userSenderID");
-                String fullName = rs.getString("fullName");
-                int userReceiverID = rs.getInt("userReceiverID");
-                String companyName = rs.getString("companyName");
-                String titleJob = rs.getString("titleJob");
-                String status = rs.getString("status");
-                LocalDateTime created_at = rs.getTimestamp("created_at").toLocalDateTime();
-                int applicationId = rs.getInt("applicationId");
-                conversation = new Conversation();
-                conversation.setId(conversationID);
-                conversation.setUserSenderId(userSenderID);
-                conversation.setCandidateName(fullName);
-                conversation.setUserReceiverId(userReceiverID);
-                conversation.setCompanyName(companyName);
-                conversation.setJobTitle(titleJob);
-                conversation.setStatus(status);
-                conversation.setApplicationDate(created_at);
-                conversation.setApplicationId(applicationId);
-                conversationList.add(conversation);
-                return conversationList;
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Conversation conversation = new Conversation();
+                    conversation.setId(rs.getInt("conversationID"));
+                    conversation.setUserSenderId(rs.getInt("userSenderID"));
+                    conversation.setCandidateName(rs.getString("fullName"));
+                    conversation.setUserReceiverId(rs.getInt("userReceiverID"));
+                    conversation.setCompanyName(rs.getString("companyName"));
+                    conversation.setJobTitle(rs.getString("titleJob"));
+                    conversation.setStatus(rs.getString("status"));
+                    conversation.setApplicationDate(rs.getTimestamp("created_at").toLocalDateTime());
+                    conversation.setApplicationId(rs.getInt("applicationId"));
+                    conversationList.add(conversation);
+                }
             }
-            return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
+        return conversationList;
     }
     public boolean insertConversation(int senderId, int receiverId, int applicationID) {
-        String sql = "insert conversations(userSenderId,userReceiverId,applicationID,created_at) values(?,?,?,NOW())";
+        String sql = "INSERT INTO conversations (userSenderId, userReceiverId, applicationID, created_at) " +
+                "VALUES (?, ?, ?, NOW())";
+
         try (Connection con = DBconnect.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, senderId);
             ps.setInt(2, receiverId);
             ps.setInt(3, applicationID);
-
             return ps.executeUpdate() > 0;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
     public Conversation getConversationId(int senderId, int applicationId) {
         String sql = "SELECT cp.companyName, jp.titleJob, c.conversationId, ja.status, ja.created_at, " +
-                "c.applicationId, c.userSenderId, c.userReceiverID, cd.fullName,ou.isOnline,ou.lastActive " +
+                "c.applicationId, c.userSenderId, c.userReceiverID, cd.fullName, ou.isOnline, ou.lastActive " +
                 "FROM conversations c " +
                 "JOIN job_applications ja ON ja.applicationId = c.applicationId " +
                 "JOIN job_posting jp ON jp.jobPostID = ja.jobPostId " +
                 "JOIN companies cp ON cp.companyID = ja.companyId " +
                 "JOIN candidates cd ON cd.candidateId = ja.candidateId " +
                 "LEFT JOIN online_users ou ON ou.userId = " +
-                "    CASE " +
-                "        WHEN c.userSenderId = ? THEN c.userReceiverID " +
-                "        ELSE c.userSenderId " +
-                "    END " +
-                " where c.userSenderId = ? and c.applicationId = ?";
+                "    CASE WHEN c.userSenderId = ? THEN c.userReceiverID ELSE c.userSenderId END " +
+                "WHERE c.userSenderId = ? AND c.applicationId = ?";
 
         try (Connection con = DBconnect.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -345,42 +311,63 @@ public class ConversationDao {
             ps.setInt(3, applicationId);
 
             try (ResultSet rs = ps.executeQuery()) {
-                Conversation conversation = new Conversation();
-                while (rs.next()) {
-                    int conversationID = rs.getInt("conversationId");
-                    int userSenderID = rs.getInt("userSenderId");
-                    String fullName = rs.getString("fullName");
-                    int userReceiverID = rs.getInt("userReceiverID");
-                    String companyName = rs.getString("companyName");
-                    String titleJob = rs.getString("titleJob");
-                    String status = rs.getString("status");
-                    int isOnline = rs.getInt("isOnline");
-                    LocalDateTime lastActive = rs.getTimestamp("lastActive").toLocalDateTime();
-                    LocalDateTime created_at = rs.getTimestamp("created_at").toLocalDateTime();
-
-                    conversation.setId(conversationID);
-                    conversation.setLastActive(lastActive);
-                    conversation.setUserSenderId(userSenderID);
-                    conversation.setCandidateName(fullName);
-                    conversation.setUserReceiverId(userReceiverID);
-                    conversation.setCompanyName(companyName);
-                    conversation.setJobTitle(titleJob);
-                    conversation.setStatus(status);
-                    conversation.setApplicationDate(created_at);
-                    conversation.setIsOnline(isOnline);
+                if (rs.next()) {
+                    Conversation conversation = new Conversation();
+                    conversation.setId(rs.getInt("conversationID"));
+                    conversation.setUserSenderId(rs.getInt("userSenderID"));
+                    conversation.setCandidateName(rs.getString("fullName"));
+                    conversation.setUserReceiverId(rs.getInt("userReceiverID"));
+                    conversation.setCompanyName(rs.getString("companyName"));
+                    conversation.setJobTitle(rs.getString("titleJob"));
+                    conversation.setStatus(rs.getString("status"));
+                    conversation.setApplicationDate(rs.getTimestamp("created_at").toLocalDateTime());
                     conversation.setApplicationId(applicationId);
+                    conversation.setIsOnline(rs.getInt("isOnline"));
+                    conversation.setLastActive(rs.getTimestamp("lastActive").toLocalDateTime());
+                    return conversation;
                 }
-                return conversation;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return null;
+    }
+
+    public List<Integer> getConversationIdsByUserId(int userId) {
+        List<Integer> conversationIds = new ArrayList<>();
+        String sql = "SELECT conversationId FROM conversations WHERE userSenderId = ?";
+
+        try (Connection con = DBconnect.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    conversationIds.add(rs.getInt("conversationId"));
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        return conversationIds;
     }
 
-    public static void main(String[] args) {
-        ConversationDao dao = new ConversationDao();
-        System.out.println(dao.getSenderId(1,2));
-    }
+    public boolean deleteConversation(Integer conversationId) {
+        String sql = "DELETE FROM conversations WHERE conversationID = ?";
 
+        try (Connection connection = DBconnect.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, conversationId);
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
