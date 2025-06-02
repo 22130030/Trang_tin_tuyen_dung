@@ -89,7 +89,7 @@
 
 <div class="container">
     <h2>Chỉnh sửa thông tin nhà tuyển dụng</h2>
-    <form action="edit" method="post">
+    <form action="edit/edit" method="post">
         <label for="email">ID:</label>
         <input value="${ls.id}" type="text" id="id" name="id" readonly>
 

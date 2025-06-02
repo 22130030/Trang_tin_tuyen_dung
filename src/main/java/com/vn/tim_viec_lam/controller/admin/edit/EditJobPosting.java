@@ -1,4 +1,4 @@
-package com.vn.tim_viec_lam.controller.admin;
+package com.vn.tim_viec_lam.controller.admin.edit;
 
 import com.vn.tim_viec_lam.service.JobService;
 import jakarta.servlet.ServletException;
@@ -9,24 +9,23 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "add-job-posting",value = "/admin/add-job-posting")
-public class AddJobPosting extends HttpServlet {
+@WebServlet(name = "edit-job-posting" , value = "/admin/edit/edit-job-posting")
+public class EditJobPosting extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=utf-8");
+        int id = Integer.parseInt(req.getParameter("id"));
         String img = req.getParameter("image");
         String title = req.getParameter("titleJob");
         String company = req.getParameter("companyName");
         String city = req.getParameter("address");
         String salary = req.getParameter("salary");
         String status = req.getParameter("status");
-        JobService jobService = new JobService();
-        jobService.addJobPosting(img, title, company, city, salary, status);
-        resp.sendRedirect("job_manager");
+        JobService service = new JobService();
+        service.editJobPosting(id,img,title,company,city,salary,status);
+        resp.sendRedirect(req.getContextPath() +"/admin/job_manager");
     }
 }

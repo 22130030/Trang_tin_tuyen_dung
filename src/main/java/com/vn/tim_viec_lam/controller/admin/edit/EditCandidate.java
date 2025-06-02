@@ -1,4 +1,4 @@
-package com.vn.tim_viec_lam.controller.admin;
+package com.vn.tim_viec_lam.controller.admin.edit;
 
 import com.vn.tim_viec_lam.service.CandidateService;
 import jakarta.servlet.ServletException;
@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "update_candidate",value = "/admin/update_candidate")
+@WebServlet(name = "update_candidate",value = "/admin/edit/update_candidate")
 public class EditCandidate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,6 +26,6 @@ public class EditCandidate extends HttpServlet {
         String birthday = req.getParameter("birth");
         CandidateService service = new CandidateService();
         service.editUserCandidate(cid,cname,cemail,cphone,cstatus,gender,birthday);
-        resp.sendRedirect("candidate-user-find");
+        resp.sendRedirect(req.getContextPath() + "/admin/candidate-user-find");
     }
 }

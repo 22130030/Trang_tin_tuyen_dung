@@ -59,7 +59,7 @@
 <body>
 <div class="form-container">
     <h2>Chỉnh sửa tài khoản</h2>
-    <form action="edit-user" method="post">
+    <form action="edit/edit-user" method="post">
         <!-- User ID (Ẩn) -->
         <input type="hidden" id="userID" name="userId" value="${load.userID}" readonly>
 

@@ -1,4 +1,4 @@
-package com.vn.tim_viec_lam.controller.admin;
+package com.vn.tim_viec_lam.controller.admin.edit;
 
 import com.vn.tim_viec_lam.service.UserService;
 import jakarta.servlet.ServletException;
@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "edit-user", value = "/admin/edit-user")
+@WebServlet(name = "edit-user", value = "/admin/edit/edit-user")
 public class EditUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,6 +22,6 @@ public class EditUser extends HttpServlet {
         String image = req.getParameter("image");
         UserService userService = new UserService();
         userService.editUser(uid, email, password, role, status, image);
-        resp.sendRedirect("manager-user");
+        resp.sendRedirect(req.getContextPath() + "/admin/manager-user");
     }
 }

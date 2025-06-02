@@ -117,7 +117,7 @@
 <body>
 <div class="container">
     <h1 class="title">Thêm bài đăng</h1>
-    <form action="add-job-posting" method="post" >
+    <form action="add/add-job-posting" method="post" >
 
         <label for="image">Thêm hình ảnh:</label>
         <input type="file" id="image" name="image" accept="image/*">
