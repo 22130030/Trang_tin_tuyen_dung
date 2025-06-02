@@ -11,21 +11,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LogResumeDao {
-    public List<LogResume> getLogReById(int resmeID){
-        Connection con = DBconnect.getConnection();
+    public List<LogResume> getLogReById(int resmeID) {
         String sql = "select * from resume_views where resumeID=?";
-        List<LogResume> resumeList = new ArrayList<LogResume>();
-        try {
-            PreparedStatement pstmt = con.prepareStatement(sql);
+        List<LogResume> resumeList = new ArrayList<>();
+        try (Connection con = DBconnect.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setInt(1, resmeID);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                LogResume resume = new LogResume();
-                resume.setResumeId((Integer.parseInt( rs.getString("resumeID"))));
-                resume.setCompanyName((rs.getString("companyName")));
-                resume.setEmployeeId((Integer.parseInt( rs.getString("employerID"))));
-                resume.setViewed_at(rs.getTimestamp("viewed_at").toLocalDateTime());
-                resumeList.add(resume);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    LogResume resume = new LogResume();
+                    resume.setResumeId(Integer.parseInt(rs.getString("resumeID")));
+                    resume.setCompanyName(rs.getString("companyName"));
+                    resume.setEmployeeId(Integer.parseInt(rs.getString("employerID")));
+                    resume.setViewed_at(rs.getTimestamp("viewed_at").toLocalDateTime());
+                    resumeList.add(resume);
+                }
             }
             return resumeList;
         } catch (SQLException e) {

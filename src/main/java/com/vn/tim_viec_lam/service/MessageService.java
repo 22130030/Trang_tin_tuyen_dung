@@ -2,7 +2,12 @@ package com.vn.tim_viec_lam.service;
 
 import com.vn.tim_viec_lam.dao.MessageDao;
 import com.vn.tim_viec_lam.dao.model.Message;
+import com.vn.tim_viec_lam.database.DBconnect;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class MessageService {
@@ -35,5 +40,10 @@ public class MessageService {
     public static void main(String[] args) {
         MessageService getConversationMessage = new MessageService();
         System.out.println(getConversationMessage.getAllMessageByConversationId(10));
+    }
+
+    public int countMessagesInConversation(Integer conversationId) {
+        return messageDao.countMessagesInConversation(conversationId);
+
     }
 }

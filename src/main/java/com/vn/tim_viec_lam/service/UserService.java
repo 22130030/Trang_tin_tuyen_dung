@@ -115,7 +115,7 @@ public boolean login(String email, String password) {
         return userDao.updateChanged(uid,changed);
     }
     public boolean getChanged(int uid) {
-        return userDao.getChanged(uid);
+        return userDao.getChanged(uid) == 1 ? true : false ;
     }
     public static void main(String[] args) {
         UserService userService = new UserService();

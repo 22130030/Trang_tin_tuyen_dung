@@ -49,13 +49,14 @@ public class JobPostCategoryDAO {
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, pageSize);
             ps.setInt(2, offset);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                int id = rs.getInt("categoryID");
-                String name = rs.getString("categoryName");
-                String img = rs.getString("img");
-                int count = rs.getInt("jobCount");
-                list.add(new JobCategoryCount(id, name, img, count));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("categoryID");
+                    String name = rs.getString("categoryName");
+                    String img = rs.getString("img");
+                    int count = rs.getInt("jobCount");
+                    list.add(new JobCategoryCount(id, name, img, count));
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
