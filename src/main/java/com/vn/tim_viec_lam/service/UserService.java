@@ -95,7 +95,9 @@ public boolean login(String email, String password) {
         int status =  userDao.getLockStatus(userId);
         return status == -1 ? true : false;
     }
-
+    public int getPermissionIdForAdmin(int userId) {
+        return userDao.getPermissionIdForAdmin(userId);
+    }
     public User getUserById(int userID) {
         return userDao.getUserById(userID);
     }
@@ -104,7 +106,7 @@ public boolean login(String email, String password) {
     }
     public static void main(String[] args) {
         UserService userService = new UserService();
-        System.out.println(userService.getUserIdByCandidateId(53));
+        System.out.println(userService.getPermissionIdForAdmin(2));
     }
 
 }

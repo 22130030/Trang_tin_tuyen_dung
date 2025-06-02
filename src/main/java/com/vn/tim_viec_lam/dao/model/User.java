@@ -16,6 +16,7 @@ public class User implements Serializable {
     private LocalDateTime created_at;
     private int roleNum;
     private String image;
+    private int permissionId;
     public User() {
     }
 
@@ -144,6 +145,14 @@ public class User implements Serializable {
     public void setProvider_id(String provider_id) {
 
         this.provider_id = provider_id;
+    }
+
+    public int getPermissionId() {
+        return permissionId;
+    }
+
+    public void setPermissionId(int permissionId) {
+        this.permissionId = permissionId;
     }
 
     @Override
