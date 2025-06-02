@@ -129,11 +129,6 @@ public class CandidateLogin extends HttpServlet {
                     session.setAttribute("candidateId", candidateId);
                     session.setAttribute("image", u.getImage());
 
-
-                    boolean changed = us.getChanged(u.getUserID());
-                    if(changed){
-                        us.updateChanged(u.getUserID(), 0);
-                    }
                     if (role == 1) {
                         response.sendRedirect("home");
                     } else if (role == 3) {

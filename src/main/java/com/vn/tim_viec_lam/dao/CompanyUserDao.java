@@ -1,6 +1,7 @@
 package com.vn.tim_viec_lam.dao;
 
 import com.vn.tim_viec_lam.dao.model.CompanyUser;
+import com.vn.tim_viec_lam.dao.model.User;
 import com.vn.tim_viec_lam.database.DBconnect;
 
 import java.sql.Connection;
@@ -14,92 +15,88 @@ import java.util.List;
 import static com.vn.tim_viec_lam.service.EncryptionService.hasPasswordToMD5;
 
 public class CompanyUserDao {
-
     public List<CompanyUser> getAll() {
-        List<CompanyUser> users = new ArrayList<>();
+        List<CompanyUser> users = new ArrayList<CompanyUser>();
+        Connection con = DBconnect.getConnection();
         String sql = "select * from users u" +
                 " join roles r on r.userID = u.userID" +
                 " join company_users cu on cu.userID = u.userID" +
                 " join companies c on c.companyID = cu.companyID";
-
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 CompanyUser u = excute(rs);
                 users.add(u);
             }
+            return users;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return users;
     }
-
     public CompanyUser getUserByEmail(String email) {
+        Connection con = DBconnect.getConnection();
         String sql = "select * from users u" +
                 " join roles r on r.userID = u.userID" +
                 " join company_users cu on cu.userID = u.userID" +
                 " join companies c on c.companyID = cu.companyID" +
                 " where u.email = ?";
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, email);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return excute(rs);
-                }
+            ResultSet rs = ps.executeQuery();
+            CompanyUser user = null;
+            if(rs.next()) {
+                user = excute(rs);
             }
-        } catch (Exception e) {
+            return user;
+        }catch (Exception e){
             e.printStackTrace();
         }
         return null;
     }
-
-    public boolean getUser(String email, String password) {
+    public boolean getUser(String email,String password) {
+        Connection con = DBconnect.getConnection();
         String sql = "select * from users u" +
                 " join user_auth ua on ua.userID = u.userID" +
                 " where u.email = ? and ua.password = ?";
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, email);
             ps.setString(2, password);
-            try (ResultSet rs = ps.executeQuery()) {
-                return rs.next();
-            }
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
     public CompanyUser excute(ResultSet rs) throws SQLException {
         int id = rs.getInt("userID");
         int companyID = rs.getInt("companyID");
         String email = rs.getString("email");
         int role = rs.getInt("roleNum");
+//        String password = rs.getString("password");
         String name = rs.getString("companyName");
         String phoneNumber = rs.getString("phone_number");
         String status = rs.getString("status");
         LocalDateTime date = rs.getTimestamp("created_at").toLocalDateTime();
-        return new CompanyUser(id, companyID, email, "", name, phoneNumber, status, date, role);
+        return new CompanyUser(id,companyID,email,"",name,phoneNumber,status,date,role);
     }
-
     public boolean isEmailExistsEmployer(String email) {
         String query = "SELECT COUNT(*) FROM users WHERE email = ?";
         try (Connection conn = DBconnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, email.trim().toLowerCase()); // Chuẩn hóa email
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt(1) > 0;
-                }
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
-
-    public boolean insertUserEmployer(String email, String name, String password, String rePassword, String companyName, String phone, String address) {
+    public boolean insertUserEmployer(String email,String name, String password, String rePassword, String companyName, String phone, String address) {
         if (email == null || password == null || rePassword == null || companyName == null || phone == null || address == null) {
             return false;
         }
@@ -108,12 +105,11 @@ public class CompanyUserDao {
             return false; // Mật khẩu nhập lại không khớp
         }
 
-        Connection con = null;
+        Connection con = DBconnect.getConnection();
         PreparedStatement pstUser = null, pstCompany = null, pstCompanyUser = null, pstUserAuth = null, pstRole = null;
         ResultSet rsUser = null, rsCompany = null;
 
         try {
-            con = DBconnect.getConnection();
             con.setAutoCommit(false);
 
             // 1. Insert vào bảng users
@@ -169,12 +165,10 @@ public class CompanyUserDao {
 
         } catch (Exception e) {
             e.printStackTrace();
-            if (con != null) {
-                try {
-                    con.rollback();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+            try {
+                if (con != null) con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
             return false;
         } finally {
@@ -195,9 +189,12 @@ public class CompanyUserDao {
             }
         }
     }
-
     public static void main(String[] args) {
         CompanyUserDao dao = new CompanyUserDao();
-        System.out.println(dao.insertUserEmployer("company@gmail.com", "mailisa", "1", "1", "mailisa", "12345678", "quốc lộ 80"));
+//        System.out.println(dao.insertUser("22","1","vanduc","2222","local","g22"));
+//         System.out.println(dao.updateImage(28,"https://moc247.com/wp-content/uploads/2023/12/loa-mat-voi-101-hinh-anh-avatar-meo-cute-dang-yeu-dep-mat_2.jpg"));
+        System.out.println(dao.insertUserEmployer("company@gmail.com","mailisa","1","1", "mailisa", "12345678", "quốc lộ 80"));
     }
 }
+
+

@@ -9,22 +9,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AccountLevelDao {
-    public AccountLevel getLimitByStatus(int status) {
+    public AccountLevel getLimitByStatus(int status){
+        Connection con = DBconnect.getConnection();
         String sql = "select * from account_levels where status=?";
-        AccountLevel accountLevel = new AccountLevel();
-
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, status);
-
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    int resumeLimit = rs.getInt("resume_limit");
-                    int applicationLimit = rs.getInt("job_application_limit");
-                    accountLevel.setResumeLimit(resumeLimit);
-                    accountLevel.setApplicationLimit(applicationLimit);
-                }
+            ResultSet rs = ps.executeQuery();
+            AccountLevel accountLevel = new AccountLevel();
+            if (rs.next()) {
+                int resumeLimit = rs.getInt("resume_limit");
+                int applicationLimit = rs.getInt("job_application_limit");
+                accountLevel.setResumeLimit(resumeLimit);
+                accountLevel.setApplicationLimit(applicationLimit);
             }
             return accountLevel;
 

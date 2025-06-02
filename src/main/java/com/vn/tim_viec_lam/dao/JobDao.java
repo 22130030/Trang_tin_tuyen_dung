@@ -14,87 +14,88 @@ public class JobDao {
     private int locationID;
 
     public List<Job> getAll() {
-        List<Job> jobs = new ArrayList<>();
+        List<Job> jobs = new ArrayList<Job>();
 
-        String sql = "select jp.*, c.companyName, jl.city from job_posting as jp " +
-                "join companies as c on c.companyID = jp.companyID " +
-                "join job_locations as jl on jl.locationID = jp.locationID";
-
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
+        try {
+            Connection con = DBconnect.getConnection();
+            String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
+                    " join companies as c on c.companyID = jp.companyID" +
+                    " join job_locations as jl on jl.locationID = jp.locationID";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Job job = getResultSet(rs);
                 jobs.add(job);
             }
+
             return jobs;
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
         return null;
     }
 
     public List<Job> getAllNewJob() {
-        List<Job> jobs = new ArrayList<>();
+        List<Job> jobs = new ArrayList<Job>();
 
-        String sql = "select jp.*, c.companyName, jl.city from job_posting as jp " +
-                "join companies as c on c.companyID = jp.companyID " +
-                "join job_locations as jl on jl.locationID = jp.locationID " +
-                "order by jp.created_at desc";
-
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
+        try {
+            Connection con = DBconnect.getConnection();
+            String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
+                    " join companies as c on c.companyID = jp.companyID" +
+                    " join job_locations as jl on jl.locationID = jp.locationID" +
+                    " order by jp.created_at desc";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Job job = getResultSet(rs);
                 jobs.add(job);
             }
             return jobs;
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
         return null;
+
     }
 
     public List<Job> get4NewJob() {
-        List<Job> jobs = new ArrayList<>();
+        List<Job> jobs = new ArrayList<Job>();
 
-        String sql = "select jp.*, c.companyName, jl.city from job_posting as jp " +
-                "join companies as c on c.companyID = jp.companyID " +
-                "join job_locations as jl on jl.locationID = jp.locationID " +
-                "order by jp.created_at desc " +
-                "limit 4";
+        try {
+            Connection con = DBconnect.getConnection();
+            String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
+                    " join companies as c on c.companyID = jp.companyID" +
+                    " join job_locations as jl on jl.locationID = jp.locationID" +
+                    " order by jp.created_at desc" +
+                    " limit 4";
 
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Job job = getResultSet(rs);
                 jobs.add(job);
             }
             return jobs;
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
         return null;
+
     }
 
     public Job findById(int id) {
-        Job job = null;
-        String sql = "select jp.*, c.companyName, jl.city from job_posting as jp " +
-                "join companies as c on c.companyID = jp.companyID " +
-                "join job_locations as jl on jl.locationID = jp.locationID " +
-                "where jobPostID = ?";
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        Job job = new Job();
+        Connection con = DBconnect.getConnection();
+        String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
+                " join companies as c on c.companyID = jp.companyID" +
+                " join job_locations as jl on jl.locationID = jp.locationID" +
+                " where jobPostID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    job = getResultSet(rs);
-                }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                job = getResultSet(rs);
             }
             return job;
         } catch (SQLException e) {
@@ -104,69 +105,74 @@ public class JobDao {
 
     public List<Job> getJobsByCompanyId(int companyID) {
         List<Job> jobs = new ArrayList<>();
-        String sql = "select jp.*, c.companyName, jl.city from job_posting as jp " +
-                "join companies as c on c.companyID = jp.companyID " +
-                "join job_locations as jl on jl.locationID = jp.locationID " +
-                "where jp.companyID = ?";
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        Connection con = DBconnect.getConnection();
+        String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
+                " join companies as c on c.companyID = jp.companyID" +
+                " join job_locations as jl on jl.locationID = jp.locationID" +
+                " where jp.companyID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, companyID);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Job job = getResultSet(rs);
-                    jobs.add(job);
-                }
+            ResultSet rs = ps.executeQuery();
+            Job job = new Job();
+            while (rs.next()) {
+                job = getResultSet(rs);
+                jobs.add(job);
             }
             return jobs;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     public List<Job> getJobsByJobPostCategoryId(int categoryID) {
         List<Job> jobs = new ArrayList<>();
-        String sql = "select jp.*, c.companyName, jl.city from job_posting as jp " +
-                "join companies as c on c.companyID = jp.companyID " +
-                "join job_locations as jl on jl.locationID = jp.locationID " +
-                "join job_post_categories jpc on jpc.jobPostID = jp.jobPostID " +
-                "where jpc.jobPostCategoryID = ?";
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        Connection con = DBconnect.getConnection();
+        String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
+                " join companies as c on c.companyID = jp.companyID" +
+                " join job_locations as jl on jl.locationID = jp.locationID" +
+                " join job_post_categories jpc on jpc.jobPostID = jp.jobPostID" +
+                " where jpc.jobPostCategoryID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, categoryID);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Job job = getResultSet(rs);
-                    jobs.add(job);
-                }
+            ResultSet rs = ps.executeQuery();
+            Job job = new Job();
+            while (rs.next()) {
+                job = getResultSet(rs);
+                jobs.add(job);
             }
             return jobs;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     public List<Job> getJobsByCategoryId(int categoryID) {
         List<Job> jobs = new ArrayList<>();
-        String sql = "select DISTINCT jp.*, c.companyName, jl.city from job_posting as jp " +
-                "join companies as c on c.companyID = jp.companyID " +
-                "join job_locations as jl on jl.locationID = jp.locationID " +
-                "join job_post_categories jpc on jpc.jobPostID = jp.jobPostID " +
-                "where jpc.categoryID = ?";
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        Connection con = DBconnect.getConnection();
+        String sql = "select DISTINCT jp.*,c.companyName,jl.city from job_posting as jp" +
+                " join companies as c on c.companyID = jp.companyID" +
+                " join job_locations as jl on jl.locationID = jp.locationID" +
+                " join job_post_categories jpc on jpc.jobPostID = jp.jobPostID" +
+                " where jpc.categoryID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, categoryID);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Job job = getResultSet(rs);
-                    jobs.add(job);
-                }
+            ResultSet rs = ps.executeQuery();
+            Job job = new Job();
+            while (rs.next()) {
+                job = getResultSet(rs);
+                jobs.add(job);
             }
             return jobs;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
 
+    }
 
     public Job getResultSet(ResultSet rs) throws SQLException {
         Job job = new Job();
@@ -189,11 +195,11 @@ public class JobDao {
     }
 
     public int getNumberPage() {
+        Connection con = DBconnect.getConnection();
         String sql = "select count(*) from job_posting";
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 int total = rs.getInt(1);
                 int countPage = total % 12 > 0 ? total / 12 + 1 : total / 12;
@@ -207,21 +213,21 @@ public class JobDao {
     }
 
     public List<Job> getPaging(int indexPage) {
-        List<Job> jobs = new ArrayList<>();
-        String sql = "select jp.*, c.companyName, jl.city from job_posting as jp " +
-                "join companies as c on c.companyID = jp.companyID " +
-                "join job_locations as jl on jl.locationID = jp.locationID " +
-                "LIMIT 12 OFFSET ?";
+        List<Job> jobs = new ArrayList<Job>();
 
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        try {
+            Connection con = DBconnect.getConnection();
+            String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
+                    " join companies as c on c.companyID = jp.companyID" +
+                    " join job_locations as jl on jl.locationID = jp.locationID" +
+                    " LIMIT 12 OFFSET ?";
 
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, (indexPage - 1) * 12);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Job job = getResultSet(rs);
-                    jobs.add(job);
-                }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Job job = getResultSet(rs);
+                jobs.add(job);
             }
             return jobs;
         } catch (Exception e) {
@@ -245,21 +251,20 @@ public class JobDao {
     }
 
     public List<Job> searchEqualsByName(String name) {
-        List<Job> jobs = new ArrayList<>();
-        String sql = "select jp.*, c.companyName, jl.city from job_posting as jp " +
-                "join companies as c on c.companyID = jp.companyID " +
-                "join job_locations as jl on jl.locationID = jp.locationID " +
-                "where titleJob like ?";
+        List<Job> jobs = new ArrayList<Job>();
+        Connection con = DBconnect.getConnection();
+        String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
+                " join companies as c on c.companyID = jp.companyID" +
+                " join job_locations as jl on jl.locationID = jp.locationID" +
+                " where titleJob like ?";
 
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, "%" + name + "%");
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Job job = getResultSet(rs);
-                    jobs.add(job);
-                }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Job job = getResultSet(rs);
+                jobs.add(job);
             }
             return jobs;
         } catch (SQLException e) {
@@ -268,21 +273,20 @@ public class JobDao {
     }
 
     public List<Job> searchJobEqualsByNamejob(String name) {
-        List<Job> jobs = new ArrayList<>();
-        String sql = "select jp.*, c.companyName, jl.city from job_posting as jp " +
-                "join companies as c on c.companyID = jp.companyID " +
-                "join job_locations as jl on jl.locationID = jp.locationID " +
-                "where jp.titleJob like ?";
+        List<Job> jobs = new ArrayList<Job>();
+        Connection con = DBconnect.getConnection();
+        String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
+                " join companies as c on c.companyID = jp.companyID" +
+                " join job_locations as jl on jl.locationID = jp.locationID" +
+                " where jp.titleJob like ?";
 
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, "%" + name + "%");
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Job job = getResultSet(rs);
-                    jobs.add(job);
-                }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Job job = getResultSet(rs);
+                jobs.add(job);
             }
             return jobs;
         } catch (SQLException e) {
@@ -332,16 +336,14 @@ public class JobDao {
             }
         }
     }
-    public boolean editJobPosting(int cid, String img, String titleJob, String companyName, String city, String salary, String status) {
-        String sql = "UPDATE job_posting jp " +
-                "JOIN job_locations jl ON jp.locationID = jl.locationID " +
-                "JOIN companies c ON jp.companyID = c.companyID " +
-                "SET jp.image = ?, jp.titleJob = ?, c.companyName = ?, jl.city = ?, jp.salary = ?, jp.status = ? " +
-                "WHERE jp.jobPostID = ?";
-
-        try (Connection conn = DBconnect.getConnection();
-             PreparedStatement pre = conn.prepareStatement(sql)) {
-
+    public boolean editJobPosting(int cid, String img, String titleJob, String companyName,String city,String salary,String status ) {
+        Connection conn = DBconnect.getConnection();
+        String sql = "UPDATE job_posting jp" +
+                " JOIN job_locations jl ON jp.locationID = jl.locationID" +
+                " JOIN companies c ON jp.companyID = c.companyID" +
+                " SET jp.image = ?, jp.titleJob = ?, c.companyName = ?, jl.city = ?,jp.salary = ? ,jp.status = ? WHERE  jp.jobPostID = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, img);
             pre.setString(2, titleJob);
             pre.setString(3, companyName);
@@ -349,29 +351,30 @@ public class JobDao {
             pre.setString(5, salary);
             pre.setString(6, status);
             pre.setInt(7, cid);
-
-            return pre.executeUpdate() > 0;
-
+            if(pre.executeUpdate()>0){
+                return true;
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return false;
     }
     public boolean addJobPostWithJoin(String img, String titleJob, String companyName, String city, String salary, String status) {
+        Connection conn = DBconnect.getConnection();
+
         int companyID, locationID;
 
-        // Tự động đóng Connection
-        try (Connection conn = DBconnect.getConnection()) {
-
+        try {
             // Truy vấn để lấy companyID từ bảng companies
             String companyQuery = "SELECT companyID FROM companies WHERE companyName = ?";
             try (PreparedStatement companyStmt = conn.prepareStatement(companyQuery)) {
                 companyStmt.setString(1, companyName);
-                try (ResultSet companyRs = companyStmt.executeQuery()) {
-                    if (companyRs.next()) {
-                        companyID = companyRs.getInt("companyID");
-                    } else {
-                        throw new SQLException("Không tìm thấy công ty với tên: " + companyName);
-                    }
+                ResultSet companyRs = companyStmt.executeQuery();
+
+                if (companyRs.next()) {
+                    companyID = companyRs.getInt("companyID");
+                } else {
+                    throw new SQLException("Không tìm thấy công ty với tên: " + companyName);
                 }
             }
 
@@ -379,12 +382,12 @@ public class JobDao {
             String locationQuery = "SELECT locationID FROM job_locations WHERE city = ?";
             try (PreparedStatement locationStmt = conn.prepareStatement(locationQuery)) {
                 locationStmt.setString(1, city);
-                try (ResultSet locationRs = locationStmt.executeQuery()) {
-                    if (locationRs.next()) {
-                        locationID = locationRs.getInt("locationID");
-                    } else {
-                        throw new SQLException("Không tìm thấy địa điểm với thành phố: " + city);
-                    }
+                ResultSet locationRs = locationStmt.executeQuery();
+
+                if (locationRs.next()) {
+                    locationID = locationRs.getInt("locationID");
+                } else {
+                    throw new SQLException("Không tìm thấy địa điểm với thành phố: " + city);
                 }
             }
 
@@ -393,13 +396,14 @@ public class JobDao {
                     "VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
             try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
                 insertStmt.setInt(1, companyID);         // companyID
-                insertStmt.setString(2, titleJob);       // titleJob
-                insertStmt.setInt(3, locationID);        // locationID
-                insertStmt.setString(4, img);            // image
-                insertStmt.setString(5, "Unknown");      // position (tạm thời là Unknown)
-                insertStmt.setString(6, salary);         // salary
-                insertStmt.setString(7, status);         // status
+                insertStmt.setString(2, titleJob);      // titleJob
+                insertStmt.setInt(3, locationID);       // locationID
+                insertStmt.setString(4, img);           // image
+                insertStmt.setString(5, "Unknown");     // position (tạm thời là Unknown nếu không có giá trị)
+                insertStmt.setString(6, salary);        // salary
+                insertStmt.setString(7, status);        // status
 
+                // Thực thi câu lệnh INSERT
                 return insertStmt.executeUpdate() > 0;
             }
 
@@ -411,190 +415,157 @@ public class JobDao {
 
 
     public List<Job> searchJobByAddress(String address) {
-        List<Job> jobs = new ArrayList<>();
-
-        String sql = "select jp.*, c.companyName, jl.city from job_posting as jp" +
+        List<Job> jobs = new ArrayList<Job>();
+        Connection con = DBconnect.getConnection();
+        String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
                 " join companies as c on c.companyID = jp.companyID" +
-                " join job_locations as jl on jl.locationID = jp.locationID" +
+                " join job_locations as jl on jl.locationID = jp.locationID " +
                 " where jl.city like ?";
 
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, "%" + address + "%");
-
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Job job = getResultSet(rs);
-                    jobs.add(job);
-                }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Job job = getResultSet(rs);
+                jobs.add(job);
             }
-
+            return jobs;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return jobs;
+
     }
-
-    public List<Job> searchJobByNameAndAddress(String name, String address) {
-        List<Job> jobs = new ArrayList<>();
-
-        String sql = "select jp.*, c.companyName, jl.city from job_posting as jp" +
+    public List<Job> searchJobByNameAndAddress(String name,String address) {
+        List<Job> jobs = new ArrayList<Job>();
+        Connection con = DBconnect.getConnection();
+        String sql = "select jp.*,c.companyName,jl.city from job_posting as jp" +
                 " join companies as c on c.companyID = jp.companyID" +
                 " join job_locations as jl on jl.locationID = jp.locationID " +
                 " where jl.city like ? and jp.titleJob like ?";
 
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
+        try {
+              PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, "%" + address + "%");
             ps.setString(2, "%" + name + "%");
-
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Job job = getResultSet(rs);
-                    jobs.add(job);
-                }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Job job = getResultSet(rs);
+                jobs.add(job);
             }
-
+            return jobs;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return jobs;
+
     }
     public List<String> getAllLocation() {
-        List<String> locations = new ArrayList<>();
+        List<String> rs = new ArrayList<>();
+        Connection con = DBconnect.getConnection();
         String sql = "select jl.city from job_posting jp" +
-                " join job_locations jl on jl.locationID = jp.locationID" +
+                "  join job_locations jl on jl.locationID = jp.locationID" +
                 " group by jl.city";
-
-        try (Connection con = DBconnect.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet resultSet = ps.executeQuery()) {
-
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
-                locations.add(resultSet.getString(1));
+                rs.add(resultSet.getString(1));
             }
-
+            return rs;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return locations;
     }
-    public List<Job> filterJobs(int companyID, String jobName, String jobCategory, String jobLocation) {
+    public List<Job> filterJobs(int companyID,String jobName,String jobCategory,String jobLocation) {
         List<Job> jobs = new ArrayList<>();
-        StringBuilder query = new StringBuilder(
-                "SELECT jp.*, c.companyName, jl.city FROM job_posting jp " +
-                        "JOIN companies c ON jp.companyID = c.companyID " +
-                        "JOIN job_locations jl ON jl.locationID = jp.locationID " +
-                        "JOIN job_post_categories jpc ON jpc.jobPostID = jp.jobPostID " +
-                        "JOIN job_categories jc ON jc.categoryID = jpc.categoryID " +
-                        "WHERE c.companyID = ?"
-        );
+        String query = "SELECT jp.*, c.companyName,jl.city FROM job_posting jp " +
+                " Join companies c ON jp.companyID = c.companyID " +
+                " JOIN job_locations jl ON jl.locationID = jp.locationID " +
+                " join job_post_categories jpc on jpc.jobPostID = jp.jobPostID " +
+                " Join Job_categories jc on jc.categoryID = jpc.categoryID " +
+                " WHERE c.companyID = ?";
 
         if (jobName != null && !jobName.isEmpty()) {
-            query.append(" AND jp.titleJob LIKE ?");
+            query += " AND jp.titleJob LIKE ?";
         }
         if (jobCategory != null && !jobCategory.isEmpty()) {
-            query.append(" AND jc.categoryName LIKE ?");
+            query += " AND jc.categoryName LIKE ?";
         }
         if (jobLocation != null && !jobLocation.isEmpty()) {
-            query.append(" AND jl.city LIKE ?");
+            query += " AND jl.city like ?";
         }
 
-        try (Connection conn = DBconnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query.toString())) {
+        try (Connection connection = DBconnect.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
-            int paramIndex = 1;
-            stmt.setInt(paramIndex++, companyID);
-
+            int index = 1;
+            statement.setInt(index++, companyID);
             if (jobName != null && !jobName.isEmpty()) {
-                stmt.setString(paramIndex++, "%" + jobName + "%");
+                statement.setString(index++, "%" + jobName + "%");
             }
             if (jobCategory != null && !jobCategory.isEmpty()) {
-                stmt.setString(paramIndex++, "%" + jobCategory + "%");
+                statement.setString(index++, "%" + jobCategory + "%");
             }
             if (jobLocation != null && !jobLocation.isEmpty()) {
-                stmt.setString(paramIndex++, "%" + jobLocation + "%");
+                statement.setString(index++, "%" + jobLocation + "%");
             }
 
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    jobs.add(getResultSet(rs));
-                }
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                jobs.add(getResultSet(resultSet));
             }
-
+            return jobs;
         } catch (SQLException e) {
-            throw new RuntimeException("Lỗi khi lọc công việc: " + e.getMessage(), e);
+            throw new RuntimeException(e);
         }
 
-        return jobs;
     }
-    public boolean addJobPosting(int companyId,String companyName,String employerSize,String website,String jobName,String jobAddress,
-                                 String salaryValue,String salaryUnit,String educationLevel,String experienceLevel,String jobType,String jobLocation,
-                                 String jobCategory,String keywords,String age,String contactName,
-                                 String contactEmail,String contactPhone,String contactAddress ,String jobPostingDate,String JobExpiryDate,String language){
-        // Sử dụng try-with-resources để tự động đóng Connection
-        try (Connection con = DBconnect.getConnection()) {
-            con.setAutoCommit(false); // bắt đầu transaction
-
-            String sqlLocation = "INSERT INTO job_locations (address, country, city) VALUES (?, ?, ?)";
-            try (PreparedStatement stmtLocation = con.prepareStatement(sqlLocation, PreparedStatement.RETURN_GENERATED_KEYS)) {
-                stmtLocation.setString(1, jobAddress);
-                stmtLocation.setString(2, "VietNam");
-                stmtLocation.setString(3, jobLocation);
-
-                int rowsAffected = stmtLocation.executeUpdate();
-                if(rowsAffected > 0){
-                    try (ResultSet generatedKeys = stmtLocation.getGeneratedKeys()) {
-                        if (generatedKeys.next()) {
-                            int locationID = generatedKeys.getInt(1);  // Lấy locationID
-
-                            String sqlJobPosting = "INSERT INTO job_posting (companyID, titleJob, locationID, image, position, jobdescription, salary, created_at, updated_at, status, requirement) "
-                                    + "VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)";
-                            try (PreparedStatement stmtJobPosting = con.prepareStatement(sqlJobPosting)) {
-                                stmtJobPosting.setInt(1, companyId);
-                                stmtJobPosting.setString(2, jobName);
-                                stmtJobPosting.setInt(3, locationID);
-                                stmtJobPosting.setString(4, ""); // Image, có thể lấy từ form nếu cần
-                                stmtJobPosting.setString(5, "Full-time"); // Position, có thể lấy từ form
-                                stmtJobPosting.setString(6, "Mô tả công việc tại đây");
-                                stmtJobPosting.setString(7, salaryValue);
-                                stmtJobPosting.setString(8, "active");
-                                stmtJobPosting.setString(9, "Yêu cầu công việc tại đây");
-
-                                int jobPostingRowsAffected = stmtJobPosting.executeUpdate();
-                                if (jobPostingRowsAffected > 0) {
-                                    con.commit(); // commit transaction
-                                    System.out.println("Job posting added successfully.");
-                                    return true;
-                                } else {
-                                    con.rollback();
-                                    System.out.println("Failed to add job posting.");
-                                }
+        public boolean addJobPosting(int companyId,String companyName,String employerSize,String website,String jobName,String jobAddress
+            ,String salaryValue,String salaryUnit,String educationLevel,String experienceLevel,String jobType,String jobLocation,
+                                 String jobCategory,String keywords,String age,String contactName
+            ,String contactEmail,String contactPhone,String contactAddress ,String jobPostingDate,String JobExpiryDate,String language){
+        Connection con = DBconnect.getConnection();
+        String sqlLocation = "INSERT INTO job_locations (address, country, city) VALUES (?, ?, ?)";
+        try (PreparedStatement stmtLocation = con.prepareStatement(sqlLocation, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            stmtLocation.setString(1, jobAddress);
+            stmtLocation.setString(2, "VietNam");
+            stmtLocation.setString(3, jobLocation);
+            int rowsAffected = stmtLocation.executeUpdate();
+            if(rowsAffected >0){
+                try (ResultSet generatedKeys = stmtLocation.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int locationID = generatedKeys.getInt(1);  // Lấy locationID
+                        // Tiến hành thêm dữ liệu vào bảng job_posting
+                        String sqlJobPosting = "INSERT INTO job_posting (companyID, titleJob, locationID, image, position, jobdescription, salary, created_at, updated_at, status, requirement) "
+                                + "VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?)";
+                        try (PreparedStatement stmtJobPosting = con.prepareStatement(sqlJobPosting)) {
+                            stmtJobPosting.setInt(1, companyId);  // companyID, giả sử là 1 (có thể lấy từ form)
+                            stmtJobPosting.setString(2, jobName);
+                            stmtJobPosting.setInt(3, locationID);  // Sử dụng locationID vừa lấy
+                            stmtJobPosting.setString(4, ""); // Image, có thể lấy từ form nếu cần
+                            stmtJobPosting.setString(5, "Full-time"); // Position, có thể lấy từ form
+                            stmtJobPosting.setString(6, "Mô tả công việc tại đây"); // Job description
+                            stmtJobPosting.setString(7, salaryValue);  // Salary
+                            stmtJobPosting.setString(8, "active");  // Status
+                            stmtJobPosting.setString(9, "Yêu cầu công việc tại đây");
+                            int jobPostingRowsAffected = stmtJobPosting.executeUpdate();
+                            if (jobPostingRowsAffected > 0) {
+                                System.out.println("Job posting added successfully.");
+                                return true;
+                            } else {
+                                System.out.println("Failed to add job posting.");
                             }
-                        } else {
-                            con.rollback();
-                            throw new SQLException("Không lấy được locationID.");
                         }
                     }
-                } else {
-                    con.rollback();
-                    System.out.println("Failed to add job location.");
                 }
-            } catch (SQLException e) {
-                con.rollback();
-                throw e;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }catch (SQLException e) {
+            e.printStackTrace(); // In chi tiết lỗi để biết nguyên nhân
             System.out.println("Error executing update: " + e.getMessage());
         }
         return false;
-    }
-
-}
+    }}
 

@@ -11,85 +11,92 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JobCategoryDao {
-
-    public List<JobCategory> getListJobCategroy() {
-        List<JobCategory> list = new ArrayList<>();
+   public List<JobCategory> getListJobCategroy() {
+       List<JobCategory> list = new ArrayList<JobCategory>();
+       Connection conn = DBconnect.getConnection();
+       String sql = "SELECT jp.*, j.categoryName\n" +
+               "FROM job_post_categories jp\n" +
+               "JOIN job_categories j ON jp.categoryID = j.categoryID;\n";
+       try {
+           PreparedStatement pre = conn.prepareStatement(sql);
+           ResultSet rs = pre.executeQuery();
+           while (rs.next()) {
+               JobCategory jc = executeResult(rs);
+               list.add(jc);
+           }
+           return list;
+       } catch (SQLException e) {
+           throw new RuntimeException(e);
+       }
+   }
+    public List<JobCategory> FindListJobCategroy(String jobPostCategoryName) {
+        List<JobCategory> list = new ArrayList<JobCategory>();
+        Connection conn = DBconnect.getConnection();
         String sql = "SELECT jp.*, j.categoryName " +
                 "FROM job_post_categories jp " +
-                "JOIN job_categories j ON jp.categoryID = j.categoryID";
-        try (Connection conn = DBconnect.getConnection();
-             PreparedStatement pre = conn.prepareStatement(sql);
-             ResultSet rs = pre.executeQuery()) {
+                "JOIN job_categories j ON jp.categoryID = j.categoryID " +
+                "WHERE jp.jobPostCategoryName LIKE ?;";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, "%" + jobPostCategoryName + "%");
+            ResultSet rs = pre.executeQuery();
             while (rs.next()) {
                 JobCategory jc = executeResult(rs);
                 list.add(jc);
             }
+            return list;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return list;
     }
-
-    public List<JobCategory> FindListJobCategroy(String jobPostCategoryName) {
-        List<JobCategory> list = new ArrayList<>();
-        String sql = "SELECT jp.*, j.categoryName " +
-                "FROM job_post_categories jp " +
-                "JOIN job_categories j ON jp.categoryID = j.categoryID " +
-                "WHERE jp.jobPostCategoryName LIKE ?";
-        try (Connection conn = DBconnect.getConnection();
-             PreparedStatement pre = conn.prepareStatement(sql)) {
-            pre.setString(1, "%" + jobPostCategoryName + "%");
-            try (ResultSet rs = pre.executeQuery()) {
-                while (rs.next()) {
-                    JobCategory jc = executeResult(rs);
-                    list.add(jc);
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return list;
-    }
-
     public JobCategory FindListJobCategroyByID(int jobPostCategoryNameID) {
-        JobCategory jc = null;
+        JobCategory jc = new JobCategory();
+        Connection conn = DBconnect.getConnection();
         String sql = "SELECT jp.*, j.categoryName " +
                 "FROM job_post_categories jp " +
                 "JOIN job_categories j ON jp.categoryID = j.categoryID " +
-                "WHERE jp.jobPostCategoryID = ?";
-        try (Connection conn = DBconnect.getConnection();
-             PreparedStatement pre = conn.prepareStatement(sql)) {
-            pre.setInt(1, jobPostCategoryNameID);
-            try (ResultSet rs = pre.executeQuery()) {
-                if (rs.next()) {
-                    jc = executeResult(rs);
-                }
+                "WHERE jp.jobPostCategoryID = ?;";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1,  jobPostCategoryNameID);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                jc = executeResult(rs);
+            }
+            return jc;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public boolean deleteJobPostCategory(int id) {
+       Connection conn = DBconnect.getConnection();
+       String sql = "DELETE FROM job_post_categories\n" +
+               "WHERE jobPostCategoryID = ?;\n";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1, id);
+            if(pre.executeUpdate() > 0) {
+                return true;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return jc;
+        return false;
     }
-
-    public boolean deleteJobPostCategory(int id) {
-        String sql = "DELETE FROM job_post_categories WHERE jobPostCategoryID = ?";
-        try (Connection conn = DBconnect.getConnection();
-             PreparedStatement pre = conn.prepareStatement(sql)) {
-            pre.setInt(1, id);
-            return pre.executeUpdate() > 0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public boolean addCategory(String categoryName, String jobPostCategoryName) {
         String sql = "INSERT INTO job_post_categories (categoryID, jobPostCategoryName) " +
                 "VALUES ((SELECT categoryID FROM job_categories WHERE categoryName = ?), ?)";
         try (Connection conn = DBconnect.getConnection();
              PreparedStatement pre = conn.prepareStatement(sql)) {
-            pre.setString(1, categoryName);
-            pre.setString(2, jobPostCategoryName);
+
+            // Thiết lập tham số cho câu truy vấn
+            pre.setString(1, categoryName); // Tên phân loại
+            pre.setString(2, jobPostCategoryName); // Tên ngành nghề
+
+            // Thực thi câu lệnh
             int rowsAffected = pre.executeUpdate();
+
+            // Kiểm tra nếu có ít nhất một dòng được chèn
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -97,25 +104,41 @@ public class JobCategoryDao {
         }
     }
 
-    private JobCategory executeResult(ResultSet rs) throws SQLException {
-        int id = rs.getInt("categoryID");
-        String category = rs.getString("categoryName");
-        int idjob = rs.getInt("jobPostCategoryID");
-        String categoryjob = rs.getString("jobPostCategoryName");
-        return new JobCategory(id, category, idjob, categoryjob);
+
+    // Hàm sinh giá trị duy nhất cho jobPostID
+    private int generateUniqueID() {
+        return (int) (System.currentTimeMillis() % Integer.MAX_VALUE);
     }
 
+
+
+    private JobCategory executeResult(ResultSet rs) throws SQLException {
+       JobCategory jc = new JobCategory();
+       int id = rs.getInt("categoryID");
+       String category = rs.getString("categoryName");
+       int idjob = rs.getInt("jobPostCategoryID");
+       String categoryjob = rs.getString("jobPostCategoryName");
+       jc = new JobCategory(id, category,idjob, categoryjob);
+       return jc;
+    }
     public void editCategory(int jobPostCategoryID, String categoryName, String jobPostCategoryName) {
+        // SQL query to update the job_post_categories table
         String sql = "UPDATE job_post_categories " +
                 "SET jobPostCategoryName = ?, " +
                 "    categoryID = (SELECT categoryID FROM job_categories WHERE categoryName = ?) " +
                 "WHERE jobPostCategoryID = ?";
+
         try (Connection connection = DBconnect.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            // Set the parameters for the query
             preparedStatement.setString(1, jobPostCategoryName);
             preparedStatement.setString(2, categoryName);
             preparedStatement.setInt(3, jobPostCategoryID);
+
+            // Execute the update
             int rowsUpdated = preparedStatement.executeUpdate();
+
             if (rowsUpdated > 0) {
                 System.out.println("Category updated successfully.");
             } else {
@@ -126,10 +149,8 @@ public class JobCategoryDao {
         }
     }
 
-    // Nếu có hàm này để tạo id duy nhất thì vẫn giữ hoặc sửa lại nếu cần
-    private int generateUniqueID() {
-        return (int) (System.currentTimeMillis() % Integer.MAX_VALUE);
-    }
+
+
 
     public static void main(String[] args) {
         JobCategoryDao daoc = new JobCategoryDao();
@@ -137,14 +158,15 @@ public class JobCategoryDao {
 //        for (JobCategory jc1 : list) {
 //            System.out.println(jc1);
 //        }
-        // System.out.println(daoc.FindListJobCategroy("Giáo viên mầm non"));
-        // System.out.println(daoc.deleteJobPostCategory(86));
+       // System.out.println(daoc.FindListJobCategroy("Giáo viên mầm non"));
+       //System.out.println(daoc.deleteJobPostCategory(86));
 
-        String categoryName = "IT & Công nghệ";
-        String jobPostCategoryName = "Lập trình viên cơ bản";
-
-        // daoc.editCategory(63, categoryName, jobPostCategoryName);
-        // System.out.println(daoc.FindListJobCategroyByID(64));
-        System.out.println(daoc.addCategory(categoryName, jobPostCategoryName));
+       String categoryName = "IT & Công nghệ";
+//
+//        int jobPostCategoryID = 63;
+      String jobPostCategoryName = "Lập trình viên cơ bản";
+//        daoc.editCategory(jobPostCategoryID,categoryName,jobPostCategoryName);
+      //  System.out.println(daoc.FindListJobCategroyByID(64));
+        System.out.println(daoc.addCategory(categoryName,jobPostCategoryName));
     }
 }

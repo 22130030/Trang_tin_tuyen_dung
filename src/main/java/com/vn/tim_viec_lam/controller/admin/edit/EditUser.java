@@ -27,10 +27,11 @@ public class EditUser extends HttpServlet {
             boolean lock = false;
             if(role == 3){
                 int permission = Integer.parseInt(req.getParameter("permissionId"));
-                userService.updatePermissionIdForAdmin(uid,permission);
 
+                if(userService.updatePermissionIdForAdmin(uid,permission)){
+                    int changed = userService.updateChanged(uid,1) ? 1 : 0;
+                }
             }
-            int changed = userService.updateChanged(uid,1) ? 1 : 0;
             lock = userService.getLockStatus(uid);
         }
         resp.sendRedirect(req.getContextPath() + "/admin/manager-user");
