@@ -95,7 +95,18 @@
                 <option value="3" ${load.roleNum == 3 ? 'selected' : ''}>3</option>
             </select>
         </div>
-
+        <div class="form-group" id="permissionGroup" style="display: none;">
+            <label for="permissionId">Chọn quyền</label>
+            <select id="permissionId" name="permissionId">
+                <option value="1">Quyền sửa (1)</option>
+                <option value="2">Quyền thêm (2)</option>
+                <option value="3">Sửa + Thêm (3)</option>
+                <option value="4">Xóa (4)</option>
+                <option value="5">Sửa + Xóa (5)</option>
+                <option value="6">Thêm + Xóa (6)</option>
+                <option value="7">Toàn quyền (7)</option>
+            </select>
+        </div>
         <!-- Trạng thái -->
         <div class="form-group">
             <label for="status">Trạng thái</label>
@@ -113,4 +124,24 @@
     </form>
 </div>
 </body>
+<script>
+    function togglePermissionGroup() {
+        const roleSelect = document.getElementById("roleNum");
+        const permissionGroup = document.getElementById("permissionGroup");
+
+        if (roleSelect.value === "3") {
+            permissionGroup.style.display = "block";
+        } else {
+            permissionGroup.style.display = "none";
+        }
+    }
+
+    // Gọi khi trang tải xong để khớp trạng thái nếu có dữ liệu sẵn
+    document.addEventListener("DOMContentLoaded", function () {
+        const roleSelect = document.getElementById("roleNum");
+        roleSelect.addEventListener("change", togglePermissionGroup);
+        togglePermissionGroup(); // Gọi 1 lần lúc đầu
+    });
+</script>
+
 </html>

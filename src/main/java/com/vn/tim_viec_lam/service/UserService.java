@@ -52,8 +52,8 @@ public boolean login(String email, String password) {
     public void deleteUserByID(int id){
         userDao.deleteUser(id);
     }
-    public void editUser(int id, String email, String pass, int role, int status, String image){
-        userDao.updateUser(id, email, pass, role, status, image);
+    public boolean editUser(int id, String email, String pass, int role, int status, String image){
+        return userDao.updateUser(id, email, pass, role, status, image);
     }
     public boolean insetUser(String email,String pass, String rePass,String fName,String phone,String auth_provider,String provider_id){
         if(rePass.equals(pass)){
@@ -98,15 +98,34 @@ public boolean login(String email, String password) {
     public int getPermissionIdForAdmin(int userId) {
         return userDao.getPermissionIdForAdmin(userId);
     }
+
+    public boolean updatePermissionIdForAdmin(int userId, int permissionId) {
+        if(userDao.getPermissionIdForAdmin(userId) != 0){
+            return userDao.updatePermissionIdForAdmin(userId, permissionId);
+        }
+        return userDao.insertPermissionIdForAdmin(userId,permissionId);
+    }
     public User getUserById(int userID) {
         return userDao.getUserById(userID);
     }
     public boolean updateUser(User user) {
         return userDao.updateUser(user);
     }
+    public boolean updateChanged(int uid,int changed) {
+        if(userDao.getChanged(uid) != -1){
+            return userDao.updateChanged(uid,changed);
+        }
+        return userDao.insertChanged(uid,changed);
+    }
+    public boolean getChanged(int uid) {
+        if(userDao.getChanged(uid) == 1){
+            return true;
+        }
+        return false;
+    }
     public static void main(String[] args) {
         UserService userService = new UserService();
-        System.out.println(userService.getPermissionIdForAdmin(2));
+        System.out.println(userService.getChanged(30));
     }
 
 }

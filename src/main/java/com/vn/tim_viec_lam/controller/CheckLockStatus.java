@@ -14,6 +14,10 @@ import java.io.IOException;
 public class CheckLockStatus extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.getWriter().write("{\"locked\": false}");
+            return;
+        }
         if(session.getAttribute("user")!=null){
             int userId = (int)session.getAttribute("userID");
             UserService userService = new UserService();
