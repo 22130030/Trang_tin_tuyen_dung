@@ -1,7 +1,6 @@
 package com.vn.tim_viec_lam.dao;
 
 import com.vn.tim_viec_lam.dao.model.Candidate;
-import com.vn.tim_viec_lam.dao.model.Company;
 import com.vn.tim_viec_lam.database.DBconnect;
 
 import java.sql.Connection;
@@ -12,12 +11,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class CandidateDao {
     public List<Candidate> getListCandidate()  {
         List<Candidate> listCandidate = new ArrayList<>();
-        Connection con = DBconnect.getConnection();
         String sql = "SELECT " +
                 "c.*, " +
                 "j.status AS application_status, " +
@@ -27,9 +23,10 @@ public class CandidateDao {
                 "JOIN job_applications j ON c.candidateID = j.candidateID " +
                 "JOIN job_posting jp ON j.jobPostID = jp.jobPostID " +
                 "JOIN companies co ON jp.companyID = co.companyID";
-        try {
-            PreparedStatement pre = con.prepareStatement(sql);
-            ResultSet rs = pre.executeQuery();
+        try (Connection con = DBconnect.getConnection();
+             PreparedStatement pre = con.prepareStatement(sql);
+             ResultSet rs = pre.executeQuery()) {
+
             while (rs.next()) {
                 Candidate c = executeResult(rs);
                 listCandidate.add(c);
@@ -39,9 +36,9 @@ public class CandidateDao {
             throw new RuntimeException(e);
         }
     }
+
     public List<Candidate> FindListCandidateEmail(String email)  {
         List<Candidate> listCandidate = new ArrayList<>();
-        Connection con = DBconnect.getConnection();
         String sql = "SELECT " +
                 "c.candidateID, " +
                 "c.fullname, " +
@@ -56,22 +53,24 @@ public class CandidateDao {
                 "JOIN job_posting jp ON j.jobPostID = jp.jobPostID " +
                 "JOIN companies co ON jp.companyID = co.companyID " +
                 "WHERE c.email LIKE ?;";
-        try {
-            PreparedStatement pre = con.prepareStatement(sql);
-            pre.setString(1, "%"+email+"%");
-            ResultSet rs = pre.executeQuery();
-            while (rs.next()) {
-                Candidate c = executeResult(rs);
-                listCandidate.add(c);
+        try (Connection con = DBconnect.getConnection();
+             PreparedStatement pre = con.prepareStatement(sql)) {
+
+            pre.setString(1, "%" + email + "%");
+            try (ResultSet rs = pre.executeQuery()) {
+                while (rs.next()) {
+                    Candidate c = executeResult(rs);
+                    listCandidate.add(c);
+                }
             }
             return listCandidate;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
     public List<Candidate> FindListCandidateStatus(String status)  {
         List<Candidate> listCandidate = new ArrayList<>();
-        Connection con = DBconnect.getConnection();
         String sql = "SELECT " +
                 "c.candidateID, " +
                 "c.fullname, " +
@@ -86,51 +85,49 @@ public class CandidateDao {
                 "JOIN job_posting jp ON j.jobPostID = jp.jobPostID " +
                 "JOIN companies co ON jp.companyID = co.companyID " +
                 "WHERE j.status LIKE ?;";
-        try {
-            PreparedStatement pre = con.prepareStatement(sql);
-            pre.setString(1, "%"+status+"%");
-            ResultSet rs = pre.executeQuery();
-            while (rs.next()) {
-                Candidate c = executeResult(rs);
-                listCandidate.add(c);
+        try (Connection con = DBconnect.getConnection();
+             PreparedStatement pre = con.prepareStatement(sql)) {
+
+            pre.setString(1, "%" + status + "%");
+            try (ResultSet rs = pre.executeQuery()) {
+                while (rs.next()) {
+                    Candidate c = executeResult(rs);
+                    listCandidate.add(c);
+                }
             }
             return listCandidate;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
     public boolean deleteCandidateById(int candidateID) {
-        Connection con = DBconnect.getConnection();
-        try {
-            // Bước 1: Xóa trong bảng job_applications
-            String sqlJobApplications = "DELETE FROM job_applications WHERE resumeID IN (SELECT resumeID FROM resumes WHERE candidateID = ?)";
-            PreparedStatement pre1 = con.prepareStatement(sqlJobApplications);
+        String sqlJobApplications = "DELETE FROM job_applications WHERE resumeID IN (SELECT resumeID FROM resumes WHERE candidateID = ?)";
+        String sqlResumes = "DELETE FROM resumes WHERE candidateID = ?";
+        String sqlCandidates = "DELETE FROM candidates WHERE candidateID = ?";
+
+        try (Connection con = DBconnect.getConnection();
+             PreparedStatement pre1 = con.prepareStatement(sqlJobApplications);
+             PreparedStatement pre0 = con.prepareStatement(sqlResumes);
+             PreparedStatement pre2 = con.prepareStatement(sqlCandidates)) {
+
             pre1.setInt(1, candidateID);
             pre1.executeUpdate();
 
-            // Bước 2: Xóa trong bảng resumes
-            String sqlResumes = "DELETE FROM resumes WHERE candidateID = ?";
-            PreparedStatement pre0 = con.prepareStatement(sqlResumes);
             pre0.setInt(1, candidateID);
             pre0.executeUpdate();
 
-            // Bước 3: Xóa trong bảng candidates
-            String sqlCandidates = "DELETE FROM candidates WHERE candidateID = ?";
-            PreparedStatement pre2 = con.prepareStatement(sqlCandidates);
             pre2.setInt(1, candidateID);
             int rowsAffected = pre2.executeUpdate();
-            if(rowsAffected > 0) { // Trả về true nếu xóa thành công
-                return true;
-            }
+
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
-
         }
         return false;
-
     }
+
     public Candidate getCandidateById(int id) {
-        Connection con = DBconnect.getConnection();
         String sql = "SELECT " +
                 "c.candidateID, " +
                 "c.fullname, " +
@@ -145,20 +142,25 @@ public class CandidateDao {
                 "JOIN job_posting jp ON j.jobPostID = jp.jobPostID " +
                 "JOIN companies co ON jp.companyID = co.companyID " +
                 "WHERE c.candidateID = ?;";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (Connection con = DBconnect.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            return rs.next() ? executeResult(rs) : null;
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next() ? executeResult(rs) : null;
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    public boolean editUserCandidate(int cid, String fullname, String email, String phone,String status, String gender, String birth ) {
-        Connection conn = DBconnect.getConnection();
-        String sql = "UPDATE candidates c JOIN job_applications ja ON c.candidateID = ja.candidateID SET c.fullname = ?, c.email = ?, c.phone = ?, ja.status = ?, c.gender = ?, c.birth_date = ? WHERE c.candidateID = ?";
-        try {
-            PreparedStatement pre = conn.prepareStatement(sql);
+
+    public boolean editUserCandidate(int cid, String fullname, String email, String phone, String status, String gender, String birth) {
+        String sql = "UPDATE candidates c JOIN job_applications ja ON c.candidateID = ja.candidateID " +
+                "SET c.fullname = ?, c.email = ?, c.phone = ?, ja.status = ?, c.gender = ?, c.birth_date = ? " +
+                "WHERE c.candidateID = ?";
+        try (Connection conn = DBconnect.getConnection();
+             PreparedStatement pre = conn.prepareStatement(sql)) {
+
             pre.setString(1, fullname);
             pre.setString(2, email);
             pre.setString(3, phone);
@@ -166,13 +168,10 @@ public class CandidateDao {
             pre.setString(5, gender);
             pre.setString(6, birth);
             pre.setInt(7, cid);
-            if(pre.executeUpdate()>0){
-                return true;
-            }
+            return pre.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return false;
     }
 
     public Candidate getCandidateByUserId(int userId) {
@@ -182,18 +181,19 @@ public class CandidateDao {
              PreparedStatement stmt = con.prepareStatement(sql)) {
 
             stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                Candidate candidate = new Candidate();
-                candidate.setCandidateID(rs.getInt("candidateID"));
-                candidate.setUserID(rs.getInt("userID"));
-                candidate.setFullName(rs.getString("fullname"));
-                candidate.setAddress(rs.getString("address"));
-                candidate.setEmail(rs.getString("email"));
-                candidate.setPhone(rs.getString("phone"));
-                candidate.setGender(rs.getString("gender"));
-                candidate.setBirth(rs.getString("birth_date"));
-                return candidate;
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Candidate candidate = new Candidate();
+                    candidate.setCandidateID(rs.getInt("candidateID"));
+                    candidate.setUserID(rs.getInt("userID"));
+                    candidate.setFullName(rs.getString("fullname"));
+                    candidate.setAddress(rs.getString("address"));
+                    candidate.setEmail(rs.getString("email"));
+                    candidate.setPhone(rs.getString("phone"));
+                    candidate.setGender(rs.getString("gender"));
+                    candidate.setBirth(rs.getString("birth_date"));
+                    return candidate;
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -233,30 +233,32 @@ public class CandidateDao {
         String status = rs.getString("application_status");
         String gender = rs.getString("gender");
         String birthDate = rs.getString("birth_date");
-        Candidate candidate = new Candidate(candidateID,userId, fullName, address, email, phone, appliedCompany, applyDate, status, gender, birthDate);
-        return candidate;
+        return new Candidate(candidateID, userId, fullName, address, email, phone, appliedCompany, applyDate, status, gender, birthDate);
     }
 
     public static void main(String[] args) {
         CandidateDao dao = new CandidateDao();
     }
 
-
     public int findCandidateIdByUserId(int userId) {
-        Connection con = DBconnect.getConnection();
-        int res = -1;
         String sql = "SELECT candidateId FROM candidates WHERE userId = ?";
-        try {
-            PreparedStatement pre = con.prepareStatement(sql);
+        int res = -1;
+
+        try (Connection con = DBconnect.getConnection();
+             PreparedStatement pre = con.prepareStatement(sql)) {
+
             pre.setInt(1, userId);
-            ResultSet rs = pre.executeQuery();
-            if(rs.next()) {
-                res = rs.getInt(1);
+
+            try (ResultSet rs = pre.executeQuery()) {
+                if (rs.next()) {
+                    res = rs.getInt(1);
+                }
             }
             return res;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
 
 }

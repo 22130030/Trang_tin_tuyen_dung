@@ -13,6 +13,21 @@
     <title>Title</title>
 </head>
 <body>
+<script src="<%= request.getContextPath() %>/js/account_change.js"></script>
+<script>
+    const CONTEXT_PATH = "${pageContext.request.contextPath}";
+    console.log(CONTEXT_PATH)
+</script>
+<div id="changePopup">
+    <div class="popup-content">
+        <h3>Tài khoản của bạn đã bị thay đổi</h3>
+        <p>Vui lòng đăng nhập lại.</p>
+        <p><strong>🌐 Hỗ trợ trực tuyến:</strong>
+            <a href="https://example.com/ho-tro" target="_blank">example.com/ho-tro</a>
+        </p>
+        <button onclick="redirectToLogin()">Đăng xuất</button>
+    </div>
+</div>
 <header class="header">
     <nav class="nav">
         <div class="grid nav__container">

@@ -90,6 +90,10 @@
                             resp.sendRedirect("login.jsp?error=locked");
                             return;
                         }
+                        boolean changed = userService.getChanged(user.getUserID());
+                        if(changed){
+                            userService.updateChanged(user.getUserID(), 0);
+                        }
                         logService.addLog(user, "candidate", "login", "google", "INFO", ip, "Login Google Success");
                         int role = user.getRoleNum();
                         CandidateService cs = new CandidateService();
@@ -106,6 +110,7 @@
                         session.setAttribute("userID",user.getUserID());
                         session.setAttribute("candidateId", candidateId);
                         session.setAttribute("loginType", "google");
+
 
 
                         if (role == 1) {

@@ -10,22 +10,22 @@ function getFromCache(key) {
 function removeFromCache(key) {
     localStorage.removeItem(key);
 }
-function showLockPopup() {
-    const popup = document.getElementById("lockPopup");
+function showChangePopup() {
+    const popup = document.getElementById("changePopup");
     if (popup) popup.style.display = "flex";
 }
-function checkLockStatus() {
+function checkChangeStatus() {
     fetch(CONTEXT_PATH+`/check-change-status`)
         .then(response => response.json())
         .then(data => {
-            if (data.locked) {
+            if (data.changed) {
                 saveToCache("accountChanged", true);
-                showLockPopup()
+                showChangePopup()
             }
         });
 }
 
-setInterval(checkLockStatus, 2500);
+setInterval(checkChangeStatus, 2500);
 
 function redirectToLogin() {
     removeFromCache("accountChanged");
