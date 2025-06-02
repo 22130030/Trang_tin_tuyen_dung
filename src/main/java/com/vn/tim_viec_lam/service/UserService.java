@@ -98,6 +98,13 @@ public boolean login(String email, String password) {
     public int getPermissionIdForAdmin(int userId) {
         return userDao.getPermissionIdForAdmin(userId);
     }
+
+    public boolean updatePermissionIdForAdmin(int userId, int permissionId) {
+        if(userDao.getPermissionIdForAdmin(userId) != 0){
+            return userDao.updatePermissionIdForAdmin(userId, permissionId);
+        }
+        return userDao.insertPermissionIdForAdmin(userId,permissionId);
+    }
     public User getUserById(int userID) {
         return userDao.getUserById(userID);
     }

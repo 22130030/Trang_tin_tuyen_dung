@@ -509,6 +509,34 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
+
+
+    public boolean insertPermissionIdForAdmin(int userId, int permissionId) {
+        Connection con = DBconnect.getConnection();
+        String sql = "INSERT user_permissions(userId,Permission_Id) values(?,?)";
+
+        try {
+            PreparedStatement prep = con.prepareStatement(sql);
+            prep.setInt(1, userId);
+            prep.setInt(2, permissionId);
+            return prep.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public boolean updatePermissionIdForAdmin(int userId, int permissionId) {
+        Connection connection = DBconnect.getConnection();
+        String sql = "Update user_permissions SET Permission_Id = ? WHERE userId = ?";
+
+        try {
+            PreparedStatement prep = connection.prepareStatement(sql);
+            prep.setInt(1, permissionId);
+            prep.setInt(2, userId);
+            return prep.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static void main(String[] args) {
         UserDao dao = new UserDao();
 //        System.out.println(dao.insertUser("22","1","vanduc","2222","local","g22"));

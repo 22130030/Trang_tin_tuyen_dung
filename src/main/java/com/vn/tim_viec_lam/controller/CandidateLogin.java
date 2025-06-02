@@ -134,8 +134,6 @@ public class CandidateLogin extends HttpServlet {
                     } else if (role == 3) {
                         int permissionId = us.getPermissionIdForAdmin(u.getUserID());
 
-                        System.out.println("userId" + u.getUserID());
-                        System.out.println("permissionId: " + permissionId);
 
                         session.setAttribute("permissionId", permissionId);
                         response.sendRedirect("admin/report");

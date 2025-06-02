@@ -106,8 +106,18 @@
                         session.setAttribute("userID",user.getUserID());
                         session.setAttribute("candidateId", candidateId);
                         session.setAttribute("loginType", "google");
-                        resp.sendRedirect("home");
-                    }
+
+
+                        if (role == 1) {
+                            resp.sendRedirect("home");
+                        } else if (role == 3) {
+                            int permissionId = userService.getPermissionIdForAdmin(user.getUserID());
+
+                            session.setAttribute("permissionId", permissionId);
+                            resp.sendRedirect("admin/report");
+                        } else {
+                            resp.sendRedirect("home");
+                        }                    }
 
 
 
