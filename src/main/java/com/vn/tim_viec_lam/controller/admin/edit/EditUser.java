@@ -19,14 +19,21 @@ public class EditUser extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         int role = Integer.parseInt(req.getParameter("roleNum"));
-        if(role == 3){
-            int permission = Integer.parseInt(req.getParameter("permissionId"));
-            userService.updatePermissionIdForAdmin(uid,permission);
-        }
 
         int status = Integer.parseInt(req.getParameter("status"));
         String image = req.getParameter("image");
-        userService.editUser(uid, email, password, role, status, image);
+        boolean res = userService.editUser(uid, email, password, role, status, image);
+        if(res){
+            boolean lock = false;
+            if(role == 3){
+                int permission = Integer.parseInt(req.getParameter("permissionId"));
+
+                if(userService.updatePermissionIdForAdmin(uid,permission)){
+                    int changed = userService.updateChanged(uid,1) ? 1 : 0;
+                }
+            }
+            lock = userService.getLockStatus(uid);
+        }
         resp.sendRedirect(req.getContextPath() + "/admin/manager-user");
     }
 }

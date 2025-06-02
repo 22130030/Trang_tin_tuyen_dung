@@ -52,8 +52,8 @@ public boolean login(String email, String password) {
     public void deleteUserByID(int id){
         userDao.deleteUser(id);
     }
-    public void editUser(int id, String email, String pass, int role, int status, String image){
-        userDao.updateUser(id, email, pass, role, status, image);
+    public boolean editUser(int id, String email, String pass, int role, int status, String image){
+        return userDao.updateUser(id, email, pass, role, status, image);
     }
     public boolean insetUser(String email,String pass, String rePass,String fName,String phone,String auth_provider,String provider_id){
         if(rePass.equals(pass)){
@@ -110,6 +110,12 @@ public boolean login(String email, String password) {
     }
     public boolean updateUser(User user) {
         return userDao.updateUser(user);
+    }
+    public boolean updateChanged(int uid,int changed) {
+        return userDao.updateChanged(uid,changed);
+    }
+    public boolean getChanged(int uid) {
+        return userDao.getChanged(uid);
     }
     public static void main(String[] args) {
         UserService userService = new UserService();

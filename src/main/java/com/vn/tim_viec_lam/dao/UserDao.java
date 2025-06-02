@@ -219,6 +219,7 @@ public class UserDao {
         String provider_id = rs.getString("provider_id");
         String image = rs.getString("image");
         user = new User(id, email, password, status,phone, created,provider_id,image);
+        user.setRoleNum(roleNum);
         return user;
     }
     public boolean insertUser(String email, String pass, String fullName,String phone,String auth_provider,String provider_id) {
@@ -533,6 +534,36 @@ public class UserDao {
             prep.setInt(1, permissionId);
             prep.setInt(2, userId);
             return prep.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public boolean updateChanged(int uid,int changed) {
+        Connection con = DBconnect.getConnection();
+        String sql = "UPDATE user_changes SET changed = ? WHERE userID = ?";
+
+        try {
+            PreparedStatement prep = con.prepareStatement(sql);
+            prep.setInt(1, changed);
+            prep.setInt(2, uid);
+            return prep.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public boolean getChanged(int uid) {
+        Connection connection = DBconnect.getConnection();
+        String sql = "SELECT changed FROM user_changes WHERE userID = ?";
+
+        try {
+            PreparedStatement prep = connection.prepareStatement(sql);
+            prep.setInt(1, uid);
+            ResultSet rs = prep.executeQuery();
+            int changed = 0;
+            if (rs.next()) {
+                changed = rs.getInt("changed");
+            }
+            return changed == 1 ? true : false;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
