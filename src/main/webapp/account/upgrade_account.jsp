@@ -88,6 +88,7 @@
                            data-original-title="" title="">Đã xác thực
                         </a>
                     </c:if>
+
                 </div>
             </div>
         </div>
@@ -95,7 +96,14 @@
             <div class="plan plan-vip">
                 <div class="plan-title">
                     <div>
-                        <span class="desc">Đã xác thực</span>
+                        <c:if test="${sessionScope.status > 0}">
+                            <span class="desc">Đã xác thực</span>
+
+                        </c:if>
+                        <c:if test="${sessionScope.status == 0}">
+                            <span class="desc">Chưa xác thực</span>
+
+                        </c:if>
                         <br>
                         <span class="price">Miễn phí</span>
                     </div>
@@ -128,6 +136,11 @@
                     <c:if test="${sessionScope.status >= 1}">
                         <a href="javascript:void(0)" class="btn btn--disable" data-original-title="" title="">Đã xác thực</a>
 
+                    </c:if>
+                    <c:if test="${sessionScope.status == 0}">
+                        <a href="${pageContext.request.contextPath}/login_reset_request.jsp"
+                           class="btn btn--upgrade">Xác thực tài khoản
+                        </a>
                     </c:if>
                 </div>
             </div>
