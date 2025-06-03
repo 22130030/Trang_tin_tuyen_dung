@@ -1,0 +1,32 @@
+/* for id */
+#table-container{
+    width : 100vw;
+    background-color: var(--white-color);
+    padding : 10px;
+}
+#table-container h3{
+    font-size: 2.35rem;
+    margin: 22px 0;
+}
+
+/* for class */
+.logWork__management{
+    background-color: #f5f5f5;
+    width: 100%;
+    padding: 10px;
+    max-height: calc(100% - 110px);
+    overflow-y: auto;
+}
+
+
+
+.logWork__management table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.logWork__data{
+    white-space: nowrap;
+    overflow-x: auto;
+    max-width: 300px; /* hoặc giá trị tùy bạn */
+}

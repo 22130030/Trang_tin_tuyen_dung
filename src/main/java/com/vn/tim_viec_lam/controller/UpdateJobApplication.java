@@ -35,48 +35,5 @@ public class UpdateJobApplication extends HttpServlet {
         resp.getWriter().write("{\"success\": true}");
     }
 
-    @WebServlet(name = "UpdatePasswordServlet", value = "/update-password")
-    public static class UpdatePasswordServlet extends HttpServlet {
-        protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            String token = request.getParameter("token");
-            String password = request.getParameter("password");
-            String retypePassword = request.getParameter("retypePassword");
 
-
-            if (token == null || password == null || retypePassword == null) {
-                response.sendRedirect("reset_password_login.jsp?status=invalid");
-                return;
-            }
-
-
-            if (!password.equals(retypePassword)) {
-                response.sendRedirect("reset_password_login.jsp?status=nomatch");
-                return;
-            }
-
-
-            VerifycationTokenService tokenService = new VerifycationTokenService();
-            String email = tokenService.getEmailByToken(token);
-
-
-            if (email != null) {
-                // Mã hóa mật khẩu mới
-                String hashedPassword = EncryptionService.hasPasswordToMD5(password);
-
-
-                // Cập nhật mật khẩu trong database
-                UserService userService = new UserService();
-                boolean updated = userService.updatePassword(email, hashedPassword);
-
-
-                if (updated) {
-                    response.sendRedirect("login.jsp?status=success");
-                } else {
-                    response.sendRedirect("reset_password_login.jsp?status=error");
-                }
-            } else {
-                response.sendRedirect("reset_password_login.jsp?status=expired");
-            }
-        }
-    }
 }

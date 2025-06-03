@@ -82,19 +82,23 @@ public class JobCategoryDao {
         }
     }
 
-    public boolean addCategory(String categoryName, String jobPostCategoryName) {
+    public int addCategory(String categoryName, String jobPostCategoryName) {
         String sql = "INSERT INTO job_post_categories (categoryID, jobPostCategoryName) " +
                 "VALUES ((SELECT categoryID FROM job_categories WHERE categoryName = ?), ?)";
         try (Connection conn = DBconnect.getConnection();
-             PreparedStatement pre = conn.prepareStatement(sql)) {
+             PreparedStatement pre = conn.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS)) {
             pre.setString(1, categoryName);
             pre.setString(2, jobPostCategoryName);
-            int rowsAffected = pre.executeUpdate();
-            return rowsAffected > 0;
+            pre.executeUpdate();
+            try (ResultSet rs = pre.getGeneratedKeys()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return 0;
     }
 
     private JobCategory executeResult(ResultSet rs) throws SQLException {

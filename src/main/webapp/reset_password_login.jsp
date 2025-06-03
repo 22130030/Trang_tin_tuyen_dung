@@ -55,8 +55,8 @@
         </c:if>
 
         <form id="reset_password_form" action="${pageContext.request.contextPath}/update-password" method="post">
-          <input type="hidden" name="token" value="${requestScope.token}">
-          <input type="hidden" name="redirectUrl" value="${param.redirectUrl}">  <!-- Hoặc requestScope.redirectUrl -->
+<%--          <input type="hidden" name="token" value="${requestScope.token}">--%>
+<%--          <input type="hidden" name="redirectUrl" value="${param.redirectUrl}">  <!-- Hoặc requestScope.redirectUrl -->--%>
 
           <div class="form-group">
             <input type="password" class="form-control" id="password" required placeholder="Mật khẩu mới" name="password">

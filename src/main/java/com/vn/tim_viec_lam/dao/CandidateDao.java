@@ -134,10 +134,14 @@ public class CandidateDao {
                 "c.address, " +
                 "c.email, " +
                 "c.phone, " +
+                " us.userId," +
+                " c.gender," +
+                " c.birth_date," +
                 "j.status AS application_status, " +
                 "j.created_at AS application_date, " +
                 "co.companyName AS company_name " +
                 "FROM candidates c " +
+                " join users us on us.userId = c.userId " +
                 "JOIN job_applications j ON c.candidateID = j.candidateID " +
                 "JOIN job_posting jp ON j.jobPostID = jp.jobPostID " +
                 "JOIN companies co ON jp.companyID = co.companyID " +

@@ -31,8 +31,8 @@ public class JobCategoryService {
     public void editCategory(int id,String jobCategory,String jobCategoryName) {
         jobCategoryDao.editCategory(id, jobCategory, jobCategoryName);
     }
-    public void addCategory(String jobCategory,String jobCategoryName) {
-        jobCategoryDao.addCategory(jobCategory, jobCategoryName);
+    public int addCategory(String jobCategory,String jobCategoryName) {
+        return jobCategoryDao.addCategory(jobCategory, jobCategoryName);
     }
     public List<JobCategoryCount> getJobCategoryCounts() throws SQLException {
         return dao.getJobCategoryCounts();
@@ -42,5 +42,10 @@ public class JobCategoryService {
     }
     public int getNumberPage() {
         return dao.getNumberPage();
+    }
+
+    public static void main(String[] args) {
+        JobCategoryService service = new JobCategoryService();
+        System.out.println(service.addCategory("aa","222"));
     }
 }

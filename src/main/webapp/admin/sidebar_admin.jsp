@@ -23,7 +23,8 @@
     <h3>Trang chủ admin</h3>
 
     <a href="${pageContext.request.contextPath}/admin/report" class="${relativePath eq "/admin/admin_home.jsp" ? 'sidebar--active' : ''}" href="#">Thống kê và báo cáo</a>
-    <a href="${pageContext.request.contextPath}/admin/log" class="${relativePath eq "/admin/log.jsp" ? 'sidebar--active' : ''}" href="#">Nhật kí hoạt động</a>
+    <a href="${pageContext.request.contextPath}/admin/log" class="${relativePath eq "/admin/log.jsp" ? 'sidebar--active' : ''}" href="#">Lịch sử đăng nhập</a>
+    <a href="${pageContext.request.contextPath}/admin/get-log-works" class="${relativePath eq "/admin/log.jsp" ? 'sidebar--active' : ''}" href="#">Lịch sử hoạt động</a>
     <a href="${pageContext.request.contextPath}/admin/company-user-job" class="${relativePath eq "/admin/admin_employer.jsp" ? 'sidebar--active' : ''}">Quản lý nhà tuyển dụng</a>
     <a href="${pageContext.request.contextPath}/admin/candidate-user-find" class="${relativePath eq "/admin/admin_candidate.jsp" ? 'sidebar--active' : ''}">Quản lý ứng viên</a>
     <a href="${pageContext.request.contextPath}/admin/job_manager" class="${relativePath eq "/admin/admin_jobs.jsp" ? 'sidebar--active' : ''}">Quản lý bài đăng</a>
